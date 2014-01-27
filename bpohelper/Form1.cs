@@ -5237,8 +5237,6 @@ namespace bpohelper
                 string mostRecentAccess;
                 TimeSpan ts = new TimeSpan();
 
-             
-
                 foreach (string d in dirs)
                 {
                        ts = Directory.GetLastAccessTime(d) - DateTime.Now;
@@ -5260,18 +5258,6 @@ namespace bpohelper
                 {
                     comboBox4.Items.Add(tal.mlsTypeAttached[key]);
                 }
-       
-
-
-
-
-                //comboBox3.Text = 
-
-
-
-                //string[] fileEntries = Directory.GetFiles();
-
-                //
             }
 
         }
@@ -5284,8 +5270,6 @@ namespace bpohelper
             //iMacros.App bpoForm = new iMacros.App();
             int timeout = 15;
             string filter = "MainPin = '" + subjectpin_textbox.Text.ToString() + "'";
-
-
 
             DataRow[] foundRows;
             foundRows = subject_table.Select(filter);
