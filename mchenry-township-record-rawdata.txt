@@ -1,0 +1,79 @@
+McHenry Township Assessment Property RecordxxxPage 1 of 1
+Online Assessment Information
+PROPERTY SEARCH 
+Carol Perschke, CIAO/I
+mchenry township assessor
+Submit Search
+Example Searches for 123 My Street • "123" or "123 My" or "123 My St". The Percent 
+Sign may be used as a wild card to locate addresses such as 123A or 123B My 
+A new feature for 2010 has been added to assessment information —xxxAssessment 
+Street • "123* My" 
+Type, shown in the assessment area.
+Assessment type of "N" means that the assessment is a full one.
+Assessment type of "P" means it is either partial or pro-rated, not a full assessment. 
+Property InformationxxxLegal Information
+Property Index Numberxxx09-19-101-030xxxProperty Classxxx0040 Residential
+Property Addressxxx8020 BALSAM DRxxxLegal DescriptionxxxWONDERVIEW U#1 ; LT 1 B16 & SELY PT VACATED 
+ROSE MARIE RD LYING NWLY OF & ADJ SD LT /EX TRI 
+City, State ZipxxxWONDER LAKE, IL 60097.0
+PC SW COR IRREGULAR 
+Neighborhood CodexxxWL4
+Lot Sq. Ft.xxx9,386.00
+Note: 1 acre = 43,560 sq. ft.
+Lot Numberxxx1 B16
+Tax Codexxx9098.0
+Tax Ratexxx9.38818800
+Sales Information
+Type of sale 
+LinexxxDatexxxAmountxxxDocket Number
+Tax Name
+1xxx03/09/2010xxx$135,000xxxSHORT SALExxx2010R0010791
+NamexxxLAKE CARIANNE
+2xxx06/14/2006xxx$239,900xxxIMPROVEMENT PRIORxxx2006R0043103
+Addressxxx8020 BALSAM DR
+BUYER/SELLER IS 
+3xxx05/06/2003xxx$83,900xxx2003R0059170
+FINANCIAL INST.
+City, State ZipxxxWONDER LAKE, IL 60097.0
+COURT-ORDERED 
+4xxx12/02/2002xxx$132,140xxx2002R0113267
+SALE
+Assessment Information
+5xxx10/31/1995xxx$83,000xxxArms Lengthxxx97R053561
+LinexxxYearxxxTypexxxUnimprovedxxxImprovedxxxBuildingsxxxTotal
+6xxx06/15/1994xxx$79,900xxxArms Length
+1xxx2011xxxNxxx$0xxx$8,293xxx$42,114xxx$50,407
+7xxx07/30/1992xxx$76,000xxxArms Length
+2xxx2010xxxNxxx$0xxx$8,005xxx$55,027xxx$63,032
+3xxx2009xxx—xxx$0xxx$8,334xxx$57,289xxx$65,623
+Building Information
+1xxxBuilding Stylexxx2STY/B/2STY/C 
+Permit Information
+2xxxYear Builtxxx1940 
+DatexxxNumberxxxReason
+3xxxTotal Ground Sq Ftxxx860 
+05/23/2005xxxI4827xxxGARAGE-NEW
+4xxxTotal Building Sq Ftxxx1720 
+12/23/2003xxxI2464xxxADDITION
+5xxxExterior Wall Frame/Vinyl %xxx100 
+6xxxExterior Wall Msy %xxx0 
+Other Building Characteristics
+7xxxBasement Sq Ftxxx380 
+LinexxxDescriptionxxxTypexxxQuantity
+8xxxLower Level Sq Ftxxx0 
+9xxxBasement Crawl Space Sq Ftxxx480 
+10xxxGarage Sq Ftxxx0 
+11xxxDetached Garage Sq Ftxxx792 
+12xxxPlumbing Fixturesxxx11 
+13xxxNumber of Fireplacesxxx0 
+14xxxCentral AirxxxYes
+15xxxDeck Sq Ftxxx0 
+16xxxOpen Frame Porch Sq Ftxxx40 
+17xxxOpen Msy Porch Sq Ftxxx0 
+18xxxEnclosed Frame Porch Sq Ftxxx0 
+19xxxEnclosed Msy Porch Sq Ftxxx0 
+20xxxFinished Attic Sq Ftxxx0 
+Forward support questions to Property Search Designed and Hosted byxxxDatabase Powered By Visual PAMS Pro
+value@mchenrytownship.comxxxExcalibur Technologyxxxwww.visualpamspro.com
+www.excaltech.com
+http://www.mchenrytownship.com/property_search/property2011.cfm?pin=09-19-101-030xxx8/14/2012
