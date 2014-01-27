@@ -91,18 +91,13 @@ namespace bpohelper
 {
     public partial class Form1 : System.Windows.Forms.Form, IYourForm
     {
-
-        //IE ie = new IE("http://mredllc.connectmls.com/");
-
         iMacros.App iim = new iMacros.App();
         iMacros.App iim2 = new iMacros.App();
-
         iMacros.Status status;
+        public Neighborhood subjectNeighborhood;
+        public AssessmentInfo subjectAssessmentInfo;
 
-         public  Neighborhood subjectNeighborhood;
-         public AssessmentInfo subjectAssessmentInfo;
-
-        Broker dawn = new Broker("Dawn","471.009163","7","60050");
+        Broker dawn = new Broker("Dawn", "471.009163", "7", "60050");
         Broker scott;
 
         USRESForm usres_webform;
@@ -5197,97 +5192,6 @@ namespace bpohelper
             {
                 StringBuilder macro = new StringBuilder();
                
-
-                //macro.AppendLine(@"FRAME NAME=_MAIN");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE1/Street_Address1_Number");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE1/Street_Address1_Text CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE1/Street_Address1_Ext CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE1/Street_Address2");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE1/City CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE1/State CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE1/Zip_Code CONTENT=");
-                //macro.AppendLine(@"WAIT SECONDS=1");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE1/Unit_Number");
-
-
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE2/Street_Address1_Number CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE2/Street_Address1_Text CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE2/Street_Address1_Ext CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE2/Street_Address2");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE2/City CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE2/State CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE2/Zip_Code CONTENT=");
-                //macro.AppendLine(@"WAIT SECONDS=1");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE2/Unit_Number");
-
-
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE3/Street_Address1_Number CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE3/Street_Address1_Text CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE3/Street_Address1_Ext CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE3/Street_Address2");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE3/City CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE3/State CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE3/Zip_Code CONTENT=");
-                //macro.AppendLine(@"WAIT SECONDS=1");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE3/Unit_Number");
-
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE1/Fireplace_Adj");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE1/Other");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE2/Fireplace_Adj");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE2/Other");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE3/Fireplace_Adj");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE3/Other");
-
-                //macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE1/Street_Address1_Number CONTENT=");
-                //macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE1/Street_Address1_Text CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE1/Street_Address1_Ext CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE1/Street_Address2");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE1/City CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE1/State CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE1/Zip_Code CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE1/Unit_Number");
-                //macro.AppendLine(@"WAIT SECONDS=1");
-
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Street_Address1_Text CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Street_Address1_Ext CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Street_Address2");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/City CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/State CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Zip_Code CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Unit_Number");
-                //macro.AppendLine(@"WAIT SECONDS=1");
-
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Street_Address1_Number CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Street_Address1_Text CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Street_Address1_Ext CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Street_Address2");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/City CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/State CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Zip_Code CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Unit_Number");
-                //macro.AppendLine(@"WAIT SECONDS=1");
-
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE3/Street_Address1_Number CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE3/Street_Address1_Text CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE3/Street_Address2");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE3/City CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE3/State CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE3/Zip_Code CONTENT=");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE3/Unit_Number");
-                //macro.AppendLine(@"WAIT SECONDS=1");
-
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE1/Fireplace_Adj");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE1/Other");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Fireplace_Adj");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE2/Other");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE3/Fireplace_Adj");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/COMPARABLE3/Other");
-
-                //macro.AppendLine(@"FRAME NAME=_TOP_MENU");
-                //macro.AppendLine(@"TAG POS=1 TYPE=B FORM=ID:Form1 ATTR=TXT:SAVE");
-
                 macro.AppendLine(@"FRAME NAME=_MAIN");
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Listing1_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\L1.jpg");
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Listing2_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\L2.jpg");
@@ -5300,7 +5204,6 @@ namespace bpohelper
 
                 string macroCode = macro.ToString();
                 status = iim2.iimPlayCode(macroCode, 30);
-
             }
         }
 
