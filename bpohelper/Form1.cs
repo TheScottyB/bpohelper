@@ -2415,80 +2415,310 @@ namespace bpohelper
                 #region emort
                 if (currentUrl.ToLower().Contains("emortgage"))
                 {
-                    Emortgage emort = new Emortgage();
+                    Emortgage bpoform = new Emortgage();
                     Dictionary<string, string> fieldList = new Dictionary<string, string>();
 
+                    //newest form
+                    bool formE = true;
+
+
+                    //common fields
                     fieldList.Add("Address", full_street_address);
                     fieldList.Add("City", city);
                     fieldList.Add("Zip", zip);
-                    fieldList.Add("TR", room_count);
-                    fieldList.Add("BR", bedrooms);
-                    fieldList.Add("BA", full_bath + "." + half_bath.Replace("1","5"));
-                    fieldList.Add("EstValBABR", "0");
-                    fieldList.Add("Type", "SF Detached");
-                    fieldList.Add("EstValType", "0");
-                   
 
-                    fieldList.Add("Style", "2 Story Conv");
-                    fieldList.Add("EstValStyle", "0");
-                
-                    fieldList.Add("Loc", "Good");
-                    fieldList.Add("EstValLoc", "0");
-                    fieldList.Add("SqFt", mls_gla);
-                    fieldList.Add("EstValSqFt", "0");
-                    if (finished_basement)
+
+                    if (formE)
                     {
-                        fieldList.Add("BsmtPerFin", "100");
+                        
+                            fieldList.Add("filepath", SubjectFilePath);
+
+                           
+                            //fieldList.Add("*State", "ii");
+                            fieldList.Add("*TR", room_count);
+                            fieldList.Add("*BR", bedrooms);
+
+                            //Baths
+                            #region bathroom
+                            string tBath = full_bath + "." + half_bath;
+                            try
+                            {
+                                //if there is a half bath, assuming /d./d pattern, hence the try block, incase /d format 
+                                if (Convert.ToInt16(tBath[2].ToString()) > 0)
+                                {
+                                    tBath = tBath[0].ToString() + ".5";
+                                }
+                                else
+                                {
+                                    tBath = tBath[0].ToString();
+                                }
+                                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:sPropBA CONTENT=" + tBath);
+                                fieldList.Add("*BA", tBath);
+                            }
+                            catch
+                            {
+
+                            }
+
+                            #endregion
+
+                            if (hasFireplace)
+                            {
+                                fieldList.Add("*Fireplace", "Yes");
+                            } else
+                            {
+                                fieldList.Add("*Fireplace", "No");
+
+                            }
+
+
+                           // fieldList.Add("*Type", "s");
+
+
+
+                            //fieldList.Add("*Style", "2 Story Conv");
+
+
+                           // fieldList.Add("*Loc", "r");
+
+                            fieldList.Add("SqFt", mls_gla);
+
+                            if (fullBasement || partialBasement)
+                            {
+                                fieldList.Add("*Bsmt", "Yes");
+                                fieldList.Add("*BsmtSqFt", (Convert.ToInt16(mls_gla)/2).ToString());
+
+                                if (finished_basement)
+                                {
+                                    fieldList.Add("BsmtPerFin", "100");
+                                }
+                                else
+                                {
+                                    fieldList.Add("BsmtPerFin", "0");
+                                }
+                            } else
+                            {
+                                fieldList.Add("*Bsmt", "No"); 
+                            }
+
+                           
+
+                     fieldList.Add("Appeal", "Average");
+                            fieldList.Add("YrBlt", year_built);
+                      //      fieldList.Add("EstValYrBlt", "0");
+                            fieldList.Add("LotSize", mls_lot_size + "ac");
+                        //    fieldList.Add("EstValLotSize", "0");
+                            fieldList.Add("DOM", dom);
+                        //    fieldList.Add("EstValDOM", "0");
+                            fieldList.Add("Other", "n/a");
+                        //    fieldList.Add("EstValOther", "0");
+                            //if (parking.ToLower().Contains("gar"))
+                            //{
+                            //    fieldList.Add("*Gar", mls_garage_spaces);
+                            //}
+                            //else
+                            //{
+                            //    fieldList.Add("*Gar", "n");
+                            //}
+                         //   fieldList.Add("EstValGar", "0");
+                         //   fieldList.Add("*Pool", "n");
+
+
+                           // fieldList.Add("ExtAdd", "0");
+                          //  fieldList.Add("EstValExt", "0");
+                          //  fieldList.Add("*Land", "r");
+                          //  fieldList.Add("Fin", "n/a");
+                          //  fieldList.Add("EstValFin", "0");
+                          //  fieldList.Add("*Cond", "a");
+                          //  fieldList.Add("EstValCond", "0");
+                            fieldList.Add("Comm", "Equal to subject in age, size, type and location");
+                            fieldList.Add("OLPrice", orig_list_price);
+                            fieldList.Add("OLDate", list_date);
+                            fieldList.Add("CLPrice", current_list_price);
+                            fieldList.Add("LRDate", lastPriceChangeDate.ToShortDateString());
+                            fieldList.Add("SPrice", sold_price);
+                            fieldList.Add("SDate", closed_date);
+                            fieldList.Add("SLPrice", current_list_price);
+                            fieldList.Add("SaleType", sale_type);
+                            fieldList.Add("Source", "MLS");
+                            fieldList.Add("SourceID", mlsnum);
+                            fieldList.Add("SDistrict", "Unknown");
+                            fieldList.Add("SDivision", "n/a");
+                            fieldList.Add("MLSArea", "n/a");
+                           // fieldList.Add("*Construct", "a");
+
+                            //Bath
+                            #region bathroom
+                           // fieldList.Remove("*BA");
+                            //fieldList.Add("*BA", full_bath);
+                    //        fieldList.Add("*BAH", half_bath);
+
+                            //string tBath = fieldList["*BA"];
+                            //try
+                            //{
+                            //    fieldList.Add("*BAH", half_bath);
+                            //    //if there is a half bath, assuming /d./d pattern, hence the try block, incase /d format 
+                            //    if (Convert.ToInt16(tBath[2].ToString()) > 0)
+                            //    {
+                            //        tBath = tBath[0].ToString() + ".5";
+                            //    }
+                            //    else
+                            //    {
+                            //        tBath = tBath[0].ToString();
+                            //    }
+                            //    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:sPropBA CONTENT=" + tBath);
+                            //    fieldList.Remove("*BA");
+                            //    fieldList.Add("*BA", tBath);
+
+                            //}
+
+                            //catch
+                            //{
+
+                            //}
+
+                            #endregion
+
+                            //Design Appeal
+                            #region type selection
+                           // fieldList.Remove("*Type");
+                            fieldList.Add("*Type", bpoform.TypeString(m));
+
+
+                            if (type.ToLower().Contains("1 story") || type.ToLower().Contains("ranch"))
+                            {
+                                fieldList.Add("*Style", "Single<SP>Story");
+                            }
+                            else if (type.ToLower().Contains("2 stories") || type.ToLower().Contains("townhome"))
+                            {
+                                fieldList.Add("*Style", "2-Story<SP>Conv");
+                            }
+                            else if (type.ToLower().Contains("raised ranch"))
+                            {
+                                fieldList.Add("*Style", "Split/Bi-Level");
+                            }
+                            else if (type.ToLower().Contains("split") || type.ToLower().Contains("other"))
+                            {
+                                fieldList.Add("*Style", "Tri/Multi-Level");
+                            }
+                            else if (type.ToLower().Contains("1.5"))
+                            {
+                                fieldList.Add("*Style", "Cape");
+                            }
+                            else
+                            {
+                                fieldList.Add("*Style", "2-Story<SP>Conv");
+                            }
+                            #endregion
+                            //Garage
+                            #region garage
+
+                            //fieldList.Remove("*Gar");
+                           fieldList.Add("*Gar", bpoform.GarageString(m));
+                            //if (SubjectParkingType.ToLower().Contains("gar"))
+                            //{
+
+                            //    string contentString = "";
+
+                            //    if (SubjectParkingType.ToLower().Contains("att"))
+                            //    {
+                            //        contentString = (Regex.Match(SubjectParkingType, @"\d").Value + "<SP>Attached");
+                            //    }
+                            //    else if (SubjectParkingType.ToLower().Contains("det"))
+                            //    {
+                            //        contentString = (Regex.Match(SubjectParkingType, @"\d").Value + "<SP>Detached");
+                            //    }
+                            //    fieldList.Add("*Gar", contentString);
+
+                            //}
+                            //else
+                            //{
+                            //    fieldList.Add("*Gar", "None");
+                            //}
+                            #endregion
+
+                          
+
+                            //fieldList.Add("BasementSF", m.BasementGLA());
+                            //fieldList.Add("Basement", m.BasementFinishedPercentage());
+
+                             
+
+                               
+
+                            
                     }
-                    else
+                    else  // original code/form
                     {
-                        fieldList.Add("BsmtPerFin", "0");
+                        
+                        fieldList.Add("TR", room_count);
+                        fieldList.Add("BR", bedrooms);
+                        fieldList.Add("BA", full_bath + "." + half_bath.Replace("1", "5"));
+                        fieldList.Add("EstValBABR", "0");
+                        fieldList.Add("Type", "SF Detached");
+                        fieldList.Add("EstValType", "0");
+
+
+                        fieldList.Add("Style", "2 Story Conv");
+                        fieldList.Add("EstValStyle", "0");
+
+                        fieldList.Add("Loc", "Good");
+                        fieldList.Add("EstValLoc", "0");
+                        fieldList.Add("SqFt", mls_gla);
+                        fieldList.Add("EstValSqFt", "0");
+                        if (finished_basement)
+                        {
+                            fieldList.Add("BsmtPerFin", "100");
+                        }
+                        else
+                        {
+                            fieldList.Add("BsmtPerFin", "0");
+                        }
+
+                        fieldList.Add("EstValBsmtPerFin", "0");
+                        fieldList.Add("YrBlt", year_built);
+                        fieldList.Add("EstValYrBlt", "0");
+                        fieldList.Add("LotSize", mls_lot_size + "ac");
+                        fieldList.Add("EstValLotSize", "0");
+                        fieldList.Add("DOM", dom);
+                        fieldList.Add("EstValDOM", "0");
+                        fieldList.Add("Other", "n/a");
+                        fieldList.Add("EstValOther", "0");
+                        if (parking.ToLower().Contains("gar"))
+                        {
+                            fieldList.Add("Gar", mls_garage_spaces + " " + mls_garage_type);
+                        }
+                        else
+                        {
+                            fieldList.Add("Gar", "None");
+                        }
+                        fieldList.Add("EstValGar", "0");
+                        fieldList.Add("Pool", "No");
+
+
+                        fieldList.Add("ExtAdd", "0");
+                        fieldList.Add("EstValExt", "0");
+                        fieldList.Add("Land", "Good");
+                        fieldList.Add("Fin", "n/a");
+                        fieldList.Add("EstValFin", "0");
+                        fieldList.Add("Cond", "Good");
+                        fieldList.Add("EstValCond", "0");
+                        fieldList.Add("Comm", "Equal to subject in age, size, type and location");
+                        fieldList.Add("OLPrice", orig_list_price);
+                        fieldList.Add("SPrice", sold_price);
+                        fieldList.Add("SDate", closed_date);
+                        fieldList.Add("SLPrice", current_list_price);
+                        fieldList.Add("SaleType", sale_type);
+                        fieldList.Add("Source", "MLS");
+                        fieldList.Add("SourceID", mlsnum);
+                        fieldList.Add("SDistrict", "Unknown");
+                        fieldList.Add("SDivision", "n/a");
+                        fieldList.Add("MLSArea", "n/a");
+
                     }
 
-                    fieldList.Add("EstValBsmtPerFin", "0");
-                    fieldList.Add("YrBlt", year_built);
-                    fieldList.Add("EstValYrBlt", "0");
-                    fieldList.Add("LotSize", mls_lot_size + "ac");
-                    fieldList.Add("EstValLotSize", "0");
-                    fieldList.Add("DOM", dom);
-                    fieldList.Add("EstValDOM", "0");
-                    fieldList.Add("Other", "n/a");
-                    fieldList.Add("EstValOther", "0");
-                    if (parking.ToLower().Contains("gar"))
-                    {
-                        fieldList.Add("Gar", mls_garage_spaces + " " + mls_garage_type);
-                    }
-                    else
-                    {
-                        fieldList.Add("Gar", "None");
-                    }
-                    fieldList.Add("EstValGar", "0");
-                    fieldList.Add("Pool", "No");
 
-
-                    fieldList.Add("ExtAdd", "0");
-                    fieldList.Add("EstValExt", "0");
-                    fieldList.Add("Land", "Good");
-                    fieldList.Add("Fin", "n/a");
-                    fieldList.Add("EstValFin", "0");
-                    fieldList.Add("Cond", "Good");
-                    fieldList.Add("EstValCond", "0");
-                    fieldList.Add("Comm", "Equal to subject in age, size, type and location");
-                    fieldList.Add("OLPrice", orig_list_price);
-                    fieldList.Add("SPrice", sold_price);
-                    fieldList.Add("SDate", closed_date);
-                    fieldList.Add("SLPrice", current_list_price);
-                    fieldList.Add("SaleType", sale_type);
-                    fieldList.Add("Source", "MLS");
-                    fieldList.Add("SourceID", mlsnum);
-                    fieldList.Add("SDistrict", "Unknown");
-                    fieldList.Add("SDivision", "n/a");
-                    fieldList.Add("MLSArea", "n/a");
-
-
-
-
-                   emort.CompFill(iim2,sale_or_list_flag, input_comp_name, fieldList);
+                   bpoform.CompFill(iim2,sale_or_list_flag, input_comp_name, fieldList);
                    status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
                 }
                 #endregion  
@@ -8448,6 +8678,8 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
         }
 
        
+
+  
 
         //private void label6_Click(object sender, EventArgs e)
         //{

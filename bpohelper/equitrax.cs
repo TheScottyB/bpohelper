@@ -839,7 +839,7 @@ namespace bpohelper
                //Selection Boxes
                //
                //State
-               macro.AppendFormat(@"TAG POS=1 TYPE=INPUT FORM=NAME:BPOForm ATTR=NAME:C{0}State_{1}", sol, Regex.Match(compNum, @"\d").Value);
+               macro.AppendFormat(@"TAG POS=1 TYPE=INPUT FORM=NAME:BPOForm ATTR=NAME:sC{0}State_{1}", sol, Regex.Match(compNum, @"\d").Value);
                macro.AppendLine("");
                macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:BPOForm ATTR=title:Illinois");
                //REO?

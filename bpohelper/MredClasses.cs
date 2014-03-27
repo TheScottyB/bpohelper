@@ -335,7 +335,24 @@ namespace bpohelper
                     intMlsTotalRooms = -1;
                 }
 
-               
+                if (mlsHtmlFields["numSpaces"].value.Contains(" "))
+                {
+                    try
+                    {
+                        mlsHtmlFields["numSpaces"].value = Regex.Matches(rawData, @"(Gar:\d*)")[0].Value;
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            mlsHtmlFields["numSpaces"].value = Regex.Matches(rawData, @"(Par:\d*)")[0].Value;
+                        }
+                        catch
+                        { }
+                    }
+
+
+                }               
 
                 SetAboveGradeLevels();
                 SetBasementProperties();
