@@ -297,7 +297,8 @@ namespace bpohelper
                 {
                     try
                     {
-                        mlsHtmlFields[key].value = doc.DocumentNode.Descendants("td").First(x => x.InnerText.Equals((mlsHtmlFields[key]).htmlLabel)).NextSibling.NextSibling.InnerText.Replace("&nbsp;", " ");
+                        //mlsHtmlFields[key].value = doc.DocumentNode.Descendants("td").First(x => x.InnerText.Equals((mlsHtmlFields[key]).htmlLabel)).NextSibling.NextSibling.InnerText.Replace("&nbsp;", " ");
+                        mlsHtmlFields[key].value = doc.DocumentNode.Descendants("td").First(x => x.InnerText.Equals((mlsHtmlFields[key]).htmlLabel)).NextSibling.InnerText.Replace("&nbsp;", " ");
                     }
                     catch
                     {

@@ -89,6 +89,7 @@ namespace bpohelper
         {
             this.form = form;
         }
+        public string basementSqFt;
         public string avm;
         public string owner1;
         public string owner2;
@@ -109,8 +110,24 @@ namespace bpohelper
             //xxx(.*?)xxx|xxx(.*?)\n
             string pattern1 = "xxx(.*?)xxx";
             string pattern2 = "xxx(.*?)\n";
+            string returnValue = "NotFound";
+            string result = "";
 
-            return Regex.Match(rawText, string.Format(@"{0}{1}|{0}{2}", fn, pattern1, pattern2)).Groups[1].Value;
+            //result = Regex.Match(rawText, string.Format(@"{0}{1}", fn, pattern1)).Groups[1].Value;
+            result =  Regex.Match(rawText, string.Format(@"{0}{1}|{0}{2}", fn, pattern1, pattern2)).Groups[1].Value;
+
+            if (String.IsNullOrWhiteSpace(result))
+            {
+                returnValue = Regex.Match(rawText, string.Format(@"{0}{1}", fn, pattern2)).Groups[1].Value;
+            }
+            else
+            {
+                returnValue = result;
+            }
+
+            return returnValue;
+                
+            //return Regex.Match(rawText, string.Format(@"{0}{1}|{0}{2}", fn, pattern1, pattern2)).Groups[1].Value;
         }
 
         public void GetSubjectInfo(string s)
@@ -133,6 +150,9 @@ namespace bpohelper
             //}
 
 
+            basementSqFt = GetFieldValue(@"Basement Sq Ft:");
+
+            
            //string ttt = ownerInfoFieldList[FieldName.OwnerName];
 
             //RealAVM™(1):
@@ -140,7 +160,7 @@ namespace bpohelper
             //pattern = string.Format("{0}{1}{0}{2}", fieldName, pattern1, fieldName, pattern2);
             //Match match = Regex.Match(s, pattern);
             //avm = match.Groups[1].Value;
-            avm = GetFieldValue(@"RealAVM™.1.:");
+            avm = GetFieldValue(@"RealAVM™..1.:");
 
 
             //pattern = "Owner Name:x+([^x]+)";
@@ -261,6 +281,8 @@ namespace bpohelper
             form.SubjectCounty = county;
             form.SubjectSubdivision = subdivision;
             form.SubjectAvm = avm;
+            form.SubjectBasementGLA = basementSqFt;
+
 
         }
     }
