@@ -14,6 +14,7 @@ namespace bpohelper
         private Form1 form;
         private string mlsTaxAmout;
         private MatchCollection rawDataFromPrintedMlsSheet;
+        private string county;
         private string dateOfLastSale;
         private string lastSalePrice;
         private string currentPropertyTax;
@@ -59,6 +60,13 @@ namespace bpohelper
         {
             get { return lastSale; }
             set { lastSale = value; }
+        }
+
+
+        public string County
+        {
+            get { return county; }
+            set { county = value; }
         }
 
         public string DateOfLastSale

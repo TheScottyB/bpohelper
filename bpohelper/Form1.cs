@@ -5510,6 +5510,16 @@ namespace bpohelper
 
          //   MessageBox.Show(currentUrl);
 
+            #region AVM
+            if (currentUrl.ToLower().Contains("avm.assetval.com"))
+            {
+                            AVM bpoform = new AVM();
+                            streetnumTextBox.Text = "AVM";
+                            bpoform.Prefill(iim2, this);
+            }
+            #endregion
+
+
             #region dispo
             if (currentUrl.ToLower().Contains("disposolutions"))
             {
