@@ -358,7 +358,7 @@ namespace bpohelper
                 SetAboveGradeLevels();
                 SetBasementProperties();
                 SetParkingParameters();
-
+                SetAddress();
             }
 
 
@@ -410,6 +410,8 @@ namespace bpohelper
             protected int mlsWalkoutBasementRooms = 0;
 
             //non-mls helper fields
+            protected string transactionType = "Arms Length";
+            protected DateTime dateLastPriceChange;
             protected int numberOfAboveGradeLevels = 1;
             protected int calculatedBasementGLA;
             protected int calculatedBasementFinishedGLA;
@@ -438,10 +440,155 @@ namespace bpohelper
             //    set {  mlstax = value; }
             //}
 
+            #region Address and Related Fields
+            protected void SetAddress()
+            {
+                //fuill line address
+                //Address:#NEXT#2627 Sycamore Dr , Waukegan, Illinois 60085#NEXT#
+                //string city = tempstrarry[1];
+                city = mlsHtmlFields["address"].value.Split(',')[1];
+
+                zip = mlsHtmlFields["address"].value.Split(',')[2].Split(' ')[2];
+
+                if (zip.Contains("-"))
+                {
+                    zip = zip.Remove(zip.IndexOf("-"));
+                }
+            }
+
+            
+
+            public string City
+            {
+                get { return city; }
+            }
+            public string Zipcode
+            {
+                get { return zip; }
+            }
+
+            public string State
+            {
+                get { return "Illinois"; }
+            }
+
+            public string StreetAddress
+            {
+                get { return mlsHtmlFields["address"].value.Split(',')[0]; }
+            }
+
+            #endregion
+
+            #region Listing Dates, Prices and related data
+
+            public string ContractDate
+            {
+                get { return mlsHtmlFields["contractDate"].value; }
+                set { mlsHtmlFields["contractDate"].value = value; }
+            }
+
+            public string TransactionType
+            {
+                get { return transactionType; }
+                set { transactionType = value; }
+            }
+
+            public string DOM
+            {
+                get { return mlsHtmlFields["daysOnMarket"].value; }
+                set { mlsHtmlFields["daysOnMarket"].value = value; }
+            }
+
+            public DateTime DateOfLastPriceChange
+            {
+                get {return dateLastPriceChange;}
+                set { dateLastPriceChange = value; }
+            }
+
             public string Status
             {
                 get { return mlsHtmlFields["status"].value; }
-               // set { mlsNumber = value; }
+                // set { mlsNumber = value; }
+            }
+
+            public double SalePrice
+            {
+                get
+                {
+                    double x = -1;
+                    string s = Regex.Match(mlsHtmlFields["soldPrice"].value, @"\d*,*\d+,.\d*").Value;
+                    Double.TryParse(s, out x);
+                    return x;
+
+                }
+                set { mlsHtmlFields["soldPrice"].value = value.ToString(); }
+            }
+
+            public double CurrentListPrice
+            {
+                get
+                {
+                    string s;
+                    double x = -1;
+                    try
+                    {
+                        s = Regex.Match(mlsHtmlFields["listPrice"].value, @"\d*,*\d+,.\d*").Value;
+                    }
+                    catch
+                    {
+                        s = Regex.Match(mlsHtmlFields["openingBid"].value, @"\d*,*\d+,.\d*").Value;
+                    }
+                    Double.TryParse(s, out x);
+                    return x;
+
+                }
+                set { mlsHtmlFields["listPrice"].value = value.ToString(); }
+            }
+
+
+            public DateTime ListDate
+            {
+                get
+                {
+                    DateTime x;
+                    string s = mlsHtmlFields["listDate"].value;
+                    DateTime.TryParse(s, out x);
+                    return x;
+
+                }
+                set { mlsHtmlFields["listDate"].value = value.ToString(); }
+            }
+
+            public DateTime SalesDate
+            {
+                get
+                {
+                    DateTime x;
+                    string s = mlsHtmlFields["closedDate"].value;
+                    DateTime.TryParse(s, out x);
+                    return x;
+
+                }
+                set { mlsHtmlFields["closedDate"].value = value.ToString(); }
+            }
+
+            #endregion
+
+            public string BathroomCount
+            {
+                get { return mlsHtmlFields["bathrooms"].value.Replace(" ", "").Replace(@"/","."); }
+            }
+
+            public string BedroomCount
+            {
+                get { return mlsHtmlFields["bedrooms"].value; }
+            }
+             
+
+
+             public int TotalRoomCount
+            {
+                get { return intMlsTotalRooms; }
             }
 
             public int YearBuilt
@@ -455,23 +602,23 @@ namespace bpohelper
                 }
                 set { mlsHtmlFields["yearBulit"].value = value.ToString(); }
             }
-            
-             public int RealistGLA
+
+            public int RealistGLA
             {
                 get
                 {
                     int x = -1;
-                    
+
                     Int32.TryParse(realistGla, out x);
                     return x;
                 }
                 set { realistGla = value.ToString(); }
             }
 
-             public int GLA
+            public int GLA
             {
-                get 
-                { 
+                get
+                {
                     int x = -1;
                     string s = mlsHtmlFields["mlsGla"].value;
                     Int32.TryParse(s, out x);
@@ -480,6 +627,7 @@ namespace bpohelper
                 }
                 set { mlsHtmlFields["mlsGla"].value = value.ToString(); }
             }
+
             public string MlsNumber
             {
                 get { return mlsHtmlFields["mlsNumber"].value; }
@@ -534,52 +682,7 @@ namespace bpohelper
                 set { realistLotsize = value.ToString(); }
             }
 
-            public double SalePrice
-            {
-                get
-                {
-                    double x = -1;
-                    string s = Regex.Match(mlsHtmlFields["soldPrice"].value, @"\d*,*\d+,.\d*").Value;
-                    Double.TryParse(s, out x);
-                    return x;
-
-                }
-                set { mlsHtmlFields["soldPrice"].value = value.ToString(); }
-            }
-
-            public double CurrentListPrice
-            {
-                get
-                {
-                    string s;
-                    double x = -1;
-                    try
-                    {
-                         s = Regex.Match(mlsHtmlFields["listPrice"].value, @"\d*,*\d+,.\d*").Value;
-                    }
-                    catch
-                    {
-                         s = Regex.Match(mlsHtmlFields["openingBid"].value, @"\d*,*\d+,.\d*").Value;
-                    }
-                    Double.TryParse(s, out x);
-                    return x;
-
-                }
-                set { mlsHtmlFields["listPrice"].value = value.ToString(); }
-            }
-
-            public DateTime SalesDate
-            {
-                get
-                {
-                    DateTime x;
-                    string s = mlsHtmlFields["closedDate"].value;
-                    DateTime.TryParse(s, out x);
-                    return x;
-
-                }
-                set { mlsHtmlFields["closedDate"].value = value.ToString(); }
-            }
+           
 
         }
 

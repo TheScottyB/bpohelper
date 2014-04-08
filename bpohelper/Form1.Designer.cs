@@ -48,6 +48,8 @@
             this.run_script = new System.Windows.Forms.Button();
             this.subjectBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this._BPO_SandboxDataSet = new bpohelper._BPO_SandboxDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -219,8 +221,6 @@
             this.label41 = new System.Windows.Forms.Label();
             this.ccTargetPriceTextBox = new System.Windows.Forms.TextBox();
             this.label42 = new System.Windows.Forms.Label();
-            this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this._BPO_SandboxDataSet = new bpohelper._BPO_SandboxDataSet();
             this.subjectTableAdapter = new bpohelper._BPO_SandboxDataSetTableAdapters.subjectTableAdapter();
             this.tableAdapterManager = new bpohelper._BPO_SandboxDataSetTableAdapters.TableAdapterManager();
             this.bpoTableAdapter1 = new bpohelper._BPO_SandboxDataSetTableAdapters.BPOTableAdapter();
@@ -231,6 +231,8 @@
             this.rawSFDataTableAdapter = new bpohelper._BPO_SandboxDataSetTableAdapters.RawSFDataTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._BPO_SandboxDataSet)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lotSizeUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.glaUpDown)).BeginInit();
@@ -242,8 +244,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ccMonthsBacknumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._BPO_SandboxDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rawSFDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -451,7 +451,7 @@
             this.subjectBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.subjectBindingNavigator.Name = "subjectBindingNavigator";
             this.subjectBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.subjectBindingNavigator.Size = new System.Drawing.Size(1461, 25);
+            this.subjectBindingNavigator.Size = new System.Drawing.Size(1478, 25);
             this.subjectBindingNavigator.TabIndex = 17;
             this.subjectBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -463,6 +463,16 @@
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "Add new";
+            // 
+            // subjectBindingSource
+            // 
+            this.subjectBindingSource.DataMember = "subject";
+            this.subjectBindingSource.DataSource = this._BPO_SandboxDataSet;
+            // 
+            // _BPO_SandboxDataSet
+            // 
+            this._BPO_SandboxDataSet.DataSetName = "_BPO_SandboxDataSet";
+            this._BPO_SandboxDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // bindingNavigatorCountItem
             // 
@@ -644,6 +654,7 @@
             this.search_address_textbox.Name = "search_address_textbox";
             this.search_address_textbox.Size = new System.Drawing.Size(472, 20);
             this.search_address_textbox.TabIndex = 26;
+            this.search_address_textbox.Text = "F:\\Dropbox\\BPOs\\5401 N AMBY LANE";
             this.search_address_textbox.TextChanged += new System.EventHandler(this.search_address_textbox_TextChanged);
             this.search_address_textbox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.search_address_textbox_MouseDoubleClick);
             // 
@@ -1682,7 +1693,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 983);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1461, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1478, 22);
             this.statusStrip1.TabIndex = 52;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -1781,7 +1792,7 @@
             // 
             this.statusStrip2.Location = new System.Drawing.Point(0, 961);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(1461, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(1478, 22);
             this.statusStrip2.TabIndex = 95;
             this.statusStrip2.Text = "statusStrip2";
             // 
@@ -2123,16 +2134,6 @@
             this.label42.TabIndex = 124;
             this.label42.Text = "Target Price";
             // 
-            // subjectBindingSource
-            // 
-            this.subjectBindingSource.DataMember = "subject";
-            this.subjectBindingSource.DataSource = this._BPO_SandboxDataSet;
-            // 
-            // _BPO_SandboxDataSet
-            // 
-            this._BPO_SandboxDataSet.DataSetName = "_BPO_SandboxDataSet";
-            this._BPO_SandboxDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // subjectTableAdapter
             // 
             this.subjectTableAdapter.ClearBeforeFill = true;
@@ -2239,7 +2240,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1478, 874);
+            this.ClientSize = new System.Drawing.Size(1495, 874);
             this.Controls.Add(this.label42);
             this.Controls.Add(this.ccTargetPriceTextBox);
             this.Controls.Add(this.label41);
@@ -2326,6 +2327,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).EndInit();
             this.subjectBindingNavigator.ResumeLayout(false);
             this.subjectBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._BPO_SandboxDataSet)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lotSizeUpDown)).EndInit();
@@ -2340,8 +2343,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ccMonthsBacknumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._BPO_SandboxDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rawSFDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -19,6 +19,8 @@ namespace bpohelper
         private string lastSalePrice;
         private string currentPropertyTax;
         private RealEstateTransaction lastSale;
+        private string mostCurrentMLSListingNumber;
+        private string activeMLSListingNumber;
 
         // Add(System.Text.RegularExpressions.Match)
 

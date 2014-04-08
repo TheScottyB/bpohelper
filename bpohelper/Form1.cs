@@ -1050,6 +1050,7 @@ namespace bpohelper
                     additionalSalesInfo = match.Groups[2].Value;
                 }
 
+                
 
                 ////Google distance matric webservice
                 ////http://maps.googleapis.com/maps/api/distancematrix/xml?origins=60050&destinations=60002&sensor=false&units=imperial
@@ -1290,10 +1291,61 @@ namespace bpohelper
                 
 
                 // Perform the increment on the ProgressBar.
-              
+
+                //
+                //M2M Fannie Mae Form
+                //
+                #region M2M Fannie Mae
+                if (currentUrl.ToLower().Contains("ordereditwizardfnma"))
+                {
+                    #region code
+                    
+                    s = iim.iimPlayCode(macro12.ToString());
+                    htmlCode = iim.iimGetLastExtract();
+                    if (subjectAttachedRadioButton.Checked)
+                    {
+                        m = new AttachedListing(htmlCode);
+                    }
+                    else if (subjectDetachedradioButton.Checked)
+                    {
+                        m = new DetachedListing(htmlCode);
+                    }
+                    else
+                    {
+                        m = new MLSListing(htmlCode);
+                    }
+
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
+
+                    Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                    M2M bpoform = new M2M(m);
+
+                    fieldList.Add("filepath", SubjectFilePath);
+                 
+                    #endregion
+
+                    #region basementlogic
+
+                    
 
 
+                    #endregion
 
+                    #region garagelogic
+                  
+                    #endregion
+
+                    #region fireplacelogic
+               
+                    #endregion
+
+                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
+                    status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
+                 
+                }
+
+                #endregion  
 
                 //
                 //Dispo
@@ -2321,10 +2373,6 @@ namespace bpohelper
                 }
                 
                 #endregion  
-
-
-
-
                 //
                 //lres
                 //
@@ -2416,7 +2464,6 @@ namespace bpohelper
                     status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
                 }
                 #endregion
-
                 //
                 //Emort
                 //
@@ -2730,7 +2777,6 @@ namespace bpohelper
                    status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
                 }
                 #endregion  
-
                 //
                 //Mainstreet aka BPOfulfillment aka Redbell
                 //
@@ -2889,14 +2935,13 @@ namespace bpohelper
 
                 #endregion
 
-
                 #region m2m
 
-                if (currentUrl.ToLower().Contains("marktomarket"))
+                if (currentUrl.ToLower().Contains(@"ordereditwizard/"))
                 {
                     StringBuilder macro = new StringBuilder();
                     macro.AppendLine(@"SET !ERRORIGNORE YES");
-                    macro.AppendLine(@"SET !TIMEOUT_STEP 1");
+                    macro.AppendLine(@"SET !TIMEOUT_STEP 0");
 
 
                     if (input_comp_name.Contains("List"))
@@ -2981,8 +3026,6 @@ namespace bpohelper
                 }
 
                 #endregion
-
-
 
                 #region eval
                 if (currentUrl.ToLower().Contains("evalonline"))
@@ -3644,7 +3687,6 @@ namespace bpohelper
 
                 }
 #endregion 
-
 
                 #region fill usres
                 if (currentUrl.ToLower().Contains("usres"))
@@ -5356,11 +5398,6 @@ namespace bpohelper
                     status = iim2.iimPlayCode(macroCode3, 60);
 
                     #endregion
-
-        
-
-
-
 
                     status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
 
@@ -8703,6 +8740,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
         }
 
+       
        
 
   
