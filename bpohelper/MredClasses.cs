@@ -446,6 +446,12 @@ namespace bpohelper
                 //fuill line address
                 //Address:#NEXT#2627 Sycamore Dr , Waukegan, Illinois 60085#NEXT#
                 //string city = tempstrarry[1];
+
+                if  (string.IsNullOrWhiteSpace(mlsHtmlFields["address"].value))
+                {
+                    mlsHtmlFields["address"].value = Regex.Match(rawData,"<td class=\"Label\">Address:</td>.*?;\">([^<]*)").Groups[1].Value;
+                }
+
                 city = mlsHtmlFields["address"].value.Split(',')[1];
 
                 zip = mlsHtmlFields["address"].value.Split(',')[2].Split(' ')[2];

@@ -144,8 +144,17 @@ namespace bpohelper
             }
             else
             {
-                iim = browser1;
-                iim2 = browser2;
+                if (b1Url.Contains("about:blank"))
+                {
+                    iim = browser1;
+                    iim2 = browser2;
+                }
+                else if (b1Url.Contains("about:blank"))
+                {
+                    iim2 = browser1;
+                    iim = browser2;
+                }
+                
             }
 
 
