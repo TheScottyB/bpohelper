@@ -276,7 +276,14 @@ namespace bpohelper
 
             foreach (string field in compRadioButtonList.Keys)
             {
-                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ACTION:/Order/OrderEdit* ATTR=NAME:ListingComp{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compRadioButtonList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                string positionOfButton = "1";
+                if (compRadioButtonList[field].ToLower() == "no")
+                {
+                    positionOfButton = "2";
+                }
+
+                theMacro.AppendFormat("TAG POS={3} TYPE=INPUT:RADIO FORM=ACTION:/Order/OrderEdit* ATTR=NAME:ListingComp{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compRadioButtonList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"), positionOfButton);
+
             }
 
             foreach (string field in compCheckboxList.Keys)
