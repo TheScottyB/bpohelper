@@ -9,9 +9,16 @@ namespace bpohelper
 {
     class M2M
     {
-        private MLSListing targetComp;
-        private string targetCompNumber;
-        private StringBuilder theMacro = new StringBuilder();
+        protected MLSListing targetComp;
+        protected string targetCompNumber;
+        protected StringBuilder theMacro = new StringBuilder();
+
+
+        public M2M()
+        {
+          
+        }
+
 
         public M2M(MLSListing m)
         {
@@ -22,21 +29,19 @@ namespace bpohelper
         //FNMA example url
         //http://www.marktomarket.us/Order/OrderEditWizardFNMA/Step3/11487827
 
-        private Dictionary<string, string> propTypeTranslator = new Dictionary<string, string>()
+        protected Dictionary<string, string> propTypeTranslator = new Dictionary<string, string>()
          {
             {"bpohelper.DetachedListing", "%SFR<SP>Detached"},
             {"bpohelper.AttachedListing", "%SFR<SP>Attached"}
-           
-
          };
 
-        private Dictionary<string, string> parkingTypeTranslator = new Dictionary<string, string>()
+        protected Dictionary<string, string> parkingTypeTranslator = new Dictionary<string, string>()
          {
             {"Attached", "%Attached<SP>Garage"},
             {"Detached", "%Detached<SP>Garage"}
          };
 
-        private Dictionary<string, string> subjectFieldListTranslator = new Dictionary<string, string>()
+        protected Dictionary<string, string> subjectFieldListTranslator = new Dictionary<string, string>()
         {
             {"ParcelID", "sub_apn"}, 
             {"County", "County"},
@@ -59,10 +64,10 @@ namespace bpohelper
            
         };
 
-        private Dictionary<string, string> subjectFieldList = new Dictionary<string, string>();
+        protected Dictionary<string, string> subjectFieldList = new Dictionary<string, string>();
 
 
-        private Dictionary<string, string> compFieldListTranslator = new Dictionary<string, string>()
+        protected Dictionary<string, string> compFieldListTranslator = new Dictionary<string, string>()
         {  
             //method to call on MLSlisting, name of field on form
             {"StreetAddress", "Address1"}, 
@@ -129,16 +134,16 @@ namespace bpohelper
            
         };
 
-        private Dictionary<string, string> compTextFieldList = new Dictionary<string, string>();
-        private Dictionary<string, string> compSelectionBoxList = new Dictionary<string, string>();
-        private Dictionary<string, string> compRadioButtonList = new Dictionary<string, string>();
-        private Dictionary<string, string> compCheckboxList = new Dictionary<string, string>();
+        protected Dictionary<string, string> compTextFieldList = new Dictionary<string, string>();
+        protected Dictionary<string, string> compSelectionBoxList = new Dictionary<string, string>();
+        protected Dictionary<string, string> compRadioButtonList = new Dictionary<string, string>();
+        protected Dictionary<string, string> compCheckboxList = new Dictionary<string, string>();
 
-        private Dictionary<string, string> listingCompTextFieldList = new Dictionary<string, string>();
-        private Dictionary<string, string> listingCompSelectionBoxList = new Dictionary<string, string>();
+        protected Dictionary<string, string> listingCompTextFieldList = new Dictionary<string, string>();
+        protected Dictionary<string, string> listingCompSelectionBoxList = new Dictionary<string, string>();
 
 
-        private void WriteScript(string path, string filename, StringBuilder script)
+        protected void WriteScript(string path, string filename, StringBuilder script)
         {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(path + "\\" + filename))
             {
@@ -148,7 +153,7 @@ namespace bpohelper
 
         }
 
-        private string GenerateSubjectFillScript()
+        protected string GenerateSubjectFillScript()
         {
             StringBuilder macro = new StringBuilder();
             //borrowers name (already filled)
@@ -218,7 +223,7 @@ namespace bpohelper
 
         }
 
-        private void GenerateListCompFillScript()
+        protected virtual void GenerateListCompFillScript()
         {
             helper_CompFillHeaderScript();
             compTextFieldList.Add(compFieldListTranslator["StreetAddress"], targetComp.StreetAddress);
@@ -293,7 +298,7 @@ namespace bpohelper
 
         }
 
-        private void GenerateSaleCompFillScript()
+        protected virtual void GenerateSaleCompFillScript()
         {
             helper_CompFillHeaderScript();
             compTextFieldList.Add(compFieldListTranslator["StreetAddress"], targetComp.StreetAddress);
@@ -370,7 +375,7 @@ namespace bpohelper
             //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:/Order/OrderEditWizardFNMA/step3/11488927 ATTR=NAME:SaveButton");  
         }
 
-        private void helper_CompFillHeaderScript()
+        protected void helper_CompFillHeaderScript()
         {
             theMacro.Clear();
             theMacro.AppendLine(@"SET !ERRORIGNORE YES");
@@ -396,7 +401,7 @@ namespace bpohelper
 
 
 
-        public void CompFill(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
+        public virtual void CompFill(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
         {
             //http://www.marktomarket.us/Order/OrderEditWizardFNMA/Step3/11487827
             iim.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
@@ -438,6 +443,288 @@ namespace bpohelper
 
         }
 
+
+    }
+
+    class M2MStandard : M2M
+    {
+        //
+        //Exterior with Comp Photos - M
+        //
+
+        public M2MStandard(MLSListing m) : base(m)
+        {
+
+        }
+
+        protected override void GenerateListCompFillScript()
+        {
+            helper_CompFillHeaderScript();
+            compTextFieldList.Add(compFieldListTranslator["MlsNumber"], targetComp.MlsNumber);
+
+            compTextFieldList.Add(compFieldListTranslator["StreetAddress"], targetComp.StreetAddress);
+            compTextFieldList.Add(compFieldListTranslator["City"], targetComp.City);
+            compSelectionBoxList.Add(compFieldListTranslator["State"], "%IL");
+            compTextFieldList.Add(compFieldListTranslator["Zipcode"], targetComp.Zipcode);
+            compSelectionBoxList.Add(compFieldListTranslator["PropertyType"], propTypeTranslator[targetComp.ToString()]);
+            compTextFieldList.Add(compFieldListTranslator["OriginalListPrice"], targetComp.OriginalListPrice.ToString());
+            compTextFieldList.Add(compFieldListTranslator["ListDate"], targetComp.ListDate.ToShortDateString());
+            compTextFieldList.Add(compFieldListTranslator["SalePrice"], targetComp.SalePrice.ToString());
+    
+            compTextFieldList.Add(compFieldListTranslator["Adjustment-text"], "0");
+            compTextFieldList.Add(compFieldListTranslator["ProximityToSubject"], targetComp.ProximityToSubject.ToString());
+            compTextFieldList.Add(compFieldListTranslator["DOM"], targetComp.DOM);
+            compTextFieldList.Add(compFieldListTranslator["Type"], targetComp.PropertyType());
+            compSelectionBoxList.Add(compFieldListTranslator["Exterior"], "");
+            compTextFieldList.Add(compFieldListTranslator["YearBuilt"], targetComp.YearBuilt.ToString());
+            compTextFieldList.Add(compFieldListTranslator["GLA"], targetComp.GLA.ToString());
+            compTextFieldList.Add(compFieldListTranslator["FinishedSf"], targetComp.GLA.ToString());
+            compSelectionBoxList.Add(compFieldListTranslator["Condition"], "%Average");
+            compTextFieldList.Add(compFieldListTranslator["TotalRoomCount"], targetComp.TotalRoomCount.ToString());
+            compTextFieldList.Add(compFieldListTranslator["BedroomCount"], targetComp.BedroomCount);
+            compTextFieldList.Add(compFieldListTranslator["FullBathrooms"], targetComp.BathroomCount);
+            compTextFieldList.Add(compFieldListTranslator["HalfBaths"], targetComp.HalfBathCount);
+            compTextFieldList.Add(compFieldListTranslator["NumberOfBasementRooms"], targetComp.NumberOfBasementRooms());
+            compTextFieldList.Add(compFieldListTranslator["BasementSQFT"], targetComp.BasementGLA());
+            compTextFieldList.Add(compFieldListTranslator["BasementFinishedPercentage"], targetComp.BasementFinishedPercentage());
+            compSelectionBoxList.Add(compFieldListTranslator["ParkingType"], parkingTypeTranslator[targetComp.GarageType()]);
+            compSelectionBoxList.Add(compFieldListTranslator["TransactionType"], "%Arm");
+            compTextFieldList.Add(compFieldListTranslator["LotSize"], targetComp.Lotsize.ToString());
+            compSelectionBoxList.Add(compFieldListTranslator["PoolType"], "%None");
+
+            foreach (string field in compTextFieldList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEdit* ATTR=NAME:Listing{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compTextFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+            foreach (string field in compSelectionBoxList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEdit* ATTR=NAME:Listing{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compSelectionBoxList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+            foreach (string field in compRadioButtonList.Keys)
+            {
+                string positionOfButton = "1";
+                if (compRadioButtonList[field].ToLower() == "no")
+                {
+                    positionOfButton = "2";
+                }
+
+                theMacro.AppendFormat("TAG POS={3} TYPE=INPUT:RADIO FORM=ACTION:/Order/OrderEdit* ATTR=NAME:Listing{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compRadioButtonList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"), positionOfButton);
+
+            }
+
+            foreach (string field in compCheckboxList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ACTION:/Order/OrderEdit* ATTR=NAME:Listing{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compCheckboxList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+        }
+
+        protected override void GenerateSaleCompFillScript()
+        {
+            helper_CompFillHeaderScript();
+            compTextFieldList.Add(compFieldListTranslator["MlsNumber"], targetComp.MlsNumber);
+
+            compTextFieldList.Add(compFieldListTranslator["StreetAddress"], targetComp.StreetAddress);
+            compTextFieldList.Add(compFieldListTranslator["City"], targetComp.City);
+            compSelectionBoxList.Add(compFieldListTranslator["State"], "%IL");
+            compTextFieldList.Add(compFieldListTranslator["Zipcode"], targetComp.Zipcode);
+            compSelectionBoxList.Add(compFieldListTranslator["PropertyType"], propTypeTranslator[targetComp.ToString()]);
+            compTextFieldList.Add(compFieldListTranslator["OriginalListPrice"], targetComp.OriginalListPrice.ToString());
+            compTextFieldList.Add(compFieldListTranslator["ListDate"], targetComp.ListDate.ToShortDateString());
+            compTextFieldList.Add(compFieldListTranslator["SalePrice"], targetComp.SalePrice.ToString());
+            compTextFieldList.Add(compFieldListTranslator["SalesDate"], targetComp.SalePrice.ToString());
+            compTextFieldList.Add(compFieldListTranslator["Adjustment-text"], "0");
+            compTextFieldList.Add(compFieldListTranslator["ProximityToSubject"], targetComp.ProximityToSubject.ToString());
+            compTextFieldList.Add(compFieldListTranslator["DOM"], targetComp.DOM);
+            compTextFieldList.Add(compFieldListTranslator["Type"], targetComp.PropertyType());
+            compSelectionBoxList.Add(compFieldListTranslator["Exterior"], "");
+            compTextFieldList.Add(compFieldListTranslator["YearBuilt"], targetComp.YearBuilt.ToString());
+            compTextFieldList.Add(compFieldListTranslator["GLA"], targetComp.GLA.ToString());
+            compTextFieldList.Add(compFieldListTranslator["FinishedSf"], targetComp.GLA.ToString());
+            compSelectionBoxList.Add(compFieldListTranslator["Condition"], "%Average");
+            compTextFieldList.Add(compFieldListTranslator["TotalRoomCount"], targetComp.TotalRoomCount.ToString());
+            compTextFieldList.Add(compFieldListTranslator["BedroomCount"], targetComp.BedroomCount);
+            compTextFieldList.Add(compFieldListTranslator["FullBathrooms"], targetComp.BathroomCount);
+            compTextFieldList.Add(compFieldListTranslator["HalfBaths"], targetComp.HalfBathCount);
+            compTextFieldList.Add(compFieldListTranslator["NumberOfBasementRooms"], targetComp.NumberOfBasementRooms());
+            compTextFieldList.Add(compFieldListTranslator["BasementSQFT"], targetComp.BasementGLA());
+            compTextFieldList.Add(compFieldListTranslator["BasementFinishedPercentage"], targetComp.BasementFinishedPercentage());
+             compSelectionBoxList.Add(compFieldListTranslator["ParkingType"], parkingTypeTranslator[targetComp.GarageType()]);
+              compSelectionBoxList.Add(compFieldListTranslator["TransactionType"], "%Arm");
+             compTextFieldList.Add(compFieldListTranslator["LotSize"], targetComp.Lotsize.ToString());
+             compSelectionBoxList.Add(compFieldListTranslator["PoolType"], "%None");
+
+       
+   
+
+            foreach (string field in compTextFieldList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEdit* ATTR=NAME:Sale{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compTextFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+            foreach (string field in compSelectionBoxList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEdit* ATTR=NAME:Sale{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compSelectionBoxList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+
+            foreach (string field in compRadioButtonList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ACTION:/Order/OrderEdit* ATTR=NAME:Sale{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compRadioButtonList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+            foreach (string field in compCheckboxList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ACTION:/Order/OrderEdit* ATTR=NAME:Sale{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compCheckboxList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ACTION:/Order/OrderEditWizardFNMA/step3/11488927 ATTR=NAME:SalesComp1.HasForcedWarmAirForHeat CONTENT=YES");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ACTION:/Order/OrderEditWizardFNMA/step3/11488927 ATTR=NAME:SalesComp1.HasCentralAir CONTENT=YES");
+            //macro.AppendLine(@"TAG POS=1 TYPE=TD FORM=ACTION:/Order/OrderEditWizardFNMA/step3/11488927 ATTR=CLASS:mceIframeContainer<SP>mceFirst<SP>mceLast");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:/Order/OrderEditWizardFNMA/step3/11488927 ATTR=NAME:SaveButton");  
+        }
+
+
+
+        public override void CompFill(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
+        {
+            //http://www.marktomarket.us/Order/OrderEditWizardFNMA/Step3/11487827
+            iim.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
+            string currentUrl = iim.iimGetLastExtract();
+
+            targetCompNumber = Regex.Match(compNum, @"\d").Value;
+
+
+
+            if (!currentUrl.ToLower().Contains("fnma"))
+            {
+
+                //we are on non fannie mae form
+                //step 3 = sales comps
+                //step 4 = active listings comps
+                if (saleOrList == "sale")
+                {
+                    iim.iimPlayCode(@"TAG POS=1 TYPE=INPUT:SUBMIT ATTR=ID:step3_submit");
+                    GenerateSaleCompFillScript();
+
+                }
+                else
+                {
+                    iim.iimPlayCode(@"TAG POS=1 TYPE=INPUT:SUBMIT ATTR=ID:step4_submit");
+                    GenerateListCompFillScript();
+
+                }
+
+                WriteScript(fieldList["filepath"], compNum + ".iim", theMacro);
+
+                string macroCode = theMacro.ToString();
+                iim.iimPlayCode(macroCode, 60);
+
+
+
+            }
+        }
+
+
+
+
+        protected Dictionary<string, string> compFieldListTranslator = new Dictionary<string, string>()
+        {  
+            //method to call on MLSlisting, name of field on form
+            {"MlsNumber", "Mlsnumber"},
+            {"StreetAddress", "Address1"}, 
+            {"City", "City"},
+            {"State", "State"},
+            {"Zipcode", "ZipCode"},
+            {"PropertyType", "PropertyType"},
+            {"OriginalListPrice", "OriginalListPrice-text"},
+            {"CurrentListPrice", "CurrentListPrice-text"},
+            {"ListDate", "OriginalListDate"},
+            {"SalePrice", "SalePrice-text"},
+            {"SalesDate", "SaleDate"},
+            {"Adjustment-text", "Adjustment-text"},
+            {"ProximityToSubject", "Distance"},
+            {"DOM", "DaysOnMarket"},
+            {"Type", "Style"},
+            {"Exterior", "Exterior"},
+            {"YearBuilt", "YearBuilt"},
+            {"GLA", "AboveGradeSf"},
+            {"FinishedSf", "FinishedSf"},
+            {"Condition", "Condition"},
+            {"TotalRoomCount", "TotalRooms"},
+            {"BedroomCount", "Bedrooms"},
+            {"FullBathrooms", "Bathrooms"},
+            {"HalfBaths", "HalfBaths"},
+            {"NumberOfBasementRooms", "BasementRooms"},
+            {"BasementSQFT", "BasementSQFT"},
+            {"BasementFinishedPercentage", "PercentageBasementFinished"},
+            {"ParkingType", "Parking"},
+            {"TransactionType", "TransactionType"},
+            {"LotSize", "SiteSize"},
+            {"PoolType", "Pool"},
+            //{"TRL", "Trail"},
+            //{"WAY", "Way"}
+           
+        };
+
+
+        //public void M2MStandard(MLSListing m)
+        //{
+        //    compFieldListTranslator.Clear();
+
+        //    compFieldListTranslator.Add()
+        //}
+
+        //        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.Mlsnumber CONTENT=11");
+        //macro.AppendLine(@"'text input activated");
+        //macro.AppendLine(@"'text input activated");
+        //macro.AppendLine(@"'text input activated");
+        //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.State CONTENT=%IL");
+        //macro.AppendLine(@"'text input activated");
+        //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.PropertyType CONTENT=%Single<SP>Family<SP>Detached");
+        //macro.AppendLine(@"'text input activated");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.OriginalListDate CONTENT=1");
+        //macro.AppendLine(@"'text input activated");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.SaleDate CONTENT=1");
+        //macro.AppendLine(@"'text input activated");
+        //macro.AppendLine(@"'text input activated");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.Distance CONTENT=1");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.DaysOnMarket CONTENT=1");
+        //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.Style CONTENT=%2<SP>Story");
+        //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.Exterior CONTENT=%Brick");
+        //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.Exterior CONTENT=%Metal/Vinyl");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.YearBuilt CONTENT=1900");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.AboveGradeSf CONTENT=100");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.FinishedSf CONTENT=100");
+        //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.Condition CONTENT=%3-Average");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.TotalRooms CONTENT=10");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.Bedrooms CONTENT=4");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.Bathrooms CONTENT=2");
+        //macro.AppendLine(@"'text input activated");
+        //macro.AppendLine(@"'text input activated");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.HalfBaths CONTENT=1");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.BasementRooms CONTENT=1");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.BasementSQFT CONTENT=10");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.PercentageBasementFinished CONTENT=100");
+        //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.Garage CONTENT=%2<SP>ATTACHED");
+        //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.TransactionType CONTENT=%Fair<SP>Market");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.SiteSize CONTENT=1");
+        //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.Pool CONTENT=%None");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:Sale1.AboveGradePriceSf CONTENT=0.00");
+        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:/Order/OrderEditWizard/Step3/11515504 ATTR=NAME:NextButton");
+        //string macroCode = macro.ToString();
+        //// status = iim.iimPlayCode(macroCode, timeout);
+
+    }
+
+    class M2MFNMA : M2M
+    {
+
+
+    
 
     }
 }

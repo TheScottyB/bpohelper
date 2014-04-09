@@ -186,6 +186,11 @@ namespace bpohelper
                 return calculatedBasementFinishedPercentage.ToString();
             }
 
+            public string NumberOfBasementRooms()
+            {
+                return mlsBasementRooms.ToString();
+            }
+
             public bool GarageExsists()
             {
                 return garageExists;
@@ -373,6 +378,7 @@ namespace bpohelper
 
 
 
+            #region private members
             //required per MRED rules Revision Date: March 1, 2012
             private string mlsNumber;
             private string mlsArea;
@@ -402,7 +408,10 @@ namespace bpohelper
             private bool waterfront;
             private InteriorFeatures interiorFeatures;
              private string mlstax;
-            protected int mlsMainLevelRooms = 0;
+            #endregion
+
+            #region protected members
+             protected int mlsMainLevelRooms = 0;
             protected int mls2ndLevelRooms = 0;
 
             protected int mlsBasementRooms = 0;
@@ -432,6 +441,9 @@ namespace bpohelper
             protected string mlsPropType = "Unk";
             private string realistGla = "-1";
             private string realistLotsize = "-1";
+
+            #endregion
+
 
             //public string MlsTaxAmount
             //{
@@ -486,6 +498,28 @@ namespace bpohelper
             #endregion
 
             #region Listing Dates, Prices and related data
+
+
+            public double OriginalListPrice
+            {
+                get
+                {
+                    string s;
+                    double x = -1;
+                    try
+                    {
+                        s = Regex.Match(mlsHtmlFields["origListPrice"].value, @"\d*,*\d+,.\d*").Value;
+                    }
+                    catch
+                    {
+                        s = Regex.Match(mlsHtmlFields["openingBid"].value, @"\d*,*\d+,.\d*").Value;
+                    }
+                    Double.TryParse(s, out x);
+                    return x;
+
+                }
+                set { mlsHtmlFields["origListPrice"].value = value.ToString(); }
+            }
 
             public string ContractDate
             {
@@ -580,6 +614,14 @@ namespace bpohelper
 
             #endregion
 
+            public string FullBathCount
+            {
+                get { return  mlsHtmlFields["bathrooms"].value.Replace(" ", "").Replace(@"/", ".")[0].ToString(); }
+            }
+            public string HalfBathCount
+            {
+                get { return mlsHtmlFields["bathrooms"].value.Replace(" ", "").Replace(@"/", ".")[2].ToString(); }
+            }
             public string BathroomCount
             {
                 get { return mlsHtmlFields["bathrooms"].value.Replace(" ", "").Replace(@"/","."); }

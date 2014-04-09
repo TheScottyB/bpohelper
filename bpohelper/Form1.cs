@@ -2948,90 +2948,35 @@ namespace bpohelper
 
                 if (currentUrl.ToLower().Contains(@"ordereditwizard/"))
                 {
-                    StringBuilder macro = new StringBuilder();
-                    macro.AppendLine(@"SET !ERRORIGNORE YES");
-                    macro.AppendLine(@"SET !TIMEOUT_STEP 0");
+                    #region code
 
-
-                    if (input_comp_name.Contains("List"))
+                    s = iim.iimPlayCode(macro12.ToString());
+                    htmlCode = iim.iimGetLastExtract();
+                    if (subjectAttachedRadioButton.Checked)
                     {
-                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON ATTR=ID:Button4&&VALUE:4");
-                        
-                        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:form0 ATTR=ID:SaveButton&&VALUE:Save");
-                        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON ATTR=ID:Button4&&VALUE:4");
+                        m = new AttachedListing(htmlCode);
                     }
-
-                    //new 
-                    //first line on both sales and list comps
-                    //TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:Sale1_Mlsnumber CONTENT=07997472
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Mlsnumber CONTENT=" + mlsnum);
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Address1 CONTENT=" + full_street_address.Replace(" ", "<SP>"));
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:form0 ATTR=ID:apply_" + input_comp_name + "_AddOption&&VALUE:Apply");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_City CONTENT=" + city.Replace(" ", "<SP>"));
-                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_State CONTENT=%IL");
-                    if (table1.Contains("Condo"))
+                    else if (subjectDetachedradioButton.Checked)
                     {
-                        macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:Sale1_PropertyType CONTENT=%Condominium");
+                        m = new DetachedListing(htmlCode);
                     }
                     else
                     {
-                        macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:Sale1_PropertyType CONTENT=%Single<SP>Family<SP>Detached");
-                    }
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_OriginalListPrice-input-text CONTENT=" + orig_list_price.Replace("$", "").Replace(",", ""));
-
-                    if (input_comp_name.Contains("Sale"))
-                    {
-                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_SalePrice-input-text CONTENT=" + sold_price);
-                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_SaleDate CONTENT=" + closed_date);
-                        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_SellerConcessions");
+                        m = new MLSListing(htmlCode);
                     }
 
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:form0 ATTR=ID:apply_" + input_comp_name + "_AddOption&&VALUE:Apply");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Gla CONTENT="  + mls_gla);
-                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_GlaSource CONTENT=%MLS");
-                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Owner");
-                    
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:form0 ATTR=ID:" + input_comp_name + "_AgtBrokerInspected&&VALUE:True CONTENT=NO");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Other");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:form0 ATTR=ID:" + input_comp_name + "_AgtBrokerInspected&&VALUE:False CONTENT=YES");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Other");
-                    
-                   
-                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_CalculateRatio CONTENT=96");
-                   // macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_CalculatedDistance CONTENT=0.67");
-                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Distance CONTENT=");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_DaysOnMarket CONTENT=" + dom);
-                    //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Style CONTENT=%1<SP>Story");
-                    //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Exterior CONTENT=%Metal/Vinyl");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_YearBuilt CONTENT=" + year_built);
-                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Condition CONTENT=%3-Average");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_TotalRooms CONTENT=" + room_count);
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Bedrooms CONTENT=" + bedrooms);
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Bathrooms CONTENT=" + full_bath + "." + half_bath);
-                    //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_GarageCarportDescription CONTENT=%2<SP>Stall<SP>-<SP>Attached");
-                    //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_GarageCarportDescription CONTENT=%2<SP>Stall<SP>-<SP>Detached");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_SiteSize CONTENT=" + mls_lot_size);
-                   
-                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Comparison CONTENT=%Equal");
-                 //   macro.AppendLine(@"TAG POS=1 TYPE=IFRAME FORM=ID:form0 ATTR=ID:" + input_comp_name + "_Comment_ifr");
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
 
-                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:form0 ATTR=ID:SaveButton&&VALUE:Save");
+                    Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                    M2MStandard bpoform = new M2MStandard(m);
 
-                    if (input_comp_name.Contains("List"))
-                    {
-                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_CurrentListPrice-input-text CONTENT=" + current_list_price.Replace("$", "").Replace(",", ""));
-                        macro.AppendLine(@"ONDIALOG POS=1 BUTTON=OK CONTENT=");
-                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:" + input_comp_name + "_OriginalListDate CONTENT=" + list_date);
-            
-                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON ATTR=ID:step3_submit&&VALUE:3");
-                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:form0 ATTR=ID:SaveButton&&VALUE:Save");
-                        //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON ATTR=ID:step3_submit&&VALUE:3");
-                    }
-                     macroCode = macro.ToString();
-                     status = iim2.iimPlayCode(macroCode, 60);
+                    fieldList.Add("filepath", SubjectFilePath);
 
+                    #endregion
 
-                     status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
+                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
+                    status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
                 }
 
                 #endregion

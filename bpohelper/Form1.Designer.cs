@@ -654,7 +654,7 @@
             this.search_address_textbox.Name = "search_address_textbox";
             this.search_address_textbox.Size = new System.Drawing.Size(472, 20);
             this.search_address_textbox.TabIndex = 26;
-            this.search_address_textbox.Text = "F:\\Dropbox\\BPOs\\330 Cunat Blvd APT 2F";
+            this.search_address_textbox.Text = "F:\\Dropbox\\BPOs\\203 MACINTOSH AVENUE";
             this.search_address_textbox.TextChanged += new System.EventHandler(this.search_address_textbox_TextChanged);
             this.search_address_textbox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.search_address_textbox_MouseDoubleClick);
             // 
