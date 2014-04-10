@@ -113,7 +113,7 @@ namespace bpohelper
                  
              }
 
-            public  MLSListing(string htmlCode)
+             public  MLSListing(string htmlCode)
             {
 
                 rawData = htmlCode;
@@ -135,7 +135,7 @@ namespace bpohelper
                 mlsMainLevelRooms = Regex.Matches(rawData, @"class=value>Main Level</TD>").Count;
                 mls2ndLevelRooms = Regex.Matches(rawData, @"class=value>2nd Level</TD>").Count;
             }
-
+    
              public string PropertyType() 
             {
                 //var queryLondonCustomers = from field in mlsHtmlFields
@@ -146,6 +146,7 @@ namespace bpohelper
  
             }
 
+            
             protected void SetParkingParameters()
             {
                 Int32.TryParse(Regex.Match(mlsHtmlFields["numSpaces"].value.TrimEnd(), @"Gar.(\d+)").Groups[1].Value, out numberOfGarageStalls);
@@ -170,6 +171,14 @@ namespace bpohelper
                     garageExists = true;
                 } 
             }
+
+
+            public bool ListedInLast12Months()
+            {
+                TimeSpan ts = DateTime.Now - ListDate;
+                return (ts.TotalDays < 365);
+            }
+
 
             public string BasementGLA()
             {
@@ -613,6 +622,44 @@ namespace bpohelper
                 set { mlsHtmlFields["listDate"].value = value.ToString(); }
             }
 
+            public string ListDateString
+            {
+                get
+                {
+                    DateTime x;
+                    string s = mlsHtmlFields["listDate"].value;
+                    DateTime.TryParse(s, out x);
+                    return x.ToShortDateString();
+
+                }
+                set { mlsHtmlFields["listDate"].value = value; }
+            }
+
+            public DateTime OffMarketDate
+            {
+                get
+                {
+                    DateTime x;
+                    string s = mlsHtmlFields["offMarketDate"].value;
+                    DateTime.TryParse(s, out x);
+                    return x;
+
+                }
+                 set { mlsHtmlFields["offMarketDate"].value = value.ToString(); }
+            }
+
+            public string OffMarketDateString
+            {
+                get
+                {
+                    DateTime x;
+                    string s = mlsHtmlFields["offMarketDate"].value;
+                    DateTime.TryParse(s, out x);
+                    return x.ToShortDateString();
+
+                }
+                set { mlsHtmlFields["offMarketDate"].value = value; }
+            }
             public DateTime SalesDate
             {
                 get
@@ -704,7 +751,12 @@ namespace bpohelper
             public string MlsNumber
             {
                 get { return mlsHtmlFields["mlsNumber"].value; }
-                set { mlsNumber = value; }
+                set 
+                
+                {
+                    mlsNumber = value;
+                    mlsHtmlFields["mlsNumber"].value = mlsNumber;
+                }
             }
 
             public string Type

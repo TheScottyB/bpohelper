@@ -142,6 +142,7 @@ namespace bpohelper
             try
             {
                 mlsListings.Add(m.MlsNumber, m);
+                mostCurrentMLSListingNumber = m.MlsNumber;
             }
             catch
             {
@@ -155,6 +156,11 @@ namespace bpohelper
             return mlsListings[id];
         }
 
+    
+        public bool ListedInLastYear
+        {
+            get { return mlsListings[mostCurrentMLSListingNumber].ListedInLast12Months();  }
+        }
 
     }
 

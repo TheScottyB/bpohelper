@@ -5517,6 +5517,21 @@ namespace bpohelper
 
          //   MessageBox.Show(currentUrl);
 
+            #region bpofullfillment aka mainstreet aka redbell
+            if (currentUrl.ToLower().Contains("bpofulfillment"))
+            {
+                //AVM bpoform = new AVM();
+                //bpoform.Prefill(iim2, this);
+                if (GlobalVar.theSubjectProperty.ListedInLastYear)
+                {
+
+                }
+                
+
+            }
+            #endregion
+
+
             #region AVM
             if (currentUrl.ToLower().Contains("avm.assetval.com"))
             {
@@ -8059,7 +8074,11 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
         private void subjectpin_textbox_TextChanged(object sender, EventArgs e)
         {
-           GlobalVar.theSubjectProperty = new RealProperty(subjectpin_textbox.Text, this);
+            if (GlobalVar.theSubjectProperty.ParcelID != (subjectpin_textbox.Text))
+            {
+                GlobalVar.theSubjectProperty = new RealProperty(subjectpin_textbox.Text, this);
+            }
+        
         }
 
         private void subjectpin_textbox_Validated(object sender, EventArgs e)
@@ -8694,6 +8713,13 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
         }
 
+        private void label43_Click(object sender, EventArgs e)
+        {
+            
+
+
+        }
+
        
        
 
@@ -8741,7 +8767,36 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
         public string brokerPhone;
         public string dom;
         public string mlsTaxAmount;
-       
+
+        private string rawText;
+        private string GetFieldValue(string fn)
+        {
+            //:x*(.*?)xxx
+
+
+            string pattern1 = "x*(.*?)xxx";
+            string pattern2 = "x*(.*?)\n";
+            string returnValue = "NotFound";
+            string result = "";
+
+            //result = Regex.Match(rawText, string.Format(@"{0}{1}", fn, pattern1)).Groups[1].Value;
+            result = Regex.Match(rawText, string.Format(@"{0}{1}|{0}{2}", fn, pattern1, pattern2)).Groups[1].Value;
+
+            if (String.IsNullOrWhiteSpace(result))
+            {
+                returnValue = Regex.Match(rawText, string.Format(@"{0}{1}", fn, pattern2)).Groups[1].Value;
+            }
+            else
+            {
+                returnValue = result;
+            }
+
+            return returnValue;
+
+            //return Regex.Match(rawText, string.Format(@"{0}{1}|{0}{2}", fn, pattern1, pattern2)).Groups[1].Value;
+        }
+
+
 
         public string Get_Distance(string o, string d)
         {
@@ -8846,6 +8901,9 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
         }
         public void GetSubjectInfo(string s)
         {
+            MLSListing m = new MLSListing();
+            rawText =  s;
+
 
             string masterPattern = @"xxx(.*?)xxx|xxx(.*?)\n";
             MatchCollection x = Regex.Matches(s, masterPattern);
@@ -8882,7 +8940,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             match = Regex.Match(s, pattern);
             listPrice = match.Groups[1].Value;
 
-            pattern = @"(ACTV|CTG|CLSD|TEMP)";
+            pattern = @"(ACTV|CTG|CLSD|TEMP|CANC|EXP)";
             match = Regex.Match(s, pattern);
             mlsStatus = match.Groups[1].Value;
 
@@ -8919,6 +8977,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             match = Regex.Match(s, pattern);
             if (match.Success)
             {
+                m = new DetachedListing();
                 detached = true;
                 attached = false;
             }
@@ -8927,6 +8986,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             match = Regex.Match(s, pattern);
             if (match.Success)
             {
+                m = new AttachedListing();
                 detached = false;
                 attached = true;
             }
@@ -9039,7 +9099,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 type = match.Groups[1].Value.Replace("x", "");
             }
             
-
+       
             form.SubjectBathroomCount = bathCount;
             form.SubjectBedroomCount = bedroomCount;
             form.SubjectRoomCount = roomCount;
@@ -9062,8 +9122,21 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             form.SubjectBrokerPhone = brokerPhone;
             form.SubjectDom = dom;
             GlobalVar.theSubjectProperty.PropertyTax = mlsTaxAmount;
-            
-            
+
+            m.MlsNumber = GetFieldValue(@"MLS #:");
+            m.ListDateString = GetFieldValue(@"List Date:");
+            m.OffMarketDateString = GetFieldValue(@"Off Market:");
+
+            GlobalVar.theSubjectProperty.AddMlsListing(m);
+
+            GlobalVar.theSubjectProperty.ParcelID = Regex.Match(GetFieldValue("PIN:"), @"\d+").Value;
+
+           
+
+            form.SubjectPin = GlobalVar.theSubjectProperty.ParcelID;
+
+           
+
            //xxxxxxx
 
          

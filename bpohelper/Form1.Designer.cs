@@ -229,6 +229,10 @@
             this.tableAdapterManager2 = new bpohelper._BPO_SandboxDataSetTableAdapters.TableAdapterManager();
             this.rawSFDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rawSFDataTableAdapter = new bpohelper._BPO_SandboxDataSetTableAdapters.RawSFDataTableAdapter();
+            this.subjectListDatedateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.subjectOffMarketDatedateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -654,7 +658,7 @@
             this.search_address_textbox.Name = "search_address_textbox";
             this.search_address_textbox.Size = new System.Drawing.Size(472, 20);
             this.search_address_textbox.TabIndex = 26;
-            this.search_address_textbox.Text = "F:\\Dropbox\\BPOs\\203 MACINTOSH AVENUE";
+            this.search_address_textbox.Text = "F:\\Dropbox\\BPOs\\314 dale";
             this.search_address_textbox.TextChanged += new System.EventHandler(this.search_address_textbox_TextChanged);
             this.search_address_textbox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.search_address_textbox_MouseDoubleClick);
             // 
@@ -803,6 +807,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label44);
+            this.groupBox1.Controls.Add(this.label43);
+            this.groupBox1.Controls.Add(this.subjectOffMarketDatedateTimePicker);
+            this.groupBox1.Controls.Add(this.subjectListDatedateTimePicker);
             this.groupBox1.Controls.Add(this.label39);
             this.groupBox1.Controls.Add(this.label38);
             this.groupBox1.Controls.Add(this.label37);
@@ -891,7 +899,7 @@
             this.groupBox1.Controls.Add(this.subjectpin_textbox);
             this.groupBox1.Location = new System.Drawing.Point(489, 127);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(834, 389);
+            this.groupBox1.Size = new System.Drawing.Size(926, 389);
             this.groupBox1.TabIndex = 42;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Subject Info";
@@ -2232,6 +2240,42 @@
             // 
             this.rawSFDataTableAdapter.ClearBeforeFill = true;
             // 
+            // subjectListDatedateTimePicker
+            // 
+            this.subjectListDatedateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.subjectListDatedateTimePicker.Location = new System.Drawing.Point(807, 35);
+            this.subjectListDatedateTimePicker.Name = "subjectListDatedateTimePicker";
+            this.subjectListDatedateTimePicker.Size = new System.Drawing.Size(85, 20);
+            this.subjectListDatedateTimePicker.TabIndex = 127;
+            this.subjectListDatedateTimePicker.Value = new System.DateTime(2014, 4, 10, 14, 26, 39, 0);
+            // 
+            // subjectOffMarketDatedateTimePicker
+            // 
+            this.subjectOffMarketDatedateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.subjectOffMarketDatedateTimePicker.Location = new System.Drawing.Point(807, 83);
+            this.subjectOffMarketDatedateTimePicker.Name = "subjectOffMarketDatedateTimePicker";
+            this.subjectOffMarketDatedateTimePicker.Size = new System.Drawing.Size(85, 20);
+            this.subjectOffMarketDatedateTimePicker.TabIndex = 128;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(805, 21);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(49, 13);
+            this.label43.TabIndex = 129;
+            this.label43.Text = "List Date";
+            this.label43.Click += new System.EventHandler(this.label43_Click);
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(804, 67);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(83, 13);
+            this.label44.TabIndex = 130;
+            this.label44.Text = "Off Market Date";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2551,6 +2595,10 @@
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.TextBox ccTargetPriceTextBox;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.DateTimePicker subjectOffMarketDatedateTimePicker;
+        private System.Windows.Forms.DateTimePicker subjectListDatedateTimePicker;
+        private System.Windows.Forms.Label label44;
     }
 
 }
