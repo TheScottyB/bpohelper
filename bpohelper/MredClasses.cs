@@ -191,6 +191,11 @@ namespace bpohelper
                 return mlsBasementRooms.ToString();
             }
 
+            public string GarageString()
+            {
+                return NumberGarageStalls() + " " + mlsHtmlFields["garageType"].value;
+            }
+
             public bool GarageExsists()
             {
                 return garageExists;
@@ -529,7 +534,16 @@ namespace bpohelper
 
             public string TransactionType
             {
-                get { return transactionType; }
+                get 
+                {
+                    if (mlsHtmlFields["soldPrice"].value.Contains("S"))
+                        transactionType = "ShortSale";
+                    if  (mlsHtmlFields["soldPrice"].value.Contains("F"))
+                        transactionType = "REO";
+                    if (mlsHtmlFields["soldPrice"].value.Contains("C"))
+                        transactionType = "Corp";
+                    return transactionType; 
+                }
                 set { transactionType = value; }
             }
 
@@ -614,9 +628,11 @@ namespace bpohelper
 
             #endregion
 
+            #region roomcounts
+
             public string FullBathCount
             {
-                get { return  mlsHtmlFields["bathrooms"].value.Replace(" ", "").Replace(@"/", ".")[0].ToString(); }
+                get { return  mlsHtmlFields["bathrooms"].value[0].ToString(); }
             }
             public string HalfBathCount
             {
@@ -646,10 +662,17 @@ namespace bpohelper
                     int x = -1;
 
                     Int32.TryParse(mlsHtmlFields["yearBulit"].value, out x);
+
+                    if (x==-1)
+                    { x = this.RealistGLA; }
+
                     return x;
                 }
                 set { mlsHtmlFields["yearBulit"].value = value.ToString(); }
             }
+
+            #endregion
+
 
             public int RealistGLA
             {
@@ -670,6 +693,8 @@ namespace bpohelper
                     int x = -1;
                     string s = mlsHtmlFields["mlsGla"].value;
                     Int32.TryParse(s, out x);
+                    if (x == -1)
+                    { x = this.RealistGLA; }
                     return x;
 
                 }
