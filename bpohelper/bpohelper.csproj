@@ -223,6 +223,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="AVM.cs" />
+    <Compile Include="Bpofulfillment.cs" />
     <Compile Include="M2M.cs" />
     <Compile Include="Form1_deprecated.cs">
       <SubType>Form</SubType>

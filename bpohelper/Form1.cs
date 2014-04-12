@@ -1111,8 +1111,8 @@ namespace bpohelper
                 //macro_get_price_changes.AppendLine(@"TAB T=2");
                 macro_get_price_changes.AppendLine(@"TAG POS=1 TYPE=TABLE FORM=NAME:NoFormName ATTR=CLASS:innergridview EXTRACT=TXT");
                 macro_get_price_changes.AppendLine(@"FRAME NAME=subheader");
-                macro_get_price_changes.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:header ATTR=ID:closeWinLink");
-               // macro_get_price_changes.AppendLine(@"TAB CLOSE");
+               // macro_get_price_changes.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:header ATTR=ID:closeWinLink");
+                macro_get_price_changes.AppendLine(@"TAB CLOSE");
                 string macroCode = macro_get_price_changes.ToString();
 
                 status = iim.iimPlayCode(macroCode, 60);
@@ -2838,8 +2838,13 @@ namespace bpohelper
                     macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*cboCondition" + input_comp_name + " CONTENT=%348");
                     macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*cboView" + input_comp_name + " CONTENT=%485");
                     macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+                    double x = -1;
+                    string st = mls_lot_size;
+                    Double.TryParse(st, out x);
+                    x = Math.Round(x, 2);
+
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*txtYearBuilt" + input_comp_name + " CONTENT=" + year_built);
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*txtLotSize" + input_comp_name + " CONTENT=" + mls_lot_size);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*txtLotSize" + input_comp_name + " CONTENT=" + x.ToString());
 
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*txtSite" + input_comp_name + " CONTENT=Level/100%");
 
@@ -2862,11 +2867,48 @@ namespace bpohelper
                     macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*TxtMulSales1");
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*txtMLS" + input_comp_name + " CONTENT=" + mlsnum);
                  //   macro.AppendLine(@"'TAG POS=0 TYPE=TEXTAREA FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*TxtMulSales1 CONTENT=EASY<SP>LIVING<SP>ALL<SP>ON<SP>ONE<SP>LEVEL!<SP>LAWN<SP>CARE<SP>&<SP>SNOW<SP>REMOVAL<SP>INCLUDED!<SP>LIVING<SP>ROOM<SP>W/<SP>VAULTED<SP>CEILING,<SP>CHANDELIER<SP>FOR<SP>DINING<SP>TABLE,<SP>CORNER<SP>GAS<SP>FIREPLACE<SP>W/CERAMIC<SP>TILE<SP>SURROUND<SP>&<SP>NICHE<SP>ABOVE<SP>FOR<SP>FLAT-SCREEN<SP>TV!<SP>9'<SP>CEILINGS!<SP>MASTER<SP>SUITE<SP>W/PRIVATE<SP>BATH<SP>&<SP>WALK-IN<SP>CLOSET.<SP>LARGE<SP>EAT-IN<SP>KITCHEN<SP>W/PANTRY<SP>&<SP>WINDOW<SP>SEAT!<SP>MUDROOM<SP>OFF<SP>GARAGE<SP>WITH<SP>LAUNDRY.<SP>2.5<SP>CAR<SP>GARAGE<SP>W/PLENTY<SP>OF<SP>STORAGE<SP>SPACE.<SP>CUSTOM<SP>BLINDS<SP>STAY!<SP>HUGE<SP>BACKYARD!<SP>");
+
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*cboViewFactor1" + input_comp_name + "  CONTENT=%485");
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*PropertyStyle" + input_comp_name + "  CONTENT=%93");
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*PropertyType" + input_comp_name + "  CONTENT=%764");
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:*LeaseHold" + input_comp_name + "  CONTENT=%415");
+
                     //string macroCode = macro.ToString();
                     status = iim2.iimPlayCode(macro.ToString(), 60);
+
+                      s = iim.iimPlayCode(macro12.ToString());
+                    htmlCode = iim.iimGetLastExtract();
+                    if (subjectAttachedRadioButton.Checked)
+                    {
+                        m = new AttachedListing(htmlCode);
+                    }
+                    else if (subjectDetachedradioButton.Checked)
+                    {
+                        m = new DetachedListing(htmlCode);
+                    }
+                    else
+                    {
+                        m = new MLSListing(htmlCode);
+                    }
+
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
+
+                    Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                    BPOFulfillment bpoform = new BPOFulfillment(m);
+
+                    fieldList.Add("filepath", SubjectFilePath);
+
+                    #endregion
+
+                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
+                
+
                     status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
+
+
                 }
-                #endregion
+               
 
                 #region valuationPartners
                 if (streetnumTextBox.Text == "vp")
@@ -5522,11 +5564,127 @@ namespace bpohelper
             {
                 //AVM bpoform = new AVM();
                 //bpoform.Prefill(iim2, this);
+                macro.AppendLine(@"SET !REPLAYSPEED MEDIUM");
+                macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$txtInspectionDate$txtMonth CONTENT=04");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$txtInspectionDate$txtDay CONTENT=10");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$txtInspectionDate$txtYear CONTENT=2014");
+               
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$cboInfoSource CONTENT=%483");
+                //764 = single gamily residence
+                //149 = condo
+                if (SubjectDetached)
+                {
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$cboPropertyType CONTENT=%764");
+                }
+
+                if (SubjectAttached)
+                {
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$cboPropertyType CONTENT=%149");
+                }
+
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$txtAssessorParcel CONTENT=" + SubjectPin);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$txtAssessorParcel CONTENT=" + SubjectPin);
+
                 if (GlobalVar.theSubjectProperty.ListedInLastYear)
                 {
-
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$cboListedLast12Months CONTENT=%113");
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$cboCurrentlyListed CONTENT=%113");
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$cboMultipleListings CONTENT=%113");
                 }
+
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$cboSubjectVisibility CONTENT=%208");
+           
+          
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$cboPropertyVacant CONTENT=%209");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$cboSecured CONTENT=%208");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$cboPropertyView CONTENT=%485");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$txtTaxes CONTENT=" + GlobalVar.theSubjectProperty.PropertyTax.Replace(",", "").Replace("$", ""));
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$txtOwnerPubRec CONTENT=" + SubjectOOR.Replace(" ", "<SP>"));
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$txtLandValue CONTENT=1");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$txtDelinquentTaxes CONTENT=0");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$cboPredominantOccupancy CONTENT=%497");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$SubjectHistory$LegalDesc CONTENT=UNK");
+
+                macro.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:Bpo.aspx* ATTR=TXT:Next");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtCounty1 CONTENT=" + SubjectCounty.Replace(" ", "<SP>"));
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtSubdivision1 CONTENT=" + SubjectSubdivision.Replace(" ", "<SP>"));
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtAreaName1 CONTENT=" + SubjectSubdivision.Replace(" ", "<SP>"));
+
+               
+
+                double x = -1;
+                string s = SubjectLotSize;
+                Double.TryParse(s, out x);
+
+               x = Math.Round(x, 2);
+
+
+               macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+
+
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtLotSize1 CONTENT=" +  x.ToString());
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtSite1 CONTENT=level");
+              //needs logic
+                //  macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$cboPropertyStyle1 CONTENT=%81");
+         
+              //  macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$cboConstruction1 CONTENT=%103");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$cboConstruction1 CONTENT=%104");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$cboCondition1 CONTENT=%348");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtNumUnits1 CONTENT=1");
+           
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtYearBuilt1 CONTENT=" + SubjectYearBuilt);
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$cboLandscaping1 CONTENT=%112");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtBasementFinished1 CONTENT=0");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtBasementSqft1 CONTENT=" + SubjectBasementGLA);
+
+                //needs logic
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$cboGarageCarport1 CONTENT=%531");
                 
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$cboLeaseHold1 CONTENT=%415");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtPoolSpaFirplace1 CONTENT=unk");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtTotalSQ1 CONTENT=" + SubjectAboveGLA.Replace(",", ""));
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtTotalRooms1 CONTENT=" + SubjectRoomCount);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtBedrooms1 CONTENT=" + SubjectBedroomCount);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtFullBath1 CONTENT=" + SubjectBathroomCount[0]);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$txtHalfBath1 CONTENT=" + SubjectBathroomCount[2]);
+                
+                
+                //need logic
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$Comparables$cboBasement1 CONTENT=%330");
+
+
+                macro.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:Bpo.aspx* ATTR=TXT:Next");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboPrideOfOwnerShip CONTENT=%45");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboCrimeVandalRisk CONTENT=%105");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboNeighborhoodTrend CONTENT=%321");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboHomeValues CONTENT=%322");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboHomeValues CONTENT=%0");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboEnviromentalIssues CONTENT=%209");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboEnviromentalIssues CONTENT=%210");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboHomeValues CONTENT=%322");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$txtRateOfPerMonth CONTENT=1");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$txtOwnerOccupied CONTENT=95");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboSupply CONTENT=%322");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboDemand CONTENT=%324");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboSupply CONTENT=%324");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboDemand CONTENT=%324");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboPredominantBuyer CONTENT=%536");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboREOTrend CONTENT=%324");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboMarketingTrend CONTENT=%324");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboZoningCompliance CONTENT=%687");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboZoningCompliance CONTENT=%691");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboNeigConstruction CONTENT=%113");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$txtPctList CONTENT=93.0000");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$BoardedHomes CONTENT=0");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboEmpConditions CONTENT=%324");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboRentControl CONTENT=%113");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboIndustrialWithIn CONTENT=%113");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboDisaster CONTENT=%113");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx* ATTR=NAME:BPO$NeighborhoodInfo$cboSearchCriteria CONTENT=%0");
+                macro.AppendLine(@"TAG POS=1 TYPE=TD FORM=ACTION:Bpo.aspx* ATTR=TXT:<Unassigned><SP>GLA<SP>Subdivision<SP>Zip<SP>Code<SP>Map<SP>Grid<SP>Price<SP>Room<SP>Count<SP>Other");
+                macro.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:Bpo.aspx* ATTR=TXT:Save");
+              
 
             }
             #endregion
@@ -7145,6 +7303,24 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                         //{
 
                         //}
+
+                        foreach (string f in filePaths)
+                        {
+                            if (f.ToLower().Contains("report-"))
+                            {
+                                StringBuilder pages = new StringBuilder();
+                                PdfReader pdfReader = new PdfReader(f);
+                                ITextExtractionStrategy strat = new PdfHelper.LocationTextExtractionStrategyEx();
+                                for (int i = 1; i <= pdfReader.NumberOfPages; i++)
+                                {
+                                    pages.Append(PdfTextExtractor.GetTextFromPage(pdfReader, i, strat));
+                                }
+
+                                mlsSubject.GetSubjectInfo(pages.ToString());
+
+                                this.statusTextBox.AppendText("MLS listing Loaded...");
+                            }
+                        }
                     }
                 }
             }

@@ -202,7 +202,16 @@ namespace bpohelper
 
             public string GarageString()
             {
-                return NumberGarageStalls() + " " + mlsHtmlFields["garageType"].value;
+                string returnString = "Unknown";
+                if (garageExists)
+                {
+                    returnString = NumberGarageStalls() + " " + mlsHtmlFields["garageType"].value;
+                } 
+                else
+                {
+                    returnString = "None";
+                }
+                return returnString ;
             }
 
             public bool GarageExsists()

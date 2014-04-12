@@ -12,7 +12,7 @@ namespace bpohelper
         private Dictionary<string, MLSListing> mlsListings;
         private RealistReport rr;
         private Form1 form;
-        private string mlsTaxAmout;
+        private string mlsTaxAmout = "-1";
         private MatchCollection rawDataFromPrintedMlsSheet;
         private string county;
         private string dateOfLastSale;
@@ -159,7 +159,18 @@ namespace bpohelper
     
         public bool ListedInLastYear
         {
-            get { return mlsListings[mostCurrentMLSListingNumber].ListedInLast12Months();  }
+            get
+            {
+                if (string.IsNullOrWhiteSpace(mostCurrentMLSListingNumber))
+                {
+                    return false;
+                }
+                else
+                {
+                    return mlsListings[mostCurrentMLSListingNumber].ListedInLast12Months(); 
+                }
+                
+            }
         }
 
     }
