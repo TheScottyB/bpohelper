@@ -239,6 +239,11 @@ namespace bpohelper
 
             public string GarageType()
             {
+                if (string.IsNullOrWhiteSpace(mlsHtmlFields["garageType"].value))
+                {
+                    mlsHtmlFields["garageType"].value = "None";
+                }
+
                 return mlsHtmlFields["garageType"].value;
             }
 

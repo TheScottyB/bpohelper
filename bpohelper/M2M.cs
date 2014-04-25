@@ -46,7 +46,8 @@ namespace bpohelper
         protected Dictionary<string, string> parkingTypeTranslator = new Dictionary<string, string>()
          {
             {"Attached", "%Attached<SP>Garage"},
-            {"Detached", "%Detached<SP>Garage"}
+            {"Detached", "%Detached<SP>Garage"},
+            {"None", "%None"}
          };
 
         protected Dictionary<string, string> subjectFieldListTranslator = new Dictionary<string, string>()

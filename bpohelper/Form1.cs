@@ -8897,6 +8897,264 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
         }
 
        
+
+        private void button_imort_pics_Click2(object sender, EventArgs e)
+        {
+            StringBuilder macro = new StringBuilder();
+            macro.AppendLine(@"SET !TIMEOUT_STEP 200");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$lnkManualImages");
+            macro.AppendLine(@"FRAME NAME=sb-player");
+            macro.AppendLine(@"'TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl04$UploadFile");
+            macro.AppendLine(@"TAB T=1");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl02$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\L1.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl03$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\l2.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl04$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\l3.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl05$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\s1.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl06$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\s2.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl07$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\s3.jpg");
+
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl08$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\address.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl09$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\front.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl10$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\left.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl11$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\right.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl12$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\street.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl13$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\street2.jpg");
+
+            macro.AppendLine(@"");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:cmdUpload");
+            macro.AppendLine(@"'FRAME F=0");
+            macro.AppendLine(@"'TAG POS=1 TYPE=INPUT ATTR=ID:dgManualPhotos_ctl04_UploadFile");
+          
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl00$cboImage CONTENT=%8");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl01$cboImage CONTENT=%9");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl02$cboImage CONTENT=%10");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl03$cboImage CONTENT=%5");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl04$cboImage CONTENT=%6");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl05$cboImage CONTENT=%7");
+
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl06$cboImage CONTENT=%2");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl07$cboImage CONTENT=%1");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl08$cboImage CONTENT=%24");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl09$cboImage CONTENT=%25");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl10$cboImage CONTENT=%3");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl11$cboImage CONTENT=%27");
+
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboRecommended CONTENT=%113");
+            macro.AppendLine(@"");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboNewConstruction CONTENT=%113");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboDisaster CONTENT=%113");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboResaleProblem CONTENT=%113");
+
+            macro.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:Bpo.aspx?control=* ATTR=TXT:Save");
+            string macroCode = macro.ToString();
+            iim2.iimPlayCode(macroCode, 60);
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+
+            bool stillComps = true;
+            string compNumber;
+            string fileName = "Error";
+
+
+            StringBuilder macro12 = new StringBuilder();
+            macro12.AppendLine(@"FRAME NAME=navpanel");
+            macro12.AppendLine(@"TAG POS=1 TYPE=TD ATTR=ID:navtd EXTRACT=TXT");
+            macro12.AppendLine(@"FRAME NAME=workspace");
+            //// macro12.AppendLine(@"TAG POS=1 TYPE=TABLE FORM=NAME:dc ATTR=CLASS:gridview EXTRACT=TXT");
+            // macro12.AppendLine(@"TAG POS=1 TYPE=HTML ATTR=* EXTRACT=HTM ");
+            macro12.AppendLine(@"TAG POS=1 TYPE=DIV FORM=NAME:dc ATTR=CLASS:report EXTRACT=HTM");
+            iMacros.Status s = iim.iimPlayCode(macro12.ToString());
+            string htmlCode = iim.iimGetLastExtract();
+            string header = iim.iimGetExtract(0);
+
+
+            Stack<string> saleComps = new Stack<string>();
+            Stack<string> listComps = new Stack<string>();
+
+
+            saleComps.Push("S3");
+            saleComps.Push("S2");
+            saleComps.Push("S1");
+
+            listComps.Push("L3");
+            listComps.Push("L2");
+            listComps.Push("L1");
+
+            StringBuilder openTab = new StringBuilder();
+            //openTab.AppendLine(@"ONDOWNLOAD FOLDER=" +  SubjectFilePath.Replace(" ", "<SP>") + " FILE=S1.pdf WAIT=YES");
+
+
+
+            string filepath = search_address_textbox.Text;
+
+            if (!Regex.IsMatch(header, @"showing\s*1\s*of\s*6"))
+            {
+                if (MessageBox.Show("Do you want to start at comp 1?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+
+
+
+
+
+            while (stillComps)
+            {
+
+                if (Regex.IsMatch(htmlCode, @"ACTV|CTG|PEND|TMP"))
+                {
+                    fileName = listComps.Pop();
+                }
+
+                if (Regex.IsMatch(htmlCode, @"CLSD"))
+                {
+                    fileName = saleComps.Pop();
+                }
+
+                if (Regex.IsMatch(htmlCode, @"showing\s*1\s*of\s*6"))
+                {
+                    compNumber = "1";
+                }
+
+                if (Regex.IsMatch(htmlCode, @"showing\s*2\s*of\s*6"))
+                {
+                    compNumber = "2";
+                }
+                if (Regex.IsMatch(htmlCode, @"showing\s*3\s*of\s*6"))
+                {
+                    compNumber = "3";
+                }
+                if (Regex.IsMatch(htmlCode, @"showing\s*4\s*of\s*6"))
+                {
+                    compNumber = "4";
+                }
+                if (Regex.IsMatch(htmlCode, @"showing\s*5\s*of\s*6"))
+                {
+                    compNumber = "5";
+                }
+                if (Regex.IsMatch(htmlCode, @"showing\s*6\s*of\s*6"))
+                {
+                    compNumber = "6";
+                    stillComps = false;
+                }
+                openTab.Clear();
+
+                openTab.AppendLine(@"FRAME NAME=subheader");
+                // openTab.AppendLine(@"ONDOWNLOAD FOLDER=" + SubjectFilePath.Replace(" ", "<SP>") + " FILE=" + fileName + "WAIT=YES");
+                openTab.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:header ATTR=ID:pdf");
+                openTab.AppendLine(@"ONDOWNLOAD FOLDER=" + SubjectFilePath.Replace(" ", "<SP>") + " FILE=" + fileName + ".pdf WAIT=YES");
+                openTab.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:click<SP>here");
+
+                openTab.AppendLine(@"WAIT SECONDS = 10");
+                openTab.AppendLine(@"TAB CLOSE");
+                openTab.AppendLine(@"FRAME NAME=navpanel");
+                openTab.AppendLine(@"TAG POS=1 TYPE=IMG ATTR=SRC:http://connectmls*.mredllc.com/images/next.gif");
+
+                s = iim.iimPlayCode(openTab.ToString());
+                s = iim.iimPlayCode(macro12.ToString());
+                htmlCode = iim.iimGetLastExtract();
+
+
+            }
+            StringBuilder macro2 = new StringBuilder();
+            macro2.AppendLine(@"TAB T=1");
+            macro2.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:BPO$Comparables$MLSPdfUpload2 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\S1.pdf");
+            macro2.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:BPO$Comparables$MLSPdfUpload3 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\S2.pdf");
+            macro2.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:BPO$Comparables$MLSPdfUpload4 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\S3.pdf");
+            macro2.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:BPO$Comparables$MLSPdfUpload5 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\L1.pdf");
+            macro2.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:BPO$Comparables$MLSPdfUpload6 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\L2.pdf");
+            macro2.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:BPO$Comparables$MLSPdfUpload7 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\L3.pdf");
+            macro2.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:Bpo.aspx?control=* ATTR=TXT:Save");
+            iim2.iimPlayCode(macro2.ToString(), 60);
+
+
+           // if (Regex.IsMatch(htmlCode, @"ACTV|CTG|PEND|TMP") )
+           // {
+           //     save_pics_macro.AppendLine(@"ONDOWNLOAD FOLDER=" + filepath.Replace(" ", "<SP>") + " FILE=S" + closed_comps.ToString() + ".jpg");
+           // }
+           // else
+           // {
+           //     save_pics_macro.AppendLine(@"ONDOWNLOAD FOLDER=" + filepath.Replace(" ", "<SP>") + " FILE=L" + active_comps.ToString() + ".jpg");
+           // }
+
+           //      s = iim.iimPlayCode(macro12.ToString());
+           //      htmlCode = iim.iimGetLastExtract();
+               
+            
+
+
+            //#region save comp pic
+            ////open pic tab
+            //StringBuilder openTab = new StringBuilder();
+            //openTab.AppendLine(@"FRAME NAME=subheader");
+
+            //openTab.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:header ATTR=ID:pdf");
+            ////openTab.AppendLine(@"FRAME F=0");
+            //openTab.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=HREF:javascript:openWindow* EXTRACT=TXT");
+
+            //string openTab_macroCode = openTab.ToString();
+            //status = iim.iimPlayCode(openTab_macroCode, 30);
+
+            //openTab.Clear();
+
+            //StringBuilder save_pics_macro = new StringBuilder();
+
+            ////string filepath = "C:\\Users\\Scott\\Documents\\My<SP>Dropbox\\BPOs\\" + search_address_textbox.Text;
+            //string filepath = search_address_textbox.Text;
+            //string filename = "comp.jpg";
+
+            //if (sale_or_list_flag == "sale")
+            //{
+            //    save_pics_macro.AppendLine(@"ONDOWNLOAD FOLDER=" + filepath.Replace(" ", "<SP>") + " FILE=S" + closed_comps.ToString() + ".jpg");
+            //}
+            //else
+            //{
+            //    save_pics_macro.AppendLine(@"ONDOWNLOAD FOLDER=" + filepath.Replace(" ", "<SP>") + " FILE=L" + active_comps.ToString() + ".jpg");
+            //}
+
+            ////line changed for new version of connectmls
+
+            ////save_pics_macro.AppendLine(@"'New tab opened");
+            //// save_pics_macro.AppendLine(@"WAIT SECONDS=2");
+            //save_pics_macro.AppendLine(@"TAB T=2");
+
+            ////save_pics_macro.AppendLine(@"TAG POS=2 TYPE=IMG FORM=NAME:dc ATTR=HREF:""*.JPEG"" CONTENT=EVENT:SAVEITEM");
+            ////save_pics_macro.AppendLine(@"WAIT SECONDS=5");
+            ////also changed for new connectmls
+            ////save_pics_macro.AppendLine(@"TAG POS=2 TYPE=A FORM=NAME:dc ATTR=TXT:Download<SP>This<SP>Photo CONTENT=EVENT:SAVETARGETAS");
+            //// save_pics_macro.AppendLine(@"TAG POS=2 TYPE=A FORM=NAME:dc ATTR=TXT:Download<SP>This<SP>Photo CONTENT=EVENT:SAVEITEM");
+
+            //// iim.iimPlayCode(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=HREF:javascript:openWindow('http%3A%2F%2Ftours.databasedads.com%2F2797441%2F1314-S-W* EXTRACT=TXT");
+
+
+
+
+            //save_pics_macro.AppendLine(@"FRAME F=0");
+
+            //if (iim.iimGetLastExtract().Contains("Virtual Tour"))
+            //{
+            //    // save_pics_macro.AppendLine(@"TAG POS=3 TYPE=IMG FORM=NAME:dc ATTR=HREF:""*.JPEG"" CONTENT=EVENT:SAVEITEM");
+            //    save_pics_macro.AppendLine(@"TAG POS=3 TYPE=IMG FORM=NAME:dc ATTR=HREF:* CONTENT=EVENT:SAVEITEM");
+            //}
+            //else
+            //{
+            //    //  save_pics_macro.AppendLine(@"TAG POS=2 TYPE=IMG FORM=NAME:dc ATTR=HREF:""*.JPEG"" CONTENT=EVENT:SAVEITEM");
+            //    save_pics_macro.AppendLine(@"TAG POS=2 TYPE=IMG FORM=NAME:dc ATTR=HREF:* CONTENT=EVENT:SAVEITEM");
+            //}
+
+
+            ////save_pics_macro.AppendLine(@"WAIT SECONDS=2");
+            //save_pics_macro.AppendLine(@"TAB CLOSE");
+
+            //string save_pics_macroCode = save_pics_macro.ToString();
+            //status = iim.iimPlayCode(save_pics_macroCode, 30);
+            //#endregion
+        }
+
+       
        
 
   

@@ -85,6 +85,7 @@
             this.subject_school_textbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button22 = new System.Windows.Forms.Button();
             this.label44 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.subjectOffMarketDatedateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -455,7 +456,7 @@
             this.subjectBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.subjectBindingNavigator.Name = "subjectBindingNavigator";
             this.subjectBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.subjectBindingNavigator.Size = new System.Drawing.Size(1512, 25);
+            this.subjectBindingNavigator.Size = new System.Drawing.Size(1529, 25);
             this.subjectBindingNavigator.TabIndex = 17;
             this.subjectBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -658,7 +659,7 @@
             this.search_address_textbox.Name = "search_address_textbox";
             this.search_address_textbox.Size = new System.Drawing.Size(472, 20);
             this.search_address_textbox.TabIndex = 26;
-            this.search_address_textbox.Text = "F:\\Dropbox\\BPOs\\1000 Applewood";
+            this.search_address_textbox.Text = "F:\\Dropbox\\BPOs\\73 W OLD MILL TRAIL";
             this.search_address_textbox.TextChanged += new System.EventHandler(this.search_address_textbox_TextChanged);
             this.search_address_textbox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.search_address_textbox_MouseDoubleClick);
             // 
@@ -758,7 +759,7 @@
             this.button_imort_pics.TabIndex = 36;
             this.button_imort_pics.Text = "Upload Pics";
             this.button_imort_pics.UseVisualStyleBackColor = true;
-            this.button_imort_pics.Click += new System.EventHandler(this.button_imort_pics_Click);
+            this.button_imort_pics.Click += new System.EventHandler(this.button_imort_pics_Click2);
             // 
             // button10
             // 
@@ -807,6 +808,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button22);
             this.groupBox1.Controls.Add(this.label44);
             this.groupBox1.Controls.Add(this.label43);
             this.groupBox1.Controls.Add(this.subjectOffMarketDatedateTimePicker);
@@ -904,6 +906,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Subject Info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // button22
+            // 
+            this.button22.Location = new System.Drawing.Point(779, 337);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(75, 23);
+            this.button22.TabIndex = 131;
+            this.button22.Text = "button22";
+            this.button22.UseVisualStyleBackColor = true;
+            this.button22.Click += new System.EventHandler(this.button22_Click);
             // 
             // label44
             // 
@@ -1737,7 +1749,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 983);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1512, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1529, 22);
             this.statusStrip1.TabIndex = 52;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -1836,7 +1848,7 @@
             // 
             this.statusStrip2.Location = new System.Drawing.Point(0, 961);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(1512, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(1529, 22);
             this.statusStrip2.TabIndex = 95;
             this.statusStrip2.Text = "statusStrip2";
             // 
@@ -2284,7 +2296,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1529, 874);
+            this.ClientSize = new System.Drawing.Size(1546, 874);
             this.Controls.Add(this.label42);
             this.Controls.Add(this.ccTargetPriceTextBox);
             this.Controls.Add(this.label41);
@@ -2599,6 +2611,7 @@
         private System.Windows.Forms.DateTimePicker subjectOffMarketDatedateTimePicker;
         private System.Windows.Forms.DateTimePicker subjectListDatedateTimePicker;
         private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Button button22;
     }
 
 }
