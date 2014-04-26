@@ -4239,6 +4239,9 @@ namespace bpohelper
                     //macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/SUBJECT_PROPERTY/APN CONTENT=" + subjectpin_textbox.Text);
                     //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/SUBJECT_PROPERTY/School_District CONTENT=school");
 
+                   // macro3.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:Form1 ATTR=NAME:PS_FORM/RECENT_SALE1/Datasource CONTENT=%MLS");
+
+                 
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Street_Address1_Number CONTENT=" + street_number);
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Street_Address1_Text CONTENT=" + street_name.Replace(" ", "<SP>"));
                     //
@@ -4324,6 +4327,26 @@ namespace bpohelper
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Concessions  CONTENT=None");
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Financing_Concessions CONTENT=None");
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Utility CONTENT=Typical");
+
+
+
+                    if (SubjectDetached)
+                    {
+                        macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Property_Type CONTENT=%SFR<SP>Detached");
+                    }
+
+
+                    if (string.IsNullOrWhiteSpace(mls_subdivision))
+                    {
+                         macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Sub_Neighborhood CONTENT=Unk");
+                    }
+                    else 
+                    {
+                         macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Sub_Neighborhood CONTENT=" + mls_subdivision.Replace(" ", "<SP>"));
+                    }
+                   
+
+
 
 
                     if (input_comp_name.Contains("SALE"))
@@ -4829,6 +4852,8 @@ namespace bpohelper
 
                         macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/List_Price CONTENT=" + current_list_price.Replace("$", "").Replace(",", ""));
 
+                       
+
                         macro3.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                         macro3.AppendLine(@"ONDIALOG POS=2 BUTTON=NO");
                         macro3.AppendLine(@"ONDIALOG POS=3 BUTTON=NO");
@@ -5009,6 +5034,7 @@ namespace bpohelper
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Leasehold CONTENT=Fee<SP>Simple");
                     //
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Fee_Simple CONTENT=Fee<SP>Simple");
+                      macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Fee_Simple CONTENT=%Fee<SP>Simple");
                     macro3.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                     macro3.AppendLine(@"ONDIALOG POS=2 BUTTON=NO");
                     macro3.AppendLine(@"ONDIALOG POS=3 BUTTON=NO");
@@ -5120,6 +5146,7 @@ namespace bpohelper
                     macro3.AppendLine(@"ONDIALOG POS=2 BUTTON=NO");
                     macro3.AppendLine(@"ONDIALOG POS=2 BUTTON=NO");
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/View CONTENT=Residential");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/View CONTENT=%Residential");
                     //fnma
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Design CONTENT=" + type.Replace(" ", "<SP>") + "/Average");
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Construction CONTENT=Average");
@@ -5275,7 +5302,9 @@ namespace bpohelper
 
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Total_Rooms CONTENT=" + room_count);
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Bedrooms CONTENT=" + bedrooms);
-                    macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Bathrooms CONTENT=" + full_bath + "." + half_bath);
+                    macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Bathrooms CONTENT=" + full_bath);
+                    macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Half_Bathrooms CONTENT=" + half_bath);
+
                     macro3.AppendLine(@"ONDIALOG POS=2 BUTTON=OK CONTENT=");
                     macro3.AppendLine(@"ONDIALOG POS=3 BUTTON=OK CONTENT=");
 
@@ -5326,7 +5355,10 @@ namespace bpohelper
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Living_Square_Feet CONTENT=" + mls_gla.Replace(",", ""));
 
                     macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Heating_Cooling CONTENT=Gas<SP>FA/Central");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Heating_Cooling CONTENT=%FWA");
+
                     macro3.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Basement CONTENT=%Yes");
+
                     if (basement.Contains("None"))
                     {
                         
@@ -5338,7 +5370,7 @@ namespace bpohelper
                         macro3.AppendLine(@"ONDIALOG POS=2 BUTTON=NO");
                     }
 
-
+                    macro3.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Fireplace CONTENT=%Yes");
                     if (number_of_firplaces == "")
                     {
                         macro3.AppendLine(@"ONDIALOG POS=2 BUTTON=NO");
@@ -5388,6 +5420,23 @@ namespace bpohelper
                     //TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/RECENT_SALE1/Street_Address1_Number CONTENT=1508
 
                     //macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abSpS1 CONTENT=4321");
+
+
+                    macro3.AppendLine(@"FRAME NAME=_MAIN");
+                  // macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:Form1 ATTR=NAME:PS_FORM/RECENT_SALE1/Datasource CONTENT=%MLS");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Orig_List_Date CONTENT=" + list_date);
+                   
+                    macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Orig_List_Price CONTENT=" + orig_list_price.Replace("$", "").Replace(",", ""));
+                    macro3.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Concessions_Type CONTENT=%None");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Land_Value CONTENT=5000");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Datasource CONTENT=%MLS");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Fee_Simple CONTENT=%Fee<SP>Simple");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Num_Units CONTENT=1");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/View CONTENT=%Residential");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/View_Comparison CONTENT=%Equal");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Other CONTENT=%Average");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Overall_Comp CONTENT=%Equal");
+                    macro3.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:Form1 ATTR=ID:PS_FORM/" + input_comp_name + "/Heating_Cooling CONTENT=%FWA");
 
 
                     macroCode3 = macro3.ToString();
