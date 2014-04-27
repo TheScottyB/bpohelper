@@ -449,6 +449,7 @@ namespace bpohelper
             //non-mls helper fields
             protected string transactionType = "Arms Length";
             protected DateTime dateLastPriceChange;
+            protected int numberOfPriceChanges = 0;
             protected int numberOfAboveGradeLevels = 1;
             protected int calculatedBasementGLA;
             protected int calculatedBasementFinishedGLA;
@@ -525,8 +526,14 @@ namespace bpohelper
 
             #endregion
 
-            #region Listing Dates, Prices and related data
+            #region Listing and Price History, Dates, Prices and related data
 
+
+            public int NumberOfPriceChanges
+            {
+                get { return numberOfPriceChanges; }
+                set { numberOfPriceChanges = value; }
+            }
 
             public double OriginalListPrice
             {

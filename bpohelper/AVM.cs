@@ -9,7 +9,7 @@ namespace bpohelper
 
 
 
-    class AVM
+    class AVM : BPOFulfillment
     {
 /// <summary>
 /// </summary>
@@ -17,7 +17,54 @@ namespace bpohelper
 /// <param name="form"></param>
 /// http://avm.assetval.com/AVM/Realtor/PendingAssignments.aspx
 
-         private Dictionary<string, string> propTypeTranslator = new Dictionary<string, string>()
+      
+        
+          public AVM()
+        {
+            compFieldListTranslator["NumberOfUnits"] = "units";
+            compFieldListTranslator["DataSource"] = "datasource";
+            compFieldListTranslator["GLA"] = "sqft";
+            compFieldListTranslator["TotalRoomCount"] = "rooms";
+            compFieldListTranslator["BedroomCount"] = "bed";
+            compFieldListTranslator["TotalRoomCount"] = "rooms";
+
+            compFieldListTranslator["YearBuilt"] = "yr_built";
+            compFieldListTranslator["LotSize"] = "lotsize";
+            compFieldListTranslator["MainView"] = "view";
+
+            
+     
+            compFieldListTranslator["DOM"] = "dom";
+            compFieldListTranslator["SalePrice"] = "sale_price";
+            compFieldListTranslator["SalesDate"] = "sale_dt";
+
+
+
+
+
+            compFieldListTranslator["NumberOfParkingSpaces"] = "garage";
+
+            compFieldListTranslator.Add("FullBathCount", "bath");
+            compFieldListTranslator.Add("HalfBathCount", "partial_bath");
+            compFieldListTranslator.Add("OverallPropertyCondition", "condition");
+            compFieldListTranslator.Add("OverallLocationDensity", "location");
+            compFieldListTranslator.Add("BuildingSkeleton", "construction");
+            compFieldListTranslator.Add("WaterFront", "waterfront");
+            compFieldListTranslator.Add("OriginalListPrice", "original_lp");
+            compFieldListTranslator.Add("NumberOfPriceReductions", "pricereductions");
+          
+
+        }
+
+
+        public AVM(MLSListing m) 
+            : this()
+        {
+            targetComp = m;
+        }
+        
+        
+        private Dictionary<string, string> propTypeTranslator = new Dictionary<string, string>()
          {
             {"Detached", "Single Family"},
             {"Attached", "Condo"}
@@ -50,8 +97,72 @@ namespace bpohelper
 
          private Dictionary<string, string> subjectFieldList = new Dictionary<string, string>();
 
+
+        private void helper_SetCommonFields()
+        {
+
+
+           
+            compSelectionBoxList.Add(compFieldListTranslator["TransactionType"], "%Arm");
+
+            //
+            //Selection Boxes
+            //
+            compSelectionBoxList.Add(compFieldListTranslator["DataSource"], "%M");
+            compSelectionBoxList.Add(compFieldListTranslator["NumberOfUnits"], "%1");
+            compSelectionBoxList.Add(compFieldListTranslator["OverallPropertyCondition"], "%A");
+            compSelectionBoxList.Add(compFieldListTranslator["OverallLocationDensity"], "%S");
+            compSelectionBoxList.Add(compFieldListTranslator["BuildingSkeleton"], "%F");
+            compSelectionBoxList.Add(compFieldListTranslator["MainView"], "%R");
+            compSelectionBoxList.Add(compFieldListTranslator["WaterFront"], "%N");
+            if (targetComp.NumberOfPriceChanges >= 5)
+            {
+                compSelectionBoxList.Add(compFieldListTranslator["NumberOfPriceReductions"], "%5");
+            }
+            else
+            {
+                compSelectionBoxList.Add(compFieldListTranslator["NumberOfPriceReductions"], "%" + targetComp.NumberOfPriceChanges.ToString());
+            }
+        
+
+            compSelectionBoxList.Add("lotsize_unit", "%A");
+            compSelectionBoxList.Add("gated", "%N");
+            compSelectionBoxList.Add("pool", "%N");
+            compSelectionBoxList.Add("parking", "%D");
+            compSelectionBoxList.Add("designAppeal", "%E");
+
+
+            //
+            //Text Fields
+            //
+            //main characteristics
+            compTextFieldList.Add(compFieldListTranslator["GLA"], targetComp.GLA.ToString());
+            compTextFieldList.Add(compFieldListTranslator["NumberOfUnits"], "1");
+            compTextFieldList.Add(compFieldListTranslator["YearBuilt"], targetComp.YearBuilt.ToString());
+            compTextFieldList.Add(compFieldListTranslator["LotSize"], targetComp.Lotsize.ToString());
+            //rooms
+            compTextFieldList.Add(compFieldListTranslator["TotalRoomCount"], targetComp.TotalRoomCount.ToString());
+            compTextFieldList.Add(compFieldListTranslator["BedroomCount"], targetComp.BedroomCount);
+            compTextFieldList.Add(compFieldListTranslator["FullBathCount"], targetComp.FullBathCount);
+            compTextFieldList.Add(compFieldListTranslator["HalfBathCount"], targetComp.HalfBathCount);
+            //garage
+            compTextFieldList.Add(compFieldListTranslator["NumberOfParkingSpaces"], targetComp.NumberGarageStalls());
+            //pricing and listing history
+            compTextFieldList.Add(compFieldListTranslator["OriginalListPrice"], targetComp.OriginalListPrice.ToString());
+            
+            compTextFieldList.Add(compFieldListTranslator["DOM"], targetComp.DOM);
+            //Misc
+            compTextFieldList.Add("energyeff", "NA");
+            compTextFieldList.Add("other", "NA");
+            compTextFieldList.Add("heat_cool", @"FA/CA");
+            compTextFieldList.Add("concessions", "NA");
+
+
+        }
+
+
       
-        private string  GenerateSubjectFillScript()
+        protected override string  GenerateSubjectFillScript()
         {
             StringBuilder macro = new StringBuilder();
             //borrowers name (already filled)
@@ -122,24 +233,88 @@ namespace bpohelper
         }
 
 
+        protected override void GenerateSaleCompFillScript()
+        {
+            helper_CompFillHeaderScript();
+            helper_SetCommonFields();
+
+            //fields and/or changes specific to SALE comps
+            compFieldListTranslator["CurrentListPrice"] = "sale_lp";
+            compTextFieldList.Add(compFieldListTranslator["CurrentListPrice"], targetComp.CurrentListPrice.ToString());
+            compTextFieldList.Add(compFieldListTranslator["SalePrice"], targetComp.SalePrice.ToString());
+            compTextFieldList.Add(compFieldListTranslator["SalesDate"], targetComp.SalesDate.ToShortDateString());
+
+            foreach (string field in compTextFieldList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:*s{0}_{1} CONTENT={2}\r\n", targetCompNumber, field, compTextFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+            foreach (string field in compSelectionBoxList.Keys)
+            {                      //"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control* ATTR=NAME:*{0}{1} CONTENT={2}");
+                theMacro.AppendFormat("TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:*s{0}_{1} CONTENT={2}\r\n", targetCompNumber, field, compSelectionBoxList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+
+            foreach (string field in compRadioButtonList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ACTION:/Order/OrderEdit* ATTR=NAME:SalesComp{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compRadioButtonList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+            foreach (string field in compCheckboxList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ACTION:/Order/OrderEdit* ATTR=NAME:SalesComp{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compCheckboxList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:*S"+ targetCompNumber + "OrigListDt CONTENT=" + targetComp.ListDateString);
+
+
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ACTION:/Order/OrderEditWizardFNMA/step3/11488927 ATTR=NAME:SalesComp1.HasForcedWarmAirForHeat CONTENT=YES");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ACTION:/Order/OrderEditWizardFNMA/step3/11488927 ATTR=NAME:SalesComp1.HasCentralAir CONTENT=YES");
+            //macro.AppendLine(@"TAG POS=1 TYPE=TD FORM=ACTION:/Order/OrderEditWizardFNMA/step3/11488927 ATTR=CLASS:mceIframeContainer<SP>mceFirst<SP>mceLast");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:/Order/OrderEditWizardFNMA/step3/11488927 ATTR=NAME:SaveButton");  
+        }
+
+        protected override void GenerateListCompFillScript()
+        {
+            helper_CompFillHeaderScript();
+            helper_SetCommonFields();
+
+            //fields and/or changes specific to LIST comps
+            compFieldListTranslator["CurrentListPrice"] = "current_lp";
+            compTextFieldList.Add(compFieldListTranslator["CurrentListPrice"], targetComp.CurrentListPrice.ToString());
+            compTextFieldList.Add("list_dt", targetComp.ListDate.ToShortDateString());
+
+
+            foreach (string field in compTextFieldList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXTFORM=NAME:aspnetForm ATTR=NAME:*l{0}_{1} CONTENT={2}\r\n", targetCompNumber, field, compTextFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+            foreach (string field in compSelectionBoxList.Keys)
+            {                      //"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control* ATTR=NAME:*{0}{1} CONTENT={2}");
+                theMacro.AppendFormat("TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:*l{0}_{1} CONTENT={2}\r\n", targetCompNumber, field, compSelectionBoxList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+
+            foreach (string field in compRadioButtonList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ACTION:/Order/OrderEdit* ATTR=NAME:SalesComp{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compRadioButtonList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+            foreach (string field in compCheckboxList.Keys)
+            {
+                theMacro.AppendFormat("TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ACTION:/Order/OrderEdit* ATTR=NAME:SalesComp{0}.{1} CONTENT={2}\r\n", targetCompNumber, field, compCheckboxList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
+
+
+        }
+
+
+
         public void Prefill(iMacros.App iim, Form1 form)
         {
             
-           // iim.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
-            string currentUrl = iim.iimGetLastExtract();
-
-            StringBuilder macro = new StringBuilder();
-            macro.AppendLine(@"SET !ERRORIGNORE YES");
-            macro.AppendLine(@"SET !TIMEOUT_STEP 1");
-            macro.Append(GenerateSubjectFillScript());
-
-
-            
-         
-
-
-            string macroCode = macro.ToString();
-            iim.iimPlayCode(macroCode, 120);
+           
 
 
         }
@@ -149,86 +324,25 @@ namespace bpohelper
             iim.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
             string currentUrl = iim.iimGetLastExtract();
 
-            string sol;
+            targetCompNumber = Regex.Match(compNum, @"\d").Value;
+
+
             if (saleOrList == "sale")
             {
-                sol = "Comp";
+
+                GenerateSaleCompFillScript();
+
             }
             else
             {
-                sol = "Listing";
-            }
-            StringBuilder macro = new StringBuilder();
-            macro.AppendLine(@"SET !ERRORIGNORE YES");
 
-            macro.AppendLine(@"SET !TIMEOUT_STEP 0");
-            //macro.AppendLine(@"FRAME NAME=pageView");
-            macro.AppendLine(@"SET !REPLAYSPEED FAST");
+                GenerateListCompFillScript();
 
-
-
-            foreach (string field in fieldList.Keys)
-            {
-                if (field.Contains("*"))
-                {
-                    //drop down box
-                    macro.AppendFormat("TAG POS=1 TYPE=SELECT FORM=ID:aspnetForm ATTR=ID:*{0}{1} CONTENT=%{2}\r\n", compNum, field.Replace("*", ""), fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
-                }
-                else
-                {
-                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:*{0}{1} CONTENT={2}\r\n", compNum, field, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
-                }
-
-                //  macro.AppendLine(@"DS CMD=CLICK X={{!TAGX}} Y={{!TAGY}}");
             }
 
-            macro.AppendLine(@"TAG POS=1 TYPE=SPAN ATTR=TXT:close&&CLASS:ui-icon<SP>ui-icon-closethick");
-            macro.AppendLine(@"WAIT SECONDS=1");
+            WriteScript(fieldList["filepath"], compNum + ".iim", theMacro);
 
-
-            //text fields with wrong format
-            // macro.AppendFormat(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_txt{0}Comparison CONTENT={1}", compNum,"Similar");
-
-            //radio buttons
-            if (saleOrList == "list")
-            {
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:*{0}ActivePending_0&&VALUE:L CONTENT={1}\r\n", compNum, "YES");
-            }
-
-            if (currentUrl.ToLower().Contains("evalform2"))
-            {
-                macro.AppendLine(@"TAG POS=2 TYPE=LABEL FORM=ID:aspnetForm ATTR=TXT:MLS");
-
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_chlCS1DataSource_1&&VALUE:on CONTENT=YES");
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_chl{0}DataSource_0&&VALUE:on CONTENT={1}\r\n", compNum, "YES");
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_chl{0}DataSource_1&&VALUE:on CONTENT={1}\r\n", compNum, "YES");
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblLocation{0}_1&&VALUE:SIMILAR CONTENT={1}\r\n", compNum, "YES");
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblView{0}_1&&VALUE:SIMILAR CONTENT={1}\r\n", compNum, "YES");
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblCond{0}_1&&VALUE:SIMILAR CONTENT={1}\r\n", compNum, "YES");
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rbl{0}BasementComp_1&&VALUE:SIMILAR CONTENT={1}\r\n", compNum, "YES");
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rbl{0}Garage_1&&VALUE:SIMILAR CONTENT={1}\r\n", compNum, "YES");
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblREO{0}_1&&VALUE:SIMILAR CONTENT={1}\r\n", compNum, "YES");
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblSubDiv{0}_1&&VALUE:SIMILAR CONTENT={1}\r\n", compNum, "YES");
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblOther{0}_1&&VALUE:SIMILAR CONTENT={1}\r\n", compNum, "YES");
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblOverall{0}_1&&VALUE:SIMILAR CONTENT={1}\r\n", compNum, "YES");
-
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_ddl{0}PropPool_1&&VALUE:0 CONTENT={1}\r\n", compNum, "YES");
-
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblREO{0}_2&&VALUE:{1} CONTENT=YES", compNum, fieldList["SaleType"]);
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblREOCS2_1&&VALUE:SHORTSALE CONTENT=YES");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblREOCS3_0&&VALUE:REO CONTENT=YES");
-
-
-                //macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblLocation{0}_1&&VALUE:SIMILAR CONTENT={1}\r\n", compNum, "YES");
-            }
-            //
-            //TBD
-            //
-            //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:CListOLDate_1");
-            //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:CListCLPrice_1");
-            //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:CListCLDate_1");
-
-            string macroCode = macro.ToString();
+            string macroCode = theMacro.ToString();
             iim.iimPlayCode(macroCode, 60);
         }
     }

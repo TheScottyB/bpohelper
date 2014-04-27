@@ -158,7 +158,7 @@ namespace bpohelper
 
         }
 
-        protected string GenerateSubjectFillScript()
+        protected virtual string GenerateSubjectFillScript()
         {
             StringBuilder macro = new StringBuilder();
             //borrowers name (already filled)
@@ -231,7 +231,7 @@ namespace bpohelper
         protected virtual void GenerateListCompFillScript()
         {
             helper_CompFillHeaderScript();
-                        compSelectionBoxList.Add(compFieldListTranslator["PropertyType"], propTypeTranslator[targetComp.ToString()]);
+            compSelectionBoxList.Add(compFieldListTranslator["PropertyType"], propTypeTranslator[targetComp.ToString()]);
             compSelectionBoxList.Add(compFieldListTranslator["ParkingType"], parkingTypeTranslator[targetComp.GarageString()]);
 
 

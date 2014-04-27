@@ -1301,6 +1301,64 @@ namespace bpohelper
 
                 // Perform the increment on the ProgressBar.
 
+
+
+                //
+                //AVM - First Pass
+                //
+                #region AVM
+                if (currentUrl.ToLower().Contains("avm.assetval.com"))
+                {
+                    #region code
+
+                    s = iim.iimPlayCode(macro12.ToString());
+                    htmlCode = iim.iimGetLastExtract();
+                    if (subjectAttachedRadioButton.Checked)
+                    {
+                        m = new AttachedListing(htmlCode);
+                    }
+                    else if (subjectDetachedradioButton.Checked)
+                    {
+                        m = new DetachedListing(htmlCode);
+                    }
+                    else
+                    {
+                        m = new MLSListing(htmlCode);
+                    }
+
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
+                    m.NumberOfPriceChanges = count;
+
+                    Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                    AVM bpoform = new AVM(m);
+
+                    fieldList.Add("filepath", SubjectFilePath);
+
+                    #endregion
+
+                    #region basementlogic
+
+
+
+
+                    #endregion
+
+                    #region garagelogic
+
+                    #endregion
+
+                    #region fireplacelogic
+
+                    #endregion
+
+                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
+                    status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
+
+                }
+
+                #endregion  
+
                 //
                 //M2M Fannie Mae Form
                 //
@@ -2899,7 +2957,7 @@ namespace bpohelper
 
                     fieldList.Add("filepath", SubjectFilePath);
 
-                    #endregion
+                
 
                     bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
                 
@@ -2908,7 +2966,9 @@ namespace bpohelper
 
 
                 }
-               
+
+                #endregion
+
 
                 #region valuationPartners
                 if (streetnumTextBox.Text == "vp")
@@ -7323,6 +7383,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
 
             if (File.Exists(SubjectFilePath + "\\subjectinfo.txt"))
             {
+                #region load data from subjectinfo file
                 string line = "";
                 string[] splitLine;
                 using (System.IO.StreamReader file = new System.IO.StreamReader(this.SubjectFilePath + "\\" + "subjectinfo.txt"))
@@ -7372,10 +7433,13 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                         }
                     }
                 }
+
+                #endregion
+
             }
             else
             {
-                #region LoadPdfs
+                #region Load Date from Pdf files
                 foreach (string f in filePaths)
                 {
                     if (f.ToLower().Contains("realist"))
@@ -7491,7 +7555,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
 
 
                 }
-                #endregion
+      
 
                 try
                 {
@@ -7515,6 +7579,8 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
 
                 subjectTownshipTextBox.Text = realistSubject.Township;
                 subjectTaxAmountTextBox.Text = GlobalVar.theSubjectProperty.PropertyTax;
+
+                #endregion
             }
 
             try
@@ -7551,7 +7617,11 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                 GlobalVar.subjectPoint = Geocode(subjectFullAddressTextbox.Text);
             }
 
-           
+
+
+            GlobalVar.theSubjectProperty.County = SubjectCounty;
+
+
 
             //DataTable subject_table = subjectTableAdapter.GetData();
             //MessageBox.Show(realist_lot_acres + " " + pin + " " + realist_percent_improved + " " + realist_school_district + " " + realist_census_tract + " " + realist_carrier_route + " " + realist_subdivision);
