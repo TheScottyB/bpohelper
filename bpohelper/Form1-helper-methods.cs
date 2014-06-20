@@ -46,6 +46,9 @@ namespace bpohelper
 
         public static IEnumerable<MLSListing> listingsSearchResults;
 
+        public static string sandbox = "";
+
+
     }
 
     public class BpoOrder

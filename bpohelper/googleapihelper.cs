@@ -3,16 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Google.Apis.Fusiontables.v1;
-using DotNetOpenAuth.OAuth2;
-using Google.Apis.Authentication;
-using Google.Apis.Authentication.OAuth2;
-using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
+//using DotNetOpenAuth.OAuth2;
+//using Google.Apis.Authentication;
+using Google.Apis.Auth.OAuth2;
+//using Google.Apis.Authentication.OAuth2;
+//using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
 using Google.Apis.Samples.Helper;
 using Google.Apis.Util;
 using System.Threading;
 using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
+using Google.Apis.Datastore.v1beta2;
+using System.Windows.Forms;
+using Google.Apis.Services;
+
+using System.Threading;
+using System.Threading.Tasks;
+using Google.Apis.Util.Store;
+
+
 
 
 
@@ -35,11 +45,28 @@ namespace bpohelper
         {
             callingForm = (bpohelper.Form1) Form1.ActiveForm;
             // Register the authenticator.
-            var provider = new NativeApplicationClient(GoogleAuthenticationServer.Description);
-            provider.ClientIdentifier = "982969682733.apps.googleusercontent.com";
-            provider.ClientSecret = "ADjXMNxzAqa35fB4Z12UORM9";
-            var auth = new OAuth2Authenticator<NativeApplicationClient>(provider, GetAuthentication);
-            service = new FusiontablesService(auth);
+            //var provider = new NativeApplicationClient(GoogleAuthenticationServer.Description);
+            //provider.ClientIdentifier = "982969682733.apps.googleusercontent.com";
+            //provider.ClientSecret = "ADjXMNxzAqa35fB4Z12UORM9";
+            //var auth = new OAuth2Authenticator<NativeApplicationClient>(provider, GetAuthentication);
+            
+            //service = new FusiontablesService(auth);
+            service = new FusiontablesService();
+           
+
+
+            //var service = new BooksService(new BaseClientService.Initializer()
+            //{
+            //    HttpClientInitializer = credential,
+            //    ApplicationName = "Books API Sample",
+            //});
+
+            //// Create the service.
+            //var service = new DiscoveryService(new BaseClientService.Initializer
+            //{
+            //    ApplicationName = "Discovery Sample",
+            //    APIKey = "[YOUR_API_KEY_HERE]",
+            //});
             
         }
 
@@ -48,7 +75,8 @@ namespace bpohelper
             tableId = t;
             var tableColums = service.Column.List(tableId);
             tableColums.MaxResults = 150;
-            cl = tableColums.Fetch();
+             cl = tableColums.Execute();
+            //cl = tableColums.
             newService = service;
         }
 
@@ -62,7 +90,7 @@ namespace bpohelper
             Google.Apis.Fusiontables.v1.Data.Column newCol = new Google.Apis.Fusiontables.v1.Data.Column();
             newCol.Name = name;
             newCol.Type = "STRING";
-            service.Column.Insert(newCol, tableId).Fetch();
+            service.Column.Insert(newCol, tableId).Execute();
             cl.Items.Add(newCol);
         }
 
@@ -76,18 +104,18 @@ namespace bpohelper
             Google.Apis.Fusiontables.v1.Data.Sqlresponse ttt = new Google.Apis.Fusiontables.v1.Data.Sqlresponse();
             try
             {
-                ttt = service.Query.SqlGet(sqlGetQuery).Fetch();
+                ttt = service.Query.SqlGet(sqlGetQuery).Execute();
             }
             catch
             {
                 callingForm.GoogleApiCall("Failed, Waiting to retry....");
                 Thread.Sleep(1000);
-                ttt = service.Query.SqlGet(sqlGetQuery).Fetch();
+                ttt = service.Query.SqlGet(sqlGetQuery).Execute();
             }
-            if (ttt.Rows.IsNullOrEmpty())
+            if (ttt.Rows.Count == 0)
             {
                 callingForm.GoogleApiCall("No, Adding Record---->");
-                var rep = service.Query.Sql(sqlQuery).Fetch();
+                var rep = service.Query.Sql(sqlQuery).Execute();
                 var rowID = rep.Rows[0][0];
                 callingForm.GoogleApiCall("rowid<----" + rowID.ToString());
                 m_rowid = rowID.ToString();
@@ -100,15 +128,20 @@ namespace bpohelper
             }
             else
             {
-                if (ttt.Rows[0][0] == "")
+                if (ttt.Rows[0][0].ToString() == "")
                 {
                     this.UpdateRecord(sPin, "Location", sAddress);
                     this.UpdateRecord(sPin, "Date", DateTime.Now.ToShortDateString());
 
                 }
 
-                var what = ttt.Columns.Zip(ttt.Rows[0], (first, second) => new KeyValuePair<string, string>(first, second));
-                curRec = what.ToDictionary(k => k.Key, v => v.Value);
+                var temp = ttt.Rows;
+                var temp2 = temp.ToArray();
+                string  temp3 = temp2[0].ToString();
+
+
+                var what = ttt.Columns.Zip(ttt.Rows[0], (first, second) => new KeyValuePair<string, string>(first, second.ToString()));
+                 curRec = what.ToDictionary(k => k.Key, v => v.Value );
                 callingForm.GoogleApiCall("<----Yes");
             }
             RecordExists(sPin);
@@ -124,18 +157,18 @@ namespace bpohelper
             Google.Apis.Fusiontables.v1.Data.Sqlresponse ttt = new Google.Apis.Fusiontables.v1.Data.Sqlresponse();
             try
             {
-                ttt = service.Query.SqlGet(sqlGetQuery).Fetch();
+                ttt = service.Query.SqlGet(sqlGetQuery).Execute();
             }
             catch
             {
                 callingForm.GoogleApiCall("Failed, Waiting to retry....");
                 Thread.Sleep(1000);
-                ttt = service.Query.SqlGet(sqlGetQuery).Fetch();
+                ttt = service.Query.SqlGet(sqlGetQuery).Execute();
             }
-            if (ttt.Rows.IsNullOrEmpty())
+            if (ttt.Rows.Count == 0)
             {
                 callingForm.GoogleApiCall("No, Adding Record---->");
-                service.Query.Sql(sqlQuery).Fetch();
+                service.Query.Sql(sqlQuery).Execute();
 
             }
             else
@@ -167,7 +200,7 @@ namespace bpohelper
              {"Longitude", ""}
             };
 
-            if (curRec["Latitude"].IsNullOrEmpty() || curRec["Longitude"].IsNullOrEmpty())
+            if (string.IsNullOrEmpty(curRec["Latitude"]) || string.IsNullOrEmpty(curRec["Longitude"]))
             {
 
 
@@ -230,20 +263,20 @@ namespace bpohelper
             string rowIdQurey = "SELECT ROWID FROM " + tableId + " WHERE 'Parcel ID:'=" + pin;
            
 
-            var r = service.Query.Sql(rowIdQurey).Fetch();
+            var r = service.Query.Sql(rowIdQurey).Execute();
             try
             {
-                rowid = r.Rows[0][0];
+                rowid = r.Rows[0][0].ToString();
             }
             catch
             {
                 Thread.Sleep(1600);
-                r = service.Query.Sql(rowIdQurey).Fetch();
-                rowid = r.Rows[0][0];
+                r = service.Query.Sql(rowIdQurey).Execute();
+                rowid = r.Rows[0][0].ToString();
             }
             string sqlQuery = @"UPDATE " + tableId + " SET '" + name + "' = '" + value + "' WHERE ROWID = '" + rowid + "'";
 
-            service.Query.Sql(sqlQuery).Fetch();
+            service.Query.Sql(sqlQuery).Execute();
 
 
 
@@ -266,7 +299,7 @@ namespace bpohelper
             callingForm.GoogleApiCall("Get Row ID---->");
 
             //if (m_rowid.IsNullOrEmpty())
-            if (m_rowid.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(m_rowid))
             {
 
 
@@ -275,14 +308,14 @@ namespace bpohelper
 
                 var newrecord = newService.Query.SqlGet(rowIdQurey);
                 var ccc = service.Query.SqlGet(rowIdQurey);
-                var r = ccc.Fetch();
-               // var ar = service.Query.SqlGet(rowIdQurey).Fetch();
+                var r = ccc.Execute();
+               // var ar = service.Query.SqlGet(rowIdQurey).Execute();
                 
                 //r = ar;
                 //string fff = newrecord.Rows[0][0];
 
 
-                // r = service.Query.Sql(rowIdQurey).Fetch();
+                // r = service.Query.Sql(rowIdQurey).Execute();
                 //Thread.Sleep(sleepTime+1000);
                 while (r.Rows == null || r.Rows.Count < 1)
                 {
@@ -291,14 +324,14 @@ namespace bpohelper
                     Thread.Sleep(sleepTime);
                     callingForm.GoogleApiCall("Get Row ID---->");
 
-                    r = newService.Query.Sql(rowIdQurey).Fetch();
+                    r = newService.Query.Sql(rowIdQurey).Execute();
                     //Thread.Sleep(sleepTime);
                     sleepTime = sleepTime + 1000;
 
                 }
 
 
-                rowid = r.Rows[0][0];
+                rowid = r.Rows[0][0].ToString();
                 callingForm.GoogleApiCall("<----Row ID: " + rowid);
             }
             else
@@ -314,7 +347,7 @@ namespace bpohelper
             
             //catch
             //{
-            //    r = service.Query.Sql(rowIdQurey).Fetch();
+            //    r = service.Query.Sql(rowIdQurey).Execute();
             //    rowid = r.Rows[0][0];
             //}
 
@@ -337,16 +370,16 @@ namespace bpohelper
 
                 try
                 {
-                    returnRespone = service.Query.Sql(getRecSql).Fetch();
+                    returnRespone = service.Query.Sql(getRecSql).Execute();
                 }
                 catch
                 {
                     callingForm.GoogleApiCall("Failed, Waiting to retry....");
                     Thread.Sleep(1000);
-                    returnRespone = service.Query.Sql(getRecSql).Fetch();
+                    returnRespone = service.Query.Sql(getRecSql).Execute();
                 }
                 returnResponeList = returnRespone.Rows;
-                //var returnRespone = service.Query.Sql(getRecSql).Fetch();
+                //var returnRespone = service.Query.Sql(getRecSql).Execute();
                 //var returnResponeList = returnRespone.Rows;
 
 
@@ -355,13 +388,13 @@ namespace bpohelper
                 {
                     callingForm.GoogleApiCall("Failed, Waiting to retry....");
                     Thread.Sleep(1000);
-                    returnRespone = service.Query.Sql(getRecSql).Fetch();
+                    returnRespone = service.Query.Sql(getRecSql).Execute();
                     returnResponeList = returnRespone.Rows;
                 }
 
                 callingForm.GoogleApiCall("<---- Got record for: " + pin);
                 //this works to see if the current record in the table and the one just read are equal
-                var what = returnRespone.Columns.Zip(returnResponeList[0], (first, second) => new KeyValuePair<string, string>(first, second));
+                var what = returnRespone.Columns.Zip(returnResponeList[0],  (first, second) => new KeyValuePair<string, string>(first, second.ToString()));
                 fieldListFusion = what.ToDictionary(k => k.Key, v => v.Value);
             }
 
@@ -388,7 +421,7 @@ namespace bpohelper
                     nameValuePairs = nameValuePairs.Insert(0, "'" + key + "' = '" + updates[key].Replace("'","") + "',");
                    // string sqlQuery = @"UPDATE " + tableId + " SET " + "'" + key + "' = '" + updates[key] + "'" + " WHERE ROWID = '" + rowid + "'";
 
-                   // service.Query.Sql(sqlQuery).Fetch();
+                   // service.Query.Sql(sqlQuery).Execute();
                     //Thread.Sleep(300);
 
                     // string sqlQuery = @"INSERT INTO " + tableId + " ('Parcel ID:', Date, Location) VALUES (" + sPin + ", '" + DateTime.Now.ToShortDateString() +"' ,'" + sAddress +"')";
@@ -403,7 +436,7 @@ namespace bpohelper
                         try
                         {
                             callingForm.GoogleApiCall("Update Record---->");
-                            service.Query.Sql(sqlQuery).Fetch();
+                            service.Query.Sql(sqlQuery).Execute();
                         }
                         catch (Exception ex)
                         {
@@ -414,13 +447,13 @@ namespace bpohelper
                                 Thread.Sleep(1000);
                                 try
                                 {
-                                    service.Query.Sql(sqlQuery).Fetch();
+                                    service.Query.Sql(sqlQuery).Execute();
                                 }
                                 catch
                                 {
                                     callingForm.GoogleApiCall("Failed, 503. Waiting to retry...");
                                     Thread.Sleep(5000);
-                                    service.Query.Sql(sqlQuery).Fetch();
+                                    service.Query.Sql(sqlQuery).Execute();
                                 }
                                
                             }
@@ -437,7 +470,7 @@ namespace bpohelper
                     try
                     {
                         callingForm.GoogleApiCall("Update Record---->");
-                        service.Query.Sql(sqlQuery).Fetch();
+                        service.Query.Sql(sqlQuery).Execute();
                     }
                     catch (Exception ex)
                     {
@@ -448,7 +481,7 @@ namespace bpohelper
                             Thread.Sleep(1500);
                             try
                             {
-                                service.Query.Sql(sqlQuery).Fetch();
+                                service.Query.Sql(sqlQuery).Execute();
                             }
                             catch
                             {
@@ -456,13 +489,13 @@ namespace bpohelper
                                 Thread.Sleep(5000);
                                 try
                                 {
-                                    service.Query.Sql(sqlQuery).Fetch();
+                                    service.Query.Sql(sqlQuery).Execute();
                                 }
                                 catch
                                 {
                                     callingForm.GoogleApiCall("Failed, 503. Waiting to retry...");
                                     Thread.Sleep(15000);
-                                    service.Query.Sql(sqlQuery).Fetch();
+                                    service.Query.Sql(sqlQuery).Execute();
                                 }
                             }
 
@@ -483,7 +516,7 @@ namespace bpohelper
 
           // string sqlQuery = @"UPDATE " + tableId + " SET " + nameValuePairs.Remove(nameValuePairs.Length - 1) + " WHERE ROWID = '" + rowid + "'";
 
-          //  service.Query.Sql(sqlQuery).Fetch();
+          //  service.Query.Sql(sqlQuery).Execute();
 
 
         }
@@ -510,25 +543,25 @@ namespace bpohelper
             //}
 
 
-            //var returnRespone = service.Query.Sql(getRecSql).Fetch();
+            //var returnRespone = service.Query.Sql(getRecSql).Execute();
             //var returnResponeList = returnRespone.Rows;
             Google.Apis.Fusiontables.v1.Data.Sqlresponse returnRespone = new Google.Apis.Fusiontables.v1.Data.Sqlresponse();
             
             try
             {
                 callingForm.GoogleApiCall("Record Exsists?---->");
-                returnRespone = service.Query.Sql(getRecSql).Fetch();
+                returnRespone = service.Query.Sql(getRecSql).Execute();
             }
             catch
             {
                 callingForm.GoogleApiCall("Failed, Waiting to retry....");
                 Thread.Sleep(1000);
-                returnRespone = service.Query.Sql(getRecSql).Fetch();
+                returnRespone = service.Query.Sql(getRecSql).Execute();
             }
             var returnResponeList = returnRespone.Rows;
-            if (returnRespone.Rows.IsNotNullOrEmpty())
+            if (returnRespone.Rows.Count == 0)
             {
-                var what = returnRespone.Columns.Zip(returnResponeList[0], (first, second) => new KeyValuePair<string, string>(first, second));
+                var what = returnRespone.Columns.Zip(returnResponeList[0], (first, second) => new KeyValuePair<string, string>(first, second.ToString()));
                 curRec = what.ToDictionary(k => k.Key, v => v.Value);
                 callingForm.GoogleApiCall("<----Yes");
                 lastPin = pin;
@@ -544,40 +577,40 @@ namespace bpohelper
             
         }
 
-        private static IAuthorizationState GetAuthentication(NativeApplicationClient client)
-        {
-            // You should use a more secure way of storing the key here as
-            // .NET applications can be disassembled using a reflection tool.
-            const string STORAGE = "google.samples.dotnet.fusiontable";
-            const string KEY = "fusion";
+        //private static IAuthorizationState GetAuthentication(NativeApplicationClient client)
+        //{
+        //    // You should use a more secure way of storing the key here as
+        //    // .NET applications can be disassembled using a reflection tool.
+        //    const string STORAGE = "google.samples.dotnet.fusiontable";
+        //    const string KEY = "fusion";
 
-            string scope = FusiontablesService.Scopes.Fusiontables.GetStringValue();
-
-
-            // Check if there is a cached refresh token available.
-            IAuthorizationState state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
-            if (state != null)
-            {
-                try
-                {
-                    client.RefreshToken(state);
-                    return state; // Yes - we are done.
-                }
-                catch (DotNetOpenAuth.Messaging.ProtocolException ex)
-                {
-                    CommandLine.WriteError("Using existing refresh token failed: " + ex.Message);
-                }
-            }
+        //    string scope = FusiontablesService.Scope.Fusiontables.ToString();
 
 
+        //    // Check if there is a cached refresh token available.
+        //    IAuthorizationState state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
+        //    if (state != null)
+        //    {
+        //        try
+        //        {
+        //            client.RefreshToken(state);
+        //            return state; // Yes - we are done.
+        //        }
+        //        catch (DotNetOpenAuth.Messaging.ProtocolException ex)
+        //        {
+        //            CommandLine.WriteError("Using existing refresh token failed: " + ex.Message);
+        //        }
+        //    }
 
 
-            // Retrieve the authorization from the user.
-            state = AuthorizationMgr.RequestNativeAuthorization(client, scope);
-            AuthorizationMgr.SetCachedRefreshToken(STORAGE, KEY, state);
 
-            return state;
-        }
+
+        //    // Retrieve the authorization from the user.
+        //    state = AuthorizationMgr.RequestNativeAuthorization(client, scope);
+        //    AuthorizationMgr.SetCachedRefreshToken(STORAGE, KEY, state);
+
+        //    return state;
+        //}
 
 
     }
@@ -620,6 +653,112 @@ namespace bpohelper
     }
 
 
+class GoogleCloudDatastore
+{
 
+    static bpohelper.Form1 callingForm;
+
+    static DatastoreService service;
+
+
+
+    public  async Task DataStoreTester()
+    //public void   DataStoreTester()
+        {
+            callingForm = (bpohelper.Form1) Form1.ActiveForm;
+            // Register the authenticator.
+           // var provider = new NativeApplicationClient(GoogleAuthenticationServer.Description);
+          //  provider.ClientIdentifier = "982969682733.apps.googleusercontent.com";
+          //  provider.ClientSecret = "ADjXMNxzAqa35fB4Z12UORM9";
+         
+
+
+            UserCredential credential;
+
+            credential =  await GoogleWebAuthorizationBroker.AuthorizeAsync(
+              new ClientSecrets
+              {
+                  ClientId = "22551269451-d4of6t3jojd2ocgaeo3oeq2btdngvolt.apps.googleusercontent.com",
+                  ClientSecret = "5QVYYob3m49VO_ORSvyfE3m7"
+                 // APIKey ="AIzaSyDsAcyc5WOw0IqvR93VR8cVsWCHJ8ZoDq4"
+              },
+              new[] { DatastoreService.Scope.Datastore },
+              "user",
+              CancellationToken.None,
+              new FileDataStore("Books.ListMyLibrary"));
+              
+
+            //service = new FusiontablesService(auth);
+           service = new DatastoreService(new BaseClientService.Initializer() 
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = "Books API Sample",
+                
+            });
+
+      
+
+        	//	Google.Apis.Datastore.v1beta2.Data.RunQueryRequest body = new Google.Apis.Datastore.v1beta2.Data.RunQueryRequest();
+
+              //  Google.Apis.Datastore.v1beta2.Data.Query myq = new Google.Apis.Datastore.v1beta2.Data.Query();
+
+               
+
+             //   body.Query = myq;
+
+              //  Google.Apis.Datastore.v1beta2.DatasetsResource.RunQueryRequest rqr = new Google.Apis.Datastore.v1beta2.DatasetsResource.RunQueryRequest(service, body, "active-century-477");
+
+                                                    
+           var ent = service.Datasets.RunQuery(new Google.Apis.Datastore.v1beta2.Data.RunQueryRequest(), "active-century-477");
+           MessageBox.Show(ent.ToString());
+           Google.Apis.Datastore.v1beta2.Data.RunQueryResponse res;
+         
+           
+            res =   ent.Execute();
+
+           string str = res.Batch.EntityResults.Count.ToString();
+           GlobalVar.sandbox = str;
+
+          MessageBox.Show( res.Batch.EntityResults.Count.ToString());
+          
+
+         //  var ttt = rqr.Execute();
+
+           ///var ttt = service.Datasets.RunQuery(r, "active-century-477").Execute();
+           MessageBox.Show(res.Header.Kind);
+
+             MessageBox.Show(res.ToString());
+
+            //var service = new BooksService(new BaseClientService.Initializer()
+            //{
+            //    HttpClientInitializer = credential,
+            //    ApplicationName = "Books API Sample",
+            //});
+
+            //// Create the service.
+            //var service = new DiscoveryService(new BaseClientService.Initializer
+            //{
+            //    ApplicationName = "Discovery Sample",
+            //    APIKey = "AIzaSyDsAcyc5WOw0IqvR93VR8cVsWCHJ8ZoDq4",
+            //});
+            
+        }
+
+    // public void  DataStoreTester ()
+    //{
+    //     Google.Apis.Datastore.v1beta2.Data.RunQueryRequest r = new Google.Apis.Datastore.v1beta2.Data.RunQueryRequest();
+    //     //r.Query = new Google.Apis.Datastore.v1beta2.Data.Query();
+
+
+
+    //     var ttt = service.Datasets.RunQuery(r, "active-century-477").Execute();
+
+
+    //     MessageBox.Show(ttt.ToString());
+
+
+    //}
+
+}
 
 }

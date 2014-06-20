@@ -234,6 +234,7 @@
             this.tableAdapterManager2 = new bpohelper._BPO_SandboxDataSetTableAdapters.TableAdapterManager();
             this.rawSFDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rawSFDataTableAdapter = new bpohelper._BPO_SandboxDataSetTableAdapters.RawSFDataTableAdapter();
+            this.button23 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -456,7 +457,7 @@
             this.subjectBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.subjectBindingNavigator.Name = "subjectBindingNavigator";
             this.subjectBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.subjectBindingNavigator.Size = new System.Drawing.Size(1580, 25);
+            this.subjectBindingNavigator.Size = new System.Drawing.Size(1597, 25);
             this.subjectBindingNavigator.TabIndex = 17;
             this.subjectBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -659,7 +660,6 @@
             this.search_address_textbox.Name = "search_address_textbox";
             this.search_address_textbox.Size = new System.Drawing.Size(472, 20);
             this.search_address_textbox.TabIndex = 26;
-            this.search_address_textbox.Text = "F:\\Dropbox\\BPOs\\7417 Hickory Trl";
             this.search_address_textbox.TextChanged += new System.EventHandler(this.search_address_textbox_TextChanged);
             this.search_address_textbox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.search_address_textbox_MouseDoubleClick);
             // 
@@ -1749,7 +1749,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 983);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1580, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1597, 22);
             this.statusStrip1.TabIndex = 52;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -1848,7 +1848,7 @@
             // 
             this.statusStrip2.Location = new System.Drawing.Point(0, 961);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(1580, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(1597, 22);
             this.statusStrip2.TabIndex = 95;
             this.statusStrip2.Text = "statusStrip2";
             // 
@@ -2288,6 +2288,16 @@
             // 
             this.rawSFDataTableAdapter.ClearBeforeFill = true;
             // 
+            // button23
+            // 
+            this.button23.Location = new System.Drawing.Point(400, 199);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(63, 31);
+            this.button23.TabIndex = 125;
+            this.button23.Text = "button23";
+            this.button23.UseVisualStyleBackColor = true;
+            this.button23.Click += new System.EventHandler(this.button23_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2296,7 +2306,8 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1597, 874);
+            this.ClientSize = new System.Drawing.Size(1614, 874);
+            this.Controls.Add(this.button23);
             this.Controls.Add(this.label42);
             this.Controls.Add(this.ccTargetPriceTextBox);
             this.Controls.Add(this.label41);
@@ -2612,6 +2623,7 @@
         private System.Windows.Forms.DateTimePicker subjectListDatedateTimePicker;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Button button22;
+        private System.Windows.Forms.Button button23;
     }
 
 }

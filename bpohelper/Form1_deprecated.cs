@@ -910,7 +910,7 @@ namespace bpohelper
         {
 
             StringBuilder macro = new StringBuilder();
-
+            iim.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
             iim2.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
 
             string currentUrl = iim2.iimGetLastExtract();
@@ -963,9 +963,12 @@ namespace bpohelper
             #endregion
 
 
-            if (currentUrl.ToLower().Contains("rapidclose"))
+            //if (currentUrl.ToLower().Contains("rapidclose"))
+
+            if (iim2.iimGetLastExtract().ToLower().Contains("rapidclose") || iim.iimGetLastExtract().ToLower().Contains("rapidclose"))
             {
 
+                
                 string[] fileEntries = Directory.GetFiles(search_address_textbox.Text);
 
                 foreach (string fileName in fileEntries)
@@ -1084,7 +1087,15 @@ namespace bpohelper
                 //macro.AppendLine(@"TAB T=1");
                 //macro.AppendLine(@"TAB CLOSE");
                 string macroCode = macro.ToString();
-                status = iim2.iimPlayCode(macroCode, 30);
+                if (iim2.iimGetLastExtract().ToLower().Contains("rapidclose") )
+                {
+                    status = iim2.iimPlayCode(macroCode, 30);
+                }else
+                {
+                    status = iim.iimPlayCode(macroCode, 30);
+                }
+
+               
             }
             else if (currentUrl.ToLower().Contains("propertysmart"))
             {

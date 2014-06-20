@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.ComponentModel;
@@ -149,10 +151,15 @@ namespace bpohelper
                     iim = browser1;
                     iim2 = browser2;
                 }
-                else if (b1Url.Contains("about:blank"))
+                else if (b2Url.Contains("about:blank"))
                 {
                     iim2 = browser1;
                     iim = browser2;
+                }
+                else
+                {
+                    iim = browser1;
+                    iim2 = browser2;
                 }
                 
             }
@@ -9019,54 +9026,61 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
         private void button_imort_pics_Click2(object sender, EventArgs e)
         {
-            StringBuilder macro = new StringBuilder();
-            macro.AppendLine(@"SET !TIMEOUT_STEP 200");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$lnkManualImages");
-            macro.AppendLine(@"FRAME NAME=sb-player");
-            macro.AppendLine(@"'TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl04$UploadFile");
-            macro.AppendLine(@"TAB T=1");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl02$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\L1.jpg");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl03$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\l2.jpg");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl04$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\l3.jpg");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl05$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\s1.jpg");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl06$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\s2.jpg");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl07$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\s3.jpg");
 
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl08$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\address.jpg");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl09$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\front.jpg");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl10$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\left.jpg");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl11$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\right.jpg");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl12$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\street.jpg");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl13$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\street2.jpg");
+            
+            
+            
+            this.button_imort_pics_Click(sender, e);
 
-            macro.AppendLine(@"");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:cmdUpload");
-            macro.AppendLine(@"'FRAME F=0");
-            macro.AppendLine(@"'TAG POS=1 TYPE=INPUT ATTR=ID:dgManualPhotos_ctl04_UploadFile");
+            
+            //StringBuilder macro = new StringBuilder();
+            //macro.AppendLine(@"SET !TIMEOUT_STEP 200");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$lnkManualImages");
+            //macro.AppendLine(@"FRAME NAME=sb-player");
+            //macro.AppendLine(@"'TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl04$UploadFile");
+            //macro.AppendLine(@"TAB T=1");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl02$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\L1.jpg");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl03$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\l2.jpg");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl04$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\l3.jpg");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl05$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\s1.jpg");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl06$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\s2.jpg");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl07$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\s3.jpg");
+
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl08$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\address.jpg");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl09$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\front.jpg");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl10$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\left.jpg");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl11$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\right.jpg");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl12$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\street.jpg");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:dgManualPhotos$ctl13$UploadFile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\street2.jpg");
+
+            //macro.AppendLine(@"");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:PhotoUploader.aspx?m=1&type=bpo&oid=* ATTR=NAME:cmdUpload");
+            //macro.AppendLine(@"'FRAME F=0");
+            //macro.AppendLine(@"'TAG POS=1 TYPE=INPUT ATTR=ID:dgManualPhotos_ctl04_UploadFile");
           
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl00$cboImage CONTENT=%8");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl01$cboImage CONTENT=%9");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl02$cboImage CONTENT=%10");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl03$cboImage CONTENT=%5");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl04$cboImage CONTENT=%6");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl05$cboImage CONTENT=%7");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl00$cboImage CONTENT=%8");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl01$cboImage CONTENT=%9");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl02$cboImage CONTENT=%10");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl03$cboImage CONTENT=%5");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl04$cboImage CONTENT=%6");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl05$cboImage CONTENT=%7");
 
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl06$cboImage CONTENT=%2");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl07$cboImage CONTENT=%1");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl08$cboImage CONTENT=%24");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl09$cboImage CONTENT=%25");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl10$cboImage CONTENT=%3");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl11$cboImage CONTENT=%27");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl06$cboImage CONTENT=%2");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl07$cboImage CONTENT=%1");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl08$cboImage CONTENT=%24");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl09$cboImage CONTENT=%25");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl10$cboImage CONTENT=%3");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$dlImages$ctl11$cboImage CONTENT=%27");
 
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboRecommended CONTENT=%113");
-            macro.AppendLine(@"");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboNewConstruction CONTENT=%113");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboDisaster CONTENT=%113");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboResaleProblem CONTENT=%113");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboRecommended CONTENT=%113");
+            //macro.AppendLine(@"");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboNewConstruction CONTENT=%113");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboDisaster CONTENT=%113");
+            //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:Bpo.aspx?control=* ATTR=NAME:Bpo$Repairs$cboResaleProblem CONTENT=%113");
 
-            macro.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:Bpo.aspx?control=* ATTR=TXT:Save");
-            string macroCode = macro.ToString();
-            iim2.iimPlayCode(macroCode, 60);
+            //macro.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:Bpo.aspx?control=* ATTR=TXT:Save");
+            //string macroCode = macro.ToString();
+            //iim2.iimPlayCode(macroCode, 60);
         }
 
         private void button22_Click(object sender, EventArgs e)
@@ -9271,6 +9285,14 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             //string save_pics_macroCode = save_pics_macro.ToString();
             //status = iim.iimPlayCode(save_pics_macroCode, 30);
             //#endregion
+        }
+
+        private async void button23_Click(object sender, EventArgs e)
+        {
+            GoogleCloudDatastore gcds = new GoogleCloudDatastore();
+              await gcds.DataStoreTester();
+
+              MessageBox.Show(GlobalVar.sandbox);
         }
 
        

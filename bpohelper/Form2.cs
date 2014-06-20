@@ -72,14 +72,14 @@ namespace bpohelper
             // Create the service.
             //var service = new PredictionService(auth);
 
-            var service = new FusiontablesService(auth);
+            var service = new FusiontablesService();
 
             string sqlQuery = @"INSERT INTO 1cU8NHmtVbE3KWpGa2qSTkvIpwhC5KIJX3hcvlIg (OrderNumber, SubjectPin) VALUES (" + orderNumComboBox.Text + ", " + parcelIdTextBox.Text + ")";
 
-            service.Query.Sql(sqlQuery).Fetch();
+            service.Query.Sql(sqlQuery).Execute();
 
             sqlQuery = @"SELECT * FROM 1UeTFdijs1WJRyAgAURozDkWph7np85r_6wg3tx0 WHERE 'MLS #' = '8086017'";
-            Google.Apis.Fusiontables.v1.Data.Sqlresponse ttt = service.Query.SqlGet(sqlQuery).Fetch();
+            Google.Apis.Fusiontables.v1.Data.Sqlresponse ttt = service.Query.SqlGet(sqlQuery).Execute();
 
             MessageBox.Show(ttt.Kind);
 
@@ -89,7 +89,7 @@ namespace bpohelper
             
 
 
-            var tttt = service.Table.List().Fetch();
+            var tttt = service.Table.List().Execute();
 
            
 
@@ -107,8 +107,8 @@ namespace bpohelper
             const string STORAGE = "google.samples.dotnet.fusiontable";
             const string KEY = "fusion";
             
-            string scope = FusiontablesService.Scopes.Fusiontables.GetStringValue();
-
+            //string scope = FusiontablesService.Scope.Fusiontables.GetStringValue();
+            string scope = FusiontablesService.Scope.Fusiontables.ToString();
 
             // Check if there is a cached refresh token available.
             IAuthorizationState state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
@@ -150,12 +150,12 @@ namespace bpohelper
             // Create the service.
             //var service = new PredictionService(auth);
 
-            var service = new FusiontablesService(auth);
+            var service = new FusiontablesService();
 
             //add check if coloums exist, if not add
             //Name:	realist_bpohelper
             //Encrypted ID:	1UKrOVmhPWrgLP5d5bDCsiW9whMIK8aLxKhcyOaI
-            var tableColums = service.Column.List("1UKrOVmhPWrgLP5d5bDCsiW9whMIK8aLxKhcyOaI").Fetch();
+            var tableColums = service.Column.List("1UKrOVmhPWrgLP5d5bDCsiW9whMIK8aLxKhcyOaI").Execute();
 
             //tableColums.Items.Contains(
 
@@ -176,7 +176,7 @@ namespace bpohelper
             //service.Query.Sql(sqlQuery).Fetch();
 
             sqlQuery = @"SELECT * FROM 1UeTFdijs1WJRyAgAURozDkWph7np85r_6wg3tx0 WHERE 'MLS #' = '8086017'";
-            Google.Apis.Fusiontables.v1.Data.Sqlresponse ttt = service.Query.SqlGet(sqlQuery).Fetch();
+            Google.Apis.Fusiontables.v1.Data.Sqlresponse ttt = service.Query.SqlGet(sqlQuery).Execute();
 
             MessageBox.Show(tableColums.Kind);
 
@@ -186,7 +186,7 @@ namespace bpohelper
 
 
 
-            var tttt = service.Table.List().Fetch();
+            var tttt = service.Table.List().Execute();
 
 
 
