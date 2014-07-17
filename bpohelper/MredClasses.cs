@@ -200,6 +200,11 @@ namespace bpohelper
                 return mlsBasementRooms.ToString();
             }
 
+            public string BasementType
+            {
+                get {  return mlsHtmlFields["basement"].value;}
+            }
+
             public string GarageString()
             {
                 string returnString = "Unknown";
@@ -612,7 +617,7 @@ namespace bpohelper
             {
                 get
                 {
-                    string s;
+                    string s = null;
                     double x = -1;
                     try
                     {
@@ -620,7 +625,11 @@ namespace bpohelper
                     }
                     catch
                     {
-                        s = Regex.Match(mlsHtmlFields["openingBid"].value, @"\d*,*\d+,.\d*").Value;
+                        try
+                        {
+                            s = Regex.Match(mlsHtmlFields["openingBid"].value, @"\d*,*\d+,.\d*").Value;
+                        }
+                        catch { }
                     }
                     Double.TryParse(s, out x);
                     return x;
@@ -740,6 +749,28 @@ namespace bpohelper
             }
 
             #endregion
+
+
+            public int Age
+            {
+                get
+                {
+
+                    int x = -1;
+                    string s = mlsHtmlFields["yearBulit"].value;
+                    Int32.TryParse(s, out x);
+                    if (x == -1 || x == 0)
+                    { return -1; }
+
+                  
+
+                    DateTime myAge = new DateTime((Convert.ToInt32(x)), 1, 1);
+
+                    TimeSpan ts = DateTime.Now - myAge;
+
+                    return ts.Days / 365;
+                }
+            }
 
 
             public int RealistGLA

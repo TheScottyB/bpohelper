@@ -392,6 +392,20 @@ namespace bpohelper
             string[] active_name_list = { "COMPARABLE1", "COMPARABLE2", "COMPARABLE3" };
 
 
+
+
+            if (currentUrl.ToLower().Contains("solutionstar.gatorsasp.com"))
+            {
+
+                comp_name_list[0] = "1";
+                comp_name_list[1] = "2";
+                comp_name_list[2] = "3";
+                active_name_list[0] = "1";
+                active_name_list[1] = "2";
+                active_name_list[2] = "3";
+
+            }
+
             if (streetnumTextBox.Text == "emort")
             {
 
@@ -1309,6 +1323,62 @@ namespace bpohelper
                 // Perform the increment on the ProgressBar.
 
 
+
+                //
+                //solutionstar - First Pass
+                //
+                #region solutionstar
+                if (currentUrl.ToLower().Contains("solutionstar"))
+                {
+                    #region code
+
+                    s = iim.iimPlayCode(macro12.ToString());
+                    htmlCode = iim.iimGetLastExtract();
+                    if (subjectAttachedRadioButton.Checked)
+                    {
+                        m = new AttachedListing(htmlCode);
+                    }
+                    else if (subjectDetachedradioButton.Checked)
+                    {
+                        m = new DetachedListing(htmlCode);
+                    }
+                    else
+                    {
+                        m = new MLSListing(htmlCode);
+                    }
+
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
+                    m.NumberOfPriceChanges = count;
+
+                    Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                    SolutionStar bpoform = new SolutionStar(m);
+
+                    fieldList.Add("filepath", SubjectFilePath);
+
+                    #endregion
+
+                    #region basementlogic
+
+
+
+
+                    #endregion
+
+                    #region garagelogic
+
+                    #endregion
+
+                    #region fireplacelogic
+
+                    #endregion
+
+                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
+                    status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
+
+                }
+
+                #endregion  
 
                 //
                 //AVM - First Pass
@@ -5675,6 +5745,15 @@ namespace bpohelper
 
          //   MessageBox.Show(currentUrl);
 
+            #region solutionstar
+            if (currentUrl.ToLower().Contains("solutionstar.gatorsasp.com"))
+            {
+                SolutionStar bpoform = new SolutionStar();
+                streetnumTextBox.Text = "SolutionStar";
+                bpoform.Prefill(iim2, this);
+            }
+            #endregion
+
             #region bpofullfillment aka mainstreet aka redbell
             if (currentUrl.ToLower().Contains("bpofulfillment"))
             {
@@ -7419,24 +7498,23 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                         //foreach (System.Windows.Forms.TextBox t in query1)
                         //{
 
-                        //}
-
-                        foreach (string f in filePaths)
+                        //}                       
+                    }
+                    foreach (string f in filePaths)
+                    {
+                        if (f.ToLower().Contains("report-"))
                         {
-                            if (f.ToLower().Contains("report-"))
+                            StringBuilder pages = new StringBuilder();
+                            PdfReader pdfReader = new PdfReader(f);
+                            ITextExtractionStrategy strat = new PdfHelper.LocationTextExtractionStrategyEx();
+                            for (int i = 1; i <= pdfReader.NumberOfPages; i++)
                             {
-                                StringBuilder pages = new StringBuilder();
-                                PdfReader pdfReader = new PdfReader(f);
-                                ITextExtractionStrategy strat = new PdfHelper.LocationTextExtractionStrategyEx();
-                                for (int i = 1; i <= pdfReader.NumberOfPages; i++)
-                                {
-                                    pages.Append(PdfTextExtractor.GetTextFromPage(pdfReader, i, strat));
-                                }
-
-                                mlsSubject.GetSubjectInfo(pages.ToString());
-
-                                this.statusTextBox.AppendText("MLS listing Loaded...");
+                                pages.Append(PdfTextExtractor.GetTextFromPage(pdfReader, i, strat));
                             }
+
+                            mlsSubject.GetSubjectInfo(pages.ToString());
+
+                            this.statusTextBox.AppendText("MLS listing Loaded...");
                         }
                     }
                 }
@@ -7628,6 +7706,8 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
 
             GlobalVar.theSubjectProperty.County = SubjectCounty;
 
+            GlobalVar.theSubjectProperty.MainForm = this;
+
 
 
             //DataTable subject_table = subjectTableAdapter.GetData();
@@ -7671,7 +7751,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
 
             //using a known shared table to avoid access issues to start auth
             //below key is for bpo table 
-            GoogleFusionTable gt = new GoogleFusionTable("15O-Cw9hrgob0ETCDM8Fk33qc_B-GtPdL84COXZ8");
+            //GoogleFusionTable gt = new GoogleFusionTable("15O-Cw9hrgob0ETCDM8Fk33qc_B-GtPdL84COXZ8");
 
             iim.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
             string iimCurrentUrl = iim.iimGetLastExtract();
@@ -7903,6 +7983,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                file.WriteLine("{0};{1}", subjectAttachedRadioButton.Name, subjectAttachedRadioButton.Checked.ToString());
                file.WriteLine("{0};{1}", subjectMlsTypecomboBox.Name, subjectMlsTypecomboBox.Text);
                bpoCommentsTextBox.SaveFile(this.SubjectFilePath + "\\" + "bpocomments.rtf");
+
             }
         }
 
@@ -8378,7 +8459,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
         {
             if (GlobalVar.theSubjectProperty.ParcelID != (subjectpin_textbox.Text))
             {
-                GlobalVar.theSubjectProperty = new RealProperty(subjectpin_textbox.Text, this);
+                GlobalVar.theSubjectProperty = new SubjectProperty(subjectpin_textbox.Text, this);
             }
         
         }
@@ -9295,6 +9376,98 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
               MessageBox.Show(GlobalVar.sandbox);
         }
 
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            //webBrowser1.Navigate(new Uri("https://www.rapidclose.com"));
+            HttpWebRequest myReq =
+                (HttpWebRequest)WebRequest.Create("https://www.rapidclose.com/sfs/swappraiser/AppraiserLogin.jsp");
+            myReq.CookieContainer = new CookieContainer();
+
+            HttpWebResponse x = (HttpWebResponse) myReq.GetResponse();
+            Stream y = x.GetResponseStream();
+
+         //   MessageBox.Show( x.ToString());
+           // MessageBox.Show(y.ToString());
+            StreamReader reader = new StreamReader(y);
+            string responseFromServer = reader.ReadToEnd();
+            //MessageBox.Show(responseFromServer.ToString());
+            reader.Close();
+            foreach (System.Net.Cookie cook in x.Cookies)
+            {
+                //Console.WriteLine("Cookie:");
+                MessageBox.Show(cook.Name + " = " + cook.Value);
+
+                //Console.WriteLine("Domain: {0}", cook.Domain);
+                //Console.WriteLine("Path: {0}", cook.Path);
+                //Console.WriteLine("Port: {0}", cook.Port);
+                //Console.WriteLine("Secure: {0}", cook.Secure);
+
+                //Console.WriteLine("When issued: {0}", cook.TimeStamp);
+                //Console.WriteLine("Expires: {0} (expired? {1})",
+                //    cook.Expires, cook.Expired);
+                //Console.WriteLine("Don't save: {0}", cook.Discard);
+                //Console.WriteLine("Comment: {0}", cook.Comment);
+                //Console.WriteLine("Uri for comments: {0}", cook.CommentUri);
+                //Console.WriteLine("Version: RFC {0}", cook.Version == 1 ? "2109" : "2965");
+
+                //// Show the string representation of the cookie.
+                //Console.WriteLine("String: {0}", cook.ToString());
+            }
+
+            HttpWebRequest myReq2 = (HttpWebRequest)WebRequest.Create("https://www.rapidclose.com/sfs/swcommon/AuthenticateAppraiser");
+
+            myReq2.Host = @"www.rapidclose.com";   
+            myReq2.CookieContainer = new CookieContainer();
+
+            myReq2.CookieContainer = myReq.CookieContainer;
+            myReq2.Method = "POST";
+
+            string postData = @"userAgent=Mozilla%2F5.0+%28Windows+NT+6.1%3B+WOW64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F35.0.1916.153+Safari%2F537.36&appVersion=5.0+%28Windows+NT+6.1%3B+WOW64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F35.0.1916.153+Safari%2F537.36&vendor=Google+Inc.&product=Gecko&javascriptEnabled=true&cookiesEnabled=true&guid=&login=beilsco%40gmail.com&password=27692scott&submit=Login";
+            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+            myReq2.ContentType = @"application/x-www-form-urlencoded";
+            myReq2.ContentLength = byteArray.Length;
+            // Get the request stream.
+            Stream dataStream = myReq2.GetRequestStream();
+            // Write the data to the request stream.
+            dataStream.Write(byteArray, 0, byteArray.Length);
+            // Close the Stream object.
+            dataStream.Close();
+            // Get the response.
+            WebResponse response = myReq2.GetResponse();
+            // Display the status.
+            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+            // Get the stream containing content returned by the server.
+            dataStream = response.GetResponseStream();
+            // Open the stream using a StreamReader for easy access.
+            StreamReader reader2 = new StreamReader(dataStream);
+            // Read the content.
+            string responseFromServer2 = reader2.ReadToEnd();
+            // Display the content.
+            Console.WriteLine(responseFromServer2);
+            // Clean up the streams.
+            reader.Close();
+            dataStream.Close();
+            response.Close();
+          
+            var x2 = myReq2.GetResponse();
+
+            MessageBox.Show(x2.ToString());
+
+            y.Close();
+            //myReq2.CookieContainer.Add(new CookieCollection mycookies());
+                
+
+
+
+         
+
+        }
+
        
        
 
@@ -9489,7 +9662,14 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             string pattern = @"Amount:\$(\d+,*\d*.\d*)";
             MatchCollection mc = Regex.Matches(s, pattern);
             assessmentAmount = mc[0].Groups[1].Value;
-            mlsTaxAmount = mc[1].Groups[1].Value;
+            try
+            {
+                mlsTaxAmount = mc[1].Groups[1].Value;
+            }
+            catch
+            {
+                mlsTaxAmount = "-1";
+            }
 
             //pattern = "Ph #:x*([^\\nx]+)|Ph #:x*([^\\n]+)";
             pattern = @"xxxPh #:(.*?)xxx|xxxPh #:(.*?)\n";
@@ -9718,7 +9898,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
         }
 
 
-        public void ReadMlsSheets(iMacros.App d)
+        public async void ReadMlsSheets(iMacros.App d)
         {
 
 
@@ -9726,7 +9906,14 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
 
             // NumberFormatInfo provider = new NumberFormatInfo( );
+           
+            
             GoogleFusionTable realist_bpohelper = new GoogleFusionTable("1UKrOVmhPWrgLP5d5bDCsiW9whMIK8aLxKhcyOaI");
+
+            await realist_bpohelper.helper_OAuthFusion();
+
+            
+            
             //GoogleFusionTable mlsListingCache = new GoogleFusionTable("1EDFPE91a2_6oohUmEG-2OEr_k2xFOG7c9x3fqZE");
 
             
@@ -11673,7 +11860,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                                        where l.proximityToSubject <.25
                                        select l;
 
-            MessageBox.Show(queryListingsProximity.Count().ToString());
+            MessageBox.Show(queryListingsRemarks.Count().ToString() + "listing used the word *charming*");
 
             
             System.Xml.Serialization.XmlSerializer writer2 =

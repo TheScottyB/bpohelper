@@ -61,11 +61,13 @@
             this.styleComboBox = new System.Windows.Forms.ComboBox();
             this.orderNumComboBox = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.propertyInfogroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // propertyInfogroupBox
             // 
+            this.propertyInfogroupBox.Controls.Add(this.webBrowser1);
             this.propertyInfogroupBox.Controls.Add(this.label15);
             this.propertyInfogroupBox.Controls.Add(this.hoaFeestextBox);
             this.propertyInfogroupBox.Controls.Add(this.label14);
@@ -436,6 +438,14 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Location = new System.Drawing.Point(241, 261);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(250, 250);
+            this.webBrowser1.TabIndex = 30;
+            // 
             // equiTraxView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -487,5 +497,6 @@
         private System.Windows.Forms.TextBox sgFtTextBox;
         private System.Windows.Forms.ComboBox orderNumComboBox;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.WebBrowser webBrowser1;
     }
 }

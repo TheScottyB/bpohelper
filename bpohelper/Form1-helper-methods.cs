@@ -40,7 +40,7 @@ namespace bpohelper
         public static GeoPoint subjectPoint;
 
         public static List<MLSListing> searchCacheMlsListings = new List<MLSListing>();
-        public static RealProperty theSubjectProperty = new RealProperty();
+        public static SubjectProperty theSubjectProperty = new SubjectProperty();
 
         public static List<MLSListing> listingsFromLastSearch = new List<MLSListing>();
 

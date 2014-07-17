@@ -85,11 +85,7 @@ namespace bpohelper
             set { subjectMlsStatusTextBox.Text = value; }
         }
 
-        public string SubjectQuickSaleValue
-        {
-            get { return quickSaleTextbox.Text; }
-            set { quickSaleTextbox.Text = value; }
-        }
+       
 
 
 
@@ -324,6 +320,20 @@ namespace bpohelper
             get { return valueTextbox.Text; }
             set { valueTextbox.Text = value; }
         }
+
+        public string SubjectMarketValueList
+        {
+            get { return listTextbox.Text; }
+            set { listTextbox.Text = value; }
+        }
+
+        public string SubjectQuickSaleValue
+        {
+            get { return quickSaleTextbox.Text; }
+            set { quickSaleTextbox.Text = value; }
+        }
+
+       
 
         public string SubjectSubdivision
         {

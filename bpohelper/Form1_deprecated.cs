@@ -916,6 +916,71 @@ namespace bpohelper
             string currentUrl = iim2.iimGetLastExtract();
 
             macro.Clear();
+            macro.AppendLine(@"SET !TIMEOUT_STEP 30");
+            macro.AppendLine(@"SET !ERRORIGNORE YES");
+
+
+            if (currentUrl.ToLower().Contains("solutionstar"))
+            {
+
+              
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:# ATTR=NAME:user_0_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S1.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:# ATTR=NAME:Image_0_Description CONTENT=Sale1");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ACTION:# ATTR=NAME:toggler*");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_1_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S2.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_1_Description CONTENT=Sale2");
+                macro.AppendLine(@"TAG POS=2 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_2_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S3.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_2_Description CONTENT=Sale3");
+                macro.AppendLine(@"TAG POS=3 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_3_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L1.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_3_Description CONTENT=List1");
+                macro.AppendLine(@"TAG POS=4 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_4_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L2.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_4_Description CONTENT=List2");
+                macro.AppendLine(@"TAG POS=5 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_5_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L3.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_5_Description CONTENT=List3");
+                macro.AppendLine(@"TAG POS=6 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
+
+                string[] fileEntries = Directory.GetFiles(search_address_textbox.Text);
+
+                foreach (string fileName in fileEntries)
+                {
+                    if (fileName.ToLower().Contains(".jpg"))
+                    {
+                        if (fileName.ToLower().Contains("address"))
+                        {
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_6_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\" + Regex.Match(fileName, @"(address.*.jpg)"));
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_6_Description CONTENT=Address");
+                            macro.AppendLine(@"TAG POS=7 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
+                        }
+                        else if (fileName.ToLower().Contains("front"))
+                        {
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_7_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\" + Regex.Match(fileName, @"(front.*.jpg)"));
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_7_Description CONTENT=Front");
+                            macro.AppendLine(@"TAG POS=8 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
+                        }
+                        else if (fileName.ToLower().Contains("street1"))
+                        {
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_8_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\" + Regex.Match(fileName, @"(street1.*.jpg)"));
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_8_Description CONTENT=Street1");
+                            macro.AppendLine(@"TAG POS=9 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
+                        }
+                        else if (fileName.ToLower().Contains("street2"))
+                        {
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_9_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\" + Regex.Match(fileName, @"(street2.*.jpg)"));
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_9_Description CONTENT=Street2");
+                            macro.AppendLine(@"TAG POS=10 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
+                        }
+                    }
+                }
+
+
+
+                string macroCode = macro.ToString();
+                status = iim2.iimPlayCode(macroCode, 120);
+            }
 
             if (currentUrl.ToLower().Contains("equi-trax"))
             {
@@ -973,59 +1038,59 @@ namespace bpohelper
 
                 foreach (string fileName in fileEntries)
                 {
-
-                    if (fileName.ToLower().Contains("address"))
+                    
+                    if (fileName.ToLower().Contains("address-view"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:uploadImageForm ATTR=ID:uploadedFile CONTENT=" + fileName.Replace(" ", "<SP>"));
                         macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:uploadImageForm ATTR=ID:SLIType CONTENT=%2");
-                        macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:uploadImageForm ATTR=ID:description CONTENT=" + Regex.Match(fileName, @"(address.+.jpg)"));
+                        macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:uploadImageForm ATTR=NAME:description CONTENT=" + Regex.Match(fileName, @"(address.*.jpg)"));
                         macro.AppendLine(@"TAG POS=1 TYPE=BUTTON:SUBMIT FORM=ID:uploadImageForm ATTR=CLASS:button");
                         //macro.AppendLine(@"TAB T=1");
                         //macro.AppendLine(@"TAB CLOSE");
 
                     }
-                    else if (fileName.ToLower().Contains("front"))
+                    else if (fileName.ToLower().Contains("front-view"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:uploadImageForm ATTR=ID:uploadedFile CONTENT=" + fileName.Replace(" ", "<SP>"));
                         macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:uploadImageForm ATTR=ID:SLIType CONTENT=%1");
-                        macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:uploadImageForm ATTR=ID:description CONTENT=" + Regex.Match(fileName, @"(front.+.jpg)"));
+                        macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:uploadImageForm ATTR=NAME:description CONTENT=" + Regex.Match(fileName, @"(front.*.jpg)"));
                         macro.AppendLine(@"TAG POS=1 TYPE=BUTTON:SUBMIT FORM=ID:uploadImageForm ATTR=CLASS:button");
                         // macro.AppendLine(@"TAB T=1");
                         // macro.AppendLine(@"TAB CLOSE");
                     }
-                    else if (fileName.ToLower().Contains("left"))
+                    else if (fileName.ToLower().Contains("left-view"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:uploadImageForm ATTR=ID:uploadedFile CONTENT=" + fileName.Replace(" ", "<SP>"));
                         macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:uploadImageForm ATTR=ID:SLIType CONTENT=%4");
-                        macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:uploadImageForm ATTR=ID:description CONTENT=" + Regex.Match(fileName, @"(left.+.jpg)"));
+                        macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:uploadImageForm ATTR=NAME:description CONTENT=" + Regex.Match(fileName, @"(left.*.jpg)"));
                         macro.AppendLine(@"TAG POS=1 TYPE=BUTTON:SUBMIT FORM=ID:uploadImageForm ATTR=CLASS:button");
                         //macro.AppendLine(@"TAB T=1");
                         //macro.AppendLine(@"TAB CLOSE");
                     }
-                    else if (fileName.ToLower().Contains("right"))
+                    else if (fileName.ToLower().Contains("right-view"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:uploadImageForm ATTR=ID:uploadedFile CONTENT=" + fileName.Replace(" ", "<SP>"));
                         macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:uploadImageForm ATTR=ID:SLIType CONTENT=%5");
-                        macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:uploadImageForm ATTR=ID:description CONTENT=" + Regex.Match(fileName, @"(right.+.jpg)"));
+                        macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:uploadImageForm ATTR=NAME:description CONTENT=" + Regex.Match(fileName, @"(right.*.jpg)"));
                         macro.AppendLine(@"TAG POS=1 TYPE=BUTTON:SUBMIT FORM=ID:uploadImageForm ATTR=CLASS:button");
                         //macro.AppendLine(@"TAB T=1");
                         //macro.AppendLine(@"TAB CLOSE");
                     }
-                    else if (fileName.ToLower().Contains("street"))
+                    else if (fileName.ToLower().Contains("street-view"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:uploadImageForm ATTR=ID:uploadedFile CONTENT=" + fileName.Replace(" ", "<SP>"));
                         macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:uploadImageForm ATTR=ID:SLIType CONTENT=%8");
-                        macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:uploadImageForm ATTR=ID:description CONTENT=" + Regex.Match(fileName, @"(street.+.jpg)"));
+                        macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:uploadImageForm ATTR=NAME:description CONTENT=" + Regex.Match(fileName, @"(street.*.jpg)"));
                         macro.AppendLine(@"TAG POS=1 TYPE=BUTTON:SUBMIT FORM=ID:uploadImageForm ATTR=CLASS:button");
                         //macro.AppendLine(@"TAB T=1");
                         //macro.AppendLine(@"TAB CLOSE");

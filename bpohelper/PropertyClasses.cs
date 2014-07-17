@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace bpohelper
 {
@@ -11,7 +13,8 @@ namespace bpohelper
         private string pin;
         private Dictionary<string, MLSListing> mlsListings;
         private RealistReport rr;
-        private Form1 form;
+     
+        protected  Form1 form;
         private string mlsTaxAmout = "-1";
         private MatchCollection rawDataFromPrintedMlsSheet;
         private string county;
@@ -24,6 +27,11 @@ namespace bpohelper
 
         // Add(System.Text.RegularExpressions.Match)
 
+       
+        //
+        //Constructors
+        //
+        #region constructors
         public RealProperty()
         {
             mlsListings = new Dictionary<string, MLSListing>();
@@ -42,7 +50,12 @@ namespace bpohelper
             form = f;
         }
 
+        #endregion
 
+
+      
+
+       
 
         public MatchCollection PrintedMlsSheetNameValuePairs
         {
@@ -119,10 +132,10 @@ namespace bpohelper
             get { return rr; }
             set { rr = value; }
         }
-
+        [XmlIgnoreAttribute]
         public Form1 MainForm
         {
-            //get { return form; }
+            get { return form; }
             set { form = value; }
         }
 
@@ -175,6 +188,109 @@ namespace bpohelper
 
     }
 
+    public class SubjectProperty:RealProperty
+    {
+
+        public SubjectProperty()
+            : base()
+        {
+
+        }
+
+        public SubjectProperty(string parcelID, Form1 f) : base(parcelID,f)
+        {
+           
+        }
+
+        //
+        //Address Fields: AddressLine1, City, State, Zip
+        //
+        #region AddressFields
+        public string AddressLine1
+        {
+            get
+            {
+                return Regex.Match(form.SubjectFullAddress, @"(^[\w\s]*),").Groups[1].Value;
+            }
+        }
+
+        public string City
+        {
+            get
+            {
+                return Regex.Match(form.SubjectFullAddress, @",\s*(\S+),").Groups[1].Value;
+            }
+        }
+
+        public string Zip
+        {
+            get
+            {
+                return Regex.Match(form.SubjectFullAddress, @",\s*IL\s*([\w\s]*)").Groups[1].Value;
+            }
+        }
+
+
+        #endregion
+
+        //
+        //Derived Fields: Age, FullBath, HalfBath, GarageStalls, InspecitonDate
+        //
+        #region Derived Fields
+        public int Age
+        {
+            get
+            {
+                DateTime myAge = new DateTime((Convert.ToInt32(form.SubjectYearBuilt)), 1, 1);
+
+                TimeSpan ts = DateTime.Now - myAge;
+
+                return ts.Days / 365;
+            }
+
+        }
+        public string FullBathCount
+        {
+            get
+            {
+                return form.SubjectBathroomCount[0].ToString();
+            }
+        }
+        public string HalfBathCount
+        {
+            get
+            {
+                return form.SubjectBathroomCount[2].ToString();
+            }
+        }
+        public string GarageStallCount
+        {
+            get
+            {
+                return Regex.Match(form.SubjectParkingType, @"\d+").Value;
+            }
+        }
+        public string InspectionDate()
+        {
+             string[] fileEntries = Directory.GetFiles(MainForm.SubjectFilePath);
+
+                foreach (string fileName in fileEntries)
+                {
+                    if (fileName.ToLower().Contains("jpg") && fileName.Length > 6)
+                    {
+                        return Directory.GetLastWriteTime(fileName).ToShortDateString();
+                    }
+                }
+
+                return DateTime.Now.ToShortDateString();
+
+        }
+
+           
+        #endregion
+
+    }
+
     public class Neighborhood
     {
         public string name;
@@ -204,8 +320,6 @@ namespace bpohelper
     }
 
     //property helper classes
-
-   
 
     public class RealEstateTransaction
     {

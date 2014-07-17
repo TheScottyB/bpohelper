@@ -41,17 +41,60 @@ namespace bpohelper
         private FusiontablesService newService;
         private string lastPin = "";
 
-        static GoogleFusionTable()
+        public async Task helper_OAuthFusion()
         {
-            callingForm = (bpohelper.Form1) Form1.ActiveForm;
+            UserCredential credential;
+
+            credential =  await GoogleWebAuthorizationBroker.AuthorizeAsync(
+              new ClientSecrets
+              {
+                  ClientId = "982969682733.apps.googleusercontent.com",
+                  ClientSecret = "ADjXMNxzAqa35fB4Z12UORM9"
+                  // APIKey ="AIzaSyDsAcyc5WOw0IqvR93VR8cVsWCHJ8ZoDq4"
+              },
+              new[] { FusiontablesService.Scope.Fusiontables},
+              "user",
+              CancellationToken.None);
+
+
+            //service = new FusiontablesService(auth);
+            service = new FusiontablesService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = "Fusion API Sample",
+
+            });
+
+            var tableColums = service.Column.List(tableId);
+            tableColums.MaxResults = 150;
+           cl = tableColums.Execute();
+            //cl = tableColums.
+            newService = service;
+
+        }
+
+
+         public GoogleFusionTable()
+        {
+            //callingForm = (bpohelper.Form1) Form1.ActiveForm;
+            callingForm = GlobalVar.theSubjectProperty.MainForm;
+
+
+
             // Register the authenticator.
             //var provider = new NativeApplicationClient(GoogleAuthenticationServer.Description);
             //provider.ClientIdentifier = "982969682733.apps.googleusercontent.com";
             //provider.ClientSecret = "ADjXMNxzAqa35fB4Z12UORM9";
             //var auth = new OAuth2Authenticator<NativeApplicationClient>(provider, GetAuthentication);
-            
+
+
+
+           
+
+              
+
             //service = new FusiontablesService(auth);
-            service = new FusiontablesService();
+            //service = new FusiontablesService();
            
 
 
@@ -70,15 +113,18 @@ namespace bpohelper
             
         }
 
-        public GoogleFusionTable(string t)
+        public GoogleFusionTable(string t) : this()
+            
         {
             tableId = t;
-            var tableColums = service.Column.List(tableId);
-            tableColums.MaxResults = 150;
-             cl = tableColums.Execute();
-            //cl = tableColums.
-            newService = service;
+            //var tableColums = service.Column.List(tableId);
+            //tableColums.MaxResults = 150;
+            // cl = tableColums.Execute();
+            ////cl = tableColums.
+            //newService = service;
         }
+
+       
 
         public bool ColumnExsists(string columnName)
         {
@@ -112,7 +158,7 @@ namespace bpohelper
                 Thread.Sleep(1000);
                 ttt = service.Query.SqlGet(sqlGetQuery).Execute();
             }
-            if (ttt.Rows.Count == 0)
+            if (ttt.Rows == null)
             {
                 callingForm.GoogleApiCall("No, Adding Record---->");
                 var rep = service.Query.Sql(sqlQuery).Execute();
@@ -559,7 +605,7 @@ namespace bpohelper
                 returnRespone = service.Query.Sql(getRecSql).Execute();
             }
             var returnResponeList = returnRespone.Rows;
-            if (returnRespone.Rows.Count == 0)
+            if (returnRespone.Rows != null)
             {
                 var what = returnRespone.Columns.Zip(returnResponeList[0], (first, second) => new KeyValuePair<string, string>(first, second.ToString()));
                 curRec = what.ToDictionary(k => k.Key, v => v.Value);
