@@ -10748,29 +10748,30 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                     StringBuilder realist_extraction_macro = new StringBuilder();
 
                     //open realist
-                    realist_extraction_macro.AppendLine(@"SET !ERRORIGNORE YES");
-                    realist_extraction_macro.AppendLine(@"SET !TIMEOUT_STEP 20");
+                    //realist_extraction_macro.AppendLine(@"SET !ERRORIGNORE YES");
+                    realist_extraction_macro.AppendLine(@"SET !TIMEOUT_STEP 0");
                     realist_extraction_macro.AppendLine(@"FRAME NAME=workspace");
                     realist_extraction_macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=TXT:Realist<SP>Tax<SP>Report");
-                    realist_extraction_macro.AppendLine(@"'New tab opened");
-                    // realist_extraction_macro.AppendLine(@"TAB T=2");
-                    //realist_extraction_macro.AppendLine(@"FRAME F=0");
-                    realist_extraction_macro.AppendLine(@"TAG POS=1 TYPE=DIV ATTR=ID:headerText EXTRACT=TXT");
+                    //realist_extraction_macro.AppendLine(@"'New tab opened");
+                    //realist_extraction_macro.AppendLine(@"TAG POS=1 TYPE=DIV ATTR=ID:headerText EXTRACT=TXT");
 
                     string realist_extraction_macro_code = realist_extraction_macro.ToString();
                     status = d.iimPlayCode(realist_extraction_macro_code, 60);
                     realist_extraction_macro.Clear();
 
+                    if (status == Status.sOk)
+                    {
+                        //see what we have opened
+                        //gets the address
+                        s = d.iimPlayCode(@"TAG POS=1 TYPE=DIV ATTR=ID:headerText EXTRACT=TXT");
+                        realist_address = d.iimGetLastExtract();
 
-                    //see what we have opened
-                    //gets the address
-                    s = d.iimPlayCode(@"TAG POS=1 TYPE=DIV ATTR=ID:headerText EXTRACT=TXT");
-                    realist_address = d.iimGetLastExtract();
+                        //gets all html, but we are not using it right now
+                        s = d.iimPlayCode(@"TAG POS=1 TYPE=DIV ATTR=ID:htmlApplication EXTRACT=HTM");
+                        realist_rawHtml = d.iimGetLastExtract();
+                    }
 
-                    //gets all html, but we are not using it right now
-                    s = d.iimPlayCode(@"TAG POS=1 TYPE=DIV ATTR=ID:htmlApplication EXTRACT=HTM");
-                    realist_rawHtml = d.iimGetLastExtract();
-
+                   
                     if (realist_rawHtml.Contains("Parcel"))
                     {
 
@@ -11093,8 +11094,10 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
                     else
                     {
-                        //unusable record
-                        s = d.iimPlayCode(@"TAB CLOSE");
+                        //unusable record OR
+                        //No realist pop-up ie Wisconson address
+
+                        s = d.iimPlayCode("SET !TIMEOUT_STEP 0 \r\n TAB T=2 \r\n TAB CLOSE");
                         if (string.IsNullOrEmpty(year_built) || year_built.ToLower() == "unk" || year_built == "0")
                         {
                                 year_built = "1950";   
