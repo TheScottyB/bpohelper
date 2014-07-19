@@ -10015,7 +10015,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             
             //GoogleFusionTable mlsListingCache = new GoogleFusionTable("1EDFPE91a2_6oohUmEG-2OEr_k2xFOG7c9x3fqZE");
 
-           // GlobalVar.searchCacheMlsListings.Clear();
+           GlobalVar.searchCacheMlsListings.Clear();
            
             List<string> comps = new List<String>();
             List<MLSListing> listings = new List<MLSListing>();
