@@ -661,8 +661,6 @@ namespace bpohelper
 
     }
 
-  
-
     public class FuTableRow : IEquatable<FuTableRow>
     {
         public string Name { get; set; }
@@ -697,7 +695,6 @@ namespace bpohelper
             return hashProductName ^ hashProductCode;
         }
     }
-
 
 class GoogleCloudDatastore
 {

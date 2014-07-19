@@ -198,6 +198,20 @@
             this.recheckLastSearchbutton = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.neighborhoodDataGroupBox = new System.Windows.Forms.GroupBox();
+            this.percentDistressedSoldListingsLabel = new System.Windows.Forms.Label();
+            this.percentSoldShortListingLabel = new System.Windows.Forms.Label();
+            this.percentSoldReoListingLabel = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.ndNumberSoldShortListingsTextBox = new System.Windows.Forms.TextBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.ndNumberSoldReoListingsTextBox = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.ndNumberOfSoldListingTextBox = new System.Windows.Forms.TextBox();
+            this.percentDistressedActiveListingsLabel = new System.Windows.Forms.Label();
+            this.percentActiveShortListingLabel = new System.Windows.Forms.Label();
+            this.percentActiveListingLabel = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.ndNumberActiveShortListingsTextBox = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.ndNumberActiveReoListingsTextBox = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
@@ -459,7 +473,7 @@
             this.subjectBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.subjectBindingNavigator.Name = "subjectBindingNavigator";
             this.subjectBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.subjectBindingNavigator.Size = new System.Drawing.Size(1614, 25);
+            this.subjectBindingNavigator.Size = new System.Drawing.Size(1801, 25);
             this.subjectBindingNavigator.TabIndex = 17;
             this.subjectBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -662,6 +676,7 @@
             this.search_address_textbox.Name = "search_address_textbox";
             this.search_address_textbox.Size = new System.Drawing.Size(472, 20);
             this.search_address_textbox.TabIndex = 26;
+            this.search_address_textbox.Text = "F:\\Dropbox\\BPOs\\1904 YASGUR DRIVE";
             this.search_address_textbox.TextChanged += new System.EventHandler(this.search_address_textbox_TextChanged);
             this.search_address_textbox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.search_address_textbox_MouseDoubleClick);
             // 
@@ -1751,7 +1766,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 983);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1614, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1801, 22);
             this.statusStrip1.TabIndex = 52;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -1850,7 +1865,7 @@
             // 
             this.statusStrip2.Location = new System.Drawing.Point(0, 961);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(1614, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(1801, 22);
             this.statusStrip2.TabIndex = 95;
             this.statusStrip2.Text = "statusStrip2";
             // 
@@ -1920,6 +1935,20 @@
             // 
             // neighborhoodDataGroupBox
             // 
+            this.neighborhoodDataGroupBox.Controls.Add(this.percentDistressedSoldListingsLabel);
+            this.neighborhoodDataGroupBox.Controls.Add(this.percentSoldShortListingLabel);
+            this.neighborhoodDataGroupBox.Controls.Add(this.percentSoldReoListingLabel);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label49);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndNumberSoldShortListingsTextBox);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label50);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndNumberSoldReoListingsTextBox);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label51);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndNumberOfSoldListingTextBox);
+            this.neighborhoodDataGroupBox.Controls.Add(this.percentDistressedActiveListingsLabel);
+            this.neighborhoodDataGroupBox.Controls.Add(this.percentActiveShortListingLabel);
+            this.neighborhoodDataGroupBox.Controls.Add(this.percentActiveListingLabel);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label45);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndNumberActiveShortListingsTextBox);
             this.neighborhoodDataGroupBox.Controls.Add(this.label29);
             this.neighborhoodDataGroupBox.Controls.Add(this.ndNumberActiveReoListingsTextBox);
             this.neighborhoodDataGroupBox.Controls.Add(this.label28);
@@ -1936,6 +1965,123 @@
             this.neighborhoodDataGroupBox.TabIndex = 102;
             this.neighborhoodDataGroupBox.TabStop = false;
             this.neighborhoodDataGroupBox.Text = "Neighborhood Data";
+            this.neighborhoodDataGroupBox.Enter += new System.EventHandler(this.neighborhoodDataGroupBox_Enter);
+            // 
+            // percentDistressedSoldListingsLabel
+            // 
+            this.percentDistressedSoldListingsLabel.AutoSize = true;
+            this.percentDistressedSoldListingsLabel.Location = new System.Drawing.Point(224, 93);
+            this.percentDistressedSoldListingsLabel.Name = "percentDistressedSoldListingsLabel";
+            this.percentDistressedSoldListingsLabel.Size = new System.Drawing.Size(0, 13);
+            this.percentDistressedSoldListingsLabel.TabIndex = 23;
+            // 
+            // percentSoldShortListingLabel
+            // 
+            this.percentSoldShortListingLabel.AutoSize = true;
+            this.percentSoldShortListingLabel.Location = new System.Drawing.Point(224, 182);
+            this.percentSoldShortListingLabel.Name = "percentSoldShortListingLabel";
+            this.percentSoldShortListingLabel.Size = new System.Drawing.Size(0, 13);
+            this.percentSoldShortListingLabel.TabIndex = 22;
+            // 
+            // percentSoldReoListingLabel
+            // 
+            this.percentSoldReoListingLabel.AutoSize = true;
+            this.percentSoldReoListingLabel.Location = new System.Drawing.Point(224, 131);
+            this.percentSoldReoListingLabel.Name = "percentSoldReoListingLabel";
+            this.percentSoldReoListingLabel.Size = new System.Drawing.Size(0, 13);
+            this.percentSoldReoListingLabel.TabIndex = 21;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(178, 159);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(110, 13);
+            this.label49.TabIndex = 20;
+            this.label49.Text = "# Sold Listings - Short";
+            // 
+            // ndNumberSoldShortListingsTextBox
+            // 
+            this.ndNumberSoldShortListingsTextBox.Location = new System.Drawing.Point(181, 175);
+            this.ndNumberSoldShortListingsTextBox.Name = "ndNumberSoldShortListingsTextBox";
+            this.ndNumberSoldShortListingsTextBox.Size = new System.Drawing.Size(37, 20);
+            this.ndNumberSoldShortListingsTextBox.TabIndex = 19;
+            this.ndNumberSoldShortListingsTextBox.TextChanged += new System.EventHandler(this.ndNumberSoldShortListingsTextBox_TextChanged);
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(178, 112);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(108, 13);
+            this.label50.TabIndex = 18;
+            this.label50.Text = "# Sold Listings - REO";
+            // 
+            // ndNumberSoldReoListingsTextBox
+            // 
+            this.ndNumberSoldReoListingsTextBox.Location = new System.Drawing.Point(181, 128);
+            this.ndNumberSoldReoListingsTextBox.Name = "ndNumberSoldReoListingsTextBox";
+            this.ndNumberSoldReoListingsTextBox.Size = new System.Drawing.Size(37, 20);
+            this.ndNumberSoldReoListingsTextBox.TabIndex = 17;
+            this.ndNumberSoldReoListingsTextBox.TextChanged += new System.EventHandler(this.ndNumberSoldReoListingsTextBox_TextChanged);
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(178, 74);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(76, 13);
+            this.label51.TabIndex = 16;
+            this.label51.Text = "# Sold Listings";
+            // 
+            // ndNumberOfSoldListingTextBox
+            // 
+            this.ndNumberOfSoldListingTextBox.Location = new System.Drawing.Point(181, 90);
+            this.ndNumberOfSoldListingTextBox.Name = "ndNumberOfSoldListingTextBox";
+            this.ndNumberOfSoldListingTextBox.Size = new System.Drawing.Size(37, 20);
+            this.ndNumberOfSoldListingTextBox.TabIndex = 15;
+            // 
+            // percentDistressedActiveListingsLabel
+            // 
+            this.percentDistressedActiveListingsLabel.AutoSize = true;
+            this.percentDistressedActiveListingsLabel.Location = new System.Drawing.Point(52, 92);
+            this.percentDistressedActiveListingsLabel.Name = "percentDistressedActiveListingsLabel";
+            this.percentDistressedActiveListingsLabel.Size = new System.Drawing.Size(0, 13);
+            this.percentDistressedActiveListingsLabel.TabIndex = 14;
+            // 
+            // percentActiveShortListingLabel
+            // 
+            this.percentActiveShortListingLabel.AutoSize = true;
+            this.percentActiveShortListingLabel.Location = new System.Drawing.Point(52, 181);
+            this.percentActiveShortListingLabel.Name = "percentActiveShortListingLabel";
+            this.percentActiveShortListingLabel.Size = new System.Drawing.Size(0, 13);
+            this.percentActiveShortListingLabel.TabIndex = 13;
+            // 
+            // percentActiveListingLabel
+            // 
+            this.percentActiveListingLabel.AutoSize = true;
+            this.percentActiveListingLabel.Location = new System.Drawing.Point(52, 130);
+            this.percentActiveListingLabel.Name = "percentActiveListingLabel";
+            this.percentActiveListingLabel.Size = new System.Drawing.Size(0, 13);
+            this.percentActiveListingLabel.TabIndex = 12;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(6, 158);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(119, 13);
+            this.label45.TabIndex = 11;
+            this.label45.Text = "# Active Listings - Short";
+            this.label45.Click += new System.EventHandler(this.label45_Click);
+            // 
+            // ndNumberActiveShortListingsTextBox
+            // 
+            this.ndNumberActiveShortListingsTextBox.Location = new System.Drawing.Point(9, 174);
+            this.ndNumberActiveShortListingsTextBox.Name = "ndNumberActiveShortListingsTextBox";
+            this.ndNumberActiveShortListingsTextBox.Size = new System.Drawing.Size(37, 20);
+            this.ndNumberActiveShortListingsTextBox.TabIndex = 10;
+            this.ndNumberActiveShortListingsTextBox.TextChanged += new System.EventHandler(this.ndNumberActiveShortListingsTextBox_TextChanged);
             // 
             // label29
             // 
@@ -1952,6 +2098,7 @@
             this.ndNumberActiveReoListingsTextBox.Name = "ndNumberActiveReoListingsTextBox";
             this.ndNumberActiveReoListingsTextBox.Size = new System.Drawing.Size(37, 20);
             this.ndNumberActiveReoListingsTextBox.TabIndex = 8;
+            this.ndNumberActiveReoListingsTextBox.TextChanged += new System.EventHandler(this.ndNumberActiveReoListingsTextBox_TextChanged);
             // 
             // label28
             // 
@@ -2327,7 +2474,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1631, 874);
+            this.ClientSize = new System.Drawing.Size(1818, 874);
             this.Controls.Add(this.button24);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.button23);
@@ -2649,6 +2796,20 @@
         private System.Windows.Forms.Button button23;
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.Button button24;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.TextBox ndNumberActiveShortListingsTextBox;
+        private System.Windows.Forms.Label percentActiveListingLabel;
+        private System.Windows.Forms.Label percentDistressedActiveListingsLabel;
+        private System.Windows.Forms.Label percentActiveShortListingLabel;
+        private System.Windows.Forms.Label percentDistressedSoldListingsLabel;
+        private System.Windows.Forms.Label percentSoldShortListingLabel;
+        private System.Windows.Forms.Label percentSoldReoListingLabel;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.TextBox ndNumberSoldShortListingsTextBox;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.TextBox ndNumberSoldReoListingsTextBox;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.TextBox ndNumberOfSoldListingTextBox;
     }
 
 }

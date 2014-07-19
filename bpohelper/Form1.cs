@@ -7825,8 +7825,13 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                 ndAvgDomTextBox.Text = SubjectNeighborhood.avgDom.ToString();
                 ndMaxSalePriceTextBox.Text = SubjectNeighborhood.maxSalePrice.ToString();
                 ndMinSalePriceTextBox.Text = SubjectNeighborhood.minSalePrice.ToString();
-                ndNumberActiveReoListingsTextBox.Text = SubjectNeighborhood.numberREOListings.ToString();
                 ndNumberOfActiveListingTextBox.Text = SubjectNeighborhood.numberActiveListings.ToString();
+                ndNumberActiveReoListingsTextBox.Text = SubjectNeighborhood.numberREOListings.ToString();
+                ndNumberActiveShortListingsTextBox.Text = SubjectNeighborhood.numberOfShortSaleListings.ToString();
+                ndNumberOfSoldListingTextBox.Text = SubjectNeighborhood.numberOfSales.ToString();
+                ndNumberSoldReoListingsTextBox.Text = SubjectNeighborhood.numberREOSales.ToString();
+                ndNumberSoldShortListingsTextBox.Text = SubjectNeighborhood.numberShortSales.ToString();
+
             }
             catch
             {
@@ -9468,6 +9473,100 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
         }
 
+        private void label45_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //private void textBox2_TextChanged_1(object sender, EventArgs e)
+        //{
+
+        //}
+
+        private void ndNumberActiveReoListingsTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Decimal activeReoListings = 0;
+            Decimal totalActiveListings = 0;
+            Decimal activeShortListings = 0;
+
+            Decimal.TryParse(this.ndNumberActiveReoListingsTextBox.Text, out activeReoListings);
+            Decimal.TryParse(this.ndNumberOfActiveListingTextBox.Text, out totalActiveListings);
+            Decimal.TryParse(this.ndNumberActiveShortListingsTextBox.Text, out activeShortListings);
+
+            try
+            {
+                percentActiveListingLabel.Text = (activeReoListings / totalActiveListings).ToString("p") + "Active Listings - REO";
+                percentDistressedActiveListingsLabel.Text = ((activeReoListings + activeShortListings) / totalActiveListings).ToString("p") + "Active Listings - Distressed";
+            }
+            catch
+            { }
+
+        }
+
+        private void neighborhoodDataGroupBox_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+    
+
+        private void ndNumberActiveShortListingsTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Decimal activeReoListings = 0;
+            Decimal totalActiveListings = 0;
+            Decimal activeShortListings = 0;
+
+            Decimal.TryParse(this.ndNumberActiveReoListingsTextBox.Text, out activeReoListings);
+            Decimal.TryParse(this.ndNumberOfActiveListingTextBox.Text, out totalActiveListings);
+            Decimal.TryParse(this.ndNumberActiveShortListingsTextBox.Text, out activeShortListings);
+
+            try
+            {
+                percentActiveShortListingLabel.Text = (activeShortListings / totalActiveListings).ToString("p") + "Active Listings - Short";
+                percentDistressedActiveListingsLabel.Text = ((activeReoListings + activeShortListings) / totalActiveListings).ToString("p") + "Active Listings - Distressed";
+            }
+            catch
+            { }
+        }
+
+        private void ndNumberSoldReoListingsTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Decimal soldReoListings = 0;
+            Decimal totalSoldListings = 0;
+            Decimal soldShortListings = 0;
+
+            Decimal.TryParse(this.ndNumberSoldReoListingsTextBox.Text, out soldReoListings);
+            Decimal.TryParse(this.ndNumberOfSoldListingTextBox.Text, out totalSoldListings);
+            Decimal.TryParse(this.ndNumberSoldShortListingsTextBox.Text, out soldShortListings);
+
+            try
+            {
+                percentSoldReoListingLabel.Text = (soldReoListings / totalSoldListings).ToString("p") + "Sold Listings - REO";
+                percentDistressedSoldListingsLabel.Text = ((soldReoListings + soldShortListings) / totalSoldListings).ToString("p") + "Sold Listings - Distressed";
+            }
+            catch
+            { }
+        }
+
+        private void ndNumberSoldShortListingsTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Decimal soldReoListings = 0;
+            Decimal totalSoldListings = 0;
+            Decimal soldShortListings = 0;
+
+            Decimal.TryParse(this.ndNumberSoldReoListingsTextBox.Text, out soldReoListings);
+            Decimal.TryParse(this.ndNumberOfSoldListingTextBox.Text, out totalSoldListings);
+            Decimal.TryParse(this.ndNumberSoldShortListingsTextBox.Text, out soldShortListings);
+
+            try
+            {
+                percentSoldShortListingLabel.Text = (soldShortListings / totalSoldListings).ToString("p") + "Sold Listings - Short";
+                percentDistressedSoldListingsLabel.Text = ((soldReoListings + soldShortListings) / totalSoldListings).ToString("p") + "Sold Listings - Distressed";
+            }
+            catch
+            { }
+        }
+
        
        
 
@@ -9916,8 +10015,8 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             
             //GoogleFusionTable mlsListingCache = new GoogleFusionTable("1EDFPE91a2_6oohUmEG-2OEr_k2xFOG7c9x3fqZE");
 
-            
-
+           // GlobalVar.searchCacheMlsListings.Clear();
+           
             List<string> comps = new List<String>();
             List<MLSListing> listings = new List<MLSListing>();
             Status status = iMacros.Status.sOk;
@@ -10752,8 +10851,6 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                     realist_extraction_macro.AppendLine(@"SET !TIMEOUT_STEP 0");
                     realist_extraction_macro.AppendLine(@"FRAME NAME=workspace");
                     realist_extraction_macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=TXT:Realist<SP>Tax<SP>Report");
-                    //realist_extraction_macro.AppendLine(@"'New tab opened");
-                    //realist_extraction_macro.AppendLine(@"TAG POS=1 TYPE=DIV ATTR=ID:headerText EXTRACT=TXT");
 
                     string realist_extraction_macro_code = realist_extraction_macro.ToString();
                     status = d.iimPlayCode(realist_extraction_macro_code, 60);
@@ -10762,13 +10859,19 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                     if (status == Status.sOk)
                     {
                         //see what we have opened
-                        //gets the address
-                        s = d.iimPlayCode(@"TAG POS=1 TYPE=DIV ATTR=ID:headerText EXTRACT=TXT");
-                        realist_address = d.iimGetLastExtract();
-
-                        //gets all html, but we are not using it right now
-                        s = d.iimPlayCode(@"TAG POS=1 TYPE=DIV ATTR=ID:htmlApplication EXTRACT=HTM");
+                        s = d.iimPlayCode("SET !TIMEOUT_STEP 12 \r\n TAG POS=1 TYPE=TABLE ATTR=* EXTRACT=TXT");
                         realist_rawHtml = d.iimGetLastExtract();
+                        //realist window is open but no properties found so skip the steps below
+                        if (!realist_rawHtml.Contains("No properties were found."))
+                        {
+                            //gets all html
+                            s = d.iimPlayCode("SET !TIMEOUT_STEP 12 \r\n TAG POS=1 TYPE=DIV ATTR=ID:htmlApplication EXTRACT=HTM");
+                            realist_rawHtml = d.iimGetLastExtract();
+                            //gets the address
+                            s = d.iimPlayCode("SET !TIMEOUT_STEP 0 \r\n TAG POS=1 TYPE=DIV ATTR=ID:headerText EXTRACT=TXT");
+                            realist_address = d.iimGetLastExtract();
+                        }
+                       
                     }
 
                    
@@ -11725,6 +11828,8 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 currentNeighborhood.avgDom = Convert.ToInt32(domList.Average());
                 currentNeighborhood.numberActiveListings = activePriceList.Count;
                 currentNeighborhood.numberREOListings = reoActive;
+                currentNeighborhood.numberREOSales = reoSales;
+                currentNeighborhood.numberShortSales = shortSales;
 
                 form.SubjectNeighborhood = currentNeighborhood;
             }

@@ -308,6 +308,9 @@ namespace bpohelper
         public int avgDom;
         public int numberActiveListings;
         public int numberREOListings;
+        public int numberREOSales;
+        public int numberShortSales;
+    
     }
 
     public class AssessmentInfo
