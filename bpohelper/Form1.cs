@@ -10015,7 +10015,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             
             //GoogleFusionTable mlsListingCache = new GoogleFusionTable("1EDFPE91a2_6oohUmEG-2OEr_k2xFOG7c9x3fqZE");
 
-           GlobalVar.searchCacheMlsListings.Clear();
+         
            
             List<string> comps = new List<String>();
             List<MLSListing> listings = new List<MLSListing>();
@@ -10084,7 +10084,13 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             bool stillRecords = true;
             bool searchCache = false;
             int count = 0;
-            
+
+
+            GlobalVar.searchCacheMlsListings.Clear();
+            GlobalVar.searchCacheMlsListings = GlobalVar.listingsFromLastSearch;
+           
+
+
             //if (GlobalVar.searchCacheMlsListings.Count > 0)
             //{
             //    searchCache = true;
@@ -11800,7 +11806,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
                 else
                 {
-                    GlobalVar.searchCacheMlsListings.Add(currentListing);
+                    //GlobalVar.searchCacheMlsListings.Add(currentListing);
                     status = d.iimPlayCode(move_through_comps_macro.ToString(), 60);
                     if (status != Status.sOk)
                     {
@@ -11968,7 +11974,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                                        where l.proximityToSubject <.25
                                        select l;
 
-            MessageBox.Show(queryListingsRemarks.Count().ToString() + "listing used the word *charming*");
+            MessageBox.Show(queryListingsRemarks.Count().ToString() + " listing used the word *charming*");
 
             
             System.Xml.Serialization.XmlSerializer writer2 =
@@ -11988,6 +11994,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
             xmlTestfile2.Close();
 
+            GlobalVar.listingsFromLastSearch.Clear();
             GlobalVar.listingsFromLastSearch = listings;
 
            // MessageBox.Show(queryRealProperties.Count().ToString());

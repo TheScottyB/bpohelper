@@ -473,7 +473,7 @@
             this.subjectBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.subjectBindingNavigator.Name = "subjectBindingNavigator";
             this.subjectBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.subjectBindingNavigator.Size = new System.Drawing.Size(1801, 25);
+            this.subjectBindingNavigator.Size = new System.Drawing.Size(1818, 25);
             this.subjectBindingNavigator.TabIndex = 17;
             this.subjectBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -676,7 +676,6 @@
             this.search_address_textbox.Name = "search_address_textbox";
             this.search_address_textbox.Size = new System.Drawing.Size(472, 20);
             this.search_address_textbox.TabIndex = 26;
-            this.search_address_textbox.Text = "F:\\Dropbox\\BPOs\\1904 YASGUR DRIVE";
             this.search_address_textbox.TextChanged += new System.EventHandler(this.search_address_textbox_TextChanged);
             this.search_address_textbox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.search_address_textbox_MouseDoubleClick);
             // 
@@ -1766,7 +1765,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 983);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1801, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1818, 22);
             this.statusStrip1.TabIndex = 52;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -1865,7 +1864,7 @@
             // 
             this.statusStrip2.Location = new System.Drawing.Point(0, 961);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(1801, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(1818, 22);
             this.statusStrip2.TabIndex = 95;
             this.statusStrip2.Text = "statusStrip2";
             // 
@@ -2474,7 +2473,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1818, 874);
+            this.ClientSize = new System.Drawing.Size(1835, 874);
             this.Controls.Add(this.button24);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.button23);
