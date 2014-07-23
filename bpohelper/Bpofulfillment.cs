@@ -306,6 +306,7 @@ namespace bpohelper
             theMacro.AppendLine(@"SET !ERRORIGNORE YES");
             theMacro.AppendLine(@"SET !TIMEOUT_STEP 0");
             theMacro.AppendLine(@"SET !REPLAYSPEED FAST");
+            theMacro.AppendLine("FRAME NAME=\"AddBpoWindow\"");
         }
 
 

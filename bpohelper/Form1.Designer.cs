@@ -251,6 +251,7 @@
             this.button23 = new System.Windows.Forms.Button();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.button24 = new System.Windows.Forms.Button();
+            this.REOcSandboxButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -676,6 +677,7 @@
             this.search_address_textbox.Name = "search_address_textbox";
             this.search_address_textbox.Size = new System.Drawing.Size(472, 20);
             this.search_address_textbox.TabIndex = 26;
+            this.search_address_textbox.Text = "F:\\Dropbox\\Listing\\548 Normandie\\BPO\\07-15-2014";
             this.search_address_textbox.TextChanged += new System.EventHandler(this.search_address_textbox_TextChanged);
             this.search_address_textbox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.search_address_textbox_MouseDoubleClick);
             // 
@@ -2465,6 +2467,16 @@
             this.button24.UseVisualStyleBackColor = true;
             this.button24.Click += new System.EventHandler(this.button24_Click);
             // 
+            // REOcSandboxButton
+            // 
+            this.REOcSandboxButton.Location = new System.Drawing.Point(1119, 522);
+            this.REOcSandboxButton.Name = "REOcSandboxButton";
+            this.REOcSandboxButton.Size = new System.Drawing.Size(75, 23);
+            this.REOcSandboxButton.TabIndex = 128;
+            this.REOcSandboxButton.Text = "REOc SB";
+            this.REOcSandboxButton.UseVisualStyleBackColor = true;
+            this.REOcSandboxButton.Click += new System.EventHandler(this.REOcSandboxButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2474,6 +2486,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1835, 874);
+            this.Controls.Add(this.REOcSandboxButton);
             this.Controls.Add(this.button24);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.button23);
@@ -2809,6 +2822,7 @@
         private System.Windows.Forms.TextBox ndNumberSoldReoListingsTextBox;
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.TextBox ndNumberOfSoldListingTextBox;
+        private System.Windows.Forms.Button REOcSandboxButton;
     }
 
 }

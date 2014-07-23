@@ -270,6 +270,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="REOcBPO.cs" />
     <Compile Include="SolutionStar.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="AVM.cs" />

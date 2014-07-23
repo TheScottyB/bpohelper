@@ -919,6 +919,21 @@ namespace bpohelper
             macro.AppendLine(@"SET !TIMEOUT_STEP 30");
             macro.AppendLine(@"SET !ERRORIGNORE YES");
 
+            if (currentUrl.ToLower().Contains("reo-central"))
+            {
+                macro.AppendLine("FRAME NAME=\"AddBpoWindow\"");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:form1 ATTR=ID:Wizard1_uploadComp1file0 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S1.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:form1 ATTR=ID:Wizard1_uploadComp2file0 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S2.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:form1 ATTR=ID:Wizard1_uploadComp3file0 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S3.jpg");
+
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:form1 ATTR=ID:Wizard1_uploadList1file0 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L1.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:form1 ATTR=ID:Wizard1_uploadList2file0 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L2.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:form1 ATTR=ID:Wizard1_uploadList3file0 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L3.jpg");
+
+                string macroCode = macro.ToString();
+                status = iim2.iimPlayCode(macroCode, 120);
+
+            }
 
             if (currentUrl.ToLower().Contains("solutionstar"))
             {

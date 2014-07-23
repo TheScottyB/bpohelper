@@ -1323,6 +1323,61 @@ namespace bpohelper
                 // Perform the increment on the ProgressBar.
 
 
+                //
+                //REOcBPO - First Pass
+                //
+                #region REOcBPO
+                if (currentUrl.ToLower().Contains("reo-central"))
+                {
+                    #region code
+
+                    s = iim.iimPlayCode(macro12.ToString());
+                    htmlCode = iim.iimGetLastExtract();
+                    if (subjectAttachedRadioButton.Checked)
+                    {
+                        m = new AttachedListing(htmlCode);
+                    }
+                    else if (subjectDetachedradioButton.Checked)
+                    {
+                        m = new DetachedListing(htmlCode);
+                    }
+                    else
+                    {
+                        m = new MLSListing(htmlCode);
+                    }
+
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
+                    m.NumberOfPriceChanges = count;
+
+                    Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                    REOcBPO bpoform = new REOcBPO(m);
+
+                    fieldList.Add("filepath", SubjectFilePath);
+
+                    #endregion
+
+                    #region basementlogic
+
+
+
+
+                    #endregion
+
+                    #region garagelogic
+
+                    #endregion
+
+                    #region fireplacelogic
+
+                    #endregion
+
+                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
+                    status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
+
+                }
+
+                #endregion  
 
                 //
                 //solutionstar - First Pass
@@ -9567,6 +9622,21 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             { }
         }
 
+        private void REOcSandboxButton_Click(object sender, EventArgs e)
+        {
+            iMacros.App reocFireFoxBrowser = new iMacros.App();
+            status = reocFireFoxBrowser.iimOpen("-fx", false, 60);
+            reocFireFoxBrowser.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
+            string currentUrl = reocFireFoxBrowser.iimGetLastExtract();
+
+            if (currentUrl.Contains("reo-central"))
+            {
+                iim2 = reocFireFoxBrowser;
+            }
+
+
+        }
+
        
        
 
@@ -11978,7 +12048,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
             
             System.Xml.Serialization.XmlSerializer writer2 =
-     new System.Xml.Serialization.XmlSerializer(typeof(List<MLSListing>));
+            new System.Xml.Serialization.XmlSerializer(typeof(List<MLSListing>));
 
 
             string filename = @"\listingsFromSearchRunAt-" + DateTime.Now.ToString("dd-MM-yy-HH-mm-ss-ffff") + ".xml";

@@ -571,12 +571,29 @@ namespace bpohelper
             {
                 get 
                 {
-                    if (mlsHtmlFields["soldPrice"].value.Contains("S"))
-                        transactionType = "ShortSale";
-                    if  (mlsHtmlFields["soldPrice"].value.Contains("F"))
-                        transactionType = "REO";
-                    if (mlsHtmlFields["soldPrice"].value.Contains("C"))
-                        transactionType = "Corp";
+                    if (string.IsNullOrWhiteSpace(mlsHtmlFields["soldPrice"].value))
+                    {
+                       //active listing
+                        if ( mlsHtmlFields["additionalSalesInfo"].value.Contains("REO"))
+                        {
+                            transactionType = "REO";
+                        }
+                        if (mlsHtmlFields["additionalSalesInfo"].value.Contains("Short Sale"))
+                        {
+                            transactionType = "ShortSale";
+                        }
+
+                    }
+                    else
+                    {
+                        //sold listing
+                        if (mlsHtmlFields["soldPrice"].value.Contains("S"))
+                            transactionType = "ShortSale";
+                        if (mlsHtmlFields["soldPrice"].value.Contains("F"))
+                            transactionType = "REO";
+                        if (mlsHtmlFields["soldPrice"].value.Contains("C"))
+                            transactionType = "Corp";
+                    }
                     return transactionType; 
                 }
                 set { transactionType = value; }
