@@ -492,15 +492,31 @@ namespace bpohelper
                 //fuill line address
                 //Address:#NEXT#2627 Sycamore Dr , Waukegan, Illinois 60085#NEXT#
                 //string city = tempstrarry[1];
+                //
+                //With unit # as line 2
+                //2805  Glacier Way,   Unit C, Wauconda, Illinois 60084
+                //        0               1       2            3
+
 
                 if  (string.IsNullOrWhiteSpace(mlsHtmlFields["address"].value))
                 {
                     mlsHtmlFields["address"].value = Regex.Match(rawData,"<td class=\"Label\">Address:</td>.*?;\">([^<]*)").Groups[1].Value;
                 }
 
-                city = mlsHtmlFields["address"].value.Split(',')[1];
+                var temparr = mlsHtmlFields["address"].value.Split(',');
 
-                zip = mlsHtmlFields["address"].value.Split(',')[2].Split(' ')[2];
+                if (temparr.Count() == 3)
+                {
+                    city = mlsHtmlFields["address"].value.Split(',')[1];
+                    zip = mlsHtmlFields["address"].value.Split(',')[2].Split(' ')[2];
+                } else
+                {
+                    city = mlsHtmlFields["address"].value.Split(',')[2];
+                    zip = mlsHtmlFields["address"].value.Split(',')[3].Split(' ')[2];
+                    mlsHtmlFields["address"].value = temparr[0] + "," + temparr[2] + "," + temparr[3];
+                } 
+                
+              
 
                 if (zip.Contains("-"))
                 {

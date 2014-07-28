@@ -2033,6 +2033,25 @@ namespace bpohelper
                     LandSafe bpoform = new LandSafe();
                     Dictionary<string, string> fieldList = new Dictionary<string, string>();
 
+                    s = iim.iimPlayCode(macro12.ToString());
+                    htmlCode = iim.iimGetLastExtract();
+                    if (subjectAttachedRadioButton.Checked)
+                    {
+                        m = new AttachedListing(htmlCode);
+                    }
+                    else if (subjectDetachedradioButton.Checked)
+                    {
+                        m = new DetachedListing(htmlCode);
+                    }
+                    else
+                    {
+                        m = new MLSListing(htmlCode);
+                    }
+
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
+                    m.NumberOfPriceChanges = count;
+
                     fieldList.Add("ADDRSTREET", full_street_address);
                     fieldList.Add("STREET", full_street_address);
                     fieldList.Add("ADDRCITY", city);
@@ -2057,6 +2076,17 @@ namespace bpohelper
                     fieldList.Add("GBASQFT", mls_gla);
                     fieldList.Add("LIVINGSQFT", mls_gla);
 
+                    if(m.TransactionType == "REO" || m.TransactionType == "Short Sale")
+                    {
+                            fieldList.Add("SALETYPE", "Yes");
+                    }
+                    else
+                    {
+                            fieldList.Add("SALETYPE", "No");
+                    }
+                
+
+                    
 
                     //try
                     //{
@@ -7525,6 +7555,27 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
             if (File.Exists(SubjectFilePath + "\\subjectinfo.txt"))
             {
                 #region load data from subjectinfo file
+
+                //load other fields not displayed
+                foreach (string f in filePaths)
+                {
+                    if (f.ToLower().Contains("report-"))
+                    {
+                        StringBuilder pages = new StringBuilder();
+                        PdfReader pdfReader = new PdfReader(f);
+                        ITextExtractionStrategy strat = new PdfHelper.LocationTextExtractionStrategyEx();
+                        for (int i = 1; i <= pdfReader.NumberOfPages; i++)
+                        {
+                            pages.Append(PdfTextExtractor.GetTextFromPage(pdfReader, i, strat));
+                        }
+
+                        mlsSubject.GetSubjectInfo(pages.ToString());
+
+                        this.statusTextBox.AppendText("MLS listing Loaded...");
+                    }
+                }
+
+                //overwrite with what is saved; leave the rest alone
                 string line = "";
                 string[] splitLine;
                 using (System.IO.StreamReader file = new System.IO.StreamReader(this.SubjectFilePath + "\\" + "subjectinfo.txt"))
@@ -7555,27 +7606,10 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
 
                         //}                       
                     }
-                    foreach (string f in filePaths)
-                    {
-                        if (f.ToLower().Contains("report-"))
-                        {
-                            StringBuilder pages = new StringBuilder();
-                            PdfReader pdfReader = new PdfReader(f);
-                            ITextExtractionStrategy strat = new PdfHelper.LocationTextExtractionStrategyEx();
-                            for (int i = 1; i <= pdfReader.NumberOfPages; i++)
-                            {
-                                pages.Append(PdfTextExtractor.GetTextFromPage(pdfReader, i, strat));
-                            }
-
-                            mlsSubject.GetSubjectInfo(pages.ToString());
-
-                            this.statusTextBox.AppendText("MLS listing Loaded...");
-                        }
-                    }
+                    
                 }
 
                 #endregion
-
             }
             else
             {

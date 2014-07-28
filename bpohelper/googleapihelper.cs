@@ -256,7 +256,50 @@ namespace bpohelper
                 WebRequest request = WebRequest.Create(googlestr);
 
                 //// Get the response.
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                
+                HttpWebResponse response;
+
+                try
+                {
+                    response = (HttpWebResponse)request.GetResponse();
+                } 
+                catch
+                {
+                    try
+                    {
+                        HttpWebResponse response2 = (HttpWebResponse)request.GetResponse();
+                        response = response2;
+                    }
+                    catch
+                    {
+                        Thread.Sleep(5000);
+                        
+                        try
+                        {
+                            HttpWebResponse response3 = (HttpWebResponse)request.GetResponse();
+                            response = response3;
+                        }
+                        catch
+                        {
+                            Thread.Sleep(10000);
+                           
+                            try
+                            {
+                                HttpWebResponse response4 = (HttpWebResponse)request.GetResponse();
+                                response = response4;
+                            }
+                            catch
+                            {
+                               
+                                Thread.Sleep(30000);
+                                HttpWebResponse response5 = (HttpWebResponse)request.GetResponse();
+                                response = response5;
+                            }
+                          
+                        }
+                       
+                    }
+                }
 
                 // Get the stream containing content returned by the server.
                 Stream dataStream = response.GetResponseStream();
