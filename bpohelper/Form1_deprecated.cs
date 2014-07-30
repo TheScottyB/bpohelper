@@ -919,6 +919,99 @@ namespace bpohelper
             macro.AppendLine(@"SET !TIMEOUT_STEP 30");
             macro.AppendLine(@"SET !ERRORIGNORE YES");
 
+
+            if (currentUrl.ToLower().Contains("dnaforms"))
+            {
+                macro.AppendLine(@"FRAME NAME=pageSelect");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=NAME:myForm ATTR=NAME:ARImages");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagetype CONTENT=%oitCompPhoto");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:salescompnumber CONTENT=%1");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagefile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S1.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:addremoveimageswork.aspx ATTR=CLASS:buttons");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RESET FORM=ACTION:addremoveimageswork.aspx ATTR=ID:reset");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagetype CONTENT=%oitCompPhoto");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:salescompnumber CONTENT=%2");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagefile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S2.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:addremoveimageswork.aspx ATTR=CLASS:buttons");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RESET FORM=ACTION:addremoveimageswork.aspx ATTR=ID:reset");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagetype CONTENT=%oitCompPhoto");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:salescompnumber CONTENT=%3");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagefile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S3.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:addremoveimageswork.aspx ATTR=CLASS:buttons");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RESET FORM=ACTION:addremoveimageswork.aspx ATTR=ID:reset");
+
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagetype CONTENT=%oitListingCompPhoto");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:listingcompnumber CONTENT=%1");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagefile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L1.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:addremoveimageswork.aspx ATTR=CLASS:buttons");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RESET FORM=ACTION:addremoveimageswork.aspx ATTR=ID:reset");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagetype CONTENT=%oitListingCompPhoto");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:listingcompnumber CONTENT=%2");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagefile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L2.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:addremoveimageswork.aspx ATTR=CLASS:buttons");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RESET FORM=ACTION:addremoveimageswork.aspx ATTR=ID:reset");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagetype CONTENT=%oitListingCompPhoto");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:listingcompnumber CONTENT=%3");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagefile CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L3.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:addremoveimageswork.aspx ATTR=CLASS:buttons");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RESET FORM=ACTION:addremoveimageswork.aspx ATTR=ID:reset");
+
+                string[] fileEntries = Directory.GetFiles(search_address_textbox.Text);
+
+                foreach (string fileName in fileEntries)
+                {
+                    if (fileName.ToLower().Contains(".jpg"))
+                    {
+                        if (fileName.ToLower().Contains("address"))
+                        {
+                            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagetype CONTENT=%oitSubjectAdditional"); 
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:desc3 CONTENT=Address");
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagefile CONTENT=" + fileName.Replace(" ", "<SP>"));
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:addremoveimageswork.aspx ATTR=CLASS:buttons");
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RESET FORM=ACTION:addremoveimageswork.aspx ATTR=ID:reset");
+
+                        }
+                        else if (fileName.ToLower().Contains("front"))
+                        {
+                            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagetype CONTENT=%oitSubjectFrontView");
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:desc1 CONTENT=Front");
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagefile CONTENT=" + fileName.Replace(" ", "<SP>"));
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:addremoveimageswork.aspx ATTR=CLASS:buttons");
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RESET FORM=ACTION:addremoveimageswork.aspx ATTR=ID:reset");
+                        }
+                        else if (fileName.ToLower().Contains("street"))
+                        {
+
+                            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagetype CONTENT=%oitSubjectStreetView");
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:desc2 CONTENT=Street");
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagefile CONTENT=" + fileName.Replace(" ", "<SP>"));
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:addremoveimageswork.aspx ATTR=CLASS:buttons");
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RESET FORM=ACTION:addremoveimageswork.aspx ATTR=ID:reset");
+                        }
+                        else if (fileName.ToLower().Contains("side"))
+                        {
+                            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagetype CONTENT=%oitSubjectRearView");
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:desc1 CONTENT=Side");
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:addremoveimageswork.aspx ATTR=NAME:imagefile CONTENT=" + fileName.Replace(" ", "<SP>"));
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:addremoveimageswork.aspx ATTR=CLASS:buttons");
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RESET FORM=ACTION:addremoveimageswork.aspx ATTR=ID:reset");
+                        }
+                    }
+                }
+
+           
+
+
+                macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+                //macro.AppendLine(@"TAG POS=2 TYPE=INPUT:BUTTON FORM=ACTION:addremoveimageswork.aspx ATTR=CLASS:buttons");
+
+
+
+                string macroCode = macro.ToString();
+                status = iim2.iimPlayCode(macroCode, 120);
+
+            }
+
             if (currentUrl.ToLower().Contains("reo-central"))
             {
                 macro.AppendLine("FRAME NAME=\"AddBpoWindow\"");

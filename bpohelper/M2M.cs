@@ -162,7 +162,7 @@ namespace bpohelper
 
         }
 
-        protected string GenerateSubjectFillScript()
+        protected virtual  string GenerateSubjectFillScript()
         {
             StringBuilder macro = new StringBuilder();
             //borrowers name (already filled)
@@ -543,7 +543,7 @@ namespace bpohelper
             compTextFieldList.Add(compFieldListTranslator["OriginalListPrice"], targetComp.OriginalListPrice.ToString());
             compTextFieldList.Add(compFieldListTranslator["ListDate"], targetComp.ListDate.ToShortDateString());
             compTextFieldList.Add(compFieldListTranslator["SalePrice"], targetComp.SalePrice.ToString());
-            compTextFieldList.Add(compFieldListTranslator["SalesDate"], targetComp.SalePrice.ToString());
+            compTextFieldList.Add(compFieldListTranslator["SalesDate"], targetComp.SalesDate.ToShortDateString());
             compTextFieldList.Add(compFieldListTranslator["Adjustment-text"], "0");
             compTextFieldList.Add(compFieldListTranslator["ProximityToSubject"], targetComp.ProximityToSubject.ToString());
             compTextFieldList.Add(compFieldListTranslator["DOM"], targetComp.DOM);
@@ -592,8 +592,36 @@ namespace bpohelper
 
         }
 
+        protected override string GenerateSubjectFillScript()
+        {
+            StringBuilder macro = new StringBuilder();
+     
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.PropertyType CONTENT=%Single<SP>Family<SP>Detached");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Style CONTENT=%1<SP>1/2<SP>Story");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Exterior CONTENT=%Metal/Vinyl");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.YearBuilt CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectYearBuilt);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.AboveGradeSf CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectAboveGLA);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.FinishedSf CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectAboveGLA);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.TotalRooms CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectRoomCount);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Bedrooms CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectBedroomCount);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Bathrooms CONTENT=" + GlobalVar.theSubjectProperty.FullBathCount);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.HalfBaths CONTENT=" + GlobalVar.theSubjectProperty.HalfBathCount);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.BasementRooms CONTENT=0");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.BasementSQFT CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectBasementGLA);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.PercentageBasementFinished CONTENT=0");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Garage CONTENT=%1<SP>ATTACHED");
 
-        protected Dictionary<string, string> salesTypeTranslator = new Dictionary<string, string>()
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.SiteSize CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectLotSize);
+            
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Pool CONTENT=%None");
+            
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:SaveButton");
+            return macro.ToString();
+
+        }
+
+
+        protected  Dictionary<string, string> salesTypeTranslator = new Dictionary<string, string>()
          { 
                {"Arms Length", "%Fair<SP>Market"},
              {"ShortSale", "%Short<SP>Sale"},

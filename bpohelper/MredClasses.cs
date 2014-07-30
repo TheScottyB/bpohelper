@@ -172,6 +172,15 @@ namespace bpohelper
                 } 
             }
 
+             public string DistressedSaleYesNo()
+            {
+                 if (TransactionType == "REO" || TransactionType == "Short Sale")
+                 {
+                     return "Yes";
+                 }
+                 return "No";
+            }
+
 
             public bool ListedInLast12Months()
             {
@@ -549,6 +558,33 @@ namespace bpohelper
 
             #region Listing and Price History, Dates, Prices and related data
 
+             public string PointsMlsString
+            {
+                get
+                {
+                    string returnString = "Unknown";
+                     if ( !string.IsNullOrWhiteSpace(mlsHtmlFields["points"].value))
+                     {
+                         returnString = mlsHtmlFields["points"].value;
+                     }
+                    return returnString;
+                }
+                 
+            }
+
+             public string FinancingMlsString
+             {
+                 get
+                 {
+                     string returnString = "Unknown";
+                     if (!string.IsNullOrWhiteSpace(mlsHtmlFields["financing"].value))
+                     {
+                         returnString = mlsHtmlFields["financing"].value;
+                     }
+                     return returnString;
+                 }
+
+             }
 
             public int NumberOfPriceChanges
             {
@@ -755,7 +791,10 @@ namespace bpohelper
 
             public string BedroomCount
             {
-                get { return mlsHtmlFields["bedrooms"].value; }
+                get 
+                {
+                    return mlsHtmlFields["bedrooms"].value[0].ToString(); 
+                }
             }
              
 

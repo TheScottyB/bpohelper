@@ -209,11 +209,11 @@ namespace bpohelper
             //Page 3
             //
             macro.AppendLine(@"FRAME NAME=pageView");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:IEFORM ATTR=NAME:ASISVALUE CONTENT=100000");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:IEFORM ATTR=NAME:ESTMARKETVALUENORMALREPAIRED CONTENT=100000");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:IEFORM ATTR=NAME:ASISVALUE CONTENT=" + form.SubjectMarketValue);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:IEFORM ATTR=NAME:ESTMARKETVALUENORMALREPAIRED CONTENT=" + form.SubjectMarketValue);
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:IEFORM ATTR=NAME:ASISDATERESPONSE CONTENT=NO");
             macro.AppendLine(@"TAG POS=5 TYPE=INPUT:CHECKBOX FORM=NAME:IEFORM ATTR=NAME:ASISDATERESPONSE CONTENT=YES");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:IEFORM ATTR=NAME:ASISDATEAMT3 CONTENT=90000");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:IEFORM ATTR=NAME:ASISDATEAMT3 CONTENT=" + form.SubjectQuickSaleValue);
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:IEFORM ATTR=NAME:APPRAISERDTSIGNED CONTENT=07-27-2014");
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:IEFORM ATTR=NAME:APPRAISER CONTENT=Scott<SP>Beilfuss");
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:IEFORM ATTR=NAME:APPRAISERCONAME CONTENT=OK<SP>Assoc,RealtyPlus");
@@ -268,9 +268,9 @@ namespace bpohelper
                 else
                 {
                     macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:IEFORM ATTR=NAME:*{0}{1}{2} CONTENT={3}\r\n", sol, Regex.Match(compNum, @"\d").Value, field, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
-                    if (field.Contains("ADDRSTREET"))
+                    if (field.Contains("STREET"))
                     {
-                        macro.AppendFormat("TAG POS=1 TYPE=TEXTAREA FORM=NAME:IEFORM ATTR=NAME:*{0}{1}{2} CONTENT={3}\r\n", sol, Regex.Match(compNum, @"\d").Value, field, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                        macro.AppendFormat("TAG POS=1 TYPE=TEXTAREA FORM=NAME:IEFORM ATTR=NAME:{0}{1}*STREET CONTENT={3}\r\n", sol, Regex.Match(compNum, @"\d").Value, field, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
                     }
                 }
 

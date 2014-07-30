@@ -412,16 +412,16 @@ namespace bpohelper
             compTextFieldList.Add("SalesProperties.OriginalListing.Price", targetComp.OriginalListPrice.ToString());
             compTextFieldList.Add("SalesProperties.CurrentListing.Price", targetComp.CurrentListPrice.ToString());
             compTextFieldList.Add("DOM", targetComp.DOM);
-            compTextFieldList.Add("SourceOfFunds", "Unavailable");
-            compTextFieldList.Add("SalesProperties.CurrentListing.Concessions", "Unavailable");
-            compTextFieldList.Add("DistressedSale", "Unknown");
+            compTextFieldList.Add("SourceOfFunds", targetComp.FinancingMlsString);
+            compTextFieldList.Add("SalesProperties.CurrentListing.Concessions", targetComp.PointsMlsString);
+            compTextFieldList.Add("DistressedSale", targetComp.DistressedSaleYesNo());
             compTextFieldList.Add("GeneralProperties.IsHOA.feesPerMonth", "0");
             compTextFieldList.Add("LandAndStructure.LivingArea.Gross", targetComp.GLA.ToString());
             compTextFieldList.Add("LandAndStructure.Age", targetComp.Age.ToString());
             compTextFieldList.Add("LandAndStructure.LotSize", targetComp.Lotsize.ToString());
             compTextFieldList.Add("LandAndStructure.Site", "1");
             compTextFieldList.Add("LandAndStructure.TotalRooms", targetComp.TotalRoomCount.ToString());
-            compTextFieldList.Add("LandAndStructure.Bedrooms", targetComp.BedroomCount.ToString());
+            compTextFieldList.Add("LandAndStructure.Bedrooms", targetComp.BedroomCount);
             compTextFieldList.Add("LandAndStructure.FullRooms", targetComp.FullBathCount.ToString());
             compTextFieldList.Add("LandAndStructure.PartialRooms", targetComp.HalfBathCount.ToString());
             compTextFieldList.Add("LandAndStructure.DesignStyle", "Typical");
@@ -596,6 +596,17 @@ namespace bpohelper
             {
                 theMacro.AppendFormat(theBaseImacroCommand, "1", "SELECT", "Neighborhood", "", "", field.Replace("_", "<SP>"), "%" + subjectFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
             }
+
+            //
+            //Neighborhood stats
+            //
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Listings.NeighborhoodListings CONTENT=" + form.SubjectNeighborhood.numberActiveListings);
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PricesFrom CONTENT=" + form.SubjectNeighborhood.minListPrice);
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PricesTo CONTENT=" + form.SubjectNeighborhood.highListPrice);
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.ComparableListingSupply CONTENT=" + form.SubjectNeighborhood.numberOfSales);
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Construction.LowPrice CONTENT=" + form.SubjectNeighborhood.minSalePrice);
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Construction.HighPrice CONTENT=" + form.SubjectNeighborhood.maxSalePrice);
+
 
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.ASIS.MarketValue CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectMarketValue);
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.ASIS.SuggestedListPrice CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectMarketValueList);
