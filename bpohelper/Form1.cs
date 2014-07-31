@@ -2196,7 +2196,6 @@ namespace bpohelper
                             Dictionary<string, string> fieldList = new Dictionary<string, string>();
 
                             fieldList.Add("filepath", SubjectFilePath);
-
                             fieldList.Add("Address", full_street_address);
                             fieldList.Add("City", city);
                             fieldList.Add("*State", "ii");
