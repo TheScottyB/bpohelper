@@ -242,6 +242,7 @@ namespace bpohelper
             //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:SubjectProperty_AreaMarketConditions_LowSalePrice CONTENT=1");
         
          
+            //some chages on form 8/6/14
 
 
 

@@ -35,6 +35,49 @@ namespace bpohelper
         //FNMA example url
         //http://www.marktomarket.us/Order/OrderEditWizardFNMA/Step3/11487827
 
+
+         //{"A", "1 Story"}, 
+         //   {"B", "1.5 Story"},
+         //   {"C", "2 Stories"},
+         //   {"D", "3 Stories"},
+         //   {"E", "4+ Stories"},
+         //   {"F", "Coach House"},
+         //   {"G", "Earth"},
+         //   {"H", "Hillside"},
+         //   {"I", "Raised Ranch"},
+         //   {"J", "Split Level"},
+         //   {"K", @"Split Level w/Sub"},
+         //   {"L", "Other"},
+         //   {"M", "Tear Down"}
+
+        protected Dictionary<string, string> propExteriorBuildingTypeTranslator = new Dictionary<string, string>()
+         {
+             {"Aluminum Siding", @"%Metal/Vinyl"},
+             {"Vinyl Siding", @"%Metal/Vinyl"},
+             {"Steel Siding", @"%Metal/Vinyl"},
+             {@"Aluminum Siding, Vinyl Siding, Steel Siding",  @"%Metal/Vinyl"},
+             {"Frame", @"%Wood"},
+
+
+             {"Aluminum Siding, Brick", @"%Metal/Vinyl"},
+                 { "Other", @"%Metal/Vinyl"},
+               
+         };
+
+        protected Dictionary<string, string> propStyleTranslator = new Dictionary<string, string>()
+         {
+            {"1 Story", "%1<SP>Story"},
+            {"1.5 Story", @"%1<SP>1/2<SP>Story"},
+             {"2 Stories", "%2<SP>Story"},
+             {"Raised Ranch", @"%Split<SP>Entry/Raised<SP>Ranch"},
+             {"Split Level", @"%Split<SP>Entry/Raised<SP>Ranch"},
+             {"Hillside", @"%Split<SP>Entry/Raised<SP>Ranch"},
+                 { @"Split Level w/Sub", @"%Split<SP>Entry/Raised<SP>Ranch"},
+                 {"3 Stories", "%3<SP>Story"},
+         };
+
+      
+
         protected Dictionary<string, string> propTypeTranslator = new Dictionary<string, string>()
          {
             {"bpohelper.DetachedListing", "%SFR<SP>Detached"},
@@ -136,7 +179,7 @@ namespace bpohelper
             {"HasForcedWarmAirForHeat", "HasForcedWarmAirForHeat"},
             {"HasCentralAir", "HasCentralAir"},
             {"ListingStatus", "SaleStatusListingType"},
-                //{"TRL", "Trail"},
+            {"Style", "Style"},
             //{"TRL", "Trail"},
             //{"TRL", "Trail"},
             //{"WAY", "Way"}
@@ -277,6 +320,7 @@ namespace bpohelper
             compSelectionBoxList.Add(compFieldListTranslator["BasementAccessType"], "%in");
             compCheckboxList.Add(compFieldListTranslator["HasForcedWarmAirForHeat"], "YES");
             compCheckboxList.Add(compFieldListTranslator["HasCentralAir"], "YES");
+            compSelectionBoxList.Add(compFieldListTranslator["Style"], propStyleTranslator[targetComp.Type]);
 
             foreach (string field in compTextFieldList.Keys)
             {
@@ -354,6 +398,7 @@ namespace bpohelper
             compSelectionBoxList.Add(compFieldListTranslator["BasementAccessType"], "%in");
             compCheckboxList.Add(compFieldListTranslator["HasForcedWarmAirForHeat"], "YES");
             compCheckboxList.Add(compFieldListTranslator["HasCentralAir"], "YES");
+            compSelectionBoxList.Add(compFieldListTranslator["Style"], propStyleTranslator[targetComp.Type]);
 
 
             foreach (string field in compTextFieldList.Keys)
@@ -484,7 +529,7 @@ namespace bpohelper
             compTextFieldList.Add(compFieldListTranslator["ProximityToSubject"], targetComp.ProximityToSubject.ToString());
             compTextFieldList.Add(compFieldListTranslator["DOM"], targetComp.DOM);
             compTextFieldList.Add(compFieldListTranslator["Type"], targetComp.PropertyType());
-            compSelectionBoxList.Add(compFieldListTranslator["Exterior"], "");
+            compSelectionBoxList.Add(compFieldListTranslator["Exterior"], propExteriorBuildingTypeTranslator[targetComp.ExteriorMlsString]);
             compTextFieldList.Add(compFieldListTranslator["YearBuilt"], targetComp.YearBuilt.ToString());
             compTextFieldList.Add(compFieldListTranslator["GLA"], targetComp.GLA.ToString());
             compTextFieldList.Add(compFieldListTranslator["FinishedSf"], targetComp.GLA.ToString());
@@ -500,6 +545,7 @@ namespace bpohelper
             compSelectionBoxList.Add(compFieldListTranslator["TransactionType"], salesTypeTranslator[targetComp.TransactionType]);
             compTextFieldList.Add(compFieldListTranslator["LotSize"], targetComp.Lotsize.ToString());
             compSelectionBoxList.Add(compFieldListTranslator["PoolType"], "%None");
+            compSelectionBoxList.Add(compFieldListTranslator["Style"], propStyleTranslator[targetComp.Type]);
 
             foreach (string field in compTextFieldList.Keys)
             {
@@ -548,7 +594,7 @@ namespace bpohelper
             compTextFieldList.Add(compFieldListTranslator["ProximityToSubject"], targetComp.ProximityToSubject.ToString());
             compTextFieldList.Add(compFieldListTranslator["DOM"], targetComp.DOM);
             compTextFieldList.Add(compFieldListTranslator["Type"], targetComp.PropertyType());
-            compSelectionBoxList.Add(compFieldListTranslator["Exterior"], "");
+            
             compTextFieldList.Add(compFieldListTranslator["YearBuilt"], targetComp.YearBuilt.ToString());
             compTextFieldList.Add(compFieldListTranslator["GLA"], targetComp.GLA.ToString());
             compTextFieldList.Add(compFieldListTranslator["FinishedSf"], targetComp.GLA.ToString());
@@ -564,6 +610,8 @@ namespace bpohelper
              compSelectionBoxList.Add(compFieldListTranslator["TransactionType"], salesTypeTranslator[targetComp.TransactionType]);
              compTextFieldList.Add(compFieldListTranslator["LotSize"], targetComp.Lotsize.ToString());
              compSelectionBoxList.Add(compFieldListTranslator["PoolType"], "%None");
+             compSelectionBoxList.Add(compFieldListTranslator["Style"], propStyleTranslator[targetComp.Type]);
+             compSelectionBoxList.Add(compFieldListTranslator["Exterior"], propExteriorBuildingTypeTranslator[targetComp.ExteriorMlsString]);
 
        
    
@@ -596,26 +644,26 @@ namespace bpohelper
         {
             StringBuilder macro = new StringBuilder();
      
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.PropertyType CONTENT=%Single<SP>Family<SP>Detached");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Style CONTENT=%1<SP>1/2<SP>Story");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Exterior CONTENT=%Metal/Vinyl");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.YearBuilt CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectYearBuilt);
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.AboveGradeSf CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectAboveGLA);
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.FinishedSf CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectAboveGLA);
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.TotalRooms CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectRoomCount);
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Bedrooms CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectBedroomCount);
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Bathrooms CONTENT=" + GlobalVar.theSubjectProperty.FullBathCount);
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.HalfBaths CONTENT=" + GlobalVar.theSubjectProperty.HalfBathCount);
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.BasementRooms CONTENT=0");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.BasementSQFT CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectBasementGLA);
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.PercentageBasementFinished CONTENT=0");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Garage CONTENT=%1<SP>ATTACHED");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.PropertyType CONTENT=%Single<SP>Family<SP>Detached");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Style CONTENT=%1<SP>1/2<SP>Story");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Exterior CONTENT=%Metal/Vinyl");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.YearBuilt CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectYearBuilt);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.AboveGradeSf CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectAboveGLA);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.FinishedSf CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectAboveGLA);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.TotalRooms CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectRoomCount);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Bedrooms CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectBedroomCount);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Bathrooms CONTENT=" + GlobalVar.theSubjectProperty.FullBathCount);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.HalfBaths CONTENT=" + GlobalVar.theSubjectProperty.HalfBathCount);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.BasementRooms CONTENT=0");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.BasementSQFT CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectBasementGLA);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.PercentageBasementFinished CONTENT=0");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Garage CONTENT=%1<SP>ATTACHED");
 
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.SiteSize CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectLotSize);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.SiteSize CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectLotSize);
             
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:Subject.Pool CONTENT=%None");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Pool CONTENT=%None");
             
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:/Order/OrderEditWizard/Step3/11622619 ATTR=NAME:SaveButton");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:SaveButton");
             return macro.ToString();
 
         }
@@ -637,6 +685,7 @@ namespace bpohelper
                {"1 Detached", "%1<SP>DETACHED"},
              {"2 Detached", "%2<SP>DETACHED"},
               {"3 Detached", "%3<SP>DETACHED"},
+              {"3 Attached, Detached", "%3<SP>DETACHED"},
             {"None", "%ON_SITE"}
          };
 
@@ -720,6 +769,7 @@ namespace bpohelper
             {"TransactionType", "TransactionType"},
             {"LotSize", "SiteSize"},
             {"PoolType", "Pool"},
+               {"Style", "Style"},
             //{"TRL", "Trail"},
             //{"WAY", "Way"}
            

@@ -2194,6 +2194,9 @@ namespace bpohelper
                         {
                             Equitrax bpoform = new Equitrax();
                             Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                            fieldList.Add("BsmtSqFt", m.BasementGLA());
+                            fieldList.Add("BsmtFinSqFt", m.BasementFinishedGLA());
+                            fieldList.Add("MLS", mlsnum);
 
                             fieldList.Add("filepath", SubjectFilePath);
                             fieldList.Add("Address", full_street_address);
@@ -2202,6 +2205,8 @@ namespace bpohelper
                             fieldList.Add("Zip", zip);
                             fieldList.Add("*TR", room_count);
                             fieldList.Add("*BR", bedrooms);
+                            fieldList.Add("*REO", m.DistressedSaleYesNo());
+                            
                             try
                             {
                                 if (Convert.ToInt32(half_bath) != 0)
@@ -2225,7 +2230,8 @@ namespace bpohelper
 
 
 
-                            //fieldList.Add("*Style", "2 Story Conv");
+                            fieldList.Add("*Style", m.Type.Replace(" ", "<SP>"));
+
 
 
                             fieldList.Add("*Loc", "r");
@@ -2265,7 +2271,7 @@ namespace bpohelper
                             fieldList.Add("ExtAdd", "0");
                             fieldList.Add("EstValExt", "0");
                             fieldList.Add("*Land", "r");
-                            fieldList.Add("Fin", "n/a");
+                            fieldList.Add("Fin", m.FinancingMlsString);
                             fieldList.Add("EstValFin", "0");
                             fieldList.Add("*Cond", "a");
                             fieldList.Add("EstValCond", "0");
@@ -2281,9 +2287,12 @@ namespace bpohelper
                             fieldList.Add("Source", "MLS");
                             fieldList.Add("SourceID", mlsnum);
                             fieldList.Add("SDistrict", "Unknown");
-                            fieldList.Add("SDivision", "n/a");
+                            fieldList.Add("Subdivision", mls_subdivision.Replace(" ", "<SP>"));
                             fieldList.Add("MLSArea", "n/a");
                             fieldList.Add("*Construct", "a");
+                            fieldList.Add("Amenities1", "n/a");
+                            fieldList.Add("Amenities2", "n/a");
+
                         #endregion
                             //
                             //Form Z additions
@@ -6488,12 +6497,14 @@ namespace bpohelper
                 //m.AppendLine(@"TAG POS=1 TYPE=TABLE FORM=ACTION:/Order/OrderEditWizardAHM/Step1/11106449 ATTR=TXT:* EXTRACT=TXT");
                 //m.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:/Order/OrderEditWizardAHM/Step1/11106449 ATTR=HREF:http://www.marktomarket.us/Order/OrderMgmt/Detail/11106449 EXTRACT=TXT");
 
-                m.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:/Order/OrderEditWizardAHM/* ATTR=HREF:http://www.marktomarket.us/Order/OrderMgmt/Detail/* EXTRACT=TXT");
+                m.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:/Order/OrderEditWizard*/* ATTR=HREF:http://www.marktomarket.us/Order/OrderMgmt/Detail/* EXTRACT=TXT");
                 string mc = m.ToString();
                 status = iim2.iimPlayCode(mc, 60);
                 string orderNumber = iim2.iimGetLastExtract(1);
 
-           
+                macro.AppendLine(@"SET !ERRORIGNORE YES");
+                macro.AppendLine(@"SET !TIMEOUT_STEP 0");
+                macro.AppendLine(@"SET !REPLAYSPEED FAST");
 
                 //
                 //Page1
@@ -6553,6 +6564,25 @@ namespace bpohelper
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:Subject_Bathrooms CONTENT=" + SubjectBathroomCount);
                 //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:Subject_GarageCarportDescription CONTENT=%3<SP>Stall<SP>Attached");
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:Subject_SiteSize CONTENT=" + SubjectLotSize);
+
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.PropertyType CONTENT=%Single<SP>Family<SP>Detached");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Style CONTENT=%1<SP>1/2<SP>Story");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Exterior CONTENT=%Metal/Vinyl");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.YearBuilt CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectYearBuilt);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.AboveGradeSf CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectAboveGLA);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.FinishedSf CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectAboveGLA);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.TotalRooms CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectRoomCount);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Bedrooms CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectBedroomCount);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Bathrooms CONTENT=" + GlobalVar.theSubjectProperty.FullBathCount);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.HalfBaths CONTENT=" + GlobalVar.theSubjectProperty.HalfBathCount);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.BasementRooms CONTENT=0");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.BasementSQFT CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectBasementGLA);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.PercentageBasementFinished CONTENT=0");
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Garage CONTENT=%1<SP>ATTACHED");
+
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.SiteSize CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectLotSize);
+
+                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:/Order/OrderEditWizard/Step3/* ATTR=NAME:Subject.Pool CONTENT=%None");
 
 
             }

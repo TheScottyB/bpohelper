@@ -76,7 +76,7 @@ namespace bpohelper
                  {"garageType", new MREDHtmlField("Garage&nbsp;Type:")}, 
                  {"lotDimensions", new MREDHtmlField("Dimensions:")}, 
                  {"drivingDirections", new MREDHtmlField("Directions:")},
-
+                  {"exterior", new MREDHtmlField("Exterior:")},
                  {"financing", new MREDHtmlField("Financing:")},
                  {"mlsNumber", new MREDHtmlField("MLS&nbsp;#:")},
                  {"listAgent", new MREDHtmlField("List&nbsp;Agent:")}, 
@@ -259,6 +259,11 @@ namespace bpohelper
                 }
 
                 return mlsHtmlFields["garageType"].value;
+            }
+
+            public string WaterFrontYesNo()
+            {
+                return mlsHtmlFields["waterFront"].value;
             }
 
 
@@ -931,7 +936,14 @@ namespace bpohelper
                 set { realistLotsize = value.ToString(); }
             }
 
-           
+            public string ExteriorMlsString
+            {
+                get
+                {
+                    return  mlsHtmlFields["exterior"].value;
+
+                }
+            }
 
         }
 

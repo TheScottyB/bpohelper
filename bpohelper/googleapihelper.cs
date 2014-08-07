@@ -761,24 +761,24 @@ class GoogleCloudDatastore
 
             UserCredential credential;
 
-            credential =  await GoogleWebAuthorizationBroker.AuthorizeAsync(
+            credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
               new ClientSecrets
               {
-                  ClientId = "22551269451-d4of6t3jojd2ocgaeo3oeq2btdngvolt.apps.googleusercontent.com",
-                  ClientSecret = "5QVYYob3m49VO_ORSvyfE3m7"
-                 // APIKey ="AIzaSyDsAcyc5WOw0IqvR93VR8cVsWCHJ8ZoDq4"
+                  ClientId = "22551269451-rfgki0102ravo9scfu4d2l8i7mbi2q6b.apps.googleusercontent.com",
+                  ClientSecret = "uluoVq2gn7SGucJzV9UVAuko"
+                  // APIKey ="AIzaSyDsAcyc5WOw0IqvR93VR8cVsWCHJ8ZoDq4"
               },
-              new[] { DatastoreService.Scope.Datastore },
-              "user",
-              CancellationToken.None,
-              new FileDataStore("Books.ListMyLibrary"));
-              
+              new[] { DatastoreService.Scope.Datastore, DatastoreService.Scope.UserinfoEmail},
+              "beilsco@gmail.com",
+              CancellationToken.None
+                //new FileDataStore("Books.ListMyLibrary"));
+              );
 
             //service = new FusiontablesService(auth);
            service = new DatastoreService(new BaseClientService.Initializer() 
             {
                 HttpClientInitializer = credential,
-                ApplicationName = "Books API Sample",
+                ApplicationName = "Datastore API Sample",
                 
             });
 
@@ -794,25 +794,31 @@ class GoogleCloudDatastore
 
               //  Google.Apis.Datastore.v1beta2.DatasetsResource.RunQueryRequest rqr = new Google.Apis.Datastore.v1beta2.DatasetsResource.RunQueryRequest(service, body, "active-century-477");
 
-                                                    
-           var ent = service.Datasets.RunQuery(new Google.Apis.Datastore.v1beta2.Data.RunQueryRequest(), "active-century-477");
-           MessageBox.Show(ent.ToString());
-           Google.Apis.Datastore.v1beta2.Data.RunQueryResponse res;
-         
-           
-            res =   ent.Execute();
+           Google.Apis.Datastore.v1beta2.Data.RunQueryRequest myQuery = new Google.Apis.Datastore.v1beta2.Data.RunQueryRequest();
+           myQuery.Query = new  Google.Apis.Datastore.v1beta2.Data.Query();
+                   
+          var ent = service.Datasets.RunQuery(myQuery, "active-century-477");
 
+        
+        MessageBox.Show(ent.ToString());
+      
+        
+        Google.Apis.Datastore.v1beta2.Data.RunQueryResponse res;
+
+         
+            res =   ent.Execute();
+      
            string str = res.Batch.EntityResults.Count.ToString();
            GlobalVar.sandbox = str;
 
           MessageBox.Show( res.Batch.EntityResults.Count.ToString());
           
+     //   res.Batch.EntityResults[0].Entity.Properties[0]
 
          //  var ttt = rqr.Execute();
 
            ///var ttt = service.Datasets.RunQuery(r, "active-century-477").Execute();
-           MessageBox.Show(res.Header.Kind);
-
+        
              MessageBox.Show(res.ToString());
 
             //var service = new BooksService(new BaseClientService.Initializer()

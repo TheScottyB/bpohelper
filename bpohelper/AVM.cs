@@ -32,7 +32,7 @@ namespace bpohelper
             compFieldListTranslator["LotSize"] = "lotsize";
             compFieldListTranslator["MainView"] = "view";
 
-            
+            compFieldListTranslator["ProximityToSubject"] = "prox";
      
             compFieldListTranslator["DOM"] = "dom";
             compFieldListTranslator["SalePrice"] = "sale_price";
@@ -98,10 +98,34 @@ namespace bpohelper
          private Dictionary<string, string> subjectFieldList = new Dictionary<string, string>();
 
 
+        private void helper_SetAddressFields()
+         {
+             int positionNumber = 0;
+            
+            int.TryParse(targetCompNumber,  out positionNumber);
+
+            if (saleOrListFlag == "list")
+            {
+                positionNumber = positionNumber + 3;
+            }
+
+             theMacro.AppendLine(@"TAG POS=" + positionNumber.ToString() + " TYPE=INPUT:BUTTON FORM=NAME:aspnetForm ATTR=CLASS:btnBlue");
+             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$txtCompAddress CONTENT=" + targetComp.StreetAddress.Replace(" ", "<SP>"));
+             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$txtCompCity CONTENT=" + targetComp.City.Replace(" ", "<SP>"));
+             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$txtCompZip CONTENT=" + targetComp.Zipcode.Replace(" ", "<SP>"));
+             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$btnGetProximity");
+             theMacro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+             theMacro.AppendLine(@"WAIT SECONDS=1");
+             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$btnAcceptProximity");
+      
+         }
+
         private void helper_SetCommonFields()
         {
 
 
+            helper_SetAddressFields();
+            
            
             compSelectionBoxList.Add(compFieldListTranslator["TransactionType"], "%Arm");
 
@@ -114,7 +138,7 @@ namespace bpohelper
             compSelectionBoxList.Add(compFieldListTranslator["OverallLocationDensity"], "%S");
             compSelectionBoxList.Add(compFieldListTranslator["BuildingSkeleton"], "%F");
             compSelectionBoxList.Add(compFieldListTranslator["MainView"], "%R");
-            compSelectionBoxList.Add(compFieldListTranslator["WaterFront"], "%N");
+            compSelectionBoxList.Add(compFieldListTranslator["WaterFront"], "%" + targetComp.WaterFrontYesNo()[0].ToString());
             if (targetComp.NumberOfPriceChanges >= 5)
             {
                 compSelectionBoxList.Add(compFieldListTranslator["NumberOfPriceReductions"], "%5");
@@ -156,8 +180,19 @@ namespace bpohelper
             compTextFieldList.Add("other", "NA");
             compTextFieldList.Add("heat_cool", @"FA/CA");
             compTextFieldList.Add("concessions", "NA");
+            compTextFieldList.Add(compFieldListTranslator["ProximityToSubject"], targetComp.ProximityToSubject.ToString());
+            //basement
+            if (targetComp.BasementType.Contains("Full"))
+                compSelectionBoxList.Add("bsmt_fin_yn", "%F");
+            if (targetComp.BasementType.Contains("Partial"))
+                compSelectionBoxList.Add("bsmt_fin_yn", "%PF");
 
+            if (targetComp.BasementType.Contains("None"))
+                compSelectionBoxList.Add("bsmt_fin_yn", "%N");
+            compTextFieldList.Add("bsmt_fin_per", targetComp.BasementFinishedPercentage());
 
+            compTextFieldList.Add("sqft_bg", targetComp.BasementGLA());
+            compTextFieldList.Add("rooms_bg", targetComp.NumberOfBasementRooms());
         }
 
 
@@ -314,8 +349,23 @@ namespace bpohelper
         public void Prefill(iMacros.App iim, Form1 form)
         {
             
-           
+            StringBuilder macro = new StringBuilder();
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$owner_name CONTENT=" + form.SubjectOOR.Replace(" ", "<SP>"));
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sub_apn CONTENT=" + form.SubjectOOR.Replace(" ", "<SP>"));
 
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$fair_mkt_rent CONTENT=" + form.SubjectRent.Replace(" ", "<SP>"));
+
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sub_zone_class CONTENT=SFR");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sub_zone_desc CONTENT=Residential");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sub_currentuse CONTENT=SFR");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sub_zone_high CONTENT=%Y");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sale_dt");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sale_price");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$currently_listed_yn CONTENT=%N");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$prev_listed_yn CONTENT=%N");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$chkRFDamaged CONTENT=NO");
+            string macroCode = macro.ToString();
+            iim.iimPlayCode(macroCode, 60);
 
         }
 
@@ -325,7 +375,7 @@ namespace bpohelper
             string currentUrl = iim.iimGetLastExtract();
 
             targetCompNumber = Regex.Match(compNum, @"\d").Value;
-
+            saleOrListFlag = saleOrList;
 
             if (saleOrList == "sale")
             {

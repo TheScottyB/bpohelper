@@ -11,6 +11,7 @@ namespace bpohelper
           protected MLSListing targetComp;
         protected string targetCompNumber;
         protected StringBuilder theMacro = new StringBuilder();
+        protected string saleOrListFlag;
 
 
         public BPOFulfillment()
