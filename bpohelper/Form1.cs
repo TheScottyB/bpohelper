@@ -1575,7 +1575,20 @@ namespace bpohelper
                     fieldList.Add("ClosingDetails_UnderContractDate", contract_date);
                     fieldList.Add("ClosingDetails_ClosingDate", closed_date);
                     fieldList.Add("SaleHistory_DaysOnMarket", dom);
-                    fieldList.Add("*TransactionType", "4");
+
+                    if (m.TransactionType == "REO")
+                    {
+                        fieldList.Add("*TransactionType", "1");
+                    }
+                    else if (m.TransactionType == "Short Sale")
+                    {
+                        fieldList.Add("*TransactionType", "2");
+                    } else
+                    {
+                        fieldList.Add("*TransactionType", "3");
+                    }
+
+             
 
 
 
@@ -1619,9 +1632,9 @@ namespace bpohelper
                     //Basement 
                     if (basement.ToLower().Contains("none"))
                     {
-                        fieldList.Add("Structure_Basement_SquareFeet", "0");
-                        fieldList.Add("Structure_Basement_PercentFinished", "0");
-                        fieldList.Add("BasementType", "Full");
+                        fieldList.Add("*SquareFeet", "0");
+                        fieldList.Add("Structure*Basement*PercentFinished", "0");
+                        fieldList.Add("BasementType", "crawl");
                     }
                     else
                     {
@@ -1630,15 +1643,15 @@ namespace bpohelper
                             fieldList.Add("BasementType", "Full");
                             if (type == "1 Story")
                             {
-                                fieldList.Add("Structure_Basement_SquareFeet", mls_gla);
+                                fieldList.Add("Structure*Basement*SquareFeet", mls_gla);
                             }
                             else if (type == "2 Stories")
                             {
-                                fieldList.Add("Structure_Basement_SquareFeet", (Convert.ToInt64(mls_gla) / 2).ToString());
+                                fieldList.Add("Structure*Basement*SquareFeet", (Convert.ToInt64(mls_gla) / 2).ToString());
                             }
                             else
                             {
-                                fieldList.Add("Structure_Basement_SquareFeet", (Convert.ToInt64(mls_gla) / 3).ToString());
+                                fieldList.Add("Structure*Basement*SquareFeet", (Convert.ToInt64(mls_gla) / 3).ToString());
                             }
                         }
 
@@ -1647,25 +1660,25 @@ namespace bpohelper
                             fieldList.Add("BasementType", "Partial");
                             if (type == "1 Story")
                             {
-                                fieldList.Add("Structure_Basement_SquareFeet", (Convert.ToInt64(mls_gla) / 2).ToString());
+                                fieldList.Add("Structure*Basement*SquareFeet", (Convert.ToInt64(mls_gla) / 2).ToString());
                             }
                             else if (type == "2 Stories")
                             {
-                                fieldList.Add("Structure_Basement_SquareFeet", (Convert.ToInt64(mls_gla) / 4).ToString());
+                                fieldList.Add("Structure*Basement*SquareFeet", (Convert.ToInt64(mls_gla) / 4).ToString());
                             }
                             else
                             {
-                                fieldList.Add("Structure_Basement_SquareFeet", (Convert.ToInt64(mls_gla) / 6).ToString());
+                                fieldList.Add("Structure*Basement*SquareFeet", (Convert.ToInt64(mls_gla) / 6).ToString());
                             }
                         }
 
                         if (finished_basement)
                         {
-                            fieldList.Add("Structure_Basement_PercentFinished", "100");
+                            fieldList.Add("Structure*Basement*PercentFinished", "100");
                         }
                         else
                         {
-                            fieldList.Add("Structure_Basement_PercentFinished", "0");
+                            fieldList.Add("Structure*Basement*PercentFinished", "0");
                         }
                     }
 
