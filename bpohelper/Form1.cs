@@ -9713,6 +9713,63 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
         }
 
+        private void buttonSaveOrderInfo_Click(object sender, EventArgs e)
+        {
+            iim2.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
+            string currentUrl = iim2.iimGetLastExtract();
+
+
+
+            if (currentUrl.Contains("solutionstar"))
+            {
+
+                StringBuilder macro12 = new StringBuilder();
+                StringBuilder macro = new StringBuilder();
+
+                macro12.AppendLine(@"TAG POS=1 TYPE=HTML ATTR=* EXTRACT=HTM ");
+
+                iMacros.Status s = iim2.iimPlayCode(macro12.ToString());
+                string htmlCode = iim2.iimGetLastExtract();
+                string header = iim2.iimGetExtract(0);
+
+                var ttt = Regex.Matches(htmlCode, @"orderNo=(\d\d-\d\d\d\d\d\d\d\d)");
+
+           //     MessageBox.Show(ttt.Count.ToString());
+
+
+                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(htmlCode);
+
+                var x = doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[1]/td[1]/a/font");
+                int orderNumberIndex = 1;
+                int addressIndex = 4;
+                int cityIndex = 5;
+
+                //
+                //TBD:  Calculate correct due date by extracting date + standard 3 days.
+                //
+                for (int i = 1; i < ttt.Count + 1; i++)
+                {
+                    macro.AppendLine(@"VERSION BUILD=10022823");
+                    macro.AppendLine(@"TAB T=1");
+                    macro.AppendLine(@"TAB CLOSEALLOTHERS");
+                    macro.AppendLine(@"URL GOTO=https://docs.google.com/spreadsheet/viewform?usp=drive_web&formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ#gid=20");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.2.single CONTENT=" + doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[" + i.ToString() + "]/td[" + addressIndex.ToString() + "]").InnerText.Replace(" ", "<SP>"));
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.3.single CONTENT=" + doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[" + i.ToString() + "]/td[" + cityIndex.ToString() + "]").InnerText.Replace(" ", "<SP>"));
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.14.single CONTENT=" + doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[" + i.ToString() + "]/td[" + orderNumberIndex.ToString() + "]/a/font").InnerText);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.9.single CONTENT=" + DateTime.Now.ToShortDateString());
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.11.single CONTENT=50");
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.1.single CONTENT=%Solutionstar");
+                   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:submit");
+                    string macroCode = macro.ToString();
+                    iim.iimPlayCode(macroCode, 60);
+                    macro.Clear();
+                
+                }
+            
+            }
+        }
+
        
        
 

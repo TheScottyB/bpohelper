@@ -252,6 +252,7 @@
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.button24 = new System.Windows.Forms.Button();
             this.REOcSandboxButton = new System.Windows.Forms.Button();
+            this.buttonSaveOrderInfo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -2476,6 +2477,16 @@
             this.REOcSandboxButton.UseVisualStyleBackColor = true;
             this.REOcSandboxButton.Click += new System.EventHandler(this.REOcSandboxButton_Click);
             // 
+            // buttonSaveOrderInfo
+            // 
+            this.buttonSaveOrderInfo.Location = new System.Drawing.Point(1396, 72);
+            this.buttonSaveOrderInfo.Name = "buttonSaveOrderInfo";
+            this.buttonSaveOrderInfo.Size = new System.Drawing.Size(116, 29);
+            this.buttonSaveOrderInfo.TabIndex = 129;
+            this.buttonSaveOrderInfo.Text = "Save Order Info SB";
+            this.buttonSaveOrderInfo.UseVisualStyleBackColor = true;
+            this.buttonSaveOrderInfo.Click += new System.EventHandler(this.buttonSaveOrderInfo_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2485,6 +2496,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1835, 874);
+            this.Controls.Add(this.buttonSaveOrderInfo);
             this.Controls.Add(this.REOcSandboxButton);
             this.Controls.Add(this.button24);
             this.Controls.Add(this.webBrowser1);
@@ -2822,6 +2834,7 @@
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.TextBox ndNumberOfSoldListingTextBox;
         private System.Windows.Forms.Button REOcSandboxButton;
+        private System.Windows.Forms.Button buttonSaveOrderInfo;
     }
 
 }
