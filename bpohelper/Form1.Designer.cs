@@ -253,6 +253,7 @@
             this.button24 = new System.Windows.Forms.Button();
             this.REOcSandboxButton = new System.Windows.Forms.Button();
             this.buttonSaveOrderInfo = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -2479,13 +2480,23 @@
             // 
             // buttonSaveOrderInfo
             // 
-            this.buttonSaveOrderInfo.Location = new System.Drawing.Point(1396, 72);
+            this.buttonSaveOrderInfo.Location = new System.Drawing.Point(1421, 121);
             this.buttonSaveOrderInfo.Name = "buttonSaveOrderInfo";
             this.buttonSaveOrderInfo.Size = new System.Drawing.Size(116, 29);
             this.buttonSaveOrderInfo.TabIndex = 129;
             this.buttonSaveOrderInfo.Text = "Save Order Info SB";
             this.buttonSaveOrderInfo.UseVisualStyleBackColor = true;
             this.buttonSaveOrderInfo.Click += new System.EventHandler(this.buttonSaveOrderInfo_Click);
+            // 
+            // button25
+            // 
+            this.button25.Location = new System.Drawing.Point(1435, 165);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(116, 29);
+            this.button25.TabIndex = 130;
+            this.button25.Text = "ImageResizer SB";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
             // 
             // Form1
             // 
@@ -2496,6 +2507,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1835, 874);
+            this.Controls.Add(this.button25);
             this.Controls.Add(this.buttonSaveOrderInfo);
             this.Controls.Add(this.REOcSandboxButton);
             this.Controls.Add(this.button24);
@@ -2835,6 +2847,7 @@
         private System.Windows.Forms.TextBox ndNumberOfSoldListingTextBox;
         private System.Windows.Forms.Button REOcSandboxButton;
         private System.Windows.Forms.Button buttonSaveOrderInfo;
+        private System.Windows.Forms.Button button25;
     }
 
 }

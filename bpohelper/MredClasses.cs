@@ -500,6 +500,12 @@ namespace bpohelper
             //    set {  mlstax = value; }
             //}
 
+            public string ParcelNumber
+            {
+                get { return Regex.Match(mlsHtmlFields["pin"].value, @"\d+").Value; }
+            }
+
+
             #region Address and Related Fields
             protected void SetAddress()
             {

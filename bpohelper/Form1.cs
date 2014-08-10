@@ -37,6 +37,10 @@ using Google.Apis.Samples.Helper;
 using System.Threading;
 using System.Xml;
 using System.Xml.Schema;
+using System.Runtime.Serialization;
+using System.Web;
+using Newtonsoft.Json;
+
 
  public interface IYourForm
     {
@@ -5759,23 +5763,23 @@ namespace bpohelper
             }
 
 
-            if (streetnumTextBox.Text == "")
-            {
-                StringBuilder macro = new StringBuilder();
+            //if (streetnumTextBox.Text == "")
+            //{
+            //    StringBuilder macro = new StringBuilder();
                
-                macro.AppendLine(@"FRAME NAME=_MAIN");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Listing1_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\L1.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Listing2_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\L2.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Listing3_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\L3.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Sale1_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\S1.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Sale2_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\S2.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Sale3_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\S3.jpg");
-                macro.AppendLine(@"FRAME NAME=_TOP_MENU");
-                macro.AppendLine(@"TAG POS=1 TYPE=B FORM=ID:Form1 ATTR=TXT:SAVE");
+            //    macro.AppendLine(@"FRAME NAME=_MAIN");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Listing1_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\L1.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Listing2_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\L2.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Listing3_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\L3.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Sale1_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\S1.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Sale2_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\S2.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ID:Form1 ATTR=ID:fname_Sale3_Front CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") + "\\S3.jpg");
+            //    macro.AppendLine(@"FRAME NAME=_TOP_MENU");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=B FORM=ID:Form1 ATTR=TXT:SAVE");
 
-                string macroCode = macro.ToString();
-                status = iim2.iimPlayCode(macroCode, 30);
-            }
+            //    string macroCode = macro.ToString();
+            //    status = iim2.iimPlayCode(macroCode, 30);
+            //}
         }
 
         private void subjectBindingNavigatorSaveItem_Click(object sender, EventArgs e)
@@ -7601,7 +7605,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                 //load other fields not displayed
                 foreach (string f in filePaths)
                 {
-                    if (f.ToLower().Contains("report-"))
+                    if (f.ToLower().Contains("report-") || f.ToLower().Contains("connectmls"))
                     {
                         StringBuilder pages = new StringBuilder();
                         PdfReader pdfReader = new PdfReader(f);
@@ -7658,7 +7662,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                 #region Load Date from Pdf files
                 foreach (string f in filePaths)
                 {
-                    if (f.ToLower().Contains("realist"))
+                    if (f.ToLower().Contains("realist") || f.ToLower().Contains("property detail report"))
                     {
                         StringBuilder pages = new StringBuilder();
                         PdfReader pdfReader = new PdfReader(f);
@@ -7679,7 +7683,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                         this.statusTextBox.AppendText("Realist Loaded...");
                     }
 
-                    if (f.ToLower().Contains("report-"))
+                    if (f.ToLower().Contains("report-") || f.ToLower().Contains("connectmls"))
                     {
                         StringBuilder pages = new StringBuilder();
                         PdfReader pdfReader = new PdfReader(f);
@@ -7976,14 +7980,14 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
 
             try
             {
-                this.listTextbox.Text = (Convert.ToInt64(valueTextbox.Text) * 1.03).ToString();
-                this.quickSaleTextbox.Text = (Convert.ToInt64(valueTextbox.Text) * Convert.ToInt64(quickSalePercentageTextBox.Text)).ToString();
+                this.listTextbox.Text = (Math.Round((Convert.ToInt64(valueTextbox.Text) * 1.03))).ToString();
+                this.quickSaleTextbox.Text = (Math.Round((double)(((Convert.ToInt64(valueTextbox.Text) * Convert.ToInt64(quickSalePercentageTextBox.Text)))))).ToString();
             }
             catch
             {
                 try
                 {
-                    this.quickSaleTextbox.Text = (Convert.ToInt64(valueTextbox.Text) * .85).ToString();
+                    this.quickSaleTextbox.Text = (Math.Round(Convert.ToInt64(valueTextbox.Text) * .85)).ToString();
                 }
                 catch
                 {
@@ -9770,6 +9774,12 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             }
         }
 
+        private void button25_Click(object sender, EventArgs e)
+        {
+            GenerateVersions(@"F:\Dropbox\BPOs\3703 Jacobson\address-view.jpg");
+
+        }
+
        
        
 
@@ -9961,7 +9971,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             GlobalVar.theSubjectProperty.PrintedMlsSheetNameValuePairs = x;
 
 
-            string pattern = @"Amount:\$(\d+,*\d*.\d*)";
+            string pattern = @"Ax*mount:\$(\d+,*\d*.\d*)";
             MatchCollection mc = Regex.Matches(s, pattern);
             assessmentAmount = mc[0].Groups[1].Value;
             try
@@ -10218,6 +10228,10 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             
             //GoogleFusionTable mlsListingCache = new GoogleFusionTable("1EDFPE91a2_6oohUmEG-2OEr_k2xFOG7c9x3fqZE");
 
+            GoogleCloudDatastore gcds = new GoogleCloudDatastore();
+            await gcds.DataStoreTester();
+
+
          
            
             List<string> comps = new List<String>();
@@ -10377,10 +10391,55 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
                  //htmlcode is too big
                  //mlsListingCache.AddMlsRecord(currentListing.MlsNumber, htmlCode);
-
+                
                  currentProperty.AddMlsListing(currentListing);
 
 
+                 string tempdata = currentListing.rawData;
+
+                 currentListing.rawData = "";
+
+
+               
+
+                 string json = JsonConvert.SerializeObject(currentListing);
+                 string url = "https://active-century-477.appspot.com/api/sandbox/v1/mredlistings";
+
+                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                 request.Method = "POST";
+
+                 System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+                 Byte[] byteArray = encoding.GetBytes(json);
+
+                 request.ContentLength = byteArray.Length;
+                 request.ContentType = @"application/json";
+
+                 using (Stream dataStream = request.GetRequestStream())
+                 {
+                     dataStream.Write(byteArray, 0, byteArray.Length);
+                 }
+                 long length = 0;
+                 try
+                 {
+                     using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                     {
+                         length = response.ContentLength;
+                     }
+                 }
+                 catch (WebException ex)
+                 {
+                     // Log exception and throw as for GET example above
+                 }
+
+
+
+                 currentListing.rawData = tempdata;
+
+
+
+              // gcds.StoreMredListing(currentListing);
+
+                
                  form.StatusUpdate = "Reading--> " + currentListing.MlsNumber;
                 #region read_mls_sheet
                 #region Table1
@@ -11723,6 +11782,12 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
                 //for townhome searches
                 if (form.SubjectMlsType.ToLower().Contains("townhouse") && type.ToLower().Contains("townhouse"))
+                {
+                    typeMatch = true;
+                }
+
+                //for condo searches (multi-type selected on listing, as long as on is condo, we have to consider it)
+                if (form.SubjectMlsType.ToLower().Contains("condo") && type.ToLower().Contains("condo"))
                 {
                     typeMatch = true;
                 }

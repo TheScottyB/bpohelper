@@ -1055,29 +1055,39 @@ namespace bpohelper
 
                 foreach (string fileName in fileEntries)
                 {
-                    if (fileName.ToLower().Contains(".jpg"))
+                    if (fileName.ToLower().Contains(".jpg") && !Regex.IsMatch(fileName, @"_large|_medium|_thumb"))
                     {
                         if (fileName.ToLower().Contains("address"))
                         {
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_6_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\" + Regex.Match(fileName, @"(address.*.jpg)"));
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_large.jpg";
+
+
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_6_Image CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_6_Description CONTENT=Address");
                             macro.AppendLine(@"TAG POS=7 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
                         }
                         else if (fileName.ToLower().Contains("front"))
                         {
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_7_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\" + Regex.Match(fileName, @"(front.*.jpg)"));
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_large.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_7_Image CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_7_Description CONTENT=Front");
                             macro.AppendLine(@"TAG POS=8 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
                         }
                         else if (fileName.ToLower().Contains("street1"))
                         {
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_8_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\" + Regex.Match(fileName, @"(street1.*.jpg)"));
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_large.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_8_Image CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_8_Description CONTENT=Street1");
                             macro.AppendLine(@"TAG POS=9 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
                         }
                         else if (fileName.ToLower().Contains("street2"))
                         {
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_9_Image CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + "\\" + Regex.Match(fileName, @"(street2.*.jpg)"));
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_large.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:*# ATTR=NAME:user_9_Image CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:*# ATTR=NAME:Image_9_Description CONTENT=Street2");
                             macro.AppendLine(@"TAG POS=10 TYPE=INPUT:BUTTON FORM=ACTION:*# ATTR=NAME:toggler*");
                         }

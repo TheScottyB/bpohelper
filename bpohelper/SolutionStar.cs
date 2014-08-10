@@ -60,7 +60,7 @@ namespace bpohelper
             public enum OtherFields { type }
             public enum GeneralPropertiesFields { IsHOA, HOA }
             public enum HOAFields { Fee }
-            public enum FeeFields { Amount_two }
+            public enum FeeFields { Amount_two, Amount }
             public enum IsHOAFields { feesPerMonth }
             public enum CommonFields { Datasource, DOM, AverageMarketTime, ComparisonToSubject, Garage, DistressedSale, MedianMarketRent, REOPercentage, MarketTimingTrend, SourceOfFunds, Condition, APN_TaxId, OwnerOfPublicRecords, PropertyType, Construction, ImpactedByDiaster, EvidenceForDiaster, NewConstruction, Occupancy, Inspection, InspectionDate, Vacancy, CurrentListing, Location, Industrydistance, ComparableListingSupply }
             public enum InputTypes { TEXT, SELECT}
@@ -481,6 +481,11 @@ namespace bpohelper
             return param1.ToString() + "." + param2.ToString() + "." + param3.ToString();
         }
 
+        protected string helper_MakeCommandString(object param1, object param2, object param3, object param4)
+        {
+            return param1.ToString() + "." + param2.ToString() + "." + param3.ToString() + "." + param4.ToString();
+        }
+
         private string helper_BasementTypeTranslate(string ourType)
         {
             string theirType = WebFormFieldNames.BasementTypes.NA.ToString();
@@ -528,7 +533,10 @@ namespace bpohelper
             subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.Amenities, WebFormFieldNames.Groups.Other, WebFormFieldNames.OtherFields.type), "Unk");
             subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.InspectionDate), GlobalVar.theSubjectProperty.InspectionDate());
             subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.SourceOfFunds), "NA");
-
+            if (!String.IsNullOrWhiteSpace(GlobalVar.theSubjectProperty.MainForm.SubjectAssessmentInfo.amount))
+            {
+                subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.GeneralProperties, WebFormFieldNames.GeneralPropertiesFields.HOA, WebFormFieldNames.HOAFields.Fee, WebFormFieldNames.FeeFields.Amount ), GlobalVar.theSubjectProperty.MainForm.SubjectAssessmentInfo.amount);
+            }
 
 
             foreach (string field in subjectFieldList.Keys)
@@ -547,7 +555,18 @@ namespace bpohelper
             }
 
             subjectFieldList.Clear();
-            subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.PropertyType), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.PropertyTypes.SFR));
+            if (GlobalVar.theSubjectProperty.MainForm.SubjectMlsType.ToLower().Contains("condo"))
+            {
+                subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.PropertyType), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.PropertyTypes.Condo));
+                theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.SubjectLandValue CONTENT=0");
+     
+
+            }
+            else
+            {
+                subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.PropertyType), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.PropertyTypes.SFR));
+                theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.SubjectLandValue CONTENT=10000");
+            }
             subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.Construction), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.YesNo.No));
             subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.ImpactedByDiaster), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.YesNo.No));
             subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.Occupancy), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.OccupancyTypes.Unknown));
@@ -612,12 +631,12 @@ namespace bpohelper
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.ASIS.SuggestedListPrice CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectMarketValueList);
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.MarketValue CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectMarketValue);
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.SuggestedListPrice CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectMarketValueList);
-            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.SubjectLandValue CONTENT=10000");
+
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.ASIS.MarketValue CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectQuickSaleValue);
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.ASIS.SuggestedListPrice CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectQuickSaleValue);
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.Repaired.MarketValue CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectQuickSaleValue);
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.Repaired.SuggestedListPrice CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectQuickSaleValue);
-            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.ASIS.FairMarketRent CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectRent);
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.ASIS.FairMarketRent CONTENT=" + GlobalVar.theSubjectProperty.MainForm.RoundTo50(GlobalVar.theSubjectProperty.MainForm.SubjectRent)).ToString();
 
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:bpomainform ATTR=NAME:signaturefile CONTENT=" + GlobalVar.theSubjectProperty.MainForm.DropBoxFolder +   "\\BPOs\\Dawn-sig.JPG");
       

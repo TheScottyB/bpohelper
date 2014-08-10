@@ -746,7 +746,76 @@ class GoogleCloudDatastore
 
     static DatastoreService service;
 
+    public void StoreMredListing(MLSListing mredListing)
+    {
+        Google.Apis.Datastore.v1beta2.Data.CommitRequest cr = new Google.Apis.Datastore.v1beta2.Data.CommitRequest();
+        
+         Google.Apis.Datastore.v1beta2.Data.BeginTransactionRequest btr = new Google.Apis.Datastore.v1beta2.Data.BeginTransactionRequest();
 
+         Google.Apis.Datastore.v1beta2.Data.Entity ml = new Google.Apis.Datastore.v1beta2.Data.Entity();
+
+       Google.Apis.Datastore.v1beta2.Data.KeyPathElement myKeyPath = new Google.Apis.Datastore.v1beta2.Data.KeyPathElement();
+
+        myKeyPath.Kind = "MRED_Listing";
+        myKeyPath.Name = mredListing.MlsNumber;
+
+        Google.Apis.Datastore.v1beta2.Data.Key myEntityKey = new Google.Apis.Datastore.v1beta2.Data.Key();
+        Google.Apis.Datastore.v1beta2.Data.Key rawHtmlKey = new Google.Apis.Datastore.v1beta2.Data.Key();
+
+        Google.Apis.Datastore.v1beta2.Data.PartitionId myPartitionId = new Google.Apis.Datastore.v1beta2.Data.PartitionId();
+       
+      
+
+        myPartitionId.DatasetId = "active-century-477";
+       myEntityKey.PartitionId = myPartitionId;
+
+      //  Google.Apis.Datastore.v1beta2.Data.Property myProperty = new Google.Apis.Datastore.v1beta2.Data.Property();
+      
+       // myProperty.StringValue = mredListing.rawData;
+       
+       ml.Key = myEntityKey;
+
+        
+
+   // ml.Key.PartitionId.DatasetId = "active-century-477";
+
+         //ml.Properties["rawhtml"].StringValue = mredListing.rawData;
+        ml.Key.Path = new List<Google.Apis.Datastore.v1beta2.Data.KeyPathElement>();
+
+       ml.Key.Path.Add(myKeyPath);
+
+        //Google.Apis.Datastore.v1beta2.Data. 
+      //   Dictionary<string, Google.Apis.Datastore.v1beta2.Data.Property> myPropertyDictionary = new Dictionary<string, Google.Apis.Datastore.v1beta2.Data.Property>();
+       //  myPropertyDictionary.Add("raw_html", myProperty);
+        // ml.Properties = myPropertyDictionary;
+
+         //foreach (KeyValuePair<string, Google.Apis.Datastore.v1beta2.Data.Property> kvp in myPropertyDictionary)
+         //{
+         //      ml.Properties.Add(kvp.Key, kvp.Value); 
+             
+         //}
+
+       
+         cr.Mutation = new Google.Apis.Datastore.v1beta2.Data.Mutation();
+        // cr.Mutation.Upsert = new  List<Google.Apis.Datastore.v1beta2.Data.Entity>();
+        cr.Mutation.Insert = new List<Google.Apis.Datastore.v1beta2.Data.Entity>();
+      //   cr.Mutation.Upsert.Add(ml);
+
+        cr.Mutation.Insert.Add(ml);
+        
+         //service.Datasets.BeginTransaction(btr, mredListing.MlsNumber);
+        var btRequest = service.Datasets.BeginTransaction(btr, "active-century-477");
+        var btResponse = btRequest.Execute();
+
+        cr.Transaction = btResponse.Transaction;
+
+         var request = service.Datasets.Commit(cr, "active-century-477");
+
+          var response = request.Execute();
+
+          MessageBox.Show(response.ToString());
+        
+        }
 
     public  async Task DataStoreTester()
     //public void   DataStoreTester()
@@ -800,7 +869,8 @@ class GoogleCloudDatastore
           var ent = service.Datasets.RunQuery(myQuery, "active-century-477");
 
         
-        MessageBox.Show(ent.ToString());
+        
+       // MessageBox.Show(ent.ToString());
       
         
         Google.Apis.Datastore.v1beta2.Data.RunQueryResponse res;
@@ -811,7 +881,7 @@ class GoogleCloudDatastore
            string str = res.Batch.EntityResults.Count.ToString();
            GlobalVar.sandbox = str;
 
-          MessageBox.Show( res.Batch.EntityResults.Count.ToString());
+      //    MessageBox.Show( res.Batch.EntityResults.Count.ToString());
           
      //   res.Batch.EntityResults[0].Entity.Properties[0]
 
@@ -819,7 +889,7 @@ class GoogleCloudDatastore
 
            ///var ttt = service.Datasets.RunQuery(r, "active-century-477").Execute();
         
-             MessageBox.Show(res.ToString());
+      //       MessageBox.Show(res.ToString());
 
             //var service = new BooksService(new BaseClientService.Initializer()
             //{

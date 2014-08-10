@@ -18,10 +18,16 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Linq;
 using System.Reflection;
+using ImageResizer;
+
+
 
 
 namespace bpohelper
 {
+
+  
+
     public static class GlobalVar
     {
         public const string defaultSubjectComments = "Subject is maintained and landscaped. No adverse conditions were noted at the time of inspection based on exterior observations.";
@@ -50,6 +56,8 @@ namespace bpohelper
 
 
     }
+
+
 
     public class BpoOrder
     {
@@ -192,6 +200,39 @@ namespace bpohelper
 
     public partial class Form1
     {
+
+        public int RoundTo50(string number)
+        {
+            double p = 0;
+
+            Double.TryParse(number, out p);
+
+            return (int)Math.Round(p / 50) * 50;
+
+        }
+
+        public IList<string> GenerateVersions(string original)
+        {
+            Dictionary<string, string> versions = new Dictionary<string, string>();
+            //Define the versions to generate and their filename suffixes.
+            versions.Add("_thumb", "width=100&height=100&crop=auto&format=jpg"); //Crop to square thumbnail
+            versions.Add("_medium", "maxwidth=400&maxheight=400format=jpg"); //Fit inside 400x400 area, jpeg
+            versions.Add("_large", "maxwidth=1900&maxheight=1900&format=jpg"); //Fit inside 1900x1200 area
+
+
+            string basePath = ImageResizer.Util.PathUtils.RemoveExtension(original);
+
+            //To store the list of generated paths
+            List<string> generatedFiles = new List<string>();
+
+            //Generate each version
+            foreach (string suffix in versions.Keys)
+                //Let the image builder add the correct extension based on the output file type
+                generatedFiles.Add(ImageBuilder.Current.Build(original, basePath + suffix,
+                  new ResizeSettings(versions[suffix]), false, true));
+
+            return generatedFiles;
+        }
 
        public void CreateDirectory(string path)
        {

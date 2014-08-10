@@ -218,7 +218,7 @@ namespace bpohelper
         {
             get
             {
-                return Regex.Match(form.SubjectFullAddress, @",\s*(\S+),").Groups[1].Value;
+                return Regex.Match(form.SubjectFullAddress, @",\s*(.*),").Groups[1].Value;
             }
         }
 
