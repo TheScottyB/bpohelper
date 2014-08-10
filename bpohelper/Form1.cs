@@ -387,6 +387,7 @@ namespace bpohelper
             string macroCode2 = macro2.ToString();
             #endregion
 
+
             #region setup comp names
 
             int active_comps = 0;
