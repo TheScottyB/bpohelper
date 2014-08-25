@@ -160,15 +160,41 @@ namespace bpohelper
             }
             if (ttt.Rows == null)
             {
+                var theRequest = service.Query.Sql(sqlQuery);
+                Google.Apis.Fusiontables.v1.Data.Sqlresponse theResponse = new Google.Apis.Fusiontables.v1.Data.Sqlresponse();
                 callingForm.GoogleApiCall("No, Adding Record---->");
-                var rep = service.Query.Sql(sqlQuery).Execute();
-                var rowID = rep.Rows[0][0];
-                callingForm.GoogleApiCall("rowid<----" + rowID.ToString());
-                m_rowid = rowID.ToString();
-                curRec["Parcel ID:"] = sPin;
-                curRec["Latitude"] = "";
-                curRec["Longitude"] = "";
-
+                try
+                {
+                    theResponse = theRequest.Execute();
+                }
+                catch
+                {
+                    callingForm.GoogleApiCall("Failed, Waiting to retry 2420ms....");
+                    Thread.Sleep(2420);
+                    try
+                    {
+                        var theRequest2 = service.Query.Sql(sqlQuery);
+                        var theResponse2 = theRequest2.Execute();
+                        theResponse = theResponse2;
+                    }
+                    catch
+                    {
+                        callingForm.GoogleApiCall("Failed, Waiting to retry 16800ms....");
+                        Thread.Sleep(16800);
+                        var theRequest3 = service.Query.Sql(sqlQuery);
+                        var theResponse3 = theRequest3.Execute();
+                        theResponse = theResponse3;
+                    }
+                   
+                }
+                    
+                var rowID = theResponse.Rows[0][0];
+                    callingForm.GoogleApiCall("rowid<----" + rowID.ToString());
+                    m_rowid = rowID.ToString();
+                    curRec["Parcel ID:"] = sPin;
+                    curRec["Latitude"] = "";
+                    curRec["Longitude"] = "";
+              
               //  string x = rep.ToString();
                
             }
@@ -863,23 +889,23 @@ class GoogleCloudDatastore
 
               //  Google.Apis.Datastore.v1beta2.DatasetsResource.RunQueryRequest rqr = new Google.Apis.Datastore.v1beta2.DatasetsResource.RunQueryRequest(service, body, "active-century-477");
 
-           Google.Apis.Datastore.v1beta2.Data.RunQueryRequest myQuery = new Google.Apis.Datastore.v1beta2.Data.RunQueryRequest();
-           myQuery.Query = new  Google.Apis.Datastore.v1beta2.Data.Query();
+       //    Google.Apis.Datastore.v1beta2.Data.RunQueryRequest myQuery = new Google.Apis.Datastore.v1beta2.Data.RunQueryRequest();
+       //    myQuery.Query = new  Google.Apis.Datastore.v1beta2.Data.Query();
                    
-          var ent = service.Datasets.RunQuery(myQuery, "active-century-477");
+       //   var ent = service.Datasets.RunQuery(myQuery, "active-century-477");
 
         
         
-       // MessageBox.Show(ent.ToString());
+       //// MessageBox.Show(ent.ToString());
       
         
-        Google.Apis.Datastore.v1beta2.Data.RunQueryResponse res;
+       // Google.Apis.Datastore.v1beta2.Data.RunQueryResponse res;
 
          
-            res =   ent.Execute();
+       //     res =   ent.Execute();
       
-           string str = res.Batch.EntityResults.Count.ToString();
-           GlobalVar.sandbox = str;
+       //    string str = res.Batch.EntityResults.Count.ToString();
+       //    GlobalVar.sandbox = str;
 
       //    MessageBox.Show( res.Batch.EntityResults.Count.ToString());
           

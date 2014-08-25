@@ -59,7 +59,7 @@ namespace bpohelper
                  {"mlsGla", new MREDHtmlField("Appx&nbsp;SF:")},
                  {"basement", new MREDHtmlField("Basement:")}, 
                  {"basementDetails", new MREDHtmlField("Basement&nbsp;Details:")}, 
-                 
+                   {"county", new MREDHtmlField(@"County:")},
                  {"bathrooms", new MREDHtmlField(@"Bathrooms (full/half):")},
                  {"bedrooms", new MREDHtmlField("Bedrooms:")}, 
                  {"broker", new MREDHtmlField("Broker:")}, 
@@ -181,6 +181,10 @@ namespace bpohelper
                  return "No";
             }
 
+             public string AdditionalSalesInfo()
+             {
+                 return mlsHtmlFields["additionalSalesInfo"].value;
+             }
 
             public bool ListedInLast12Months()
             {
@@ -188,6 +192,10 @@ namespace bpohelper
                 return (ts.TotalDays < 365);
             }
 
+             public bool FinishedBasement
+            {
+                get { return finishedBasement; }
+            }
 
             public string BasementGLA()
             {
@@ -265,6 +273,12 @@ namespace bpohelper
             {
                 return mlsHtmlFields["waterFront"].value;
             }
+             
+             public string ListingAgentPhone()
+            {
+                return mlsHtmlFields["phone"].value;
+            }
+
 
 
             protected void SetBasementProperties()
@@ -351,6 +365,11 @@ namespace bpohelper
                     {
                         //mlsHtmlFields[key].value = doc.DocumentNode.Descendants("td").First(x => x.InnerText.Equals((mlsHtmlFields[key]).htmlLabel)).NextSibling.NextSibling.InnerText.Replace("&nbsp;", " ");
                         mlsHtmlFields[key].value = doc.DocumentNode.Descendants("td").First(x => x.InnerText.Equals((mlsHtmlFields[key]).htmlLabel)).NextSibling.InnerText.Replace("&nbsp;", " ");
+                         if (string.IsNullOrWhiteSpace(mlsHtmlFields[key].value))
+                         {
+                             mlsHtmlFields[key].value = doc.DocumentNode.Descendants("td").First(x => x.InnerText.Equals((mlsHtmlFields[key]).htmlLabel)).NextSibling.NextSibling.InnerText.Replace("&nbsp;", " ");
+                            // MessageBox.Show("Field Not Found: " + mlsHtmlFields[key].htmlLabel);
+                         }
                     }
                     catch
                     {
@@ -366,7 +385,8 @@ namespace bpohelper
                             }
                             catch
                             {
-                               // MessageBox.Show("Field Not Found: " + mlsHtmlFields[key].htmlLabel);
+                                
+                               //MessageBox.Show("Field Not Found: " + mlsHtmlFields[key].htmlLabel);
                             }
                         }
                     }
@@ -455,6 +475,7 @@ namespace bpohelper
             private bool waterfront;
             private InteriorFeatures interiorFeatures;
              private string mlstax;
+             private string geocode;
             #endregion
 
             #region protected members
@@ -506,7 +527,7 @@ namespace bpohelper
             }
 
 
-            #region Address and Related Fields
+            #region Address and Location Related Fields
             protected void SetAddress()
             {
                 //fuill line address
@@ -544,6 +565,10 @@ namespace bpohelper
                 }
             }
 
+            public string County
+            {
+                get { return mlsHtmlFields["county"].value; }
+            }
             
 
             public string City
@@ -564,6 +589,23 @@ namespace bpohelper
             {
                 get { return mlsHtmlFields["address"].value.Split(',')[0]; }
             }
+            public string Subdivision
+            {
+                get { return mlsHtmlFields["subdivision"].value; }
+            }
+            public string GeoPointGd
+            {
+                get 
+                { 
+                  return geocode; 
+                }
+
+                set
+                {
+                    geocode = value;
+                }
+            }
+
 
             #endregion
 
@@ -793,7 +835,17 @@ namespace bpohelper
             }
             public string HalfBathCount
             {
-                get { return mlsHtmlFields["bathrooms"].value.Replace(" ", "").Replace(@"/", ".")[2].ToString(); }
+                get 
+                {
+                    string theCount = "0";
+                    try
+                    {
+                        theCount = mlsHtmlFields["bathrooms"].value.Replace(" ", "").Replace(@"/", ".")[2].ToString();
+                    }
+                    catch { }
+
+                     return theCount;
+                }
             }
             public string BathroomCount
             {
@@ -824,7 +876,10 @@ namespace bpohelper
                     Int32.TryParse(mlsHtmlFields["yearBulit"].value, out x);
 
                     if (x==-1)
-                    { x = this.RealistGLA; }
+                    { 
+                        x = this.RealistGLA; 
+
+                    }
 
                     return x;
                 }
@@ -833,6 +888,37 @@ namespace bpohelper
 
             #endregion
 
+            #region interior features
+            public string NumberOfFireplaces
+            {
+                get 
+                {
+                    string theCount = "0";
+                    try
+                    {
+                        theCount = mlsHtmlFields["numFireplaces"].value;
+                    }
+                    catch { }
+
+                    return theCount;   
+                }
+            }
+
+            #endregion
+
+            public string MredParkingString
+            {
+                get { return mlsHtmlFields["parking"].value; }
+            }
+
+            public string ListingAgentName
+            {
+                get { return mlsHtmlFields["listAgent"].value; }
+            }
+            public string ListingBrokerageName
+            {
+                get { return mlsHtmlFields["broker"].value; }
+            }
 
             public int Age
             {
@@ -975,8 +1061,8 @@ namespace bpohelper
                 mlsHtmlFields.Remove("mlsStyle");
                 mlsHtmlFields.Remove("additionalSalesInfo");
                 //mlsHtmlFields.Remove("acerage");  /*some attached units have lot sizes in realist, ie duplexes.  */
-
-                mlsHtmlFields["additionalSalesInfo"] = new MREDHtmlField("Additional&nbsp;Sales&nbsp;Information:"); 
+                                                                   //     Additional&nbsp;Sales&nbsp;Information:    
+                mlsHtmlFields["additionalSalesInfo"] = new MREDHtmlField(@"Additional&nbsp;Sales&nbsp;Information:"); 
                 mlsHtmlFields["bathrooms"] = new MREDHtmlField(@"Bathrooms (Full/Half):");
                 mlsHtmlFields["offMarketDate"] = new MREDHtmlField(@"Off&nbsp;Mkt:");
                 mlsHtmlFields["numberOfStories"] = new MREDHtmlField("#&nbsp;Stories:");

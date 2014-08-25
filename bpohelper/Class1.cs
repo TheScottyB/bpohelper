@@ -14,7 +14,15 @@ namespace bpohelper
     class LandSafe
     {
 
-       
+        protected void WriteScript(string path, string filename, StringBuilder script)
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path + "\\" + filename))
+            {
+                file.Write(script);
+            }
+
+
+        }
 
         public void Prefill(iMacros.App iim, Form1 form)
         {
@@ -233,6 +241,7 @@ namespace bpohelper
 
 
             string macroCode = macro.ToString();
+            WriteScript(form.SubjectFilePath, "prefill.iim", macro);
             iim.iimPlayCode(macroCode, 120);
 
 

@@ -120,6 +120,11 @@ namespace bpohelper
         }
 
 
+        public string NumberOfCompsFound
+        {
+            set { richTextBoxNumberCompsFound.Text = value; }
+        }
+
         public void AddInfoColor(string value, Color c)
         {
             infoWindowrichTextBox.AppendText(value, c);

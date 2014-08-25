@@ -91,6 +91,8 @@ using Newtonsoft.Json;
         string StatusUpdate { set; }
         string CurrentSearchName { get; set; }
         bool UpdateRealist { get; set; }
+        string NumberOfCompsFound { set; }
+     
     }
 
 namespace bpohelper
@@ -253,7 +255,7 @@ namespace bpohelper
             //this.streetnameTextBox.Text = comboBox1.Text;
         }
 
-        private void run_script_Click(object sender, EventArgs e)
+        async private void run_script_Click(object sender, EventArgs e)
         {
             MLSListing m;
 
@@ -313,13 +315,7 @@ namespace bpohelper
                 m = new MLSListing(htmlCode);
             }
 
-            //
-            //New Fields 9/14/13
-            //
-            //Condos
-            //
-            //Assessments
-            //Amount:
+  
 
 
             #region check for mred and start read
@@ -335,56 +331,12 @@ namespace bpohelper
             streetnameTextBox.Text = input_comp_name;
             streetnameTextBox.Update();
 
-            //extract summary table
-            //TAG POS=1 TYPE=TABLE FORM=NAME:dc ATTR=CLASS:gridview EXTRACT=TXT
 
             StringBuilder move_through_comps_macro = new StringBuilder();
             move_through_comps_macro.AppendLine(@"SET !TIMEOUT_STEP 0");
             move_through_comps_macro.AppendLine(@"FRAME NAME=navpanel");
             move_through_comps_macro.AppendLine(@"TAG POS=1 TYPE=IMG ATTR=SRC:*/next.gif");
-            //move_through_comps_macro.AppendLine(@"TAG POS=1 TYPE=IMG ATTR=SRC:http://connectmls*.mredllc.com/images/next.gif");
-            //move_through_comps_macro.AppendLine(@"TAG POS=1 TYPE=IMG ATTR=SRC:http://connectmls*.mredllc.com/images/next.gif");
-            //move_through_comps_macro.AppendLine(@"TAG POS=1 TYPE=IMG ATTR=SRC:http://connectmls*.mredllc.com/images/next.gif");
-            //move_through_comps_macro.AppendLine(@"TAG POS=1 TYPE=IMG ATTR=SRC:http://connectmls*.mredllc.com/images/next.gif");
-            //move_through_comps_macro.AppendLine(@"TAG POS=1 TYPE=IMG ATTR=SRC:http://connectmls*.mredllc.com/images/next_inactive.gif");
-
-            StringBuilder macro2 = new StringBuilder();
-            macro2.AppendLine(@"FRAME NAME=workspace");
-            //TAG POS=9 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT
-            macro2.AppendLine(@"SET !TIMEOUT_STEP 0");
-            macro2.AppendLine(@"SET !REPLAYSPEED FAST");
-            macro2.AppendLine(@"TAG POS=1 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=2 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=3 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=4 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=5 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=6 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=7 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=8 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=9 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=10 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=11 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=12 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=13 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=14 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=15 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=16 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=17 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=18 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=19 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=20 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-            macro2.AppendLine(@"TAG POS=21 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-           // macro2.AppendLine(@"TAG POS=22 TYPE=TABLE FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
-
-            //  Detached Single#NEXT#MLS #:#NEXT#07990926#NEXT#List Price:#NEXT#$639,900#NEXT##NEWLINE#Status:#NEXT#CLSD#NEXT#List Date:#NEXT#02/06/2012#NEXT#Orig List Price:#NEXT#$639,900#NEXT##NEWLINE#Area:#NEXT#47  #NEXT#List Dt Rec:#NEXT#02/07/2012#NEXT#Sold Price:#NEXT#$613,000#NEXT##NEWLINE#Address:#NEXT#21690 Hampton Ct , Kildeer, Illinois 60047#NEXT##NEWLINE#Directions:#NEXT#Cuba E of Quentin to Hickory Hill Left on Hampton.#NEXT##NEWLINE#Sold by:#NEXT#Patrick Neylon (7460) / Coleman Land Company (458) #NEXT#Lst. Mkt. Time:#NEXT#28#NEXT##NEWLINE#Closed:#NEXT#04/16/2012#NEXT#Contract:#NEXT#03/04/2012#NEXT#Points:#NEXT##NEXT##NEWLINE#Off Market:#NEXT#03/04/2012#NEXT#Financing:#NEXT#Conventional#NEXT#Contingency:#NEXT##NEXT##NEWLINE#Year Built:#NEXT#2001#NEXT#Blt Before 78:#NEXT#No#NEXT#Curr. Leased:#NEXT#No#NEXT##NEWLINE#Dimensions:#NEXT#165X377X171X437#NEXT##NEWLINE#Ownership:#NEXT#Fee Simple#NEXT#Subdivision:#NEXT#Farmington#NEXT#Model:#NEXT#Custom#NEXT##NEWLINE#Corp Limits:#NEXT#Kildeer#NEXT#Township:#NEXT#Ela#NEXT#County:#NEXT#Lake#NEXT##NEWLINE#Coordinates:#NEXT#N:43 S: E: W:27 #NEXT## Fireplaces:#NEXT#3#NEXT##NEWLINE#Rooms:#NEXT#8#NEXT#Bathrooms (full/half):#NEXT#4 / 1#NEXT#Parking:#NEXT#Garage#NEXT##NEWLINE#Bedrooms:#NEXT#4#NEXT#Master Bath:#NEXT#Full#NEXT## Spaces:#NEXT#Gar:4 #NEXT##NEWLINE#Basement:#NEXT#Full, Walkout#NEXT#Bsmnt. Bath:#NEXT#No#NEXT#Parking Incl. In Price:#NEXT#Yes
-
-            string table1 = "";
-            string table2 = "";
-            string table3 = "";
-            string table4 = "";
-            string table5 = "";
-
-            string macroCode2 = macro2.ToString();
+     
             #endregion
 
 
@@ -549,49 +501,17 @@ namespace bpohelper
             {
                 #region loop through the 6 comps
 
+                //
+                //Read MRED listing sheet
+                //
                 #region read tables
-                status = iim.iimPlayCode(macroCode2, 60);
-
-                for (int j = 1; j < 21; j++)
-                {
-                    //MessageBox.Show(iim.iimGetLastExtract(j));
-
-                    if (iim.iimGetLastExtract(j).Contains("Detached Single") | iim.iimGetLastExtract(j).Contains("Attached Single") | iim.iimGetLastExtract(j).Contains("Two to Four Units"))
-                    {
-                        table1 = iim.iimGetLastExtract(j);
-                    }
-                    else if (iim.iimGetLastExtract(j).Contains("Elementary:") & iim.iimGetLastExtract(j).Contains("Special Assessments:"))
-                    {
-                        table2 = iim.iimGetLastExtract(j);
-                    }
-                    else if (iim.iimGetLastExtract(j).Contains("Age:") & iim.iimGetLastExtract(j).Contains("Additional Rooms:"))
-                    {
-                        table4 = iim.iimGetLastExtract(j);
-                    } 
-                    else if (iim.iimGetLastExtract(j).Contains("VOW AVM:"))
-                    {
-                        table5 = iim.iimGetLastExtract(j);
-                    }
-
-                }
-
-
-                //if (iim.iimGetLastExtract(1).Length < 20)
-                //{
-                //    table1 = iim.iimGetLastExtract(2);
-                //    table2 = iim.iimGetLastExtract(3);
-                //    table4 = iim.iimGetLastExtract(5);
-                //}
-                //else
-                //{
-                //    table1 = iim.iimGetLastExtract(1);
-                //    table2 = iim.iimGetLastExtract(5);
-                //    table4 = iim.iimGetLastExtract(11);
-                //    table5 = iim.iimGetLastExtract(15);
-                //}
+            
 
                 string sale_or_list_flag = "";
-                if (table1.Contains("Status:#NEXT#CLSD"))
+
+                
+
+                if (m.Status.Contains("CLSD"))
                 {
                     input_comp_name = comp_name_list[closed_comps];
                     closed_comps = closed_comps + 1;
@@ -605,7 +525,10 @@ namespace bpohelper
                     sale_or_list_flag = "list";
                 }
                 #endregion
-                
+                //
+                //
+                //
+
                 //
                 //Save pics
                 //
@@ -615,7 +538,7 @@ namespace bpohelper
                 openTab.AppendLine(@"FRAME NAME=workspace");
                 openTab.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:dc ATTR=CLASS:*navImage*");
                 //openTab.AppendLine(@"FRAME F=0");
-                openTab.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=HREF:javascript:openWindow* EXTRACT=TXT");
+                //openTab.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=HREF:javascript:openWindow* EXTRACT=TXT");
 
                 string openTab_macroCode = openTab.ToString();
                 status = iim.iimPlayCode(openTab_macroCode, 30);
@@ -673,89 +596,35 @@ namespace bpohelper
                  string save_pics_macroCode = save_pics_macro.ToString();
                 status = iim.iimPlayCode(save_pics_macroCode, 30);
                 #endregion
+                //
+                //
+                //
+
                 pBar1.PerformStep();
-
                 # region read_mls_sheet
-                //
-                //Table 1
-                //
-
-
-                // Detached Single#NEXT#MLS #:#NEXT#07933784#NEXT#List Price:#NEXT#$150,000#NEXT##NEWLINE#Status:#NEXT#CLSD#NEXT#List Date:#NEXT#10/27/2011#NEXT#Orig List Price:#NEXT#$150,000#NEXT##NEWLINE#Area:#NEXT#50  #NEXT#List Dt Rec:#NEXT#10/28/2011#NEXT#Sold Price:#NEXT#$140,000#NEXT##NEWLINE#Address:#NEXT#2316 W Fairview Ln , McHenry, Illinois 60051#NEXT##NEWLINE#Directions:#NEXT#Rt. 120 to River Rd N. to Lincoln E to Hillside to Fairview E#NEXT##NEWLINE#Sold by:#NEXT#Ed Kanabay (16107) / Results Realty USA (1886) #NEXT#Lst. Mkt. Time:#NEXT#18#NEXT##NEWLINE#Closed:#NEXT#02/15/2012#NEXT#Contract:#NEXT#11/13/2011#NEXT#Points:#NEXT##NEXT##NEWLINE#Off Market:#NEXT#11/13/2011#NEXT#Financing:#NEXT#Conventional#NEXT#Contingency:#NEXT##NEXT##NEWLINE#Year Built:#NEXT#1977#NEXT#Blt Before 78:#NEXT#Yes#NEXT#Curr. Leased:#NEXT#No#NEXT##NEWLINE#Dimensions:#NEXT#80X150#NEXT##NEWLINE#Ownership:#NEXT#Fee Simple#NEXT#Subdivision:#NEXT#Eastwood Manor#NEXT#Model:#NEXT##NEXT##NEWLINE#Corp Limits:#NEXT#Unincorporated#NEXT#Township:#NEXT#Mchenry#NEXT#County:#NEXT#Mc Henry#NEXT##NEWLINE#Coordinates:#NEXT#N:33 W:31 #NEXT## Fireplaces:#NEXT##NEXT##NEWLINE#Rooms:#NEXT#8#NEXT#Bathrooms (full/half):#NEXT#3 / 0#NEXT#Parking:#NEXT#Garage#NEXT##NEWLINE#Bedrooms:#NEXT#3#NEXT#Master Bath:#NEXT#Full#NEXT## Spaces:#NEXT#Gar:2 #NEXT##NEWLINE#Basement:#NEXT#None#NEXT#Bsmnt. Bath:#NEXT#No#NEXT#Parking Incl. In Price:#NEXT#Yes
-                string pattern = "MLS #:#NEXT#(\\d+)#NEXT#";
-                Match match = Regex.Match(table1, pattern);
-                string mlsnum = match.Groups[1].Value;
-                //string mlsnum = table1.Substring(table1.IndexOf("MLS #:#NEXT#")+12, 8);
-
-                //doesnt match $1,000,000
-                //pattern = "List Price:#NEXT#(.[0-9]+.[0-9]+)";
-                pattern = "List Price:#NEXT#([^#]+)";
-                match = Regex.Match(table1, pattern);
-                string current_list_price = match.Groups[1].Value;
-
-                pattern = "List Date:#NEXT#(\\d+.\\d+.\\d+)#NEXT#";
-                match = Regex.Match(table1, pattern);
-                string list_date = match.Groups[1].Value;
-
-                
-               
-                pattern = "Orig List Price:#NEXT#([^#]+)";
-                match = Regex.Match(table1, pattern);
-                string orig_list_price = match.Groups[1].Value;
-
-                pattern = "Sold Price:#NEXT#([^#]+)";
-                match = Regex.Match(table1, pattern);
-                string sold_price = match.Groups[1].Value;
-
-                pattern = "Contract:#NEXT#([^#]+)";
-                match = Regex.Match(table1, pattern);
-                string contract_date = match.Groups[1].Value;
-
-                pattern = "Financing:#NEXT#([^#]+)";
-                match = Regex.Match(table1, pattern);
-                string financingType = match.Groups[1].Value;
+             
+                string mlsnum = m.MlsNumber;
+                string current_list_price = m.CurrentListPrice.ToString() ;
+                string list_date = m.ListDateString;
+                string orig_list_price = m.OriginalListPrice.ToString();
+                string sold_price = m.SalePrice.ToString();
+                string contract_date = m.ContractDate;
+                string financingType = m.FinancingMlsString;
 
                 if(sale_or_list_flag == "sale")
                 {
                     compPrices[closed_comps -1] = sold_price;
                 }
-
-
-                string sale_type = "Normal";
-                if (sold_price.Contains("(S)"))
-                {
-                    sale_type = "Short";
-                    sold_price = sold_price.Replace("(S)", "");
-
-                }
-
-                if (sold_price.Contains("(F)"))
-                {
-                    sale_type = "REO";
-                    sold_price = sold_price.Replace("(F)", "");
-                }
-
-                if (sold_price.Contains("(C)"))
-                {
-                    sale_type = "Court";
-                    sold_price = sold_price.Replace("(C)", "");
-                }
-
-
-                //fuill line address
-                //Address:#NEXT#2627 Sycamore Dr , Waukegan, Illinois 60085#NEXT#
-
-                pattern = "Address:#NEXT#([^#]+)#NEXT#";
-                match = Regex.Match(table1, pattern);
-                string address = match.Groups[1].Value;
-                string[] tempstrarry = address.Split(',');
+                
+                string sale_type = m.TransactionType;
+                string address = m.StreetAddress;
+            
                 string street_number = "";
                 string street_name = "";
                 string street_postfix = "";
-                string city = tempstrarry[1];
-                string zip = tempstrarry[2].Split(' ')[2];
-                string full_street_address = tempstrarry[0];
-                string[] street_combo = tempstrarry[0].Split(' ');
+                string city = m.City;
+                string zip = m.Zipcode;
+                string full_street_address = m.StreetAddress;
 
                 if (zip.Contains("-"))
                 {
@@ -763,17 +632,17 @@ namespace bpohelper
                 }
 
                 //need to remove unit in attached listing addresses.
-                if (tempstrarry[0].Contains("Unit"))
+                if (full_street_address.Contains("Unit"))
                 {
-                    tempstrarry[0] = tempstrarry[0].Remove(tempstrarry[0].IndexOf("Unit"));
+                    full_street_address = full_street_address.Remove(full_street_address.IndexOf("Unit"));
                 }
 
 
 
 
                 //2316 W Fairview Ln , McHenry, Illinois 60051
-                pattern = "^(\\d+)\\s+\\w\\s+(\\w+)\\s+(\\w+)";
-                match = Regex.Match(tempstrarry[0], pattern);
+                string pattern = "^(\\d+)\\s+\\w\\s+(\\w+)\\s+(\\w+)";
+                Match match = Regex.Match(full_street_address, pattern);
 
                 if (match.Success)
                 {
@@ -785,7 +654,7 @@ namespace bpohelper
 
                 //2316 Fairview Ln , McHenry, Illinois 60051
                 pattern = "^(\\d+)\\s+(\\w\\w+)\\s+(\\w+)";
-                match = Regex.Match(tempstrarry[0], pattern);
+                match = Regex.Match(full_street_address, pattern);
                 if (match.Success)
                 {
                     street_number = match.Groups[1].Value;
@@ -800,7 +669,7 @@ namespace bpohelper
 
                 //1309 N Chapel Hill Rd , McHenry, Illinois 60051
                 pattern = "^(\\d+)\\s+\\w\\s+(\\w+\\s+\\w+)\\s+(\\w+)";
-                match = Regex.Match(tempstrarry[0], pattern);
+                match = Regex.Match(full_street_address, pattern);
                 if (match.Success)
                 {
                     street_number = match.Groups[1].Value;
@@ -811,7 +680,7 @@ namespace bpohelper
 
                 //769 White Pine Cir , Lake In The Hills, Illinois 60156
                 pattern = "^(\\d+)\\s+(\\w\\w+\\s+\\w+)\\s+(\\w+)[^\\w+]";
-                match = Regex.Match(tempstrarry[0], pattern);
+                match = Regex.Match(full_street_address, pattern);
                 if (match.Success)
                 {
                     street_number = match.Groups[1].Value;
@@ -821,127 +690,31 @@ namespace bpohelper
 
                 // 21727 NORTH Hickory Hill Dr 
                 pattern = "^(\\d+)\\s+NORTH\\s+(\\w\\w+\\s+\\w+)\\s+(\\w+)";
-                match = Regex.Match(tempstrarry[0], pattern);
+                match = Regex.Match(full_street_address, pattern);
                 if (match.Success)
                 {
                     street_number = match.Groups[1].Value;
                     street_name = match.Groups[2].Value;
                     street_postfix = match.Groups[3].Value;
                 }
-
-                
-
-                //if (street_combo.Length == 4)
-                //{
-                //    //2316 W Fairview Ln , McHenry, Illinois 60051
-                //    pattern = "^(\\d+)\\s+\\w+\\s+(\\w+)\\s+(\\w+)\\s+,\\s+(\\w+),\\s+\\w+\\s+(\\d+)";
-                //    match = Regex.Match(address, pattern);
-                //    street_number = match.Groups[1].Value;
-                //     street_name = match.Groups[2].Value;
-                //     street_postfix = match.Groups[3].Value;
-                //     city = match.Groups[4].Value;
-                //     zip = match.Groups[5].Value;
-                //}
-                //else if (street_combo.Length == 5)
-                //{
-                //    //1309 N Chapel Hill Rd , McHenry, Illinois 60051
-                //    pattern = "^(\\d+)\\s+\\w+\\s+(\\w+\\s+\\w+)\\s+(\\w+)\\s+,\\s+(\\w+),\\s+\\w+\\s+(\\d+)";
-                //    match = Regex.Match(address, pattern);
-                //    street_number = match.Groups[1].Value;
-                //    street_name = match.Groups[2].Value;
-                //    street_postfix = match.Groups[3].Value;
-                //    city = match.Groups[4].Value;
-                //    zip = match.Groups[5].Value;
-
-                //}
-                //else
-                //{
-
-                //    //2316 Fairview Ln , McHenry, Illinois 60051
-                //    pattern = "^(\\d+)\\s+(\\w+)\\s+(\\w+)\\s+,\\s+(\\w+),\\s+\\w+\\s+(\\d+)";
-                //    match = Regex.Match(address, pattern);
-                //    street_number = match.Groups[1].Value;
-                //    street_name = match.Groups[2].Value;
-                //    street_postfix = match.Groups[3].Value;
-                //    city = match.Groups[4].Value;
-                //    zip = match.Groups[5].Value;
-                //}
-
-                //Li*st. Mkt\.* Time:#NEXT#(\d+)#NEXT#
-                //@"Lst. Mkt. Time:#NEXT#(\d+)#NEXT#"
-                pattern = @"Li*st. Mkt\.* Time:#NEXT#(\d+)#NEXT#";
-                match = Regex.Match(table1, pattern);
-                string dom = match.Groups[1].Value;
-
-                pattern = "Closed:#NEXT#(\\d+.\\d+.\\d+)#NEXT#";
-                match = Regex.Match(table1, pattern);
-                string closed_date = match.Groups[1].Value;
-
-
-                pattern = "Year Built:#NEXT#(\\d+)#NEXT#";
-                match = Regex.Match(table1, pattern);
-                string year_built = match.Groups[1].Value;
-
-
-                pattern = "County:#NEXT#([^#]+)";
-                match = Regex.Match(table1, pattern);
-                string county = match.Groups[1].Value;
-
-
-                pattern = "Rooms:#NEXT#(\\d+)#NEXT#";
-                match = Regex.Match(table1, pattern);
-                string room_count = match.Groups[1].Value;
-
-                //attached 0 space
-                //Bathrooms (Full/Half):#NEXT#1/1#NEXT#
-                //Bathrooms (Full/Half):#NEXT#1/1#NEXT#
-                pattern = "Bathrooms \\([Ff]ull\\/[Hh]alf\\):#NEXT#(\\d+)\\s*.\\s*(\\d+)#NEXT#";
-                match = Regex.Match(table1, pattern);
-                string full_bath = match.Groups[1].Value;
-                string half_bath = match.Groups[2].Value;
-
-                if (!match.Success)
-                {
-                    pattern = @"Total Baths \(Full/Half\):#NEXT#(\d+).(\d+)#NEXT#";
-                    match = Regex.Match(table1, pattern);
-                    full_bath = match.Groups[1].Value;
-                    half_bath = match.Groups[2].Value;
-
-                    if (!match.Success)
-                    {
-                        pattern = @"Total Baths \(Full/Half\):#NEXT#(\d+).\s*#NEXT#";
-                        match = Regex.Match(table1, pattern);
-                        full_bath = match.Groups[1].Value;
-                        half_bath = "0";
-                    }
-                }
-
-
-                pattern = "Bedrooms:#NEXT#(\\d+)";
-                match = Regex.Match(table1, pattern);
-                string bedrooms = match.Groups[1].Value;
-
-                if (!match.Success)
-                {
-                    //3 + 1 below grade
-                    pattern = "Bedrooms:#NEXT#(\\d+)\\s+\\d[^#]+";
-                    match = Regex.Match(table1, pattern);
-                    bedrooms = match.Groups[1].Value;
-                }
-                pattern = "# Fireplaces:#NEXT#(\\d+)#NEXT#";
-                match = Regex.Match(table1, pattern);
-                string number_of_firplaces = match.Groups[1].Value;
+                string dom = m.DOM;
+                string closed_date = m.SalesDate.ToShortDateString();
+                string year_built = m.YearBuilt.ToString();
+                string county = m.County;
+                string room_count = m.TotalRoomCount.ToString();
+                string full_bath = m.FullBathCount;
+                string half_bath = m.HalfBathCount;
+                string bedrooms = m.BedroomCount;
+                string number_of_firplaces = m.NumberOfFireplaces;
                 bool hasFireplace = false;
+                
                 if (number_of_firplaces != "")
                     hasFireplace = true;
 
-                //Full, English
-                pattern = "Basement:#NEXT#([^#]+)";
-                match = Regex.Match(table1, pattern);
-                string basement = "None";
-                 basement = match.Groups[1].Value;
+                string basement = m.BasementType;
                  bool fullBasement = false;
                  bool partialBasement = false;
+
                  if (basement.Contains("Full") || basement.Contains("English"))
                      fullBasement = true;
                  if (basement.Contains("Partial"))
@@ -949,181 +722,41 @@ namespace bpohelper
                      partialBasement = true;
                  }
 
-
-                pattern = "Parking:#NEXT#(\\w+)#NEXT#";
-                match = Regex.Match(table1, pattern);
-                string parking = match.Groups[1].Value;
-
-
-                pattern = "# Spaces:#NEXT#\\w+:(\\d)";  //# Spaces:#NEXT#Gar:2 #NEXT#
-                match = Regex.Match(table1, pattern);
-                string mls_number_of_spaces = match.Groups[1].Value;
-
-                pattern = "Subdivision:#NEXT#([^#]+)";  //# Spaces:#NEXT#Gar:2 #NEXT#
-                match = Regex.Match(table1, pattern);
-                string mls_subdivision = match.Groups[1].Value;
-
+                 string parking = m.MredParkingString;
+                 string mls_number_of_spaces = m.NumberGarageStalls();
+                 string mls_subdivision = m.Subdivision;
                  
                 if (string.IsNullOrWhiteSpace(mls_subdivision))
                 {
                     mls_subdivision  = "Unk/NA";
                 }
 
+                string financing = m.FinancingMlsString;
+                string type = m.Type; //mls type field
+                string mls_garage_type = m.GarageType();
+                string mls_garage_spaces = m.NumberGarageStalls().ToString();
 
-                pattern = "Financing:#NEXT#([^#]+)";  
-                match = Regex.Match(table1, pattern);
-                string financing = match.Groups[1].Value;
-
-                //
-                //Table4:  Details
-                //
-                pattern = "#Type:(([^#]+))#NEXT#";
-                match = Regex.Match(table4, pattern);
-                string type = match.Groups[1].Value; //mls type field
-
-                pattern = "Garage Type:(([^#]+))";  //pattern = "Lot Acres:#NEXT#(([^#]+))";
-                match = Regex.Match(table4, pattern);
-                string mls_garage_type = match.Groups[1].Value;
-
-                pattern = "Gar:(\\d)"; 
-                match = Regex.Match(table1, pattern);
-                string mls_garage_spaces = match.Groups[1].Value;
-
-
-
-
-
-
-                 pattern = "Basement Details:Finished";  //pattern = "Lot Acres:#NEXT#(([^#]+))";
-                match = Regex.Match(table4, pattern);
                 bool finished_basement = false;
-                if (match.Success)
+                if (m.FinishedBasement)
                 {
                     finished_basement = true;
                 }
 
-                pattern = "Exterior:#NEXT#([^#]+)";
-                match = Regex.Match(table4, pattern);
-                string exteriorDetails = match.Groups[1].Value;
-
-        
-
-                //
-                //end table 4
-                //
-
-                pattern = "PIN:#NEXT#(\\d+)\\s*";
-                match = Regex.Match(table2, pattern);
-                //string pin = table2.Substring(table2.IndexOf("PIN:") + 4, 10);
-                string pin = match.Groups[1].Value;
-
-
-                pattern = "Appx SF:#NEXT#(\\d+)#NEXT#";
-                match = Regex.Match(table2, pattern);
-                //string pin = table2.Substring(table2.IndexOf("PIN:") + 4, 10);
-                string mls_gla = match.Groups[1].Value;
+                string exteriorDetails = m.ExteriorMlsString;
+                string pin = m.ParcelNumber;
+                string mls_gla = m.GLA.ToString();
 
                 mls_gla = mls_gla.Replace(",", "");
-
-                //Attached MLS sheet in table 1
-                if (!match.Success)
-                {
-                    match = Regex.Match(table1, pattern);
-                    if (match.Success)
-                    {
-                        mls_gla = match.Groups[1].Value;
-                    }
-                    else
-                    {
-                        mls_gla = "0";
-                    }
-
-                }
-
-                mls_gla = mls_gla.Replace(",", "");
-
-                pattern = "Acreage:#NEXT#(\\d+.\\d+)";
-                match = Regex.Match(table2, pattern);
-                //string pin = table2.Substring(table2.IndexOf("PIN:") + 4, 10);
                 string mls_lot_size = "0";
-                mls_lot_size = match.Groups[1].Value;
-
-                if (!match.Success)
-                {
-                    pattern = "Acreage:#NEXT#(\\d+)";
-                    match = Regex.Match(table2, pattern);
-                    mls_lot_size = match.Groups[1].Value;
-
-                }
-
-                //
-                //listing agent info
-                //
-
-                pattern = "List Agent:#NEXT#([^\\(]+)";
-                match = Regex.Match(table5, pattern);
-                string listing_Agent = "";
-                listing_Agent = match.Groups[1].Value;
-
-                pattern = "Broker:#NEXT#([^\\(]+)";
-                match = Regex.Match(table5, pattern);
-                string broker = "";
-                broker = match.Groups[1].Value;
-
-                pattern = "Ph #:#NEXT#([^#]+)";
-                match = Regex.Match(table5, pattern);
-                string phone = "";
-                phone = match.Groups[1].Value;
-
-                pattern = "Additional Sales Information:#NEXT#([^#]+)|Addl. Sales Info.:#NEXT#([^#]+)";
-                match = Regex.Match(table5, pattern);
-                string additionalSalesInfo = "";
-                additionalSalesInfo = match.Groups[1].Value;
-
-                if (additionalSalesInfo == "")
-                {
-                    additionalSalesInfo = match.Groups[2].Value;
-                }
-
-                
-
-                ////Google distance matric webservice
-                ////http://maps.googleapis.com/maps/api/distancematrix/xml?origins=60050&destinations=60002&sensor=false&units=imperial
-                ////
-
-                //string googlestr = "http://maps.googleapis.com/maps/api/distancematrix/xml?origins=60050&destinations=" + zip + "&sensor=false&units=imperial";
-
-                //// Create a request for the URL. 		
-                //WebRequest request = WebRequest.Create(googlestr);
-               
-                //// Get the response.
-                //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                
-                //// Get the stream containing content returned by the server.
-                //Stream dataStream = response.GetResponseStream();
-                //// Open the stream using a StreamReader for easy access.
-                //StreamReader reader = new StreamReader(dataStream);
-                //// Read the content.
-                //string responseFromServer = reader.ReadToEnd();
-                //// Display the content.
-                ////MessageBox.Show(response.ContentLength.ToString());
-                ////MessageBox.Show(responseFromServer);
-                ////Console.WriteLine(responseFromServer);
-                //// Cleanup the streams and the response.
-                //reader.Close();
-                //dataStream.Close();
-                //response.Close();
-
-
-                
-                
-
-
-
+                mls_lot_size = m.Lotsize.ToString();
+                string listing_Agent = m.ListingAgentName;
+                string broker = m.ListingBrokerageName;
+              string phone = m.ListingAgentPhone();
+                string additionalSalesInfo = m.AdditionalSalesInfo();
+              
                 #endregion
+           
                 pBar1.PerformStep();
-
                 #region Price Change extraction
                 //
                 //Price Change extraction
@@ -1203,123 +836,572 @@ namespace bpohelper
                 pBar1.PerformStep();
 
                 #region realist extraction
+                GoogleFusionTable realist_bpohelper = new GoogleFusionTable("1UKrOVmhPWrgLP5d5bDCsiW9whMIK8aLxKhcyOaI");
+                await realist_bpohelper.helper_OAuthFusion();
 
-                //string header = iim.iimGetExtract(0);
+                string realist_rawHtml = "";
+                string realist_gla = "0";
+                string realist_subdivision = "";
+                string censusTract = "";
+                string realist_schoolDistrict = "";
+                string realist_lotAcres = "0";
+                string realist_address = "";
+            
+              
+                //StringBuilder realist_extraction_macro = new StringBuilder();
+                //realist_extraction_macro.AppendLine(@"SET !TIMEOUT_STEP 10");
+                //realist_extraction_macro.AppendLine(@"FRAME NAME=workspace");
+                //realist_extraction_macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=TXT:Realist<SP>Tax<SP>Report");
+                //realist_extraction_macro.AppendLine(@"'New tab opened");
+                ////realist_extraction_macro.AppendLine(@"TAB T=2");
+                //realist_extraction_macro.AppendLine(@"FRAME F=0");
+                //realist_extraction_macro.AppendLine(@"SET !TIMEOUT_STEP 10");
+                //realist_extraction_macro.AppendLine(@"TAG POS=4 TYPE=TABLE ATTR=CLASS:multiColumnTable EXTRACT=TXT");
+                //realist_extraction_macro.AppendLine(@"TAG POS=2 TYPE=TABLE ATTR=CLASS:multiColumnTable EXTRACT=TXT");
+                //realist_extraction_macro.AppendLine(@"TAB CLOSE");
+                //string realist_extraction_macro_code = realist_extraction_macro.ToString();
 
-                //if (!Regex.IsMatch(header, @"showing\s*1\s*of\s*6"))
+                //status = iim.iimPlayCode(realist_extraction_macro_code, 60);
+
+                //string realist_char_table = iim.iimGetLastExtract(1);
+                //string realist_location_table = iim.iimGetLastExtract(2);
+                
+                ////
+                ////Location Information
+                ////
+                //pattern = "Subdivision:#NEXT#([^#]+)";
+                //match = Regex.Match(realist_location_table, pattern);
+                // realist_subdivision = "";
+                //realist_subdivision = match.Groups[1].Value;
+
+                ////
+                ////Characteristics
+                ////
+                ////Lot Acres:#NEXT#0.1257#NEXT#
+                //pattern = "Lot Acres:#NEXT#([^#]+)";
+                //match = Regex.Match(realist_char_table, pattern);
+            
+                //string realist_lot_size = "0";
+                //realist_lot_size = match.Groups[1].Value;
+
+                ////MessageBox.Show("MLS Lot: " + mls_lot_size + " " + "Realist Lot Size:" + realist_lot_size);
+
+                //if (mls_lot_size == "0" | mls_lot_size == "")
                 //{
-                //    if (MessageBox.Show("Do you want to start at comp 1?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                //    {
-                //        return;
-                //    }
-
+                //    mls_lot_size = realist_lot_size;
                 //}
 
-                StringBuilder realist_extraction_macro = new StringBuilder();
-                realist_extraction_macro.AppendLine(@"SET !TIMEOUT_STEP 10");
-                realist_extraction_macro.AppendLine(@"FRAME NAME=workspace");
-                realist_extraction_macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=TXT:Realist<SP>Tax<SP>Report");
-                realist_extraction_macro.AppendLine(@"'New tab opened");
-                //realist_extraction_macro.AppendLine(@"TAB T=2");
-                realist_extraction_macro.AppendLine(@"FRAME F=0");
-                realist_extraction_macro.AppendLine(@"SET !TIMEOUT_STEP 10");
-                realist_extraction_macro.AppendLine(@"TAG POS=4 TYPE=TABLE ATTR=CLASS:multiColumnTable EXTRACT=TXT");
-                realist_extraction_macro.AppendLine(@"TAG POS=2 TYPE=TABLE ATTR=CLASS:multiColumnTable EXTRACT=TXT");
-                realist_extraction_macro.AppendLine(@"TAB CLOSE");
-                string realist_extraction_macro_code = realist_extraction_macro.ToString();
+                //pattern = "Building Above Grade Sq Ft:#NEXT#([^#]+)";
+                //match = Regex.Match(realist_char_table, pattern);
 
-                status = iim.iimPlayCode(realist_extraction_macro_code, 60);
+                // realist_gla = "0";
+                //realist_gla = match.Groups[1].Value;
 
-                string realist_char_table = iim.iimGetLastExtract(1);
-                string realist_location_table = iim.iimGetLastExtract(2);
-                
-                //
-                //Location Information
-                //
-                pattern = "Subdivision:#NEXT#([^#]+)";
-                match = Regex.Match(realist_location_table, pattern);
-                string realist_subdivision = "";
-                realist_subdivision = match.Groups[1].Value;
+                ////MessageBox.Show("MLS GLA: " + mls_gla + " " + "Realist GLA:" + realist_gla);
 
-                //
-                //Characteristics
-                //
-                //Lot Acres:#NEXT#0.1257#NEXT#
-                pattern = "Lot Acres:#NEXT#([^#]+)";
-                match = Regex.Match(realist_char_table, pattern);
-            
-                string realist_lot_size = "0";
-                realist_lot_size = match.Groups[1].Value;
+                //if (mls_gla == "0" | mls_gla == "")
+                //{
+                //    mls_gla = realist_gla.Replace(",","");
+                //}
 
-                //MessageBox.Show("MLS Lot: " + mls_lot_size + " " + "Realist Lot Size:" + realist_lot_size);
+                //pattern = "Year Built:#NEXT#([^#]+)";
+                //match = Regex.Match(realist_char_table, pattern);
 
-                if (mls_lot_size == "0" | mls_lot_size == "")
-                {
-                    mls_lot_size = realist_lot_size;
-                }
+                //string realist_yearbuilt = "";
+                //realist_yearbuilt = match.Groups[1].Value;
 
-                pattern = "Building Above Grade Sq Ft:#NEXT#([^#]+)";
-                match = Regex.Match(realist_char_table, pattern);
+                ////MessageBox.Show("MLS GLA: " + mls_gla + " " + "Realist GLA:" + realist_gla);
 
-                string realist_gla = "0";
-                realist_gla = match.Groups[1].Value;
-
-                //MessageBox.Show("MLS GLA: " + mls_gla + " " + "Realist GLA:" + realist_gla);
-
-                if (mls_gla == "0" | mls_gla == "")
-                {
-                    mls_gla = realist_gla.Replace(",","");
-                }
-
-                pattern = "Year Built:#NEXT#([^#]+)";
-                match = Regex.Match(realist_char_table, pattern);
-
-                string realist_yearbuilt = "";
-                realist_yearbuilt = match.Groups[1].Value;
-
-                //MessageBox.Show("MLS GLA: " + mls_gla + " " + "Realist GLA:" + realist_gla);
-
-                //MessageBox.Show("MLS YB: " + year_built + " " + "Realist YB:" + realist_yearbuilt);
-                if (year_built == "0" | year_built == "")
-                {
-                    if (realist_yearbuilt != "")
-                    {
-                        year_built = realist_yearbuilt;
-                    }
-                    else
-                    {
-                        year_built = "1950";
-                    }
-                }
-                
+                ////MessageBox.Show("MLS YB: " + year_built + " " + "Realist YB:" + realist_yearbuilt);
+             
 
 
-                DateTime subject_age = new DateTime(( Convert.ToInt32(year_built)),1,1);
-                
+
+                DateTime subject_age = new DateTime((Convert.ToInt32(SubjectYearBuilt)), 1, 1);
+
                 TimeSpan ts = DateTime.Now - subject_age;
 
                 int age = ts.Days / 365;
 
-                //MessageBox.Show("AgE: " + age);
 
-                //MessageBox.Show("MLS GLA: " + mls_lot_size + " " + "Realist Lot Size:" + realist_lot_size);
+                if (!realist_bpohelper.RecordExists(pin))
+                {
+                    #region realist extraction update/add
 
-                // C# snippet generated by iMacros Editor.
-                // See http://wiki.imacros.net/Web_Scripting for details on how to use the iMacros Scripting Interface.
+                    #region open realist and extract data script
 
-                // iMacros.AppClass iim = new iMacros.AppClass();
-                // iMacros.Status status = iim.iimOpen("", true, timeout);
-                //StringBuilder macro = new StringBuilder();
-                //macro.AppendLine(@"VERSION BUILD=8021952");
-                //macro.AppendLine(@"TAB T=1");
-                //macro.AppendLine(@"TAB CLOSEALLOTHERS");
-                //macro.AppendLine(@"URL GOTO=http://connectmls2.mredllc.com/mls.jsp?module=mymls&encurl=listing/listings_index.jsp&url=/common/action.jsp?do=dynaconn.soy.pages.search.MyFavorites&uniqueURL=39141823&clear=true&uniqueURL=734621141");
-                //macro.AppendLine(@"FRAME NAME=workspace");
-                //macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=TXT:05013090030000");
-                //macro.AppendLine(@"'New tab opened");
-                //macro.AppendLine(@"TAB T=2");
-                //string macroCode = macro.ToString();
-                // status = iim.iimPlayCode(macroCode, timeout);
+                    StringBuilder realist_extraction_macro = new StringBuilder();
+
+                    //open realist
+                    //realist_extraction_macro.AppendLine(@"SET !ERRORIGNORE YES");
+                    realist_extraction_macro.AppendLine(@"SET !TIMEOUT_STEP 0");
+                    realist_extraction_macro.AppendLine(@"FRAME NAME=workspace");
+                    realist_extraction_macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=TXT:Realist<SP>Tax<SP>Report");
+
+                    string realist_extraction_macro_code = realist_extraction_macro.ToString();
+                    status = iim.iimPlayCode(realist_extraction_macro_code, 60);
+                    realist_extraction_macro.Clear();
+
+                    if (status == Status.sOk)
+                    {
+                        //see what we have opened
+                        s = iim.iimPlayCode("SET !TIMEOUT_STEP 12 \r\n TAG POS=1 TYPE=TABLE ATTR=* EXTRACT=TXT");
+                        realist_rawHtml = iim.iimGetLastExtract();
+                        //realist window is open but no properties found so skip the steps below
+                        if (!realist_rawHtml.Contains("No properties were found."))
+                        {
+                            //gets all html
+                            s = iim.iimPlayCode("SET !TIMEOUT_STEP 12 \r\n TAG POS=1 TYPE=DIV ATTR=ID:htmlApplication EXTRACT=HTM");
+                            realist_rawHtml = iim.iimGetLastExtract();
+                            //gets the address
+                            s = iim.iimPlayCode("SET !TIMEOUT_STEP 0 \r\n TAG POS=1 TYPE=DIV ATTR=ID:headerText EXTRACT=TXT");
+                            realist_address = iim.iimGetLastExtract();
+                        }
+
+                    }
+
+
+                    if (realist_rawHtml.Contains("Parcel"))
+                    {
+
+                        #region goodRecord
+                        //Owner Information
+                        realist_extraction_macro.AppendLine(@"TAG POS=1 TYPE=TABLE ATTR=CLASS:multiColumnTable EXTRACT=TXT");
+                        realist_extraction_macro.AppendLine(@"SET !TIMEOUT_STEP 1");
+                        //Location Information
+                        realist_extraction_macro.AppendLine(@"TAG POS=2 TYPE=TABLE ATTR=CLASS:multiColumnTable EXTRACT=TXT");
+
+                        //Tax Information Table
+                        realist_extraction_macro.AppendLine(@"TAG POS=3 TYPE=TABLE ATTR=CLASS:multiColumnTable EXTRACT=TXT");
+
+                        //Assessment & Tax
+                        //Assessment
+                        realist_extraction_macro.AppendLine(@"TAG POS=1 TYPE=TABLE ATTR=CLASS:dataGridTable EXTRACT=TXT");
+                        //Tax
+                        realist_extraction_macro.AppendLine(@"TAG POS=2 TYPE=TABLE ATTR=CLASS:dataGridTable EXTRACT=TXT");
+
+
+                        //Characteristics
+                        realist_extraction_macro.AppendLine(@"TAG POS=4 TYPE=TABLE ATTR=CLASS:multiColumnTable EXTRACT=TXT");
+
+
+                        //Estimated Value
+                        realist_extraction_macro.AppendLine(@"TAG POS=5 TYPE=TABLE ATTR=CLASS:multiColumnTable EXTRACT=TXT");
+
+                        //Listing Information
+                        //realist_extraction_macro.AppendLine(@"TAG POS=6 TYPE=TABLE ATTR=CLASS:multiColumnTable EXTRACT=TXT");
+                        //most recent mls listing
+                        //realist_extraction_macro.AppendLine(@"TAG POS=3 TYPE=TABLE ATTR=CLASS:dataGridTable EXTRACT=TXT");
+
+                        //Last Market Sale & Sales History
+                        //first row
+                        //realist_extraction_macro.AppendLine(@"TAG POS=4 TYPE=TABLE ATTR=CLASS:dataGridTable EXTRACT=TXT");
+                        //second row
+                        //realist_extraction_macro.AppendLine(@"TAG POS=5 TYPE=TABLE ATTR=CLASS:dataGridTable EXTRACT=TXT");
+
+                        //Mortgage History
+                        //first row
+                        //realist_extraction_macro.AppendLine(@"TAG POS=6 TYPE=TABLE ATTR=CLASS:dataGridTable EXTRACT=TXT");
+                        //second row
+                        //  realist_extraction_macro.AppendLine(@"TAG POS=7 TYPE=TABLE ATTR=CLASS:dataGridTable EXTRACT=TXT");
+
+                        //Foreclosure History
+                        //   realist_extraction_macro.AppendLine(@"TAG POS=8 TYPE=TABLE ATTR=CLASS:dataGridTable EXTRACT=TXT");
+
+
+
+                        //realist_extraction_macro.AppendLine(@"TAB CLOSE");
+                        realist_extraction_macro_code = realist_extraction_macro.ToString();
+
+                        status = iim.iimPlayCode(realist_extraction_macro_code, 60);
+
+
+
+                        string realist_owner_table = iim.iimGetLastExtract(1);
+                        string realist_location_table = iim.iimGetLastExtract(2);
+                        string realist_taxinfo_table = iim.iimGetLastExtract(3);
+                        string realist_assessment_table = iim.iimGetLastExtract(4);
+                        string realist_tax_table = iim.iimGetLastExtract(5);
+                        string realist_char_table = iim.iimGetLastExtract(6);
+                        string realist_estimatedvalue_table = iim.iimGetLastExtract(7);
+                        string realist_listinginfo1_table = iim.iimGetLastExtract(8);
+                        string realist_listinginfo2_table = iim.iimGetLastExtract(9);
+                        string realist_saleshisotry1_table = iim.iimGetLastExtract(10);
+                        string realist_saleshisotry2_table = iim.iimGetLastExtract(11);
+                        string realist_morthisotry1_table = iim.iimGetLastExtract(12);
+                        string realist_morthisotry2_table = iim.iimGetLastExtract(13);
+                        string realist_foreclosure_table = iim.iimGetLastExtract(14);
+
+
+                        //  s = iim.iimPlayCode(@"TAG POS=1 TYPE=DIV ATTR=ID:headerText EXTRACT=TXT");
+                        //  realist_address = iim.iimGetLastExtract();
+
+                        //  s = iim.iimPlayCode(@"TAG POS=1 TYPE=DIV ATTR=ID:htmlApplication EXTRACT=HTM");
+                        //  realist_rawHtml = iim.iimGetLastExtract();
+
+                        s = iim.iimPlayCode(@"TAB CLOSE");
+
+                        //          MessageBox.Show(realist_address + realist_rawHtml);
+
+
+
+                        string allTables = realist_owner_table + "#NEXT#" + realist_location_table + "#NEXT#" + realist_taxinfo_table + "#NEXT#" + realist_char_table + "#NEXT#" + realist_estimatedvalue_table;
+
+
+
+                        allTables.Replace("# #", "##");
+
+
+                        //Township:#NEXT#Grafton Twp#NEXT#Census Tract:#NEXT#8711.04#NEXT##NEWLINE#Township Range Sect:#NEXT#43N-7E-27#NEXT#Carrier Route:#NEXT#R010#NEXT##NEWLINE#Subdivision:#NEXT#Pasquinellis Huntley Mdws#NEXT##NEXT# 
+
+                        string[] sep = { "#NEWLINE#" };
+
+
+                        string[] splitonnewline = allTables.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+
+
+                        string valuePattern = @"#NEXT#([^#]+)#NEXT#";
+                        string namePattern = @"^([^#]+)#NEXT#|#NEXT#([^#]+)#NEXT#";
+                        string fieldName;
+                        string fieldValue;
+                        string parid = Regex.Match(allTables, @"Parcel ID:#NEXT#([^#]+)").Groups[1].Value;
+
+                        Dictionary<string, string> realistReportNameValuePairs = new Dictionary<string, string>();
+                        #endregion
+
+                        #region parse data and add/update fusion table
+                        //if we found a parcel id, which is the key for the record
+                        if (!String.IsNullOrEmpty(parid))
+                        {
+
+                            Stopwatch stopWatch = new Stopwatch();
+                            stopWatch.Start();
+                            string[] gFormatedLocation = new string[3];
+
+
+                            gFormatedLocation = realist_address.Split(',');
+
+
+
+
+                            if (!realist_bpohelper.RecordExists(parid))
+                            {
+                                //if realist is missing addess, split will only have 2 fields, not 3
+                                try
+                                {
+                                    realist_bpohelper.AddRecord(parid, gFormatedLocation[0] + " " + gFormatedLocation[1] + " " + gFormatedLocation[2]);
+                                }
+                                catch
+                                {
+                                    realist_bpohelper.AddRecord(parid, address.Replace(",", ""));
+                                }
+                            }
+                            else
+                            {
+                                //add address to pending updates, incase it's missing or needs updating in fusion table
+                                realistReportNameValuePairs.Add("Location", gFormatedLocation[0] + " " + gFormatedLocation[1] + " " + gFormatedLocation[2]);
+
+                            }
+
+
+
+
+
+                            //
+                            //Check and add new colums
+                            //
+                            foreach (string valuePairLine in splitonnewline)
+                            {
+
+
+                                string modStr = Regex.Replace(valuePairLine, @"# ", "Number").Replace("Garage #", "Garage Number");
+
+
+                                MatchCollection mc1 = Regex.Matches(modStr, namePattern);
+                                foreach (Match m1 in mc1)
+                                {
+
+
+                                    string v = m1.Value.Replace("#NEXT#", "").Trim().Replace("(", @"\(").Replace(")", @"\)") + "#NEXT#([^#]+)";
+                                    if (!v.Contains("NODATA"))
+                                    {
+                                        if (realist_bpohelper.ColumnExsists(m1.Value.Replace("#NEXT#", "").Trim()))
+                                        {
+
+
+                                            realistReportNameValuePairs.Add(m1.Value.Replace("#NEXT#", "").Trim(), Regex.Match(modStr, v).Groups[1].Value);
+                                            //realist_bpohelper.UpdateRecord(parid, m1.Value.Replace("#NEXT#", "").Trim(), Regex.Match(modStr, v).Groups[1].Value);
+                                            //MessageBox.Show(m1.Value + "exsists.");
+                                        }
+                                        else
+                                        {
+                                            if (m1.Value != "NEXT")
+                                            {
+                                                realist_bpohelper.AddColumn(m1.Value.Replace("#NEXT#", "").Trim());
+
+                                                try
+                                                {
+                                                    realistReportNameValuePairs.Add(m1.Value.Replace("#NEXT#", "").Trim(), Regex.Match(modStr, v).Groups[1].Value);
+                                                }
+                                                catch
+                                                {
+                                                    MessageBox.Show("problem adding realist nvp.");
+                                                }
+
+
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                            //
+                            //Update record
+                            //
+
+                            realistReportNameValuePairs.Concat(realist_bpohelper.Geocode(address));
+
+                            realist_bpohelper.UpdateRecord(parid, realistReportNameValuePairs);
+
+                            realist_bpohelper.m_rowid = "";
+
+
+                            // MessageBox.Show(splitonnewline[0]);
+
+                        }
+
+
+
+                        //
+                        //Location Information
+                        //
+                        pattern = "Subdivision:#NEXT#([^#]+)";
+                        match = Regex.Match(realist_location_table, pattern);
+
+                        realist_subdivision = match.Groups[1].Value;
+
+                        //School District:
+                        pattern = "School District:#NEXT#([^#]+)";
+                        match = Regex.Match(realist_location_table, pattern);
+
+                        realist_schoolDistrict = match.Groups[1].Value;
+
+                        //Lot Acres:#NEXT#0.1257#NEXT#
+                        pattern = "Lot Acres:#NEXT#([^#]+)";
+                        match = Regex.Match(realist_char_table, pattern);
+
+                        string realist_lot_size = "0";
+                        realist_lot_size = match.Groups[1].Value;
+                        realist_lotAcres = realist_lot_size;
+
+                        //MessageBox.Show("MLS Lot: " + mls_lot_size + " " + "Realist Lot Size:" + realist_lot_size);
+
+                        if (mls_lot_size == "0" | mls_lot_size == "")
+                        {
+                            mls_lot_size = realist_lot_size;
+                        }
+
+                        pattern = "Building Above Grade Sq Ft:#NEXT#([^#]+)";
+                        match = Regex.Match(realist_char_table, pattern);
+
+
+                        realist_gla = match.Groups[1].Value;
+
+                        //MessageBox.Show("MLS GLA: " + mls_gla + " " + "Realist GLA:" + realist_gla);
+                        if (match.Success)
+                        {
+                            if (mls_gla == "0" | mls_gla == "")
+                            {
+                                mls_gla = realist_gla;
+                            }
+                        }
+                        else
+                        {
+                            realist_gla = "-1";
+                        }
+                        pattern = "Year Built:#NEXT#([^#]+)";
+                        match = Regex.Match(realist_char_table, pattern);
+
+                        string realist_yearbuilt = "";
+                        realist_yearbuilt = Regex.Match(match.Groups[1].Value, @"(\d\d\d\d)").Value;
+
+                        //MessageBox.Show("MLS GLA: " + mls_gla + " " + "Realist GLA:" + realist_gla);
+
+                        //MessageBox.Show("MLS YB: " + year_built + " " + "Realist YB:" + realist_yearbuilt);
+                        if (string.IsNullOrEmpty(year_built) || year_built.ToLower() == "unk" || year_built == "0")
+                        {
+                            if (!string.IsNullOrEmpty(realist_yearbuilt))
+                            {
+                                year_built = realist_yearbuilt;
+                            }
+                            else
+                            {
+                                year_built = "1950";
+                            }
+                        }
+
+
+
+                         subject_age = new DateTime((Convert.ToInt32(year_built)), 1, 1);
+
+                         ts = DateTime.Now - subject_age;
+
+                         age = ts.Days / 365;
+
+
+                        pattern = @"Census Tract:#NEXT#([^#]+)";
+                        match = Regex.Match(realist_char_table, pattern);
+
+                        if (match.Success)
+                        {
+                            censusTract = match.Groups[1].Value;
+                        }
+                        else
+                        {
+                            match = Regex.Match(realist_location_table, pattern);
+                            censusTract = match.Groups[1].Value;
+                        }
+
+
+                    }
+                        #endregion //cccc
+
+                    #endregion  //ccccdsddd
+
+                    else
+                    {
+                        //unusable record OR
+                        //No realist pop-up ie Wisconson address
+
+                        s = iim.iimPlayCode("SET !TIMEOUT_STEP 0 \r\n TAB T=2 \r\n TAB CLOSE");
+                        if (string.IsNullOrEmpty(year_built) || year_built.ToLower() == "unk" || year_built == "0")
+                        {
+                            year_built = "1950";
+                        }
+
+
+
+                         subject_age = new DateTime((Convert.ToInt32(year_built)), 1, 1);
+
+                         ts = DateTime.Now - subject_age;
+
+                         age = ts.Days / 365;
+
+                    }
+
+
+
+
+                }
+                    #endregion
+
+                else
+                {
+                    #region realist read from fusion table
+                    try
+                    {
+                        realist_lotAcres = realist_bpohelper.curRec["Lot Acres:"];
+                    }
+                    catch
+                    {
+
+                    }
+
+                    if (mls_lot_size == "0" | mls_lot_size == "")
+                    {
+                        mls_lot_size = realist_lotAcres;
+                        double x;
+                        Double.TryParse(realist_lotAcres, out x);
+                        m.Lotsize = x;
+                    }
+
+                    realist_gla = realist_bpohelper.curRec["Building Above Grade Sq Ft:"];
+                    if (String.IsNullOrEmpty(realist_gla))
+                    {
+                        realist_gla = "-1";
+                    }
+                    else
+                    {
+                        if (mls_gla == "0" | mls_gla == "")
+                        {
+                            mls_gla = realist_gla;
+                            int x;
+                            Int32.TryParse("mls_gla", out x);
+                            m.GLA = x;
+                        }
+                    }
+                    realist_subdivision = realist_bpohelper.curRec["Subdivision:"];
+                    censusTract = realist_bpohelper.curRec["Census Tract:"];
+                    realist_schoolDistrict = realist_bpohelper.curRec["School District:"];
+                    if (string.IsNullOrEmpty(year_built) || year_built.ToLower() == "unk" || year_built == "0")
+                    {
+                        if (realist_bpohelper.curRec["Year Built:"] != "")
+                        {
+                            if (realist_bpohelper.curRec["Year Built:"].Contains("Tax:"))
+                            {
+                                year_built = Regex.Match(realist_bpohelper.curRec["Year Built:"], @"Tax:\s*(\d\d\d\d)").Groups[1].Value;
+
+                            }
+                            else if (realist_bpohelper.curRec["Year Built:"].Contains("MLS:"))
+                            {
+                                year_built = Regex.Match(realist_bpohelper.curRec["Year Built:"], @"MLS:\s*(\d\d\d\d)").Groups[1].Value;
+                            }
+                            else
+                            {
+                                year_built = realist_bpohelper.curRec["Year Built:"];
+                            }
+
+                        }
+                        else
+                        {
+                            year_built = "1950";
+                        }
+                    }
+                    realist_bpohelper.Geocode(address);
+
+                    #endregion
+                }
+
+                string propertyLatitude = "";
+                string propertyLongitude = "";
+
+                int xx = 0;
+                Int32.TryParse(realist_gla.Replace(",", ""), out xx);
+                m.RealistGLA = xx;
+
+                double dd = 0;
+                Double.TryParse(realist_lotAcres, out dd);
+                m.RealistLotSize = dd;
+
+                try
+                {
+
+                    propertyLatitude = realist_bpohelper.curRec["Latitude"];
+                    propertyLongitude = realist_bpohelper.curRec["Longitude"];
+
+                    GeoPoint destPoint;
+                    try
+                    {
+                        destPoint.Latitude = Convert.ToDouble(propertyLatitude);
+                        destPoint.Longitude = Convert.ToDouble(propertyLongitude);
+                    }
+                    catch
+                    {
+                        destPoint = GlobalVar.subjectPoint;
+                    }
+
+                    MlsReportDriver x = new MlsReportDriver();
+
+                    m.proximityToSubject = Math.Round(x.Get_Distance(GlobalVar.subjectPoint, destPoint), 2);
+
+                }
+                catch
+                {
+
+                }
 
                 #endregion
                 pBar1.PerformStep();
@@ -2086,7 +2168,7 @@ namespace bpohelper
                     fieldList.Add("GARAGE", mls_garage_type);
                     fieldList.Add("PROXIMITY", this.Get_Distance(SubjectFullAddress, address));
                     fieldList.Add("SALESPRICE", sold_price);
-                    fieldList.Add("SALEDT", closed_date);
+                    fieldList.Add("SALEDT", m.SalesDate.ToString("d", System.Globalization.DateTimeFormatInfo.InvariantInfo));
                     fieldList.Add("MARKETDAYS", dom);
                     fieldList.Add("PROPTYPE", type);
                     fieldList.Add("LOTSIZE", mls_lot_size);
@@ -5697,7 +5779,23 @@ namespace bpohelper
 
                 }
 
+                s = iim.iimPlayCode(macro12.ToString());
+                 htmlCode = iim.iimGetLastExtract();
+                 header = iim.iimGetExtract(0);
 
+            if (subjectAttachedRadioButton.Checked)
+            {
+                m = new AttachedListing(htmlCode);
+            }
+            else if (subjectDetachedradioButton.Checked)
+            {
+                m = new DetachedListing(htmlCode);
+            }
+            else
+            {
+                m = new MLSListing(htmlCode);
+            }
+              
                 #endregion
             }
 
@@ -6036,7 +6134,7 @@ namespace bpohelper
             #endregion  
 
             #region landsafe
-            if (currentUrl.ToLower().Contains("dnaforms"))
+            if (currentUrl.ToLower().Contains(@".collateraldna.com/forms"))
             {
                 LandSafe bpoform = new LandSafe();
                 streetnumTextBox.Text = "landsafe";
@@ -10107,6 +10205,11 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             pattern = "Fireplaces:\\w*(\\d+)";
             match = Regex.Match(s, pattern);
             numFireplaces = match.Groups[1].Value;
+            if (string.IsNullOrWhiteSpace(numFireplaces))
+            {
+                numFireplaces = "0";
+            }
+
 
 
             //Parking:Garage
@@ -10146,7 +10249,8 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 parking = parking = parking + " " + match.Groups[1].Value;
             }
 
-            pattern = @"xxxStyle:(.*?)xxx|xxxStyle:(.*?)\n";
+            //pattern = @"xxxStyle:(.*?)xxx|xxxStyle:(.*?)\n";
+            pattern = @"Style:x*([^x\nG]+)x*";
             match = Regex.Match(s, pattern);
             style = match.Groups[1].Value;
 
@@ -10154,7 +10258,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             //Type:xxxGarage Ownership:xxxSewer:
             //pattern = "Type:x*([^x\\n]+)xxx";
             //above patern fails
-            pattern = @"Type:x*([^x\nG]+)xxx";
+            pattern = @"Type:x*([^x\nG]+)x*";
             
             match = Regex.Match(s, pattern);
             string type = match.Groups[1].Value;
@@ -10396,49 +10500,14 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                  currentProperty.AddMlsListing(currentListing);
 
 
-                 string tempdata = currentListing.rawData;
+               //  string tempdata = currentListing.rawData;
 
-                 currentListing.rawData = "";
+                // currentListing.rawData = "";
 
 
                
 
-                 string json = JsonConvert.SerializeObject(currentListing);
-                 string url = "https://active-century-477.appspot.com/api/sandbox/v1/mredlistings";
-
-                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                 request.Method = "POST";
-
-                 System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-                 Byte[] byteArray = encoding.GetBytes(json);
-
-                 request.ContentLength = byteArray.Length;
-                 request.ContentType = @"application/json";
-
-                 using (Stream dataStream = request.GetRequestStream())
-                 {
-                     dataStream.Write(byteArray, 0, byteArray.Length);
-                 }
-                 long length = 0;
-                 try
-                 {
-                     using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                     {
-                         length = response.ContentLength;
-                     }
-                 }
-                 catch (WebException ex)
-                 {
-                     // Log exception and throw as for GET example above
-                 }
-
-
-
-                 currentListing.rawData = tempdata;
-
-
-
-              // gcds.StoreMredListing(currentListing);
+                
 
                 
                  form.StatusUpdate = "Reading--> " + currentListing.MlsNumber;
@@ -10697,12 +10766,20 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 string dom = currentListing.mlsHtmlFields["daysOnMarket"].value;
                 string closed_date = currentListing.mlsHtmlFields["closedDate"].value;
                 string year_built = currentListing.mlsHtmlFields["yearBulit"].value;
-                if (year_built == "NEW")
+                if (year_built == "NEW" || year_built == "0000" || year_built == "NC")
                 {
-                    year_built = DateTime.Now.Year.ToString();
+                    try
+                    {
+                        year_built = currentListing.SalesDate.Year.ToString();
+                    } 
+                    catch
+                    {
+                        year_built = DateTime.Now.Year.ToString();
+                    }
+
                     currentListing.mlsHtmlFields["yearBulit"].value = year_built;
                 }
-                else if (year_built == "UNK")
+                else if (year_built == "UNK" || year_built == "UNKN"|| String.IsNullOrWhiteSpace(year_built) || !Regex.IsMatch(year_built,@"\d\d\d\d"))
                 {
                     //blank it, for realist extract logic to work below
                     currentListing.mlsHtmlFields["yearBulit"].value = "";
@@ -11586,7 +11663,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                         destPoint = GlobalVar.subjectPoint;
                     }
 
-
+                    currentListing.GeoPointGd = propertyLatitude + ", " + propertyLongitude;
                     currentListing.proximityToSubject = Math.Round(Get_Distance(GlobalVar.subjectPoint, destPoint), 2);
 
                 }
@@ -11615,8 +11692,6 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 if (Convert.ToDecimal(realist_gla) > 0 && Convert.ToDecimal(mls_gla) > Convert.ToDecimal(realist_gla))
                 {
                     mls_gla = realist_gla;
-
-
                 }
 
                 if (sold_price == " ")
@@ -11796,6 +11871,11 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 //for 1.5 story 
 
                 if (form.SubjectMlsType.ToLower().Contains("1.5 story") && type.ToLower().Contains("2 stories"))
+                {
+                    typeMatch = true;
+                }
+
+                if (form.SubjectMlsType.ToLower().Contains("townhouse") && type.ToLower().Contains("condo"))
                 {
                     typeMatch = true;
                 }
@@ -12047,7 +12127,9 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                                 file.WriteLine(o.ToString());
                             }
                         }
-                //        form.AddInfo = comps.Count.ToString();
+                 //form = comps.Count.ToString();
+
+                        form.NumberOfCompsFound = comps.Count.ToString();
 
 
 
@@ -12056,9 +12138,49 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 #endregion
 
                 //save order info to DB
-
-
                 //ataTable BPOtable = this.form.bpoTableAdapter1.GetData();
+
+               // string tempstore = currentListing.rawData;
+
+               // currentListing.rawData = "";
+
+                string json = JsonConvert.SerializeObject(currentListing);
+                string url = "https://active-century-477.appspot.com/api/mred/v1/mredlistings/";
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "POST";
+
+                System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+                Byte[] byteArray = encoding.GetBytes(json);
+
+                request.ContentLength = byteArray.Length;
+                request.ContentType = @"application/json";
+
+                using (Stream dataStream = request.GetRequestStream())
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                }
+                long length = 0;
+                try
+                {
+                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                    {
+                        length = response.ContentLength;
+                       // form.AddInfo = response.StatusDescription;
+                    }
+                }
+                catch (WebException ex)
+                {
+                    // Log exception and throw as for GET example above
+                }
+
+
+
+                //currentListing.rawData = tempstore;
+
+                
+
+                // gcds.StoreMredListing(currentListing);
 
 
 

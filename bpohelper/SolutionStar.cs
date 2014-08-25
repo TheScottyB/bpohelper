@@ -555,7 +555,7 @@ namespace bpohelper
             }
 
             subjectFieldList.Clear();
-            if (GlobalVar.theSubjectProperty.MainForm.SubjectMlsType.ToLower().Contains("condo"))
+            if (GlobalVar.theSubjectProperty.MainForm.SubjectAttached)
             {
                 subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.PropertyType), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.PropertyTypes.Condo));
                 theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.SubjectLandValue CONTENT=0");
