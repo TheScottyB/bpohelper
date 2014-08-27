@@ -92,7 +92,7 @@ using Newtonsoft.Json;
         string CurrentSearchName { get; set; }
         bool UpdateRealist { get; set; }
         string NumberOfCompsFound { set; }
-     
+        string SubjectExteriorFinish { get; set; }
     }
 
 namespace bpohelper
@@ -294,7 +294,21 @@ namespace bpohelper
 
             if (!Regex.IsMatch(header, @"showing\s*1\s*of\s*6"))
             {
-                if (MessageBox.Show("Do you want to start at comp 1?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                var dr = MessageBox.Show("Do you want to start at comp 1?", "Error", MessageBoxButtons.YesNoCancel);
+
+                if (dr == DialogResult.Yes)
+                {
+                    StringBuilder macro = new StringBuilder();
+                    macro.AppendLine(@"SET !ERRORIGNORE YES");
+                    macro.AppendLine(@"SET !TIMEOUT_STEP 0");
+                    macro.AppendLine(@"FRAME NAME=subheader");
+                    macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:header ATTR=TXT:List<SP>View");
+                    macro.AppendLine(@"FRAME NAME=workspace");
+                    macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=HREF:javascript:clickedDCID('1');");
+                    string macroCode = macro.ToString();
+                    var status = iim.iimPlayCode(macroCode, 60);
+                } 
+                else if (dr == DialogResult.Cancel)
                 {
                     return;
                 }
@@ -2128,7 +2142,7 @@ namespace bpohelper
                 //Landsafe
                 //
                 #region landsafe
-                if (currentUrl.ToLower().Contains("dnaforms"))
+                if (currentUrl.ToLower().Contains(@"collateraldna.com/forms"))
                 {
                     LandSafe bpoform = new LandSafe();
                     Dictionary<string, string> fieldList = new Dictionary<string, string>();
@@ -2175,14 +2189,15 @@ namespace bpohelper
                     fieldList.Add("YRBUILT", year_built);
                     fieldList.Add("GBASQFT", mls_gla);
                     fieldList.Add("LIVINGSQFT", mls_gla);
+                    fieldList.Add("DESIGNSTYLE", m.ExteriorMlsString);
 
-                    if(m.TransactionType == "REO" || m.TransactionType == "Short Sale")
+                    if(m.TransactionType == "REO" || m.TransactionType == "ShortSale")
                     {
-                            fieldList.Add("SALETYPE", "Yes");
+                            fieldList.Add("*SALETYPE", "YES");
                     }
                     else
                     {
-                            fieldList.Add("SALETYPE", "No");
+                            fieldList.Add("*SALETYPE", "NO");
                     }
                 
 
@@ -2274,7 +2289,7 @@ namespace bpohelper
 
 
 
-                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
+                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList, this);
                     status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
                 }
                 #endregion
@@ -7704,6 +7719,27 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                 //load other fields not displayed
                 foreach (string f in filePaths)
                 {
+                    if (f.ToLower().Contains("realist") || f.ToLower().Contains("property detail report"))
+                    {
+                        StringBuilder pages = new StringBuilder();
+                        PdfReader pdfReader = new PdfReader(f);
+                        ITextExtractionStrategy strat = new PdfHelper.LocationTextExtractionStrategyEx();
+                        for (int i = 1; i <= pdfReader.NumberOfPages; i++)
+                        {
+                            pages.Append(PdfTextExtractor.GetTextFromPage(pdfReader, i, strat));
+                        }
+
+                        //string fullReport = "";
+                        //foreach (string p in pages)
+                        //{
+                        //    fullReport = fullReport + p;
+                        //}
+
+                        realistSubject.GetSubjectInfo(pages.ToString());
+                        GlobalVar.theSubjectProperty.myRealistReport = realistSubject;
+                        this.statusTextBox.AppendText("Realist Loaded...");
+                    }
+
                     if (f.ToLower().Contains("report-") || f.ToLower().Contains("connectmls"))
                     {
                         StringBuilder pages = new StringBuilder();
@@ -9876,6 +9912,11 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
         private void button25_Click(object sender, EventArgs e)
         {
             GenerateVersions(@"F:\Dropbox\BPOs\3703 Jacobson\address-view.jpg");
+
+        }
+
+        private void subjectSubdivisionTextbox_TextChanged(object sender, EventArgs e)
+        {
 
         }
 

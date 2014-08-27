@@ -528,6 +528,11 @@ namespace bpohelper
 
 
             #region Address and Location Related Fields
+            public string Area
+            {
+                get { return mlsHtmlFields["mlsArea"].value; }
+            }
+
             protected void SetAddress()
             {
                 //fuill line address

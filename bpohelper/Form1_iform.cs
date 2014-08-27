@@ -44,6 +44,15 @@ namespace bpohelper
         //iform properties
         //
 
+        //
+        //Subject Related - Exterior Features
+        //
+        public string SubjectExteriorFinish
+        {
+            get { return subjectExteriorFinishTextbox.Text; }
+            set { subjectExteriorFinishTextbox.Text = value; }
+        }
+
         public string StatusUpdate
         {
             set { programStatusRichTextBox.AppendText(value + "\r\n"); }
@@ -337,8 +346,6 @@ namespace bpohelper
             get { return quickSaleTextbox.Text; }
             set { quickSaleTextbox.Text = value; }
         }
-
-       
 
         public string SubjectSubdivision
         {

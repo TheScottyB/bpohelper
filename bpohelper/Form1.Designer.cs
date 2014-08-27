@@ -256,6 +256,8 @@
             this.button25 = new System.Windows.Forms.Button();
             this.richTextBoxNumberCompsFound = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.subjectExteriorFinishTextbox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -478,7 +480,7 @@
             this.subjectBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.subjectBindingNavigator.Name = "subjectBindingNavigator";
             this.subjectBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.subjectBindingNavigator.Size = new System.Drawing.Size(1886, 25);
+            this.subjectBindingNavigator.Size = new System.Drawing.Size(1869, 25);
             this.subjectBindingNavigator.TabIndex = 17;
             this.subjectBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -830,6 +832,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label46);
+            this.groupBox1.Controls.Add(this.subjectExteriorFinishTextbox);
             this.groupBox1.Controls.Add(this.button22);
             this.groupBox1.Controls.Add(this.label44);
             this.groupBox1.Controls.Add(this.label43);
@@ -1043,7 +1047,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(148, 130);
+            this.label33.Location = new System.Drawing.Point(98, 347);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(53, 13);
             this.label33.TabIndex = 119;
@@ -1061,9 +1065,9 @@
             // 
             // subjectTownshipTextBox
             // 
-            this.subjectTownshipTextBox.Location = new System.Drawing.Point(151, 149);
+            this.subjectTownshipTextBox.Location = new System.Drawing.Point(101, 363);
             this.subjectTownshipTextBox.Name = "subjectTownshipTextBox";
-            this.subjectTownshipTextBox.Size = new System.Drawing.Size(125, 20);
+            this.subjectTownshipTextBox.Size = new System.Drawing.Size(118, 20);
             this.subjectTownshipTextBox.TabIndex = 118;
             // 
             // subjectDomTextBox
@@ -1375,7 +1379,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(279, 347);
+            this.label18.Location = new System.Drawing.Point(222, 347);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(61, 13);
             this.label18.TabIndex = 79;
@@ -1383,10 +1387,11 @@
             // 
             // subjectSubdivisionTextbox
             // 
-            this.subjectSubdivisionTextbox.Location = new System.Drawing.Point(282, 363);
+            this.subjectSubdivisionTextbox.Location = new System.Drawing.Point(225, 364);
             this.subjectSubdivisionTextbox.Name = "subjectSubdivisionTextbox";
             this.subjectSubdivisionTextbox.Size = new System.Drawing.Size(125, 20);
             this.subjectSubdivisionTextbox.TabIndex = 78;
+            this.subjectSubdivisionTextbox.TextChanged += new System.EventHandler(this.subjectSubdivisionTextbox_TextChanged);
             this.subjectSubdivisionTextbox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.subjectSubdivisionTextbox_MouseDoubleClick);
             // 
             // quickSaleTextbox
@@ -1441,7 +1446,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(184, 347);
+            this.label15.Location = new System.Drawing.Point(353, 349);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(79, 13);
             this.label15.TabIndex = 71;
@@ -1449,7 +1454,7 @@
             // 
             // subjectProximityToOfficeTextbox
             // 
-            this.subjectProximityToOfficeTextbox.Location = new System.Drawing.Point(187, 363);
+            this.subjectProximityToOfficeTextbox.Location = new System.Drawing.Point(356, 365);
             this.subjectProximityToOfficeTextbox.Name = "subjectProximityToOfficeTextbox";
             this.subjectProximityToOfficeTextbox.Size = new System.Drawing.Size(61, 20);
             this.subjectProximityToOfficeTextbox.TabIndex = 70;
@@ -1457,7 +1462,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(36, 347);
+            this.label14.Location = new System.Drawing.Point(3, 347);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(40, 13);
             this.label14.TabIndex = 69;
@@ -1466,9 +1471,9 @@
             // 
             // subjectCountyTextbox
             // 
-            this.subjectCountyTextbox.Location = new System.Drawing.Point(39, 363);
+            this.subjectCountyTextbox.Location = new System.Drawing.Point(6, 363);
             this.subjectCountyTextbox.Name = "subjectCountyTextbox";
-            this.subjectCountyTextbox.Size = new System.Drawing.Size(125, 20);
+            this.subjectCountyTextbox.Size = new System.Drawing.Size(89, 20);
             this.subjectCountyTextbox.TabIndex = 68;
             this.subjectCountyTextbox.TextChanged += new System.EventHandler(this.textBox2_TextChanged_1);
             // 
@@ -1771,7 +1776,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 983);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1886, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1869, 22);
             this.statusStrip1.TabIndex = 52;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -1870,7 +1875,7 @@
             // 
             this.statusStrip2.Location = new System.Drawing.Point(0, 961);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(1886, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(1869, 22);
             this.statusStrip2.TabIndex = 95;
             this.statusStrip2.Text = "statusStrip2";
             // 
@@ -2483,7 +2488,7 @@
             // 
             // buttonSaveOrderInfo
             // 
-            this.buttonSaveOrderInfo.Location = new System.Drawing.Point(1421, 121);
+            this.buttonSaveOrderInfo.Location = new System.Drawing.Point(1435, 133);
             this.buttonSaveOrderInfo.Name = "buttonSaveOrderInfo";
             this.buttonSaveOrderInfo.Size = new System.Drawing.Size(116, 29);
             this.buttonSaveOrderInfo.TabIndex = 129;
@@ -2517,6 +2522,22 @@
             this.richTextBox2.TabIndex = 132;
             this.richTextBox2.Text = "";
             // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(134, 136);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(89, 13);
+            this.label46.TabIndex = 133;
+            this.label46.Text = "Exterior Finish(es)";
+            // 
+            // subjectExteriorFinishTextbox
+            // 
+            this.subjectExteriorFinishTextbox.Location = new System.Drawing.Point(137, 152);
+            this.subjectExteriorFinishTextbox.Name = "subjectExteriorFinishTextbox";
+            this.subjectExteriorFinishTextbox.Size = new System.Drawing.Size(125, 20);
+            this.subjectExteriorFinishTextbox.TabIndex = 132;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2525,7 +2546,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1903, 874);
+            this.ClientSize = new System.Drawing.Size(1886, 874);
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.richTextBoxNumberCompsFound);
             this.Controls.Add(this.button25);
@@ -2612,6 +2633,7 @@
             this.Controls.Add(this.streetnumTextBox);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "BPOHelper";
@@ -2871,6 +2893,8 @@
         private System.Windows.Forms.Button button25;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.RichTextBox richTextBoxNumberCompsFound;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.TextBox subjectExteriorFinishTextbox;
     }
 
 }

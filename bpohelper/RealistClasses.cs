@@ -18,7 +18,7 @@ namespace bpohelper
 
          public enum Field
         {
-            Township, TownshipRangeSect, OwnerName, OwnerName2, OwnerOccupied
+            Township, TownshipRangeSect, OwnerName, OwnerName2, OwnerOccupied, Exterior
         };
 
         public enum OwnerInfoField
@@ -56,7 +56,8 @@ namespace bpohelper
         {
            {Field.OwnerName, new RealistReportField("Owner Name:")},
            {Field.OwnerOccupied, new RealistReportField("Owner Occupied:")},
-           {Field.Township, new RealistReportField("Township:")}
+           {Field.Township, new RealistReportField("Township:")},
+           {Field.Exterior, new RealistReportField("Exterior:")}
            //{"Tax Billing Address:"},
            //{"Tax Billing City & State:"},
            //{"Tax Billing Zip:"},
@@ -282,8 +283,7 @@ namespace bpohelper
             form.SubjectSubdivision = subdivision;
             form.SubjectAvm = avm;
             form.SubjectBasementGLA = basementSqFt;
-
-
+            form.SubjectExteriorFinish = FieldMap[Field.Exterior].Value;
         }
     }
 }
