@@ -80,7 +80,7 @@ namespace bpohelper
                  {"financing", new MREDHtmlField("Financing:")},
                  {"mlsNumber", new MREDHtmlField("MLS&nbsp;#:")},
                  {"listAgent", new MREDHtmlField("List&nbsp;Agent:")}, 
-                 
+                 {"listAgentEmail", new MREDHtmlField("Email:")}, 
                  {"listDate", new MREDHtmlField("List&nbsp;Date:")},
                  {"listPrice", new MREDHtmlField("List&nbsp;Price:")},
                  {"openingBid", new MREDHtmlField("Opening Bid:")},
@@ -96,6 +96,7 @@ namespace bpohelper
                  {"parking", new MREDHtmlField("Parking:")},
                  {"pin", new MREDHtmlField("PIN:")}, 
                  {"phone", new MREDHtmlField("Ph&nbsp;#:")}, 
+                 {"phoneAgent", new MREDHtmlField("Ph&nbsp;#:")}, 
                  {"points", new MREDHtmlField("Points:")},
                  {"remarks", new MREDHtmlField("Remarks:")},
                  {"roomCount", new MREDHtmlField("Rooms:")},
@@ -391,6 +392,26 @@ namespace bpohelper
                         }
                     }
                 }
+
+                
+                try
+                {
+                    mlsHtmlFields["listAgentEmail"].value = Regex.Matches(rawData, "Email:.*<a.*href..mailto.([^\\\"]*)")[0].Groups[1].Value;
+                }
+                catch
+                {
+                    mlsHtmlFields["listAgentEmail"].value = "";
+                }
+
+                try
+                {
+                    mlsHtmlFields["phoneAgent"].value = Regex.Matches(rawData, @".td class..Label..Ph.nbsp.#...td..td class..value..(.\d\d\d. \d\d\d-\d\d\d\d)..td.")[0].Groups[1].Value;
+                }
+                catch
+                {
+                    mlsHtmlFields["phoneAgent"].value = "";
+                }
+
                 try
                 {
                     Int32.TryParse(mlsHtmlFields["mlsGla"].value, out intMlsGla);
@@ -916,13 +937,29 @@ namespace bpohelper
                 get { return mlsHtmlFields["parking"].value; }
             }
 
+            public string ListingAgentId
+            {
+                get { return Regex.Match(mlsHtmlFields["listAgent"].value, @"\((\d+)\)").Groups[1].Value; }
+            }
             public string ListingAgentName
             {
                 get { return mlsHtmlFields["listAgent"].value; }
             }
+            public string ListingBrokerageId
+            {
+                get { return Regex.Match(mlsHtmlFields["broker"].value, @"\((\d+)\)").Groups[1].Value; }
+            }
             public string ListingBrokerageName
             {
                 get { return mlsHtmlFields["broker"].value; }
+            }
+            public string ListingAgentNameEmail
+            {
+                get { return mlsHtmlFields["listAgentEmail"].value; }
+            }
+            public string ListingAgentNamePhone
+            {
+                get { return mlsHtmlFields["phoneAgent"].value; }
             }
 
             public int Age

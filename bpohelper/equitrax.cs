@@ -398,13 +398,13 @@ namespace bpohelper
                 //TextAreas
                 //
                 //Environmental Problems
-                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:NDataEPComm CONTENT=No<SP>known<SP>issues<SP>noted<SP>during<SP>drive-by<SP>inspection.");
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:NDataEPComm CONTENT=" + "No<SP>known<SP>issues<SP>noted<SP>during<SP>drive-by<SP>inspection.");
                 //General Market Comments
-                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:GeneralMarketComments CONTENT=Following<SP>is<SP>the<SP>MLS<SP>market<SP>stats<SP>within<SP>1<SP>mile<SP>radius<SP>of<SP>subject,<SP>6<SP>months<SP>in<SP>time.<BR><LF>Prices<SP>seem<SP>to<SP>have<SP>stabilized<SP>at<SP>these<SP>lower<SP>levels,<SP>but<SP>demand<SP>it<SP>still<SP>weak<SP>overall:");
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:GeneralMarketComments CONTENT=" + "Following<SP>is<SP>the<SP>MLS<SP>market<SP>stats<SP>within<SP>1<SP>mile<SP>radius<SP>of<SP>subject,<SP>6<SP>months<SP>in<SP>time.<BR><LF>Prices seem to have stabilized, demand is higher under 150k:".Replace(" ", "<SP>"));
                 //Resale Comments
-                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:ResaleComments CONTENT=Subject<SP>is<SP>maintained<SP>and<SP>landscaped.<BR><LF>No<SP>adverse<SP>conditions<SP>were<SP>noted<SP>at<SP>the<SP>time<SP>of<SP>inspection<SP>based<SP>on<SP>exterior<SP>observations.<SP>");
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:ResaleComments CONTENT=" +  "Subject typical of the area. It is maintained and landscaped. Unable to determine interior condition due to exterior inspection only, so subject was assumed to be in average condition for this report. No adverse conditions were noted at the time of inspection based on exterior observations.".Replace(" ","<SP>"));
                 //BPO comments
-                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:BComment CONTENT=No<SP>known<SP>special<SP>concerns,<SP>encroachments,<SP>easements,<SP>water<SP>rights,<SP>environmental<SP>concerns,<SP>flood<SP>zones.<BR><LF>Searched<SP>a<SP>distance<SP>of<SP>at<SP>least<SP>1<SP>miles,<SP>up<SP>to<SP>6<SP>months<SP>in<SP>time.<SP>The<SP>comps<SP>bracket<SP>the<SP>subject<SP>in<SP>age,<SP>SF,<SP>and<SP>lot<SP>size,<SP>as<SP>well<SP>as<SP>use<SP>comps<SP>in<SP>same<SP>condition<SP>with<SP>similar<SP>features,<SP>and<SP>from<SP>the<SP>subjects<SP>market<SP>area.<SP>All<SP>the<SP>comps<SP>are<SP>Reasonable<SP>substitute<SP>for<SP>the<SP>subject<SP>property,<SP>similar<SP>in<SP>most<SP>areas.<SP>Price<SP>opinion<SP>was<SP>based<SP>off<SP>comparable<SP>statistics.");
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:BComment CONTENT=" + "No<SP>known<SP>special<SP>concerns,<SP>encroachments,<SP>easements,<SP>water<SP>rights,<SP>environmental<SP>concerns,<SP>flood<SP>zones.<BR><LF>Searched<SP>a<SP>distance<SP>of<SP>at<SP>least<SP>1<SP>miles,<SP>up<SP>to<SP>6<SP>months<SP>in<SP>time.<SP>The<SP>comps<SP>bracket<SP>the<SP>subject<SP>in<SP>age,<SP>SF,<SP>and<SP>lot<SP>size,<SP>as<SP>well<SP>as<SP>use<SP>comps<SP>in<SP>same<SP>condition<SP>with<SP>similar<SP>features,<SP>and<SP>from<SP>the<SP>subjects<SP>market<SP>area.<SP>All<SP>the<SP>comps<SP>are<SP>Reasonable<SP>substitute<SP>for<SP>the<SP>subject<SP>property,<SP>similar<SP>in<SP>most<SP>areas.<SP>Price<SP>opinion<SP>was<SP>based<SP>off<SP>comparable<SP>statistics.");
 
 
 
@@ -809,9 +809,11 @@ namespace bpohelper
                    {
                        //sCSalesGar_2 CONTENT=2<SP>Attached
                        macro.AppendLine(@"FRAME NAME=main");
-                       macro.AppendFormat(@"TAG POS=1 TYPE=INPUT FORM=NAME:BPOForm ATTR=NAME:sC{0}{1}_{2}", sol, field.Replace("*", ""), Regex.Match(compNum, @"\d").Value);
+                       //macro.AppendFormat(@"TAG POS=1 TYPE=INPUT FORM=NAME:BPOForm ATTR=NAME:sC{0}{1}_{2}", sol, field.Replace("*", ""), Regex.Match(compNum, @"\d").Value);
+                       //macro.AppendLine();
+                       //macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:BPOForm ATTR=title:" + fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>") );
+                       macro.AppendFormat(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:sC{0}{1}_{2} CONTENT={3}", sol, field.Replace("*", ""), Regex.Match(compNum, @"\d").Value, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
                        macro.AppendLine();
-                       macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:BPOForm ATTR=title:" + fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>") );
                    }
                }
                else
@@ -889,12 +891,16 @@ namespace bpohelper
 
                macro.AppendFormat(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:C{0}View_{1} CONTENT=Residential", sol, Regex.Match(compNum, @"\d").Value);
                macro.AppendLine("");
+               macro.AppendLine(@"FRAME NAME=main");
+               macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:BPOForm ATTR=TXT:Get<SP>Proximity");
 
+               macro.AppendLine(@"FRAME NAME=main");
+               macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:BPOForm ATTR=TXT:Get<SP>Proximity");
 
                //Translation Logic
                //Design Appeal
-               
 
+            
                ////Subject Patio,Porch,Deck
                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:PropExt CONTENT=Unk");
                ////Subject Fence,Pool
@@ -930,6 +936,7 @@ namespace bpohelper
                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:NDataBoarded CONTENT=0");
                ////% New Const
                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:NDataContstruct CONTENT=0");
+
 
              
 

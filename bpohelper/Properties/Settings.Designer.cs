@@ -35,14 +35,33 @@ namespace bpohelper.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\"C:\\Documents and Settings\\Scott\\My" +
             " Documents\\My Dropbox\\BPOs\\BPO-Sandbox.accdb\"")]
         public string BPO_SandboxConnectionString {
+           
+          
             get {
-                var dbPath = System.IO.Path.Combine(
+                string dbPath;
+          
+                string[] lines;
+                try{
+                      dbPath = System.IO.Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dropbox\\host.db");
+                      lines = System.IO.File.ReadAllLines(dbPath);
+                }
+               
+                catch{
+                      dbPath = System.IO.Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Dropbox\\host.db");
+                      lines = System.IO.File.ReadAllLines(dbPath);
+                }
 
-                string[] lines = System.IO.File.ReadAllLines(dbPath);
+              
+               
+                
+
+
                 byte[] dbBase64Text = Convert.FromBase64String(lines[1]);
                 string folderPath = System.Text.ASCIIEncoding.ASCII.GetString(dbBase64Text);
 
+                bpohelper.dr
                
                 return ("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\"" + folderPath + "\\BPOs\\BPO-Sandbox.accdb\"");
 

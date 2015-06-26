@@ -134,9 +134,17 @@ namespace bpohelper
             iMacros.App browser1 = new iMacros.App();
             iMacros.App browser2 = new iMacros.App();
             status = browser1.iimOpen("-ie", false, 60);
+            //status = browser1.iimOpen("",false, 60);
             browser1.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
+            
+          
+
+
             string b1Url = browser1.iimGetLastExtract();
-            status = browser2.iimOpen("-ie", false, 60);
+
+            //we want iim to be linked to connectMLS
+
+            status = browser2.iimOpen("", false, 60);
             browser2.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
             string b2Url = browser2.iimGetLastExtract();
 
@@ -567,11 +575,11 @@ namespace bpohelper
 
                 if (sale_or_list_flag == "sale")
                 {
-                    save_pics_macro.AppendLine(@"ONDOWNLOAD FOLDER=" + filepath.Replace(" ","<SP>") + " FILE=S" + closed_comps.ToString() + ".jpg");
+                    save_pics_macro.AppendLine(@"ONDOWNLOAD FOLDER=" + filepath.Replace(" ","<SP>") + " FILE=S" + closed_comps.ToString() + ".jpg WAIT=YES");
                 }
                 else
                 {
-                    save_pics_macro.AppendLine(@"ONDOWNLOAD FOLDER=" + filepath.Replace(" ", "<SP>") + " FILE=L" + active_comps.ToString() + ".jpg");
+                    save_pics_macro.AppendLine(@"ONDOWNLOAD FOLDER=" + filepath.Replace(" ", "<SP>") + " FILE=L" + active_comps.ToString() + ".jpg WAIT=YES");
                 }
                 
                 //line changed for new version of connectmls
@@ -591,20 +599,21 @@ namespace bpohelper
 
               
 
-                save_pics_macro.AppendLine(@"FRAME F=0");
+               //#save_pics_macro.AppendLine(@"FRAME F=0");
 
                 if (iim.iimGetLastExtract().Contains("Virtual Tour"))
                 {
                    // save_pics_macro.AppendLine(@"TAG POS=3 TYPE=IMG FORM=NAME:dc ATTR=HREF:""*.JPEG"" CONTENT=EVENT:SAVEITEM");
-                    save_pics_macro.AppendLine(@"TAG POS=3 TYPE=IMG FORM=NAME:dc ATTR=HREF:* CONTENT=EVENT:SAVEITEM");
+                    save_pics_macro.AppendLine(@"TAG POS=2 TYPE=A FORM=NAME:dc ATTR=TXT:Download<SP>This<SP>Photo");
+
                 }else
                 {
                   //  save_pics_macro.AppendLine(@"TAG POS=2 TYPE=IMG FORM=NAME:dc ATTR=HREF:""*.JPEG"" CONTENT=EVENT:SAVEITEM");
-                    save_pics_macro.AppendLine(@"TAG POS=2 TYPE=IMG FORM=NAME:dc ATTR=HREF:* CONTENT=EVENT:SAVEITEM");
+                    save_pics_macro.AppendLine(@"TAG POS=2 TYPE=A FORM=NAME:dc ATTR=TXT:Download<SP>This<SP>Photo");
                 }
 
                 
-                //save_pics_macro.AppendLine(@"WAIT SECONDS=2");
+                save_pics_macro.AppendLine(@"WAIT SECONDS=2");
                 save_pics_macro.AppendLine(@"TAB CLOSE");
 
                  string save_pics_macroCode = save_pics_macro.ToString();
@@ -2501,27 +2510,27 @@ namespace bpohelper
                                 #region garage
 
                                 fieldList.Remove("*Gar");
-                                fieldList.Add("*Gar", bpoform.GarageString(m));
-                                //if (SubjectParkingType.ToLower().Contains("gar"))
-                                //{
+                                //fieldList.Add("*Gar", bpoform.GarageString(m));
+                                if (SubjectParkingType.ToLower().Contains("gar"))
+                                {
 
-                                //    string contentString = "";
+                                    string contentString = "";
 
-                                //    if (SubjectParkingType.ToLower().Contains("att"))
-                                //    {
-                                //        contentString = (Regex.Match(SubjectParkingType, @"\d").Value + "<SP>Attached");
-                                //    }
-                                //    else if (SubjectParkingType.ToLower().Contains("det"))
-                                //    {
-                                //        contentString = (Regex.Match(SubjectParkingType, @"\d").Value + "<SP>Detached");
-                                //    }
-                                //    fieldList.Add("*Gar", contentString);
+                                    if (mls_garage_type.ToLower().Contains("att"))
+                                    {
+                                        contentString = (mls_garage_spaces + "<SP>Attached");
+                                    }
+                                    else if (SubjectParkingType.ToLower().Contains("det"))
+                                    {
+                                        contentString = (mls_garage_spaces + "<SP>Detached");
+                                    }
+                                    fieldList.Add("*Gar", contentString);
 
-                                //}
-                                //else
-                                //{
-                                //    fieldList.Add("*Gar", "None");
-                                //}
+                                }
+                                else
+                                {
+                                    fieldList.Add("*Gar", "None");
+                                }
                                 #endregion
 
                                 
@@ -5967,7 +5976,7 @@ namespace bpohelper
             
             string currentUrl = iim2.iimGetLastExtract();
 
-         //   MessageBox.Show(currentUrl);
+            MessageBox.Show(currentUrl);
 
             #region solutionstar
             if (currentUrl.ToLower().Contains("solutionstar.gatorsasp.com"))
@@ -9858,6 +9867,128 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             string currentUrl = iim2.iimGetLastExtract();
 
 
+            if (currentUrl.Contains("equi-trax"))
+            {
+                 StringBuilder macro11 = new StringBuilder();
+                StringBuilder macro = new StringBuilder();
+                List<string> records = new List<string>();
+
+                macro11.AppendLine(@"FRAME NAME=main");
+                macro11.AppendLine(@"TAG POS=1 TYPE=TABLE ATTR=ID:NewBPOList_tbl EXTRACT=TXT");
+
+                iMacros.Status s = iim2.iimPlayCode(macro11.ToString());
+                string extractedTable = iim2.iimGetLastExtract();
+                string header = iim2.iimGetExtract(0);
+
+               string[] sep = { "#NEWLINE#" };
+                string[] theTable = extractedTable.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                //if (records.Count == 0)
+                //{
+                //    records.Add(theTable[0].Replace("#NEXT#", ",").Substring(4).TrimEnd(','));  //add the header
+                //}
+               string[] sep2 = { "#NEXT#" };
+
+               string[] theRecord = { };
+               string line = "";
+
+               using (StreamReader r = File.OpenText("et-orders.txt"))
+               {
+                   while ((line = r.ReadLine()) != null)
+                   {
+                       records.Add(line);
+                   }
+               }
+               string address;
+                string city;
+                string orderNum = "";
+                string ttt = "";
+                for (int i = 0; i < theTable.GetLength(0); i++)
+                {
+
+                    theRecord = theTable[i].Split(sep2, StringSplitOptions.RemoveEmptyEntries);
+                    //ttt = theTable[i].Replace("#NEXT#", ",").Replace("\r\n"," ");
+                   // orderNum = 
+                    if (!records.Contains(theRecord[2]))
+                    {
+                        records.Add(theRecord[2]);
+                        city = Regex.Match(theRecord[4], (@"\r\n(.*),")).Groups[1].Value;
+                        address = Regex.Match(theRecord[4], (@"(.*)\r\n")).Groups[1].Value;
+                        macro.AppendLine(@"VERSION BUILD=10022823");
+                        macro.AppendLine(@"TAB T=1");
+                        macro.AppendLine(@"TAB CLOSEALLOTHERS");
+                        macro.AppendLine(@"URL GOTO=https://docs.google.com/spreadsheet/viewform?usp=drive_web&formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ#gid=20");
+                        macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:https://docs.google.com/forms/d/* ATTR=NAME:entry.2710153 CONTENT=%Exterior");
+                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d/* ATTR=NAME:entry.1000002 CONTENT=" + address.Replace(" ", "<SP>"));
+                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d/* ATTR=NAME:entry.1000003 CONTENT=" + city.Replace(" ", "<SP>"));
+                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d/* ATTR=NAME:entry.1000014 CONTENT=" + theRecord[2]);
+                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d/* ATTR=NAME:entry.1000017 CONTENT=" + DateTime.Now.AddDays(2).ToShortDateString());
+                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d/* ATTR=NAME:entry.1000011 CONTENT=" + theRecord[8]);
+                        macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:https://docs.google.com/forms/d/* ATTR=NAME:entry.1000009 CONTENT=%SWBC");
+                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:https://docs.google.com/forms/d/* ATTR=NAME:submit");
+                        string macroCode = macro.ToString();
+                        iim.iimPlayCode(macroCode, 60);
+                        macro.Clear();
+                    }
+
+                   
+                }
+
+
+                using (System.IO.StreamWriter file = File.AppendText(("et-orders.txt")))
+                {
+
+
+                    foreach (string r in records)
+                    {
+                        file.WriteLine(r);
+                    }
+                    //foreach (System.Windows.Forms.TextBox t in query2)
+                    //{
+                    //    file.WriteLine("{0};{1}", t.Name, t.Text);
+                    //}
+
+                    //file.WriteLine("{0};{1}", subjectDetachedradioButton.Name, subjectDetachedradioButton.Checked.ToString());
+                    //file.WriteLine("{0};{1}", subjectAttachedRadioButton.Name, subjectAttachedRadioButton.Checked.ToString());
+                    //file.WriteLine("{0};{1}", subjectMlsTypecomboBox.Name, subjectMlsTypecomboBox.Text);
+                    //bpoCommentsTextBox.SaveFile(this.SubjectFilePath + "\\" + "bpocomments.rtf");
+
+                }
+
+
+                //var ttt = Regex.Matches(htmlCode, @"orderNo=(\d\d\d\d\d\d)");
+
+           //     MessageBox.Show(ttt.Count.ToString());
+
+
+                //HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                //doc.LoadHtml(htmlCode);
+
+                //var x = doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[1]/td[1]/a/font");
+                //int orderNumberIndex = 1;
+                //int addressIndex = 4;
+                //int cityIndex = 5;
+
+                ////
+                ////TBD:  Calculate correct due date by extracting date + standard 3 days.
+                ////
+                //for (int i = 1; i < 80 ; i++)
+                //{
+                //    macro.AppendLine(@"VERSION BUILD=10022823");
+                //    macro.AppendLine(@"TAB T=1");
+                //    macro.AppendLine(@"TAB CLOSEALLOTHERS");
+                //    macro.AppendLine(@"URL GOTO=https://docs.google.com/spreadsheet/viewform?usp=drive_web&formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ#gid=20");
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.2.single CONTENT=" + doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[" + i.ToString() + "]/td[" + addressIndex.ToString() + "]").InnerText.Replace(" ", "<SP>"));
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.3.single CONTENT=" + doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[" + i.ToString() + "]/td[" + cityIndex.ToString() + "]").InnerText.Replace(" ", "<SP>"));
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.14.single CONTENT=" + doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[" + i.ToString() + "]/td[" + orderNumberIndex.ToString() + "]/a/font").InnerText);
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.9.single CONTENT=" + DateTime.Now.ToShortDateString());
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.11.single CONTENT=50");
+                //    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.1.single CONTENT=%Solutionstar");
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:submit");
+                //    string macroCode = macro.ToString();
+                //    iim.iimPlayCode(macroCode, 60);
+                //    macro.Clear();
+                //}
+            }
 
             if (currentUrl.Contains("solutionstar"))
             {
@@ -9918,6 +10049,207 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
         private void subjectSubdivisionTextbox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            //iMacros.App mred = new iMacros.App();
+
+            //extract data as a REAL table
+
+            List<string> records = new List<string>();
+            Status s = new Status();
+            s = Status.sOk;
+
+            while (s == Status.sOk)
+            {
+                StringBuilder macro = new StringBuilder();
+                macro.AppendLine(@"VERSION BUILD=10.2.26.4235");
+                macro.AppendLine(@"SET !TIMEOUT_STEP 30");
+                
+                //macro.AppendLine(@"TAB T=1");
+                //macro.AppendLine(@"TAB CLOSEALLOTHERS");
+                //macro.AppendLine(@"URL GOTO=http://connectmls*/mls.jsp?module=search&encurl=search/search_index.jsp?uri=search/search.jsp&switch_type=OFFICE");
+                macro.AppendLine(@"FRAME NAME=workspace");
+                macro.AppendLine(@"TAG POS=1 TYPE=TABLE ATTR=CLASS:gridview EXTRACT=TXT");
+                string macroCode = macro.ToString();
+                iim.iimPlayCode(macroCode);
+                string extractedTable = iim.iimGetLastExtract();
+                string[] sep = { "#NEWLINE#" };
+                string[] theTable = extractedTable.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                if (records.Count == 0)
+                {
+                    records.Add(theTable[0].Replace("#NEXT#", ",").Substring(4).TrimEnd(','));  //add the header
+                }
+               
+
+
+
+                //click on each hidden email link in the table
+                //which opens a new table.
+                //extract all txt on the card then
+                //find and store the actual email address text
+
+                for (int i = 1; i < theTable.GetLength(0); i++)
+                {
+
+                    macro.Clear();
+                    macro.AppendLine(@"FRAME NAME=workspace");
+
+                    macro.AppendLine(@"TAG POS=" + i.ToString() + @" TYPE=IMG FORM=NAME:dc ATTR=SRC:http://connectmls*/images/newMsg.gif");
+                    macro.AppendLine(@"'New tab opened");
+                    macro.AppendLine(@"TAB T=2");
+                    macro.AppendLine(@"FRAME F=0");
+                    macro.AppendLine(@"TAG POS=4 TYPE=TR ATTR=* EXTRACT=TXT"); //header
+                    macro.AppendLine(@"TAG POS=4 TYPE=TABLE ATTR=* EXTRACT=TXT");  //whole card
+
+                    macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=HREF:mailto:* EXTRACT=TXT"); //email
+                    macro.AppendLine(@"TAB CLOSE");
+                    macroCode = macro.ToString();
+                    status = iim.iimPlayCode(macroCode);
+
+                    //frm immediate window
+                    //iim.iimGetExtract(0);
+                    //"Thomas Killoren[EXTRACT]tkilloren@aol.com[EXTRACT]"
+                    // iim.iimGetExtract(1);
+                    //"Thomas Killoren"
+                    // iim.iimGetExtract(2);
+                    //"tkilloren@aol.com"
+
+
+                    string mredBusinessCard = iim.iimGetExtract(2);
+                    string emailAddressText = iim.iimGetExtract(3);
+                    if (emailAddressText.Contains(";"))
+                    {
+                        emailAddressText = emailAddressText.Split(';')[0];
+                    }
+
+                    if (emailAddressText.Contains("#"))
+                    {
+                        emailAddressText = "";
+                    }
+
+                   // MessageBox.Show(emailAddressText);
+
+                   // records.Add(theTable[i].Replace("#NEXT#", ",").Substring(5).TrimEnd(',') + "," + emailAddressText);
+                   
+                  //  records.Add(theTable[i].Replace("#NEXT#", ",").Substring(5).TrimEnd(',').Insert(theTable[i].IndexOf(",",0,3),emailAddressText));
+
+                    //string tempStr = theTable[i].Replace("#NEXT#", ",").Substring(5).Trim(',');
+                    string[] sep2 = { "#NEXT#" };
+
+                    string[] fields = theTable[i].Split(sep2,StringSplitOptions.None);
+                    string finalStr = "";
+                 
+                    int fieldIndex = 0;
+                    foreach (string str in fields)
+                    {
+
+                        if (fieldIndex == 6)
+                        {
+                            finalStr = finalStr + emailAddressText + ",";
+                        
+                        }
+                        else if (fieldIndex == 8)
+                        {
+                            finalStr = finalStr + "\"" + str.Trim() + "\",";
+                        }
+                        else if (fieldIndex == 0 || fieldIndex == 1 || fieldIndex == 14)
+                        {
+
+                        }
+                        else
+                        {
+                            finalStr = finalStr + str.Trim() + ",";
+                        }
+
+                        fieldIndex++;
+                    }
+                   
+                    records.Add(finalStr.Trim(',').Replace("[EXTRACT]", ""));
+                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"F:\Dropbox\Dev\WCR Email CRM project\master.csv",true))
+                    {
+                        file.WriteLine(finalStr.Trim(',').Replace("[EXTRACT]", ""));
+
+                    //    //foreach (object o in records)
+                    //    //{
+                    //    //    file.WriteLine(o.ToString());
+                    //    //}
+                    }
+                   // records.Add(theTable[i].Replace("#NEXT#", ",").Substring(5).TrimEnd(',').Insert(x, emailAddressText));
+                   
+                }
+
+                macro.Clear();
+                macro.AppendLine(@"FRAME NAME=navpanel");
+                macro.AppendLine(@"TAG POS=1 TYPE=IMG ATTR=SRC:http://connectmls*/images/next.gif");
+                macroCode = macro.ToString();
+                 s = iim.iimPlayCode(macroCode);
+
+                 //using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"F:\Dropbox\Dev\WCR Email CRM project\master.csv",true))
+                 //{
+                 //    file.WriteLine(o.ToString());
+
+                 //    //foreach (object o in records)
+                 //    //{
+                 //    //    file.WriteLine(o.ToString());
+                 //    //}
+                 //}
+
+                //MessageBox.Show(extractedTable);
+            }
+
+            //using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"F:\Dropbox\Dev\WCR Email CRM project\master.csv"))
+            //{
+            //    #region writefile
+
+            //    foreach (object o in records)
+            //    {
+            //        file.WriteLine(o.ToString());
+            //    }
+
+                //try
+                //{
+                //    file.WriteLine("#closed: " + closed_comps.ToString() + " #active: " + active_comps.ToString() + " #pending: " + pending_comps.ToString());
+                //    file.WriteLine("Average/Mean $/Above GLA, sale: " + Decimal.Round(pricePerSfList.Average(), 2).ToString() + " Median $/Above GLA, sale: " + Decimal.Round(pricePerSfList.Median(), 2).ToString());
+                //    file.WriteLine("Min Sale: {0}, Max Sale: {1}, Average Sale: {2}, Median Sale: {3}", soldPriceList.Min(), soldPriceList.Max(), Convert.ToInt32(soldPriceList.Average()), soldPriceList.Median());
+                //    file.WriteLine("Min List: {0}, Max List: {1}, Average List: {2}, Median List: {3}", activePriceList.Min(), activePriceList.Max(), Convert.ToInt32(activePriceList.Average()), activePriceList.Median());
+                //    file.WriteLine("Min dom: {0}, Max dom: {1}, Average dom: {2}, Median dom: {3}", domList.Min(), domList.Max(), Convert.ToInt32(domList.Average()), domList.Median());
+                //    file.WriteLine("Min Age: {0}, Max Age: {1}, Average Age: {2}, Median Age: {3}", ageList.Min(), ageList.Max(), Convert.ToInt32(ageList.Average()), ageList.Median());
+                //    file.WriteLine("REO Sold: {0}, REO Active: {1}, Short Sold: {2}, Short Active: {3}", reoSales, reoActive, shortSales, shortActive);
+                //    file.WriteLine("# Same Type: {0}, # Same Subdivision {1}, # Comparable Age: {2},# Comparable aGLA: {3}, Comparable LotSize: {4}, ", numberSameTypeAsSubject.ToString(), numSameSubdivision.ToString(), numberComparableAge.ToString(), numberComparableGla.ToString(), numberComparableLot.ToString());
+                //}
+                //catch
+                //{
+
+                //}
+                //picDiffList
+                // file.WriteLine("Min {0}, Max {1}, Average {2}, Median {3}", picDiffList.Min(), picDiffList.Max(), picDiffList.Average(), picDiffList.Median());
+                //foreach (MLSListing m in listings)
+                //{
+                //    file.WriteLine("MLS: {0} is {1} from subject.", m.mlsHtmlFields["mlsNumber"].value, m.proximityToSubject);
+                //}
+
+
+               
+
+                //foreach (object o in subdivisionList)
+                //{
+                //    file.WriteLine(o.ToString());
+                //}
+
+
+
+                //foreach (object o in listingAgentList)
+                //{
+                //    file.WriteLine(o.ToString());
+                //}
+                //foreach (MLSListing m in listings)
+                //{
+                //    file.WriteLine(m.mlsHtmlFields["remarks"].value);
+                //}
+                //#endregion
+            //}
         }
 
        
@@ -10391,9 +10723,10 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             //extracts  all the html
             form.SetStatusBar = "Reading MLS sheet...";
 
-            StringBuilder macro12 = new StringBuilder();
-            macro12.AppendLine(@"FRAME NAME=workspace");
-            macro12.AppendLine(@"TAG POS=1 TYPE=DIV FORM=NAME:dc ATTR=CLASS:report EXTRACT=HTM");
+            StringBuilder extractHtml = new StringBuilder();
+            extractHtml.AppendLine(@"FRAME NAME=workspace");
+            extractHtml.AppendLine(@"TAG POS=1 TYPE=DIV FORM=NAME:dc ATTR=CLASS:report EXTRACT=HTM");
+            var myStatus = d.iimPlayCode(extractHtml.ToString());
 
             string htmlCode;// = d.iimGetLastExtract();
 
@@ -10421,9 +10754,10 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
             move_through_comps_macro.AppendLine(@"FRAME NAME=navpanel");
             move_through_comps_macro.AppendLine(@"TAG POS=1 TYPE=IMG ATTR=SRC:http://connectmls*.mredllc.com/images/next.gif");
-            //move_through_comps_macro.AppendLine(@"FRAME NAME=workspace");
-            //move_through_comps_macro.AppendLine(@"TAG POS=1 TYPE=DIV FORM=NAME:dc ATTR=CLASS:report EXTRACT=HTM");
+            move_through_comps_macro.AppendLine(@"FRAME NAME=workspace");
+            move_through_comps_macro.AppendLine(@"TAG POS=1 TYPE=DIV FORM=NAME:dc ATTR=CLASS:report EXTRACT=HTM");
           
+
          
            
 
@@ -10485,7 +10819,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 }
                 else
                 {
-                    s = d.iimPlayCode(macro12.ToString());
+                    //s = d.iimPlayCode(extractHtml.ToString());
                     htmlCode = d.iimGetLastExtract();
                     if (htmlCode.Contains("#EANF#"))
                     {
@@ -11238,6 +11572,8 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                     realist_extraction_macro.AppendLine(@"SET !TIMEOUT_STEP 0");
                     realist_extraction_macro.AppendLine(@"FRAME NAME=workspace");
                     realist_extraction_macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=TXT:Realist<SP>Tax<SP>Report");
+                    realist_extraction_macro.AppendLine(@" TAB T=2");
+                  //  realist_extraction_macro.AppendLine(@"SET !TIMEOUT_STEP 0");
 
                     string realist_extraction_macro_code = realist_extraction_macro.ToString();
                     status = d.iimPlayCode(realist_extraction_macro_code, 60);
@@ -11399,8 +11735,15 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                                 }
                                 else
                                 {
-                                    //add address to pending updates, incase it's missing or needs updating in fusion table
+                                    try
+                                    {
+                                         //add address to pending updates, incase it's missing or needs updating in fusion table
                                     realistReportNameValuePairs.Add("Location", gFormatedLocation[0] + " " + gFormatedLocation[1] + " " + gFormatedLocation[2]);
+                                    }
+                                   catch
+                                    {
+
+                                    }
 
                                 }
                       

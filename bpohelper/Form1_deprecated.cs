@@ -1116,12 +1116,12 @@ namespace bpohelper
                 macro.AppendLine(@"FRAME NAME=main");
                 macro.AppendLine(@"TAG POS=1 TYPE=IFRAME ATTR=ID:iFileMan");
                 macro.AppendLine(@"FRAME NAME=iFileMan");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f6 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S1.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f7 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S2.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f8 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S3.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f9 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L1.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f10 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L2.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f11 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L3.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f18 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S1.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f17 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S2.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f16 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S3.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f15 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L1.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f14 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L2.jpg");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f14 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L3.jpg");
                 macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:HMSG");
                 macro.AppendLine(@"TAG POS=18 TYPE=A ATTR=CLASS:s_button");
                 macro.AppendLine(@"TAG POS=1 TYPE=NOBR ATTR=TXT:Save<SP>Changes");
@@ -1157,7 +1157,7 @@ namespace bpohelper
                 foreach (string fileName in fileEntries)
                 {
                     
-                    if (fileName.ToLower().Contains("address-view"))
+                    if (Regex.IsMatch(fileName, @"\\.*address.*\.jpg"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
@@ -1169,7 +1169,7 @@ namespace bpohelper
                         //macro.AppendLine(@"TAB CLOSE");
 
                     }
-                    else if (fileName.ToLower().Contains("front-view"))
+                    else if (Regex.IsMatch(fileName, @"\\.*front.*\.jpg"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
@@ -1180,7 +1180,7 @@ namespace bpohelper
                         // macro.AppendLine(@"TAB T=1");
                         // macro.AppendLine(@"TAB CLOSE");
                     }
-                    else if (fileName.ToLower().Contains("left-view"))
+                    else if (Regex.IsMatch(fileName, @"\\.*left.*\.jpg"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
@@ -1191,7 +1191,7 @@ namespace bpohelper
                         //macro.AppendLine(@"TAB T=1");
                         //macro.AppendLine(@"TAB CLOSE");
                     }
-                    else if (fileName.ToLower().Contains("right-view"))
+                    else if (Regex.IsMatch(fileName, @"\\.*right.*\.jpg"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
@@ -1202,7 +1202,7 @@ namespace bpohelper
                         //macro.AppendLine(@"TAB T=1");
                         //macro.AppendLine(@"TAB CLOSE");
                     }
-                    else if (fileName.ToLower().Contains("street-view"))
+                    else if (Regex.IsMatch(fileName, @"\\.*street.*\.jpg"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");

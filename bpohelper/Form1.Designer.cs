@@ -85,6 +85,8 @@
             this.subject_school_textbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.subjectExteriorFinishTextbox = new System.Windows.Forms.TextBox();
             this.button22 = new System.Windows.Forms.Button();
             this.label44 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
@@ -256,8 +258,7 @@
             this.button25 = new System.Windows.Forms.Button();
             this.richTextBoxNumberCompsFound = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.subjectExteriorFinishTextbox = new System.Windows.Forms.TextBox();
+            this.button26 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -683,7 +684,6 @@
             this.search_address_textbox.Name = "search_address_textbox";
             this.search_address_textbox.Size = new System.Drawing.Size(472, 20);
             this.search_address_textbox.TabIndex = 26;
-            this.search_address_textbox.Text = "F:\\Dropbox\\BPOs\\1707 VIVIAN WAY CT";
             this.search_address_textbox.TextChanged += new System.EventHandler(this.search_address_textbox_TextChanged);
             this.search_address_textbox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.search_address_textbox_MouseDoubleClick);
             // 
@@ -932,6 +932,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Subject Info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(134, 136);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(89, 13);
+            this.label46.TabIndex = 133;
+            this.label46.Text = "Exterior Finish(es)";
+            // 
+            // subjectExteriorFinishTextbox
+            // 
+            this.subjectExteriorFinishTextbox.Location = new System.Drawing.Point(137, 152);
+            this.subjectExteriorFinishTextbox.Name = "subjectExteriorFinishTextbox";
+            this.subjectExteriorFinishTextbox.Size = new System.Drawing.Size(125, 20);
+            this.subjectExteriorFinishTextbox.TabIndex = 132;
             // 
             // button22
             // 
@@ -2522,21 +2538,15 @@
             this.richTextBox2.TabIndex = 132;
             this.richTextBox2.Text = "";
             // 
-            // label46
+            // button26
             // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(134, 136);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(89, 13);
-            this.label46.TabIndex = 133;
-            this.label46.Text = "Exterior Finish(es)";
-            // 
-            // subjectExteriorFinishTextbox
-            // 
-            this.subjectExteriorFinishTextbox.Location = new System.Drawing.Point(137, 152);
-            this.subjectExteriorFinishTextbox.Name = "subjectExteriorFinishTextbox";
-            this.subjectExteriorFinishTextbox.Size = new System.Drawing.Size(125, 20);
-            this.subjectExteriorFinishTextbox.TabIndex = 132;
+            this.button26.Location = new System.Drawing.Point(345, 141);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(42, 37);
+            this.button26.TabIndex = 133;
+            this.button26.Text = "Email SB";
+            this.button26.UseVisualStyleBackColor = true;
+            this.button26.Click += new System.EventHandler(this.button26_Click);
             // 
             // Form1
             // 
@@ -2547,6 +2557,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1886, 874);
+            this.Controls.Add(this.button26);
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.richTextBoxNumberCompsFound);
             this.Controls.Add(this.button25);
@@ -2895,6 +2906,7 @@
         private System.Windows.Forms.RichTextBox richTextBoxNumberCompsFound;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.TextBox subjectExteriorFinishTextbox;
+        private System.Windows.Forms.Button button26;
     }
 
 }
