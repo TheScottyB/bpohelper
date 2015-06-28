@@ -54,6 +54,7 @@ namespace bpohelper
 
         public static string sandbox = "";
 
+        public static Form1 mainWindow;
 
     }
 
@@ -215,21 +216,29 @@ namespace bpohelper
         {
             Dictionary<string, string> versions = new Dictionary<string, string>();
             //Define the versions to generate and their filename suffixes.
-            versions.Add("_thumb", "width=100&height=100&crop=auto&format=jpg"); //Crop to square thumbnail
-            versions.Add("_medium", "maxwidth=400&maxheight=400format=jpg"); //Fit inside 400x400 area, jpeg
-            versions.Add("_large", "maxwidth=1900&maxheight=1900&format=jpg"); //Fit inside 1900x1200 area
+            //versions.Add("_thumb", "width=100&height=100&crop=auto&format=jpg"); //Crop to square thumbnail
+            //versions.Add("_small", "maxwidth=200&maxheight=200format=jpg"); //Fit inside 400x400 area, jpeg
+            versions.Add("_upload", "maxwidth=640&maxheight=480format=jpg"); //Fit inside 400x400 area, jpeg
+           // versions.Add("_large", "maxwidth=1900&maxheight=1900&format=jpg"); //Fit inside 1900x1200 area
 
 
-            string basePath = ImageResizer.Util.PathUtils.RemoveExtension(original);
+            //string basePath = ImageResizer.Util.PathUtils.RemoveExtension(original);
+            string basePath = SubjectFilePath;
 
             //To store the list of generated paths
             List<string> generatedFiles = new List<string>();
 
-            //Generate each version
-            foreach (string suffix in versions.Keys)
-                //Let the image builder add the correct extension based on the output file type
-                generatedFiles.Add(ImageBuilder.Current.Build(original, basePath + suffix,
-                  new ResizeSettings(versions[suffix]), false, true));
+            
+
+          //  foreach (string pic in Directory.GetFiles(basePath,"*.jpg"))
+           // {
+            basePath = ImageResizer.Util.PathUtils.RemoveExtension(original);
+                //Generate each version
+                foreach (string suffix in versions.Keys)
+                    //Let the image builder add the correct extension based on the output file type
+                    generatedFiles.Add(ImageBuilder.Current.Build(original, basePath + suffix,
+                      new ResizeSettings(versions[suffix]), false, true));
+          //}
 
             return generatedFiles;
         }
@@ -266,13 +275,30 @@ namespace bpohelper
             {
                 if (string.IsNullOrEmpty(dropBoxFolderName))
                 {
-                    var dbPath = System.IO.Path.Combine(
-                        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dropbox\\host.db");
+                    string dbPath;
 
-                    string[] lines = System.IO.File.ReadAllLines(dbPath);
+                    string[] lines;
+                    try
+                    {
+                        dbPath = System.IO.Path.Combine(
+                      Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dropbox\\host.db");
+                        lines = System.IO.File.ReadAllLines(dbPath);
+                    }
+
+                    catch
+                    {
+                        dbPath = System.IO.Path.Combine(
+                      Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Dropbox\\host.db");
+                        lines = System.IO.File.ReadAllLines(dbPath);
+                    }
+
+
+
+
+
+
                     byte[] dbBase64Text = Convert.FromBase64String(lines[1]);
-                    string folderPath = System.Text.ASCIIEncoding.ASCII.GetString(dbBase64Text);
-                    dropBoxFolderName = folderPath;
+                     dropBoxFolderName = System.Text.ASCIIEncoding.ASCII.GetString(dbBase64Text);
                 }
                 return dropBoxFolderName;
             }

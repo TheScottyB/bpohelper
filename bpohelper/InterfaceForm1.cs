@@ -26,12 +26,12 @@ using System.Collections;
 using HtmlAgilityPack;
 using XnaFan.ImageComparison;
 using Google.Apis.Fusiontables.v1;
-using DotNetOpenAuth.OAuth2;
-using Google.Apis.Authentication;
-using Google.Apis.Authentication.OAuth2;
-using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
-using Google.Apis.Samples.Helper;
-using System.Diagnostics;
+//using DotNetOpenAuth.OAuth2;
+//using Google.Apis.Authentication;
+//using Google.Apis.Authentication.OAuth2;
+//using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
+//using Google.Apis.Samples.Helper;
+
 using System.Threading;
 using System.Xml;
 using System.Xml.Schema;

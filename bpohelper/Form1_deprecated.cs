@@ -26,12 +26,12 @@ using System.Collections;
 using HtmlAgilityPack;
 using XnaFan.ImageComparison;
 using Google.Apis.Fusiontables.v1;
-using DotNetOpenAuth.OAuth2;
-using Google.Apis.Authentication;
-using Google.Apis.Authentication.OAuth2;
-using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
-using Google.Apis.Samples.Helper;
-using System.Diagnostics;
+//using DotNetOpenAuth.OAuth2;
+//using Google.Apis.Authentication;
+//using Google.Apis.Authentication.OAuth2;
+//using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
+//using Google.Apis.Samples.Helper;
+//using System.Diagnostics;
 using System.Threading;
 using System.Xml;
 using System.Xml.Schema;
@@ -919,7 +919,7 @@ namespace bpohelper
             macro.AppendLine(@"SET !TIMEOUT_STEP 30");
             macro.AppendLine(@"SET !ERRORIGNORE YES");
 
-
+            #region dnaforms
             if (currentUrl.ToLower().Contains("dnaforms"))
             {
                 macro.AppendLine(@"FRAME NAME=pageSelect");
@@ -1012,6 +1012,9 @@ namespace bpohelper
 
             }
 
+            #endregion
+
+            #region reocentral
             if (currentUrl.ToLower().Contains("reo-central"))
             {
                 macro.AppendLine("FRAME NAME=\"AddBpoWindow\"");
@@ -1027,7 +1030,9 @@ namespace bpohelper
                 status = iim2.iimPlayCode(macroCode, 120);
 
             }
+            #endregion
 
+            #region solutionstar
             if (currentUrl.ToLower().Contains("solutionstar"))
             {
 
@@ -1100,40 +1105,136 @@ namespace bpohelper
                 status = iim2.iimPlayCode(macroCode, 120);
             }
 
+            #endregion
+
+            #region equitrax
             if (currentUrl.ToLower().Contains("equi-trax"))
             {
-
-                macro.AppendLine(@"");
+                macro.AppendLine(@"VERSION BUILD=10.4.28.1074");
                 macro.AppendLine(@"FRAME NAME=main");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_sv");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:dmsg_close_btn");
-
-                macro.AppendLine(@"");
-                macro.AppendLine(@"FRAME NAME=main");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_ap");
+                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:Attach<SP>Photos");
                 macro.AppendLine(@"FRAME NAME=iFileMan");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=CLASS:s_button");
-                macro.AppendLine(@"FRAME NAME=main");
-                macro.AppendLine(@"TAG POS=1 TYPE=IFRAME ATTR=ID:iFileMan");
-                macro.AppendLine(@"FRAME NAME=iFileMan");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f18 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S1.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f17 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S2.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f16 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S3.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f15 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L1.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f14 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L2.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f14 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L3.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:HMSG");
-                macro.AppendLine(@"TAG POS=18 TYPE=A ATTR=CLASS:s_button");
+                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:Upload");
+                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:Continue...");
+
+                int x = 1;
+
+                string[] fileEntries = Directory.GetFiles(search_address_textbox.Text);
+
+                foreach (string fileName in fileEntries)
+                {
+                    if (fileName.ToLower().Contains(".jpg") && !Regex.IsMatch(fileName, @"_upload|_medium|_thumb"))
+                    {
+                        if (fileName.ToLower().Contains("front"))
+                        {
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f1 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                        }
+                        else if (fileName.ToLower().Contains("address"))
+                        {
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f2 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                        }
+                        else if (fileName.ToLower().Contains("street"))
+                        {
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f3 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                        }
+                        else if (fileName.ToLower().Contains("s1"))
+                        {
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f4 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                        }
+                        else if (fileName.ToLower().Contains("s2"))
+                        {
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f5 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                        }
+                        else if (fileName.ToLower().Contains("s3"))
+                        {
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f6 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                        }
+                        else if (fileName.ToLower().Contains("l1"))
+                        {
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f7 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                        }
+                        else if (fileName.ToLower().Contains("l2"))
+                        {
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f8 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                        }
+                        else if (fileName.ToLower().Contains("l3"))
+                        {
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f9 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                        }
+                        else if (fileName.ToLower().Contains("right"))
+                        {
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f10 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                        }
+                        else if (fileName.ToLower().Contains("left"))
+                        {
+                            GenerateVersions(fileName);
+                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f11 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                        }
+                    }
+                }
+
+
+
+                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:Start<SP>Uploading...");
                 macro.AppendLine(@"TAG POS=1 TYPE=NOBR ATTR=TXT:Save<SP>Changes");
                 macro.AppendLine(@"FRAME NAME=main");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_ManageFiles_close");
-                macro.AppendLine(@"TAG POS=11 TYPE=A ATTR=CLASS:s_button");
+                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:X");
+                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:Close");
 
 
+
+                //macro.AppendLine(@"");
+                //macro.AppendLine(@"FRAME NAME=main");
+                //macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_sv");
+                //macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:dmsg_close_btn");
+
+                //macro.AppendLine(@"");
+                //macro.AppendLine(@"FRAME NAME=main");
+                //macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_ap");
+                //macro.AppendLine(@"FRAME NAME=iFileMan");
+                //macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=CLASS:s_button");
+                //macro.AppendLine(@"FRAME NAME=main");
+                //macro.AppendLine(@"TAG POS=1 TYPE=IFRAME ATTR=ID:iFileMan");
+                //macro.AppendLine(@"FRAME NAME=iFileMan");
+                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f18 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S1.jpg");
+                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f17 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S2.jpg");
+                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f16 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S3.jpg");
+                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f15 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L1.jpg");
+                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f14 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L2.jpg");
+                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f14 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L3.jpg");
+                //macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:HMSG");
+                //macro.AppendLine(@"TAG POS=18 TYPE=A ATTR=CLASS:s_button");
+                //macro.AppendLine(@"TAG POS=1 TYPE=NOBR ATTR=TXT:Save<SP>Changes");
+                //macro.AppendLine(@"FRAME NAME=main");
+                //macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_ManageFiles_close");
+                //macro.AppendLine(@"TAG POS=11 TYPE=A ATTR=CLASS:s_button");
 
                 string macroCode = macro.ToString();
                 status = iim2.iimPlayCode(macroCode, 30);
             }
+
+            #endregion
 
             #region dispo
 
@@ -1145,7 +1246,7 @@ namespace bpohelper
 
             #endregion
 
-
+            # region sw
             //if (currentUrl.ToLower().Contains("rapidclose"))
 
             if (iim2.iimGetLastExtract().ToLower().Contains("rapidclose") || iim.iimGetLastExtract().ToLower().Contains("rapidclose"))
@@ -1307,6 +1408,8 @@ namespace bpohelper
                 //  ProcessFile(fileName);
                 // status = iim.iimPlayCode(macroCode, timeout);
             }
+
+#endregion
         }
         private void button11_Click(object sender, EventArgs e)
         {
@@ -1404,24 +1507,24 @@ namespace bpohelper
 
         }
 
-        private void button13_Click(object sender, EventArgs e)
-        {
-            StringBuilder macro = new StringBuilder();
-            macro.AppendLine(@"VERSION BUILD=8021952");
-            macro.AppendLine(@"TAB T=1");
-            macro.AppendLine(@"FRAME NAME=subheader");
-            macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:header ATTR=ID:favorites");
-            macro.AppendLine(@"'New tab opened");
-            macro.AppendLine(@"TAB T=2");
-            macro.AppendLine(@"FRAME F=0");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:dc ATTR=ID:selHeadingnewHeading&&VALUE:newHeading CONTENT=YES");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:dc ATTR=ID:enterNewHeading CONTENT=521<SP>Flossmoor<SP>Ave,<SP>Waukegan");
-            macro.AppendLine(@"'TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:dc ATTR=ID:Add&&VALUE:Add");
-            macro.AppendLine(@"");
-            macro.AppendLine(@"'TAB CLOSE");
-            string macroCode = macro.ToString();
-            iim.iimPlayCode(macroCode, 30);
-        }
+        //private void button13_Click(object sender, EventArgs e)
+        //{
+        //    StringBuilder macro = new StringBuilder();
+        //    macro.AppendLine(@"VERSION BUILD=8021952");
+        //    macro.AppendLine(@"TAB T=1");
+        //    macro.AppendLine(@"FRAME NAME=subheader");
+        //    macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:header ATTR=ID:favorites");
+        //    macro.AppendLine(@"'New tab opened");
+        //    macro.AppendLine(@"TAB T=2");
+        //    macro.AppendLine(@"FRAME F=0");
+        //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:dc ATTR=ID:selHeadingnewHeading&&VALUE:newHeading CONTENT=YES");
+        //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:dc ATTR=ID:enterNewHeading CONTENT=521<SP>Flossmoor<SP>Ave,<SP>Waukegan");
+        //    macro.AppendLine(@"'TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:dc ATTR=ID:Add&&VALUE:Add");
+        //    macro.AppendLine(@"");
+        //    macro.AppendLine(@"'TAB CLOSE");
+        //    string macroCode = macro.ToString();
+        //    iim.iimPlayCode(macroCode, 30);
+        //}
 
         private void button14_Click(object sender, EventArgs e)
         {

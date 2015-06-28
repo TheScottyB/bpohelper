@@ -8,7 +8,7 @@ using Google.Apis.Fusiontables.v1;
 using Google.Apis.Auth.OAuth2;
 //using Google.Apis.Authentication.OAuth2;
 //using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
-using Google.Apis.Samples.Helper;
+//using Google.Apis.Samples.Helper;
 using Google.Apis.Util;
 using System.Threading;
 using System.Net;
@@ -18,7 +18,6 @@ using Google.Apis.Datastore.v1beta2;
 using System.Windows.Forms;
 using Google.Apis.Services;
 
-using System.Threading;
 using System.Threading.Tasks;
 using Google.Apis.Util.Store;
 
@@ -416,11 +415,6 @@ namespace bpohelper
             //if (m_rowid.IsNullOrEmpty())
             if (string.IsNullOrEmpty(m_rowid))
             {
-
-
-
-
-
                 var newrecord = newService.Query.SqlGet(rowIdQurey);
                 var ccc = service.Query.SqlGet(rowIdQurey);
                 var r = ccc.Execute();

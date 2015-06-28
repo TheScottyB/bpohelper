@@ -49,7 +49,7 @@
             this.subjectBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this._BPO_SandboxDataSet = new bpohelper._BPO_SandboxDataSet();
+            this._BPO_SandboxDataSet = new bpohelper._BPO_SandboxDataSet1();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -66,7 +66,6 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.button9 = new System.Windows.Forms.Button();
             this.subjectpin_textbox = new System.Windows.Forms.TextBox();
-            this.import_realist_button = new System.Windows.Forms.Button();
             this.order_prefill_button = new System.Windows.Forms.Button();
             this.search_address_textbox = new System.Windows.Forms.TextBox();
             this.mls_search_button = new System.Windows.Forms.Button();
@@ -74,7 +73,6 @@
             this.import_market_stats_button = new System.Windows.Forms.Button();
             this.market_stats_string_textbox = new System.Windows.Forms.TextBox();
             this.upload_eval_interior_button = new System.Windows.Forms.Button();
-            this.import_mls_sheet_button = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button_eval_ext_pics = new System.Windows.Forms.Button();
@@ -85,6 +83,8 @@
             this.subject_school_textbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.subjectAssessmentTextbox = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
             this.subjectExteriorFinishTextbox = new System.Windows.Forms.TextBox();
             this.button22 = new System.Windows.Forms.Button();
@@ -132,6 +132,7 @@
             this.subjectBasementGlaTextbox = new System.Windows.Forms.TextBox();
             this.subjectMlsTypecomboBox = new System.Windows.Forms.ComboBox();
             this.subjectDetachedradioButton = new System.Windows.Forms.RadioButton();
+            this.button13 = new System.Windows.Forms.Button();
             this.subjectAttachedRadioButton = new System.Windows.Forms.RadioButton();
             this.subjectZestimateTextbox = new System.Windows.Forms.TextBox();
             this.saveSubjectInfoButton = new System.Windows.Forms.Button();
@@ -176,7 +177,6 @@
             this.runMredScriptButton = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.statusTextBox = new System.Windows.Forms.TextBox();
-            this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.subjectPictureBox = new System.Windows.Forms.PictureBox();
             this.compPictureBox = new System.Windows.Forms.PictureBox();
@@ -242,14 +242,14 @@
             this.label41 = new System.Windows.Forms.Label();
             this.ccTargetPriceTextBox = new System.Windows.Forms.TextBox();
             this.label42 = new System.Windows.Forms.Label();
-            this.subjectTableAdapter = new bpohelper._BPO_SandboxDataSetTableAdapters.subjectTableAdapter();
-            this.tableAdapterManager = new bpohelper._BPO_SandboxDataSetTableAdapters.TableAdapterManager();
-            this.bpoTableAdapter1 = new bpohelper._BPO_SandboxDataSetTableAdapters.BPOTableAdapter();
-            this.realist_2012TableAdapter1 = new bpohelper._BPO_SandboxDataSetTableAdapters.Realist_2012TableAdapter();
-            this.tableAdapterManager1 = new bpohelper._BPO_SandboxDataSetTableAdapters.TableAdapterManager();
-            this.tableAdapterManager2 = new bpohelper._BPO_SandboxDataSetTableAdapters.TableAdapterManager();
+            this.subjectTableAdapter = new bpohelper._BPO_SandboxDataSet1TableAdapters.subjectTableAdapter();
+            this.tableAdapterManager = new bpohelper._BPO_SandboxDataSet1TableAdapters.TableAdapterManager();
+            this.bpoTableAdapter1 = new bpohelper._BPO_SandboxDataSet1TableAdapters.BPOTableAdapter();
+            this.realist_2012TableAdapter1 = new bpohelper._BPO_SandboxDataSet1TableAdapters.Realist_2012TableAdapter();
+            this.tableAdapterManager1 = new bpohelper._BPO_SandboxDataSet1TableAdapters.TableAdapterManager();
+            this.tableAdapterManager2 = new bpohelper._BPO_SandboxDataSet1TableAdapters.TableAdapterManager();
             this.rawSFDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.rawSFDataTableAdapter = new bpohelper._BPO_SandboxDataSetTableAdapters.RawSFDataTableAdapter();
+            this.rawSFDataTableAdapter = new bpohelper._BPO_SandboxDataSet1TableAdapters.RawSFDataTableAdapter();
             this.button23 = new System.Windows.Forms.Button();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.button24 = new System.Windows.Forms.Button();
@@ -259,6 +259,8 @@
             this.richTextBoxNumberCompsFound = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.button26 = new System.Windows.Forms.Button();
+            this.numericUpDownRadius = new System.Windows.Forms.NumericUpDown();
+            this.button27 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -275,6 +277,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.eventLog2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ccMonthsBacknumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rawSFDataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -481,7 +484,7 @@
             this.subjectBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.subjectBindingNavigator.Name = "subjectBindingNavigator";
             this.subjectBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.subjectBindingNavigator.Size = new System.Drawing.Size(1869, 25);
+            this.subjectBindingNavigator.Size = new System.Drawing.Size(1886, 25);
             this.subjectBindingNavigator.TabIndex = 17;
             this.subjectBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -657,17 +660,6 @@
             this.subjectpin_textbox.TextChanged += new System.EventHandler(this.subjectpin_textbox_TextChanged);
             this.subjectpin_textbox.Validated += new System.EventHandler(this.subjectpin_textbox_Validated);
             // 
-            // import_realist_button
-            // 
-            this.import_realist_button.Location = new System.Drawing.Point(351, 422);
-            this.import_realist_button.Name = "import_realist_button";
-            this.import_realist_button.Size = new System.Drawing.Size(113, 23);
-            this.import_realist_button.TabIndex = 24;
-            this.import_realist_button.Text = "Import Realist";
-            this.import_realist_button.UseVisualStyleBackColor = true;
-            this.import_realist_button.Visible = false;
-            this.import_realist_button.Click += new System.EventHandler(this.import_realist_button_Click);
-            // 
             // order_prefill_button
             // 
             this.order_prefill_button.Location = new System.Drawing.Point(474, 361);
@@ -734,17 +726,6 @@
             this.upload_eval_interior_button.UseVisualStyleBackColor = true;
             this.upload_eval_interior_button.Visible = false;
             this.upload_eval_interior_button.Click += new System.EventHandler(this.upload_eval_interior_button_Click);
-            // 
-            // import_mls_sheet_button
-            // 
-            this.import_mls_sheet_button.Location = new System.Drawing.Point(352, 450);
-            this.import_mls_sheet_button.Name = "import_mls_sheet_button";
-            this.import_mls_sheet_button.Size = new System.Drawing.Size(112, 28);
-            this.import_mls_sheet_button.TabIndex = 31;
-            this.import_mls_sheet_button.Text = "Import MLS Sheet";
-            this.import_mls_sheet_button.UseVisualStyleBackColor = true;
-            this.import_mls_sheet_button.Visible = false;
-            this.import_mls_sheet_button.Click += new System.EventHandler(this.import_mls_sheet_button_Click);
             // 
             // textBox1
             // 
@@ -832,6 +813,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label47);
+            this.groupBox1.Controls.Add(this.subjectAssessmentTextbox);
             this.groupBox1.Controls.Add(this.label46);
             this.groupBox1.Controls.Add(this.subjectExteriorFinishTextbox);
             this.groupBox1.Controls.Add(this.button22);
@@ -879,6 +862,7 @@
             this.groupBox1.Controls.Add(this.subjectBasementGlaTextbox);
             this.groupBox1.Controls.Add(this.subjectMlsTypecomboBox);
             this.groupBox1.Controls.Add(this.subjectDetachedradioButton);
+            this.groupBox1.Controls.Add(this.button13);
             this.groupBox1.Controls.Add(this.subjectAttachedRadioButton);
             this.groupBox1.Controls.Add(this.subjectZestimateTextbox);
             this.groupBox1.Controls.Add(this.saveSubjectInfoButton);
@@ -932,6 +916,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Subject Info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(16, 275);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(54, 13);
+            this.label47.TabIndex = 135;
+            this.label47.Text = "Assed Val";
+            this.label47.Click += new System.EventHandler(this.label47_Click);
+            // 
+            // subjectAssessmentTextbox
+            // 
+            this.subjectAssessmentTextbox.Location = new System.Drawing.Point(7, 291);
+            this.subjectAssessmentTextbox.Name = "subjectAssessmentTextbox";
+            this.subjectAssessmentTextbox.Size = new System.Drawing.Size(96, 20);
+            this.subjectAssessmentTextbox.TabIndex = 134;
             // 
             // label46
             // 
@@ -1363,6 +1364,16 @@
             this.subjectDetachedradioButton.UseVisualStyleBackColor = true;
             this.subjectDetachedradioButton.CheckedChanged += new System.EventHandler(this.subjectDetachedradioButton_CheckedChanged);
             // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(662, 320);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(75, 34);
+            this.button13.TabIndex = 46;
+            this.button13.Text = "Save to Favs";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
             // subjectAttachedRadioButton
             // 
             this.subjectAttachedRadioButton.AutoSize = true;
@@ -1738,17 +1749,6 @@
             this.statusTextBox.TabIndex = 45;
             this.statusTextBox.TextChanged += new System.EventHandler(this.statusTextBox_TextChanged);
             // 
-            // button13
-            // 
-            this.button13.Location = new System.Drawing.Point(53, 204);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(75, 34);
-            this.button13.TabIndex = 46;
-            this.button13.Text = "Save to Favs";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Visible = false;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
             // button14
             // 
             this.button14.Location = new System.Drawing.Point(119, 351);
@@ -1792,7 +1792,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 983);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1869, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1886, 22);
             this.statusStrip1.TabIndex = 52;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -1850,7 +1850,7 @@
             // 
             this.bpoCommentsTextBox.Location = new System.Drawing.Point(30, 276);
             this.bpoCommentsTextBox.Name = "bpoCommentsTextBox";
-            this.bpoCommentsTextBox.Size = new System.Drawing.Size(412, 235);
+            this.bpoCommentsTextBox.Size = new System.Drawing.Size(434, 115);
             this.bpoCommentsTextBox.TabIndex = 90;
             this.bpoCommentsTextBox.Text = "";
             this.bpoCommentsTextBox.WordWrap = false;
@@ -1891,7 +1891,7 @@
             // 
             this.statusStrip2.Location = new System.Drawing.Point(0, 961);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(1869, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(1886, 22);
             this.statusStrip2.TabIndex = 95;
             this.statusStrip2.Text = "statusStrip2";
             // 
@@ -1907,7 +1907,7 @@
             // realistUpdateCheckBox
             // 
             this.realistUpdateCheckBox.AutoSize = true;
-            this.realistUpdateCheckBox.Location = new System.Drawing.Point(150, 127);
+            this.realistUpdateCheckBox.Location = new System.Drawing.Point(338, 84);
             this.realistUpdateCheckBox.Name = "realistUpdateCheckBox";
             this.realistUpdateCheckBox.Size = new System.Drawing.Size(154, 17);
             this.realistUpdateCheckBox.TabIndex = 97;
@@ -2303,7 +2303,7 @@
             // 
             // button20
             // 
-            this.button20.Location = new System.Drawing.Point(256, 205);
+            this.button20.Location = new System.Drawing.Point(319, 207);
             this.button20.Name = "button20";
             this.button20.Size = new System.Drawing.Size(75, 23);
             this.button20.TabIndex = 119;
@@ -2387,12 +2387,12 @@
             this.tableAdapterManager.Realist_2012_no_phoneTableAdapter = null;
             this.tableAdapterManager.Realist_2012TableAdapter = null;
             this.tableAdapterManager.Realist_autoTableAdapter = null;
-            this.tableAdapterManager.realist_excel_link_tableTableAdapter = null;
-            this.tableAdapterManager.realist_excel_linkTableAdapter = null;
+            //this.tableAdapterManager.realist_excel_link_tableTableAdapter = null;
+           // this.tableAdapterManager.realist_excel_linkTableAdapter = null;
             this.tableAdapterManager.realist_excelTableAdapter = null;
             this.tableAdapterManager.Realist_manualTableAdapter = null;
             this.tableAdapterManager.subjectTableAdapter = this.subjectTableAdapter;
-            this.tableAdapterManager.UpdateOrder = bpohelper._BPO_SandboxDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UpdateOrder = bpohelper._BPO_SandboxDataSet1TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // bpoTableAdapter1
             // 
@@ -2421,12 +2421,12 @@
             this.tableAdapterManager1.Realist_2012_no_phoneTableAdapter = null;
             this.tableAdapterManager1.Realist_2012TableAdapter = null;
             this.tableAdapterManager1.Realist_autoTableAdapter = null;
-            this.tableAdapterManager1.realist_excel_link_tableTableAdapter = null;
-            this.tableAdapterManager1.realist_excel_linkTableAdapter = null;
+            //this.tableAdapterManager1.realist_excel_link_tableTableAdapter = null;
+            //this.tableAdapterManager1.realist_excel_linkTableAdapter = null;
             this.tableAdapterManager1.realist_excelTableAdapter = null;
             this.tableAdapterManager1.Realist_manualTableAdapter = null;
             this.tableAdapterManager1.subjectTableAdapter = null;
-            this.tableAdapterManager1.UpdateOrder = bpohelper._BPO_SandboxDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager1.UpdateOrder = bpohelper._BPO_SandboxDataSet1TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // tableAdapterManager2
             // 
@@ -2447,12 +2447,12 @@
             this.tableAdapterManager2.Realist_2012_no_phoneTableAdapter = null;
             this.tableAdapterManager2.Realist_2012TableAdapter = null;
             this.tableAdapterManager2.Realist_autoTableAdapter = null;
-            this.tableAdapterManager2.realist_excel_link_tableTableAdapter = null;
-            this.tableAdapterManager2.realist_excel_linkTableAdapter = null;
+            //this.tableAdapterManager2.realist_excel_link_tableTableAdapter = null;
+            //this.tableAdapterManager2.realist_excel_linkTableAdapter = null;
             this.tableAdapterManager2.realist_excelTableAdapter = null;
             this.tableAdapterManager2.Realist_manualTableAdapter = null;
             this.tableAdapterManager2.subjectTableAdapter = null;
-            this.tableAdapterManager2.UpdateOrder = bpohelper._BPO_SandboxDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager2.UpdateOrder = bpohelper._BPO_SandboxDataSet1TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // rawSFDataBindingSource
             // 
@@ -2548,6 +2548,28 @@
             this.button26.UseVisualStyleBackColor = true;
             this.button26.Click += new System.EventHandler(this.button26_Click);
             // 
+            // numericUpDownRadius
+            // 
+            this.numericUpDownRadius.Location = new System.Drawing.Point(138, 122);
+            this.numericUpDownRadius.Name = "numericUpDownRadius";
+            this.numericUpDownRadius.Size = new System.Drawing.Size(30, 20);
+            this.numericUpDownRadius.TabIndex = 134;
+            this.numericUpDownRadius.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // button27
+            // 
+            this.button27.Location = new System.Drawing.Point(1435, 199);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(116, 29);
+            this.button27.TabIndex = 135;
+            this.button27.Text = "QA SB";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Click += new System.EventHandler(this.button27_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2556,7 +2578,9 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1886, 874);
+            this.ClientSize = new System.Drawing.Size(1903, 874);
+            this.Controls.Add(this.button27);
+            this.Controls.Add(this.numericUpDownRadius);
             this.Controls.Add(this.button26);
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.richTextBoxNumberCompsFound);
@@ -2604,7 +2628,6 @@
             this.Controls.Add(this.compPictureBox);
             this.Controls.Add(this.subjectPictureBox);
             this.Controls.Add(this.button14);
-            this.Controls.Add(this.button13);
             this.Controls.Add(this.statusTextBox);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.runMredScriptButton);
@@ -2615,13 +2638,11 @@
             this.Controls.Add(this.button_imort_pics);
             this.Controls.Add(this.button_eval_ext_pics);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.import_mls_sheet_button);
             this.Controls.Add(this.upload_eval_interior_button);
             this.Controls.Add(this.market_stats_string_textbox);
             this.Controls.Add(this.import_market_stats_button);
             this.Controls.Add(this.mls_search_button);
             this.Controls.Add(this.search_address_textbox);
-            this.Controls.Add(this.import_realist_button);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
@@ -2670,6 +2691,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.eventLog2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ccMonthsBacknumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rawSFDataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2692,10 +2714,10 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button imarco_test;
         private System.Windows.Forms.Button run_script;
-        private _BPO_SandboxDataSet _BPO_SandboxDataSet;
+        private _BPO_SandboxDataSet1 _BPO_SandboxDataSet;
         private System.Windows.Forms.BindingSource subjectBindingSource;
-        private _BPO_SandboxDataSetTableAdapters.subjectTableAdapter subjectTableAdapter;
-        private _BPO_SandboxDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private _BPO_SandboxDataSet1TableAdapters.subjectTableAdapter subjectTableAdapter;
+        private _BPO_SandboxDataSet1TableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.BindingNavigator subjectBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -2713,16 +2735,14 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Button button9;
-        private _BPO_SandboxDataSetTableAdapters.BPOTableAdapter bpoTableAdapter1;
+        private _BPO_SandboxDataSet1TableAdapters.BPOTableAdapter bpoTableAdapter1;
         private System.Windows.Forms.TextBox subjectpin_textbox;
-        private System.Windows.Forms.Button import_realist_button;
         private System.Windows.Forms.Button order_prefill_button;
         private System.Windows.Forms.TextBox search_address_textbox;
         private System.Windows.Forms.Button mls_search_button;
         private System.Windows.Forms.Button import_market_stats_button;
         private System.Windows.Forms.TextBox market_stats_string_textbox;
         private System.Windows.Forms.Button upload_eval_interior_button;
-        private System.Windows.Forms.Button import_mls_sheet_button;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button_eval_ext_pics;
@@ -2731,7 +2751,7 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button_save_comp_pics;
         //private System.Windows.Forms.Button importSubjectInfoButton;
-        private _BPO_SandboxDataSetTableAdapters.Realist_2012TableAdapter realist_2012TableAdapter1;
+        private _BPO_SandboxDataSet1TableAdapters.Realist_2012TableAdapter realist_2012TableAdapter1;
         private System.Windows.Forms.TextBox subject_school_textbox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -2768,10 +2788,10 @@
         private System.Windows.Forms.TextBox subjectProximityToOfficeTextbox;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox subjectStyleTextbox;
-        private _BPO_SandboxDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
-        private _BPO_SandboxDataSetTableAdapters.TableAdapterManager tableAdapterManager2;
+        private _BPO_SandboxDataSet1TableAdapters.TableAdapterManager tableAdapterManager1;
+        private _BPO_SandboxDataSet1TableAdapters.TableAdapterManager tableAdapterManager2;
         private System.Windows.Forms.BindingSource rawSFDataBindingSource;
-        private _BPO_SandboxDataSetTableAdapters.RawSFDataTableAdapter rawSFDataTableAdapter;
+        private _BPO_SandboxDataSet1TableAdapters.RawSFDataTableAdapter rawSFDataTableAdapter;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox valueTextbox;
         private System.Windows.Forms.TextBox listTextbox;
@@ -2907,6 +2927,10 @@
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.TextBox subjectExteriorFinishTextbox;
         private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.NumericUpDown numericUpDownRadius;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.TextBox subjectAssessmentTextbox;
+        private System.Windows.Forms.Button button27;
     }
 
 }

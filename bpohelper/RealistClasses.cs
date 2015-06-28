@@ -189,6 +189,7 @@ namespace bpohelper
             school = GetFieldValue(@"School District:");
 
 
+
             //listing info in realist
             pattern = "MLS Status:x*Closed";
             match = Regex.Match(s, pattern);
@@ -267,8 +268,8 @@ namespace bpohelper
             fullAddress = fullAddress.Remove(fullAddress.LastIndexOf(','));
 
 
-            
 
+            form.SubjectAssessmentValue = GetFieldValue(@"Market Value - Total");
 
             form.SubjectPin = pin;
             form.SubjectSchoolDistrict = school;

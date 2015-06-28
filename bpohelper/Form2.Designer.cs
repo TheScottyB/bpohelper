@@ -419,24 +419,24 @@
             // 
             // orderNumComboBox
             // 
-            this.orderNumComboBox.FormattingEnabled = true;
-            this.orderNumComboBox.Items.AddRange(new object[] {
-            "106104"});
-            this.orderNumComboBox.Location = new System.Drawing.Point(18, 12);
-            this.orderNumComboBox.Name = "orderNumComboBox";
-            this.orderNumComboBox.Size = new System.Drawing.Size(121, 21);
-            this.orderNumComboBox.TabIndex = 1;
-            this.orderNumComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
+            //this.orderNumComboBox.FormattingEnabled = true;
+            //this.orderNumComboBox.Items.AddRange(new object[] {
+            //"106104"});
+            //this.orderNumComboBox.Location = new System.Drawing.Point(18, 12);
+            //this.orderNumComboBox.Name = "orderNumComboBox";
+            //this.orderNumComboBox.Size = new System.Drawing.Size(121, 21);
+            //this.orderNumComboBox.TabIndex = 1;
+            //this.orderNumComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(840, 71);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            //this.button1.Location = new System.Drawing.Point(840, 71);
+            //this.button1.Name = "button1";
+            //this.button1.Size = new System.Drawing.Size(75, 23);
+            //this.button1.TabIndex = 2;
+            //this.button1.Text = "button1";
+            //this.button1.UseVisualStyleBackColor = true;
+            //this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // webBrowser1
             // 

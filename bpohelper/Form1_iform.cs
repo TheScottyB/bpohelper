@@ -26,12 +26,12 @@ using System.Collections;
 using HtmlAgilityPack;
 using XnaFan.ImageComparison;
 using Google.Apis.Fusiontables.v1;
-using DotNetOpenAuth.OAuth2;
-using Google.Apis.Authentication;
-using Google.Apis.Authentication.OAuth2;
-using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
-using Google.Apis.Samples.Helper;
-using System.Diagnostics;
+//using DotNetOpenAuth.OAuth2;
+//using Google.Apis.Authentication;
+//using Google.Apis.Authentication.OAuth2;
+//using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
+//using Google.Apis.Samples.Helper;
+//using System.Diagnostics;
 using System.Threading;
 using System.Xml;
 using System.Xml.Schema;
@@ -47,7 +47,21 @@ namespace bpohelper
         //
         //Subject Related - Exterior Features
         //
+
+        public string SubjectAssessmentValue
+        {
+            get { return subjectAssessmentTextbox.Text; }
+            set { subjectAssessmentTextbox.Text = value; }
+
+        }
+
+        public string SearchMapRadius
+        {
+            get { return numericUpDownRadius.Value.ToString(); }
+        }
+
         public string SubjectExteriorFinish
+
         {
             get { return subjectExteriorFinishTextbox.Text; }
             set { subjectExteriorFinishTextbox.Text = value; }
@@ -93,9 +107,6 @@ namespace bpohelper
             get { return subjectMlsStatusTextBox.Text; }
             set { subjectMlsStatusTextBox.Text = value; }
         }
-
-       
-
 
 
         public string SubjectRent
@@ -324,7 +335,7 @@ namespace bpohelper
             set { subjectProximityToOfficeTextbox.Text = value; }
         }
 
-        public _BPO_SandboxDataSetTableAdapters.RawSFDataTableAdapter RawSFDatatable
+        public _BPO_SandboxDataSet1TableAdapters.RawSFDataTableAdapter RawSFDatatable
         {
             get { return this.rawSFDataTableAdapter; }
         }

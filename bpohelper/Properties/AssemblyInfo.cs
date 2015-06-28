@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OKRP, inc")]
 [assembly: AssemblyProduct("bpohelper")]
-[assembly: AssemblyCopyright("Copyright © OKRP, inc 2009-2014")]
+[assembly: AssemblyCopyright("Copyright © OKRP, inc 2009-2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

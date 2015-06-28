@@ -53,6 +53,8 @@ namespace bpohelper
 
         };
 
+        private Form1 callingForm;
+
         private void WriteScript(string path, string filename, StringBuilder script)
         {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(path + "\\" + filename))
@@ -130,10 +132,50 @@ namespace bpohelper
             return formType;
         }
 
+        public void QA(iMacros.App iim, Form1 form)
+
+        {
+            string qa1 = "Subject As-Is value is higher than the adjusted value of comp listing 1. Please revisit your value and/or adjustments or use the box below to explain what warrants the subject's higher value.";
+            string answer1 = "Subject should be bracketed by the comps....";
+            string qa2 = "The subject area is considered URBAN, please provide comps within 0.5 miles of the subject or explain why proximity has been expanded to provide comparable properties. Please provide additional comments detailing any adjustment applied due to proximity/location variances.";
+            string answer2 = "Subject area is suburban, not urban. Search radius expanded to match subject type ie 1 story.";
+            //string qa3 = the 18% one
+            //string answer3 = Price range expanded to match subject type/design.    
+
+            Dictionary<string, string> qaList = new Dictionary<string, string>();
+            qaList.Add(qa1, answer1);
+            qaList.Add(qa2, answer2);
+
+            StringBuilder macro = new StringBuilder();
+            macro.AppendLine(@"FRAME NAME=main");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:CListEstVal_1 CONTENT=");
+            macro.AppendLine(@"TAG POS=1 TYPE=TD ATTR=ID:dmsg_txt EXTRACT=TXT");
+            //macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA ATTR=ID:TACMT CONTENT=Subject<SP>should<SP>be<SP>bracketed<SP>by<SP>the<SP>comps....");
+            string macroCode = macro.ToString();
+            iim.iimPlayCode(macroCode, 30);
+            macro.Clear();
+            string qaMessage = iim.iimGetLastExtract(0);
+          
+            macro.AppendLine(@"ONSCRIPTERROR CONTINUE=YES");
+            macro.AppendLine(@"FRAME NAME=main");
+            if (qaList.ContainsKey(qa1))
+            {
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA ATTR=ID:TACMT CONTENT=" + qaList[qa1].Replace(" ","<SP>"));
+            }
+            if (qaList.ContainsKey(qa2))
+            {
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA ATTR=ID:TACMT CONTENT=" + qaList[qa2].Replace(" ", "<SP>"));
+            }
+            macro.AppendLine(@"IMAGECLICK POS=1 IMAGE=20150628_0433.png CONFIDENCE=80");
+             macroCode = macro.ToString();
+            iim.iimPlayCode(macroCode, 30);
+        }
+
         public void Prefill(iMacros.App iim, Form1 form)
         {
             StringBuilder macro = new StringBuilder();
             Dictionary<string, string> fieldList = new Dictionary<string, string>();
+            callingForm = form;
 
             //form z
             //Fannie Mae
@@ -777,6 +819,7 @@ namespace bpohelper
 
         public void CompFill(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string>fieldList)
         {
+
             string sol;
             if (saleOrList == "sale")
             {
@@ -809,10 +852,12 @@ namespace bpohelper
                    {
                        //sCSalesGar_2 CONTENT=2<SP>Attached
                        macro.AppendLine(@"FRAME NAME=main");
-                       //macro.AppendFormat(@"TAG POS=1 TYPE=INPUT FORM=NAME:BPOForm ATTR=NAME:sC{0}{1}_{2}", sol, field.Replace("*", ""), Regex.Match(compNum, @"\d").Value);
+                       macro.AppendFormat(@"TAG POS=1 TYPE=INPUT FORM=NAME:BPOForm ATTR=NAME:sC{0}{1}_{2}", sol, field.Replace("*", ""), Regex.Match(compNum, @"\d").Value);
+                       macro.AppendLine();
+                       //macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:" + fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
                        //macro.AppendLine();
-                       //macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:BPOForm ATTR=title:" + fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>") );
-                       macro.AppendFormat(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:sC{0}{1}_{2} CONTENT={3}", sol, field.Replace("*", ""), Regex.Match(compNum, @"\d").Value, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                      macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:BPOForm ATTR=title:" + fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>") );
+// macro.AppendFormat(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:sC{0}{1}_{2} CONTENT={3}", sol, field.Replace("*", ""), Regex.Match(compNum, @"\d").Value, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
                        macro.AppendLine();
                    }
                }
@@ -936,8 +981,25 @@ namespace bpohelper
                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:NDataBoarded CONTENT=0");
                ////% New Const
                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:NDataContstruct CONTENT=0");
-
-
+            
+               //Asis Sale Value
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:ProbSaleAsIs CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
+               //Asis Suggested List
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:SuggValAsIs CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
+               //Quick Sale Value
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:PR30DQS CONTENT=" + GlobalVar.mainWindow.SubjectQuickSaleValue);
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:MktValQSAsIs CONTENT=" + GlobalVar.mainWindow.SubjectQuickSaleValue);
+               //Quick List
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:SuggListQSAsIs CONTENT=" + GlobalVar.mainWindow.SubjectQuickSaleValue);
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:SuggListQSRep CONTENT=" + GlobalVar.mainWindow.SubjectQuickSaleValue);
+               //Quick Sale Repaird
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:MktValQSRep CONTENT=" + GlobalVar.mainWindow.SubjectQuickSaleValue);
+               //Repaired Value
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:ProbSaleRep CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:MktValRep CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
+               //Suggested Repair List
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:SuggValRep CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:SuggListRep CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
              
 
            }

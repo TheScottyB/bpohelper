@@ -29,12 +29,11 @@ using System.Collections;
 using HtmlAgilityPack;
 using XnaFan.ImageComparison;
 using Google.Apis.Fusiontables.v1;
-using DotNetOpenAuth.OAuth2;
-using Google.Apis.Authentication;
-using Google.Apis.Authentication.OAuth2;
-using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
-using Google.Apis.Samples.Helper;
-using System.Threading;
+//using DotNetOpenAuth.OAuth2;
+//using Google.Apis.Authentication;
+//using Google.Apis.Authentication.OAuth2;
+//using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
+//using Google.Apis.Samples.Helper;
 using System.Xml;
 using System.Xml.Schema;
 using System.Runtime.Serialization;
@@ -77,7 +76,7 @@ using Newtonsoft.Json;
         string SubjectCounty { get; set; }
         string SubjectProximityToOffice { get; set; }
         string SubjectStyle { get; set; }
-        bpohelper._BPO_SandboxDataSetTableAdapters.RawSFDataTableAdapter RawSFDatatable { get; }
+        bpohelper._BPO_SandboxDataSet1TableAdapters.RawSFDataTableAdapter RawSFDatatable { get; }
         string SubjectSubdivision { get; set; }
         string SubjectMlsType { get; set; }
         bpohelper.Neighborhood SubjectNeighborhood { get; set; }
@@ -93,6 +92,10 @@ using Newtonsoft.Json;
         bool UpdateRealist { get; set; }
         string NumberOfCompsFound { set; }
         string SubjectExteriorFinish { get; set; }
+        string SearchMapRadius { get;  }
+        string SubjectAssessmentValue { get; set; }
+     string SubjectMarketValue { get; set; }
+     
     }
 
 namespace bpohelper
@@ -129,11 +132,11 @@ namespace bpohelper
             GlobalVar.ccc = GlobalVar.CompCompareSystem.NABPOP;
             bool foundLandsafe = false;
 
-
+            GlobalVar.mainWindow = this;
 
             iMacros.App browser1 = new iMacros.App();
             iMacros.App browser2 = new iMacros.App();
-            status = browser1.iimOpen("-ie", false, 60);
+            status = browser1.iimOpen("", false, 60);
             //status = browser1.iimOpen("",false, 60);
             browser1.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
             
@@ -144,7 +147,7 @@ namespace bpohelper
 
             //we want iim to be linked to connectMLS
 
-            status = browser2.iimOpen("", false, 60);
+            status = browser2.iimOpen("-ie", false, 60);
             browser2.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
             string b2Url = browser2.iimGetLastExtract();
 
@@ -224,6 +227,28 @@ namespace bpohelper
             foreach (string key in tdl.mlsTypeDetached.Keys)
             {
                 subjectMlsTypecomboBox.Items.Add(tdl.mlsTypeDetached[key]);
+            }
+
+            string line = "";
+            string[] splitLine;
+            using (System.IO.StreamReader file = new System.IO.StreamReader(".config"))
+            {
+                while (!file.EndOfStream)
+                {
+                    line = file.ReadLine();
+                    splitLine = line.Split(';');
+                    if (splitLine[0] == "lastSubject")
+                    {
+                        var directions = MessageBox.Show("Load Prior Subject?","Sup...Yo", MessageBoxButtons.YesNo);
+                        if (directions == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            search_address_textbox.Text = splitLine[1];
+                            importSubjectInfoButton(this, new EventArgs());
+                        }
+                        
+                    }
+                    
+                }
             }
         }
 
@@ -2358,7 +2383,7 @@ namespace bpohelper
 
 
 
-                            fieldList.Add("*Loc", "r");
+                            fieldList.Add("*Loc", "Good");
 
                             fieldList.Add("GLASqFt", mls_gla);
                             fieldList.Add("EstValSqFt", "0");
@@ -5915,10 +5940,10 @@ namespace bpohelper
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the '_BPO_SandboxDataSet.RawSFData' table. You can move, or remove it, as needed.
+            // TODO: This line of code loads data into the '_BPO_SandboxDataSet1.RawSFData' table. You can move, or remove it, as needed.
             this.rawSFDataTableAdapter.Fill(this._BPO_SandboxDataSet.RawSFData);
             
-            // TODO: This line of code loads data into the '_BPO_SandboxDataSet.subject' table. You can move, or remove it, as needed.
+            // TODO: This line of code loads data into the '_BPO_SandboxDataSet1.subject' table. You can move, or remove it, as needed.
             this.subjectTableAdapter.Fill(this._BPO_SandboxDataSet.subject);
             if (!string.IsNullOrEmpty(search_address_textbox.Text))
             {
@@ -8149,6 +8174,23 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
             bmp2.Save(@"C:\Users\Scott\Documents\My Dropbox\BPOs\510 Forest Glen\small_SAM_9047.JPG", System.Drawing.Imaging.ImageFormat.Jpeg);
         }
 
+        private void button13_Click(object sender, EventArgs e)
+        {
+            StringBuilder macro = new StringBuilder();
+            macro.AppendLine(@"");
+            macro.AppendLine(@"FRAME NAME=subheader");
+            macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:header ATTR=ID:favorites");
+            macro.AppendLine(@"'New tab opened");
+            macro.AppendLine(@"TAB T=2");
+            macro.AppendLine(@"FRAME F=0");
+            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:dc ATTR=NAME:selHeading CONTENT=YES");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:dc ATTR=NAME:enterNewHeading CONTENT=" + SubjectFullAddress.Replace(" ", "<SP>"));
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:dc ATTR=NAME:<SP>Add<SP>");
+
+            string macroCode = macro.ToString();
+            status = iim.iimPlayCode(macroCode, 60); 
+        }
+
         private void subjectRentTextbox_TextChanged(object sender, EventArgs e)
         {
         http://www.zillow.com/webservice/GetSearchResults.htm?zws-id=<ZWSID>&address=2114+Bigelow+Ave&citystatezip=Seattle%2C+WA
@@ -8267,8 +8309,11 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                file.WriteLine("{0};{1}", subjectAttachedRadioButton.Name, subjectAttachedRadioButton.Checked.ToString());
                file.WriteLine("{0};{1}", subjectMlsTypecomboBox.Name, subjectMlsTypecomboBox.Text);
                bpoCommentsTextBox.SaveFile(this.SubjectFilePath + "\\" + "bpocomments.rtf");
-
             }
+             using (System.IO.StreamWriter file = new System.IO.StreamWriter(".config"))
+             {
+                 file.WriteLine("{0};{1}", "lastOpenedSubject", search_address_textbox.Text);
+             }
         }
 
         private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -10042,7 +10087,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
         private void button25_Click(object sender, EventArgs e)
         {
-            GenerateVersions(@"F:\Dropbox\BPOs\3703 Jacobson\address-view.jpg");
+            GenerateVersions(SubjectFilePath);
 
         }
 
@@ -10250,6 +10295,38 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 //}
                 //#endregion
             //}
+        }
+
+        private void label47_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+            StringBuilder macro = new StringBuilder();
+            DataTable subject_table = subjectTableAdapter.GetData();
+            //iMacros.App bpoForm = new iMacros.App();
+            int timeout = 15;
+            string filter = "MainPin = '" + subjectpin_textbox.Text.ToString() + "'";
+
+            DataRow[] foundRows;
+            foundRows = subject_table.Select(filter);
+
+            iim2.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
+
+            string currentUrl = iim2.iimGetLastExtract();
+
+           // MessageBox.Show(currentUrl);
+
+            #region equitrax
+            if (currentUrl.ToLower().Contains("equi-trax"))
+            {
+                Equitrax bpoform = new Equitrax();
+                streetnumTextBox.Text = "equitrax";
+                bpoform.QA(iim2, this);
+            }
+            #endregion  
         }
 
        
@@ -10700,7 +10777,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             
             GoogleFusionTable realist_bpohelper = new GoogleFusionTable("1UKrOVmhPWrgLP5d5bDCsiW9whMIK8aLxKhcyOaI");
 
-            await realist_bpohelper.helper_OAuthFusion();
+             await realist_bpohelper.helper_OAuthFusion();
 
             
             
@@ -10711,7 +10788,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
 
          
-           
+            List<decimal>soldCompPriceList = new List<decimal>();
             List<string> comps = new List<String>();
             List<MLSListing> listings = new List<MLSListing>();
             Status status = iMacros.Status.sOk;
@@ -11822,7 +11899,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
                             realist_bpohelper.m_rowid = "";
 
-
+                             
                             // MessageBox.Show(splitonnewline[0]);
 
                         }
@@ -12156,13 +12233,13 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
 
 
-                                int x = form.RawSFDatatable.Insert(Convert.ToDouble(propertyLongitude), Convert.ToDouble(propertyLatitude), Convert.ToDecimal(sold_price.Replace("$", "").Replace(",", "")), Convert.ToInt16(mls_gla.Replace(",", "")), zip, city, censusTract, mlsnum);
+                             //   int x = form.RawSFDatatable.Insert(Convert.ToDouble(propertyLongitude), Convert.ToDouble(propertyLatitude), Convert.ToDecimal(sold_price.Replace("$", "").Replace(",", "")), Convert.ToInt16(mls_gla.Replace(",", "")), zip, city, censusTract, mlsnum);
                             }
                             catch (Exception ex)
                             {
                                 try
                                 {
-                                    int x = form.RawSFDatatable.Update(Convert.ToDouble(propertyLongitude), Convert.ToDouble(propertyLatitude), Convert.ToDecimal(sold_price.Replace("$", "").Replace(",", "")), Convert.ToInt16(mls_gla.Replace(",", "")), zip, city, censusTract, mlsnum);
+                               //     int x = form.RawSFDatatable.Update(Convert.ToDouble(propertyLongitude), Convert.ToDouble(propertyLatitude), Convert.ToDecimal(sold_price.Replace("$", "").Replace(",", "")), Convert.ToInt16(mls_gla.Replace(",", "")), zip, city, censusTract, mlsnum);
                                 }
                                 catch
                                 {
@@ -12515,7 +12592,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
                         form.NumberOfCompsFound = comps.Count.ToString();
 
-
+                        soldCompPriceList.Add(Convert.ToDecimal(sold_price.Replace("$", "").Replace(",", "")));
 
                 }
 
@@ -12749,7 +12826,8 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                                        where l.proximityToSubject <.25
                                        select l;
 
-            MessageBox.Show(queryListingsRemarks.Count().ToString() + " listing used the word *charming*");
+
+                      MessageBox.Show(queryListingsRemarks.Count().ToString() + " listing used the word *charming*");
 
             
             System.Xml.Serialization.XmlSerializer writer2 =
@@ -12778,7 +12856,10 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             
             MessageBox.Show("Comps found: " + comps.Count.ToString());
 
+            form.SubjectMarketValue = soldCompPriceList.Median().ToString();
 
+           
+          
            
       
 
@@ -14931,24 +15012,28 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             macro.AppendLine(@"TAG POS=1 TYPE=DIV ATTR=TXT:Search");
             macro.AppendLine(@"FRAME NAME=workspace");
             macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:dc ATTR=TXT:Click<SP>here<SP>to<SP>select<SP>boundaries");
+            macro.AppendLine(@"TAB T=2");
             macro.AppendLine(@"TAG POS=1 TYPE=SPAN FORM=NAME:dc ATTR=TXT:Center<SP>On...");
-            macro.AppendLine(@"wait seconds=1");
+            //macro.AppendLine(@"wait seconds=1");
             
             //hardcoded         
             //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:dc ATTR=ID:address CONTENT=172<SP>Morningside<SP>Ln<SP>W,<SP>Buffalo<SP>Grove,<SP>IL<SP>60089");
 
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:dc ATTR=ID:address CONTENT=" + form.SubjectFullAddress.Replace(" ","<SP>"));
             
-            macro.AppendLine(@"wait seconds=1");
+            //macro.AppendLine(@"wait seconds=1");
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=NAME:dc ATTR=VALUE:Go");
-            macro.AppendLine(@"wait seconds=1");
+            //macro.AppendLine(@"wait seconds=1");
             macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:dc ATTR=SRC:*/circle.png");
-            macro.AppendLine(@"wait seconds=1");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:dc ATTR=ID:distanceInput CONTENT=1");
-            macro.AppendLine(@"wait seconds=1");
+            //macro.AppendLine(@"wait seconds=1");
+            
+            
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:dc ATTR=ID:distanceInput CONTENT=" + form.SearchMapRadius);
+           // macro.AppendLine(@"wait seconds=1");
 
             macro.AppendLine(@"SAVEAS TYPE=PNG FOLDER=" + form.SubjectFilePath.Replace(" ", "<SP>") + " FILE=search_map_" + DateTime.Now.Ticks.ToString() + ".png");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=NAME:dc ATTR=ID:OK&&VALUE:OK");
+            macro.AppendLine(@"FRAME F=0");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=NAME:dc ATTR=NAME:<SP>OK<SP>");
         
             string macroCode = macro.ToString();
            // d.iimOpen("-ie", false, 30);
