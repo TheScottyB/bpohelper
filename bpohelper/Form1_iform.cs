@@ -48,6 +48,20 @@ namespace bpohelper
         //Subject Related - Exterior Features
         //
 
+        //subjectLandValueTextBox
+        public string SubjectLandValue
+        {
+            get { return subjectLandValueTextBox.Text; }
+            set { subjectLandValueTextBox.Text = value; }
+
+        }
+
+        public bool IgnoreAge
+        {
+            get { return ignoreAgeCheckBox.Checked; }
+
+        }
+
         public string SubjectAssessmentValue
         {
             get { return subjectAssessmentTextbox.Text; }

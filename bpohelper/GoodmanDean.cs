@@ -239,7 +239,7 @@ namespace bpohelper
 
                 macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_ddl{0}PropPool_1&&VALUE:0 CONTENT={1}\r\n", compNum, "YES");
 
-                macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblREO{0}_2&&VALUE:{1} CONTENT=YES", compNum, fieldList["SaleType"]);
+                //macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblREO{0}_2&&VALUE:{1} CONTENT=YES", compNum, fieldList["SaleType"]);
                 //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblREOCS2_1&&VALUE:SHORTSALE CONTENT=YES");
                 //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblREOCS3_0&&VALUE:REO CONTENT=YES");
 

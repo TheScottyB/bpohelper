@@ -270,7 +270,7 @@ namespace bpohelper
 
 
             form.SubjectAssessmentValue = GetFieldValue(@"Market Value - Total");
-
+            form.SubjectLandValue = GetFieldValue(@"Assessed Value - Land");
             form.SubjectPin = pin;
             form.SubjectSchoolDistrict = school;
             form.SubjectLastSaleDate = lastSaleDate;

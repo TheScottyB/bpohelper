@@ -86,12 +86,11 @@ namespace bpohelper
             
             
 
-            if (m.PropertyType().Contains("Attached"))
+            if (m.ToString().Contains("Attach"))
             {
             switch (formType)
             {
                 case "z" :
-                    break;
                 case "n":
                      s = "SF<SP>Attach";
                     break;
@@ -435,20 +434,31 @@ namespace bpohelper
 
                 }
 
+                StringBuilder marketComments = new StringBuilder();
 
+                using (System.IO.StreamReader file = new System.IO.StreamReader(form.SubjectFilePath + "\\searchComments.txt"))
+                {
+                    while (!file.EndOfStream)
+                    {
+                        marketComments.Append(file.ReadLine() + "<BR><LF>");
+
+                    }
+                }
                 //
                 //TextAreas
                 //
                 //Environmental Problems
                 macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:NDataEPComm CONTENT=" + "No<SP>known<SP>issues<SP>noted<SP>during<SP>drive-by<SP>inspection.");
                 //General Market Comments
-                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:GeneralMarketComments CONTENT=" + "Following<SP>is<SP>the<SP>MLS<SP>market<SP>stats<SP>within<SP>1<SP>mile<SP>radius<SP>of<SP>subject,<SP>6<SP>months<SP>in<SP>time.<BR><LF>Prices seem to have stabilized, demand is higher under 150k:".Replace(" ", "<SP>"));
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:GeneralMarketComments CONTENT=" + "Following<SP>is<SP>the<SP>MLS<SP>market<SP>stats<SP>within<SP>1<SP>mile<SP>radius<SP>of<SP>subject,<SP>6<SP>months<SP>in<SP>time.<SP>Prices seem to have stabilized, demand is higher under 150k:<BR><LF>".Replace(" ", "<SP>") + marketComments.ToString().Replace(" ", "<SP>"));
+
                 //Resale Comments
-                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:ResaleComments CONTENT=" +  "Subject typical of the area. It is maintained and landscaped. Unable to determine interior condition due to exterior inspection only, so subject was assumed to be in average condition for this report. No adverse conditions were noted at the time of inspection based on exterior observations.".Replace(" ","<SP>"));
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:ResaleComments CONTENT=" + "Subject typical of the area. It is maintained and landscaped. Unable to determine interior condition due to exterior inspection only, so subject was assumed to be in average condition for this report. No adverse conditions were noted at the time of inspection based on exterior observations.".Replace(" ", "<SP>"));
                 //BPO comments
-                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:BComment CONTENT=" + "No<SP>known<SP>special<SP>concerns,<SP>encroachments,<SP>easements,<SP>water<SP>rights,<SP>environmental<SP>concerns,<SP>flood<SP>zones.<BR><LF>Searched<SP>a<SP>distance<SP>of<SP>at<SP>least<SP>1<SP>miles,<SP>up<SP>to<SP>6<SP>months<SP>in<SP>time.<SP>The<SP>comps<SP>bracket<SP>the<SP>subject<SP>in<SP>age,<SP>SF,<SP>and<SP>lot<SP>size,<SP>as<SP>well<SP>as<SP>use<SP>comps<SP>in<SP>same<SP>condition<SP>with<SP>similar<SP>features,<SP>and<SP>from<SP>the<SP>subjects<SP>market<SP>area.<SP>All<SP>the<SP>comps<SP>are<SP>Reasonable<SP>substitute<SP>for<SP>the<SP>subject<SP>property,<SP>similar<SP>in<SP>most<SP>areas.<SP>Price<SP>opinion<SP>was<SP>based<SP>off<SP>comparable<SP>statistics.");
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:BPOForm ATTR=NAME:BComment CONTENT=" + "No<SP>known<SP>special<SP>concerns,<SP>encroachments,<SP>easements,<SP>water<SP>rights,<SP>environmental<SP>concerns,<SP>flood<SP>zones.<BR><LF>Searched<SP>a<SP>distance<SP>of<SP>at<SP>least<SP>2<SP>miles,<SP>up<SP>to<SP>12<SP>months<SP>in<SP>time.<SP>The<SP>comps<SP>bracket<SP>the<SP>subject<SP>in<SP>age,<SP>SF,<SP>and<SP>lot<SP>size,<SP>as<SP>well<SP>as<SP>use<SP>comps<SP>in<SP>same<SP>condition<SP>with<SP>similar<SP>features,<SP>and<SP>from<SP>the<SP>subjects<SP>market<SP>area.<SP>All<SP>the<SP>comps<SP>are<SP>Reasonable<SP>substitute<SP>for<SP>the<SP>subject<SP>property,<SP>similar<SP>in<SP>most<SP>areas.<SP>Price<SP>opinion<SP>was<SP>based<SP>off<SP>comparable<SP>statistics.");
 
 
+                macro.AppendLine(@"FRAME NAME=main");
 
 
                 //
@@ -480,6 +490,8 @@ namespace bpohelper
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT FORM=NAME:BPOForm ATTR=name:sPropAppeal");
                     macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:BPOForm ATTR=title:Cape");
                 }
+
+
                 if (formType == "z")
                 {
                     //Baths
@@ -985,7 +997,7 @@ namespace bpohelper
                //Asis Sale Value
                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:ProbSaleAsIs CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
                //Asis Suggested List
-               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:SuggValAsIs CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:SuggValAsIs CONTENT=" + GlobalVar.mainWindow.SubjectMarketValueList);
                //Quick Sale Value
                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:PR30DQS CONTENT=" + GlobalVar.mainWindow.SubjectQuickSaleValue);
                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:MktValQSAsIs CONTENT=" + GlobalVar.mainWindow.SubjectQuickSaleValue);
@@ -996,9 +1008,9 @@ namespace bpohelper
                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:MktValQSRep CONTENT=" + GlobalVar.mainWindow.SubjectQuickSaleValue);
                //Repaired Value
                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:ProbSaleRep CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
-               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:MktValRep CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:MktValRep CONTENT=" + GlobalVar.mainWindow.SubjectMarketValueList);
                //Suggested Repair List
-               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:SuggValRep CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
+               macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:SuggValRep CONTENT=" + GlobalVar.mainWindow.SubjectMarketValueList);
                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:SuggListRep CONTENT=" + GlobalVar.mainWindow.SubjectMarketValue);
              
 

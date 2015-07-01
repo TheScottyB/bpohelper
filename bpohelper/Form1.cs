@@ -43,6 +43,7 @@ using Newtonsoft.Json;
 
  public interface IYourForm
     {
+        bool IgnoreAge { get; }
         string SubjectDom { get; set; }
         string SubjectListingAgent { get; set; }
         string SubjectBrokerPhone { get; set; }
@@ -94,7 +95,8 @@ using Newtonsoft.Json;
         string SubjectExteriorFinish { get; set; }
         string SearchMapRadius { get;  }
         string SubjectAssessmentValue { get; set; }
-     string SubjectMarketValue { get; set; }
+        string SubjectLandValue { get; set; }
+        string SubjectMarketValue { get; set; }
      
     }
 
@@ -231,25 +233,30 @@ namespace bpohelper
 
             string line = "";
             string[] splitLine;
-            using (System.IO.StreamReader file = new System.IO.StreamReader(".config"))
+            try
             {
-                while (!file.EndOfStream)
+                using (System.IO.StreamReader file = new System.IO.StreamReader(".config"))
                 {
-                    line = file.ReadLine();
-                    splitLine = line.Split(';');
-                    if (splitLine[0] == "lastSubject")
+                    while (!file.EndOfStream)
                     {
-                        var directions = MessageBox.Show("Load Prior Subject?","Sup...Yo", MessageBoxButtons.YesNo);
-                        if (directions == System.Windows.Forms.DialogResult.Yes)
+                        line = file.ReadLine();
+                        splitLine = line.Split(';');
+                        if (splitLine[0] == "lastOpenedSubject")
                         {
-                            search_address_textbox.Text = splitLine[1];
-                            importSubjectInfoButton(this, new EventArgs());
+                            var directions = MessageBox.Show("Load Prior Subject?", "Sup...Yo", MessageBoxButtons.YesNo);
+                            if (directions == System.Windows.Forms.DialogResult.Yes)
+                            {
+                                search_address_textbox.Text = splitLine[1];
+                                importSubjectInfoButton(this, new EventArgs());
+                            }
+
                         }
-                        
+
                     }
-                    
                 }
             }
+            catch { }
+
         }
 
         //
@@ -2503,6 +2510,7 @@ namespace bpohelper
                                 //Design Appeal
                                 #region type selection
                                 fieldList.Remove("*Type");
+                                
                                 fieldList.Add("*Type", bpoform.TypeString(m));
                               
 
@@ -2536,26 +2544,20 @@ namespace bpohelper
 
                                 fieldList.Remove("*Gar");
                                 //fieldList.Add("*Gar", bpoform.GarageString(m));
-                                if (SubjectParkingType.ToLower().Contains("gar"))
+                                string contentString = "";
+                                if (mls_garage_type.ToLower().Contains("att"))
                                 {
-
-                                    string contentString = "";
-
-                                    if (mls_garage_type.ToLower().Contains("att"))
-                                    {
-                                        contentString = (mls_garage_spaces + "<SP>Attached");
-                                    }
-                                    else if (SubjectParkingType.ToLower().Contains("det"))
-                                    {
-                                        contentString = (mls_garage_spaces + "<SP>Detached");
-                                    }
-                                    fieldList.Add("*Gar", contentString);
-
+                                    contentString = (mls_garage_spaces + "<SP>Attached");
+                                } 
+                                else if  (mls_garage_type.ToLower().Contains("det"))
+                                {
+                                    contentString = (mls_garage_spaces + "<SP>Detached");
                                 }
                                 else
                                 {
-                                    fieldList.Add("*Gar", "None");
+                                    contentString = "None";
                                 }
+                                fieldList.Add("*Gar", contentString);
                                 #endregion
 
                                 
@@ -5855,60 +5857,61 @@ namespace bpohelper
             #region equi-trax post processing
             if (streetnumTextBox.Text == "equi-trax")
             {
-                StringBuilder macro = new StringBuilder();
-                macro.AppendLine(@"");
-                macro.AppendLine(@"FRAME NAME=main");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_sv");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:dmsg_close_btn");
 
-                macro.AppendLine(@"");
-                macro.AppendLine(@"FRAME NAME=main");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_ap");
-                macro.AppendLine(@"FRAME NAME=iFileMan");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=CLASS:s_button");
-                macro.AppendLine(@"FRAME NAME=main");
-                macro.AppendLine(@"TAG POS=1 TYPE=IFRAME ATTR=ID:iFileMan");
-                macro.AppendLine(@"FRAME NAME=iFileMan");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f6 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S1.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f7 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S2.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f8 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S3.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f9 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L1.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f10 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L2.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f11 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L3.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:HMSG");
-                macro.AppendLine(@"TAG POS=18 TYPE=A ATTR=CLASS:s_button");
-                macro.AppendLine(@"TAG POS=1 TYPE=NOBR ATTR=TXT:Save<SP>Changes");
-                macro.AppendLine(@"FRAME NAME=main");
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_ManageFiles_close");
-                macro.AppendLine(@"TAG POS=11 TYPE=A ATTR=CLASS:s_button");
+            //    StringBuilder macro = new StringBuilder();
+            //    macro.AppendLine(@"");
+            //    macro.AppendLine(@"FRAME NAME=main");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_sv");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:dmsg_close_btn");
+
+            //    macro.AppendLine(@"");
+            //    macro.AppendLine(@"FRAME NAME=main");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_ap");
+            //    macro.AppendLine(@"FRAME NAME=iFileMan");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=CLASS:s_button");
+            //    macro.AppendLine(@"FRAME NAME=main");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=IFRAME ATTR=ID:iFileMan");
+            //    macro.AppendLine(@"FRAME NAME=iFileMan");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f6 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S1.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f7 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S2.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f8 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\S3.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f9 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L1.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f10 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L2.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f11 CONTENT=" + SubjectFilePath.Replace(" ", "<SP>") + @"\L3.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:HMSG");
+            //    macro.AppendLine(@"TAG POS=18 TYPE=A ATTR=CLASS:s_button");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=NOBR ATTR=TXT:Save<SP>Changes");
+            //    macro.AppendLine(@"FRAME NAME=main");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_ManageFiles_close");
+            //    macro.AppendLine(@"TAG POS=11 TYPE=A ATTR=CLASS:s_button");
 
 
 
-                string macroCode = macro.ToString();
-                status = iim2.iimPlayCode(macroCode, 30);
+            //    string macroCode = macro.ToString();
+            //    status = iim2.iimPlayCode(macroCode, 30);
 
             }
             #endregion
 
-            if (streetnumTextBox.Text == "usres")
-            {
+           // if (streetnumTextBox.Text == "usres")
+        //    {
                 //
                 //load comp pics
                 //
-                StringBuilder macro = new StringBuilder();
-                macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:InputForm ATTR=CLASS:auditlink");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_65 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\L1.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_70 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\L2.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_75 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\L3.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_85 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\S1.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_90 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\S2.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_95 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\S3.jpg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=VALUE:Upload<SP>Pictures");
-                macro.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=TXT:Assigned");
-                string macroCode = macro.ToString();
-                 status = iim2.iimPlayCode(macroCode, 60);
+            //    StringBuilder macro = new StringBuilder();
+            //    macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:InputForm ATTR=CLASS:auditlink");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_65 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\L1.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_70 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\L2.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_75 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\L3.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_85 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\S1.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_90 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\S2.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=NAME:bpo_*_95 CONTENT=" + search_address_textbox.Text.Replace(" ", "<SP>") +  "\\S3.jpg");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=VALUE:Upload<SP>Pictures");
+            //    macro.AppendLine(@"TAG POS=1 TYPE=A FORM=ACTION:/BPOAGENTUPLOADPROC:* ATTR=TXT:Assigned");
+            //    string macroCode = macro.ToString();
+            //     status = iim2.iimPlayCode(macroCode, 60);
 
-            }
+            //}
 
 
             //if (streetnumTextBox.Text == "")
@@ -5928,6 +5931,10 @@ namespace bpohelper
             //    string macroCode = macro.ToString();
             //    status = iim2.iimPlayCode(macroCode, 30);
             //}
+
+
+            this.button_imort_pics_Click(sender, e);
+
         }
 
         private void subjectBindingNavigatorSaveItem_Click(object sender, EventArgs e)
@@ -6001,7 +6008,7 @@ namespace bpohelper
             
             string currentUrl = iim2.iimGetLastExtract();
 
-            MessageBox.Show(currentUrl);
+            //MessageBox.Show(currentUrl);
 
             #region solutionstar
             if (currentUrl.ToLower().Contains("solutionstar.gatorsasp.com"))
@@ -8000,32 +8007,12 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
 
 
             subjectProximityToOfficeTextbox.Text = Get_Distance(subjectFullAddressTextbox.Text);
-
             if (!string.IsNullOrEmpty(subjectFullAddressTextbox.Text))
             {
                 GlobalVar.subjectPoint = Geocode(subjectFullAddressTextbox.Text);
             }
-
-
-
             GlobalVar.theSubjectProperty.County = SubjectCounty;
-
             GlobalVar.theSubjectProperty.MainForm = this;
-
-
-
-            //DataTable subject_table = subjectTableAdapter.GetData();
-            //MessageBox.Show(realist_lot_acres + " " + pin + " " + realist_percent_improved + " " + realist_school_district + " " + realist_census_tract + " " + realist_carrier_route + " " + realist_subdivision);
-
-            //try
-            //{
-            //    int x = this.subjectTableAdapter.InsertQuery(pin, "", realist_census_tract, address, city, county, realist_township, null, null, null, null);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-
         }
        
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -8094,7 +8081,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                 }
             }
              
-            switch (comboBox2.Text)
+            switch (mredCmdComboBox.Text)
             {
                 case "New Map Search":
                     d.NewMapSearch(mred);
@@ -10329,6 +10316,16 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             #endregion  
         }
 
+        private void button28_Click(object sender, EventArgs e)
+        {
+            mredCmdComboBox.SelectedItem = "New Map Search";
+            this.runMredScriptButton_Click(this, new EventArgs());
+            mredCmdComboBox.SelectedItem = "FindComps - Current Search";
+            this.runMredScriptButton_Click(this, new EventArgs());
+            this.order_prefill_button_Click(this, new EventArgs());
+            this.button13_Click(this, new EventArgs());
+        }
+
        
        
 
@@ -12276,10 +12273,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 CompCriteria cc = new CompCriteria();
                 List<string> compNotes = new List<string>();
                 int ageDiff = Math.Abs(Convert.ToInt16(form.SubjectYearBuilt) - Convert.ToInt16(year_built));
-
-
-                int glaDiff = Math.Abs(Convert.ToInt16(form.SubjectAboveGLA.Replace(",", "")) - Convert.ToInt16(mls_gla.Replace(",", "")));
-
+                int glaDiff = Math.Abs(Convert.ToInt32(form.SubjectAboveGLA.Replace(",", "")) - Convert.ToInt32(mls_gla.Replace(",", ""))); // yes there are GLA over 32000 - ie 
                 bool typeMatch = false;
                 bool glaMatch = false;
                 bool ageMatch = false;
@@ -12289,13 +12283,13 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 bool subjectBasement = false;
 
                 // if anything other than none = it has a basement of some type
-                if (currentListing.mlsHtmlFields["basement"].value != "None")
+                if (currentListing.mlsHtmlFields["basement"].value != "None" || type.ToLower().Contains("split level"))
                 {
                     mredBasement = true;
                 }
             
                 //same with subject
-                if (form.SubjectBasementType.ToLower() != "none")
+                if (form.SubjectBasementType.ToLower() != "none" || form.SubjectMlsType.ToLower().Contains("split level"))
                 {
                     subjectBasement = true;
                 }
@@ -12363,10 +12357,12 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                     }
                 }
 
-               
-                if (cc.Age(form.SubjectYearBuilt, year_built))
-                    ageMatch = true;
 
+                if (form.IgnoreAge || cc.Age(form.SubjectYearBuilt, year_built))
+                {
+                    ageMatch = true;
+                }
+               
                 if (form.SubjectAttached)
                 {
                     lotMatch = true;
@@ -12734,6 +12730,17 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 searchName = form.SubjectFilePath + "\\" + form.CurrentSearchName + "_" + DateTime.Now.Ticks.ToString() + "_summary.txt";
             }
 
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(form.SubjectFilePath + "\\searchComments.txt"))
+            {
+                file.WriteLine("#closed: " + closed_comps.ToString() + " #active: " + active_comps.ToString() + " #pending: " + pending_comps.ToString());
+                file.WriteLine("Average/Mean $/Above GLA, sale: " + Decimal.Round(pricePerSfList.Average(), 2).ToString() + " Median $/Above GLA, sale: " + Decimal.Round(pricePerSfList.Median(), 2).ToString());
+                file.WriteLine("Min Sale: {0}, Max Sale: {1}, Average Sale: {2}, Median Sale: {3}", soldPriceList.Min(), soldPriceList.Max(), Convert.ToInt32(soldPriceList.Average()), soldPriceList.Median());
+                file.WriteLine("Min List: {0}, Max List: {1}, Average List: {2}, Median List: {3}", activePriceList.Min(), activePriceList.Max(), Convert.ToInt32(activePriceList.Average()), activePriceList.Median());
+                file.WriteLine("Min dom: {0}, Max dom: {1}, Average dom: {2}, Median dom: {3}", domList.Min(), domList.Max(), Convert.ToInt32(domList.Average()), domList.Median());
+                file.WriteLine("Min Age: {0}, Max Age: {1}, Average Age: {2}, Median Age: {3}", ageList.Min(), ageList.Max(), Convert.ToInt32(ageList.Average()), ageList.Median());
+                file.WriteLine("REO Sold: {0}, REO Active: {1}, Short Sold: {2}, Short Active: {3}", reoSales, reoActive, shortSales, shortActive);
+            }
+
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(searchName))
             {
 
@@ -12753,6 +12760,8 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                     file.WriteLine("Min Age: {0}, Max Age: {1}, Average Age: {2}, Median Age: {3}", ageList.Min(), ageList.Max(), Convert.ToInt32(ageList.Average()), ageList.Median());
                     file.WriteLine("REO Sold: {0}, REO Active: {1}, Short Sold: {2}, Short Active: {3}", reoSales, reoActive, shortSales, shortActive);
                     file.WriteLine("# Same Type: {0}, # Same Subdivision {1}, # Comparable Age: {2},# Comparable aGLA: {3}, Comparable LotSize: {4}, ", numberSameTypeAsSubject.ToString(), numSameSubdivision.ToString(), numberComparableAge.ToString(), numberComparableGla.ToString(), numberComparableLot.ToString());
+
+
                 }
                 catch
                 {
@@ -12827,7 +12836,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                                        select l;
 
 
-                      MessageBox.Show(queryListingsRemarks.Count().ToString() + " listing used the word *charming*");
+                     // MessageBox.Show(queryListingsRemarks.Count().ToString() + " listing used the word *charming*");
 
             
             System.Xml.Serialization.XmlSerializer writer2 =
@@ -12854,15 +12863,15 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
             //MessageBox.Show(GlobalVar.searchCacheMlsListings.Count.ToString());
             
-            MessageBox.Show("Comps found: " + comps.Count.ToString());
-
-            form.SubjectMarketValue = soldCompPriceList.Median().ToString();
+           // MessageBox.Show("Comps found: " + comps.Count.ToString());
+            if (soldCompPriceList.Count > 1)
+            {
+                form.SubjectMarketValue = soldCompPriceList.Median().ToString();
+            }
+           
 
            
-          
-           
-      
-
+         
 
 
 
@@ -15124,11 +15133,14 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
         public void FindComps(iMacros.App d, bool newSearch)
         {
+
+            //are we on the search screen
+            #region setup search screen
             int timeout = 90;
             StringBuilder macro = new StringBuilder();
             string test = "";
 
-            //are we on the search screen
+            
             macro.AppendLine(@"SET !TIMEOUT_STEP 30");
             macro.AppendLine(@"FRAME NAME=workspace");
             macro.AppendLine(@"TAG POS=10 TYPE=TD FORM=NAME:dc ATTR=TXT:* EXTRACT=TXT");
@@ -15215,82 +15227,11 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                     return;
                 }
             }
+            #endregion
 
-
+            //run search
             MlsReportDriver r = new MlsReportDriver(form);
             r.ReadMlsSheets(d);
-            
-            
-
-          
-    
-
-          
-
-          // MessageBox.Show("done");
-
-            //this works, resets months and rescans comps
-           //macro.Clear();
-           //macro.AppendLine(@"FRAME NAME=subheader");
-           //macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:header ATTR=ID:refineSearchLink");
-
-           //macro.AppendLine(@"FRAME NAME=workspace");
-           //macro.AppendLine(@"TAG POS=6 TYPE=IMG FORM=NAME:dc ATTR=ID:picklisticon");
-           //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBMONTHS_BACK0&&VALUE:1<SP>Month CONTENT=NO");
-           //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBMONTHS_BACK1&&VALUE:2<SP>Months CONTENT=YES");
-           //macro.AppendLine(@"TAG POS=6 TYPE=INPUT:BUTTON FORM=NAME:dc ATTR=VALUE:OK");
-
-
-
-        
-
-          
-
-         
-           //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:dc ATTR=ID:searchButtonTop&&VALUE:View<SP>Results");
-           //macro.AppendLine(@"FRAME NAME=subheader");
-           //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:header ATTR=ID:report_type CONTENT=%agentfull");
-           //d.iimPlayCode(macro.ToString(), timeout);
-           //r.ReadMlsSheets(d);
-
-            //
-            //Active listings
-            //
-          // macro.Clear();
-          // macro.AppendLine(@"FRAME NAME=workspace");
-          // macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:dc ATTR=ID:picklisticon");
-          //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST0&&VALUE:ACTV CONTENT=YES");
-          //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST1&&VALUE:AUCT CONTENT=YES");
-          //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST2&&VALUE:BOMK CONTENT=YES");
-          //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST3&&VALUE:CTG CONTENT=YES");
-          //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST4&&VALUE:NEW CONTENT=YES");
-          //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST5&&VALUE:PCHG CONTENT=YES");
-          //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST6&&VALUE:RACT CONTENT=YES");
-          //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST7&&VALUE:TEMP CONTENT=YES");
-          //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST1&&VALUE:CLSD CONTENT=NO");
-          //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST3&&VALUE:PEND CONTENT=YES");
-          //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:allACTIVES&&VALUE:on CONTENT=YES");
-          // //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST0&&VALUE:ACTV CONTENT=NO");
-          // //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST1&&VALUE:AUCT CONTENT=NO");
-          // //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST2&&VALUE:BOMK CONTENT=NO");
-          // //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST3&&VALUE:CTG CONTENT=NO");
-          // //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST4&&VALUE:NEW CONTENT=NO");
-          // //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST5&&VALUE:PCHG CONTENT=NO");
-          // //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST6&&VALUE:RACT CONTENT=NO");
-          // //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST7&&VALUE:TEMP CONTENT=NO");
-          // //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:allACTIVES&&VALUE:on CONTENT=NO");
-          // //macro.AppendLine(@"TAG POS=1 TYPE=DIV FORM=NAME:dc ATTR=ID:STFR");
-          // //macro.AppendLine(@"TAG POS=1 TYPE=DIV FORM=NAME:dc ATTR=ID:STdiv");
-          //// macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:dc ATTR=ID:CBST3&&VALUE:PEND CONTENT=YES");
-          // macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=NAME:dc ATTR=VALUE:OK");
-          // macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:dc ATTR=ID:searchButtonTop&&VALUE:View<SP>Results");
-          // macro.AppendLine(@"FRAME NAME=subheader");
-          // macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:header ATTR=ID:report_type CONTENT=%agentfull");
-
-
-          //  d.iimPlayCode(macro.ToString(), timeout);
-          //  r.ReadMlsSheets(d);
-
         }
 
     }

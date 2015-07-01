@@ -1110,93 +1110,143 @@ namespace bpohelper
             #region equitrax
             if (currentUrl.ToLower().Contains("equi-trax"))
             {
+                List<string> uploadPicCmds = new List<string>();
+                Dictionary<int, string> uploadOrderedList = new Dictionary<int,string>();
+
+                #region move to proper screen
                 macro.AppendLine(@"VERSION BUILD=10.4.28.1074");
+                macro.AppendLine(@"SET !TIMEOUT_STEP 17");
                 macro.AppendLine(@"FRAME NAME=main");
                 macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:Attach<SP>Photos");
                 macro.AppendLine(@"FRAME NAME=iFileMan");
                 macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:Upload");
+                macro.AppendLine(@"SET !TIMEOUT_STEP 5");
                 macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:Continue...");
+               // macro.AppendLine(@"SET !REGION_BOTTOM #FOLD#");
+               // macro.AppendLine(@"IMAGESEARCH POS=1 IMAGE=SWBC\20150629_1342.png CONFIDENCE=88");
+               
 
-                int x = 1;
+                string macroCode = macro.ToString();
+                status = iim2.iimPlayCode(macroCode, 30);
+                macro.Clear();
+                macroCode = "";
+                #endregion
+
+                List<string> requiredPics = new List<string>(new string[] { "front", "address", "street", "s1", "s2", "s3", "l1", "l2", "l3", "left", "right"} );
+
 
                 string[] fileEntries = Directory.GetFiles(search_address_textbox.Text);
-
+                macro.AppendLine(@"FRAME NAME=iFileMan");
                 foreach (string fileName in fileEntries)
                 {
                     if (fileName.ToLower().Contains(".jpg") && !Regex.IsMatch(fileName, @"_upload|_medium|_thumb"))
                     {
-                        if (fileName.ToLower().Contains("front"))
+               
+                        #region pic matching
+                        if (fileName.ToLower().Contains("front") && requiredPics.Remove("front"))
+                        {
+                           
+                                GenerateVersions(fileName);
+                                string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
+                                //uploadPicCmds.Add("macro.AppendLine(@\"WAIT SECONDS=1)\"");
+
+                                uploadOrderedList.Add(1, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f1 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                    
+                            //macro.Insert(1,@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f1 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"FRAME NAME=iFileMan");
+                        }
+                        else if (fileName.ToLower().Contains("address") && requiredPics.Remove("address"))
                         {
                             GenerateVersions(fileName);
                             string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f1 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"WAIT SECONDS=1");
+                            //macro.Insert(2, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f2 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            uploadOrderedList.Add(2, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f2 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                         }
-                        else if (fileName.ToLower().Contains("address"))
+                        else if (fileName.ToLower().Contains("street") && requiredPics.Remove("street"))
                         {
                             GenerateVersions(fileName);
                             string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f2 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"WAIT SECONDS=1");
+                            //macro.Insert(3, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f3 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            uploadOrderedList.Add(3, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f3 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                         }
-                        else if (fileName.ToLower().Contains("street"))
+                        else if (fileName.ToLower().Contains("s1") && requiredPics.Remove("s1"))
                         {
                             GenerateVersions(fileName);
                             string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f3 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"WAIT SECONDS=1");
+                            //macro.Insert(4, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f4 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            uploadOrderedList.Add(4, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f4 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                         }
-                        else if (fileName.ToLower().Contains("s1"))
+                        else if (fileName.ToLower().Contains("s2") && requiredPics.Remove("s2"))
                         {
                             GenerateVersions(fileName);
                             string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f4 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"WAIT SECONDS=1");
+                            //macro.Insert(5,@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f5 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            uploadOrderedList.Add(5, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f5 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                         }
-                        else if (fileName.ToLower().Contains("s2"))
+                        else if (fileName.ToLower().Contains("s3") && requiredPics.Remove("s3"))
                         {
                             GenerateVersions(fileName);
                             string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f5 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"WAIT SECONDS=1");
+                            //macro.Insert(6,@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f6 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            uploadOrderedList.Add(6, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f6 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                         }
-                        else if (fileName.ToLower().Contains("s3"))
+                        else if (fileName.ToLower().Contains("l1") && requiredPics.Remove("l1"))
                         {
                             GenerateVersions(fileName);
                             string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f6 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"WAIT SECONDS=1");
+                           // macro.Insert(7,@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f7 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            uploadOrderedList.Add(7, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f7 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                         }
-                        else if (fileName.ToLower().Contains("l1"))
+                        else if (fileName.ToLower().Contains("l2") && requiredPics.Remove("l2"))
                         {
                             GenerateVersions(fileName);
                             string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f7 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"WAIT SECONDS=1");
+                            //macro.Insert(8, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f8 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            uploadOrderedList.Add(8, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f8 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                         }
-                        else if (fileName.ToLower().Contains("l2"))
+                        else if (fileName.ToLower().Contains("l3") && requiredPics.Remove("l3") )
                         {
                             GenerateVersions(fileName);
                             string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f8 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"WAIT SECONDS=1");
+                            //macro.Insert(9, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f9 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            uploadOrderedList.Add(9, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f9 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                         }
-                        else if (fileName.ToLower().Contains("l3"))
+                        else if (fileName.ToLower().Contains("right") && requiredPics.Remove("right") )
                         {
                             GenerateVersions(fileName);
                             string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f9 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"WAIT SECONDS=1");
+                            //macro.Insert(10,@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f10 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            uploadOrderedList.Add(10, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f10 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                         }
-                        else if (fileName.ToLower().Contains("right"))
+                        else if (fileName.ToLower().Contains("left") && requiredPics.Remove("left"))
                         {
                             GenerateVersions(fileName);
                             string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f10 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"WAIT SECONDS=1");
+                            //macro.Insert(11,@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f11 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
+                            uploadOrderedList.Add(11, @"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f11 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
                         }
-                        else if (fileName.ToLower().Contains("left"))
-                        {
-                            GenerateVersions(fileName);
-                            string fileToUpload = fileName.Replace(".jpg", "") + "_upload.jpg";
-                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:FileUploadForm ATTR=NAME:FileContent_f11 CONTENT=" + fileToUpload.Replace(" ", "<SP>"));
-                        }
+                        #endregion
+
                     }
                 }
 
+                for (int i = 1; i < 12; i++ )
+                {
+                    macro.AppendLine(uploadOrderedList[i]);
+                }
 
-
-                macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:Start<SP>Uploading...");
+                    macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:Start<SP>Uploading...");
+                macro.AppendLine(@"WAIT SECONDS=42");
                 macro.AppendLine(@"TAG POS=1 TYPE=NOBR ATTR=TXT:Save<SP>Changes");
                 macro.AppendLine(@"FRAME NAME=main");
                 macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:X");
@@ -1230,8 +1280,8 @@ namespace bpohelper
                 //macro.AppendLine(@"TAG POS=1 TYPE=A ATTR=ID:b_ManageFiles_close");
                 //macro.AppendLine(@"TAG POS=11 TYPE=A ATTR=CLASS:s_button");
 
-                string macroCode = macro.ToString();
-                status = iim2.iimPlayCode(macroCode, 30);
+                 macroCode = macro.ToString();
+                status = iim2.iimPlayCode(macroCode, 60);
             }
 
             #endregion

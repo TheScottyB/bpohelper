@@ -63,7 +63,7 @@
             this.subjectBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.button8 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.mredCmdComboBox = new System.Windows.Forms.ComboBox();
             this.button9 = new System.Windows.Forms.Button();
             this.subjectpin_textbox = new System.Windows.Forms.TextBox();
             this.order_prefill_button = new System.Windows.Forms.Button();
@@ -261,6 +261,10 @@
             this.button26 = new System.Windows.Forms.Button();
             this.numericUpDownRadius = new System.Windows.Forms.NumericUpDown();
             this.button27 = new System.Windows.Forms.Button();
+            this.button28 = new System.Windows.Forms.Button();
+            this.ignoreAgeCheckBox = new System.Windows.Forms.CheckBox();
+            this.subjectLandValueTextBox = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -484,7 +488,7 @@
             this.subjectBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.subjectBindingNavigator.Name = "subjectBindingNavigator";
             this.subjectBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.subjectBindingNavigator.Size = new System.Drawing.Size(1886, 25);
+            this.subjectBindingNavigator.Size = new System.Drawing.Size(1971, 25);
             this.subjectBindingNavigator.TabIndex = 17;
             this.subjectBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -626,19 +630,19 @@
             this.comboBox1.Visible = false;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.streetnameTextBox_TextChanged);
             // 
-            // comboBox2
+            // mredCmdComboBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.mredCmdComboBox.FormattingEnabled = true;
+            this.mredCmdComboBox.Items.AddRange(new object[] {
             "New Map Search",
             "Save 1 MI Stats",
             "SaveStats",
             "FindComps",
             "FindComps - Current Search"});
-            this.comboBox2.Location = new System.Drawing.Point(7, 121);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 21;
+            this.mredCmdComboBox.Location = new System.Drawing.Point(7, 121);
+            this.mredCmdComboBox.Name = "mredCmdComboBox";
+            this.mredCmdComboBox.Size = new System.Drawing.Size(121, 21);
+            this.mredCmdComboBox.TabIndex = 21;
             // 
             // button9
             // 
@@ -813,6 +817,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label48);
+            this.groupBox1.Controls.Add(this.subjectLandValueTextBox);
             this.groupBox1.Controls.Add(this.label47);
             this.groupBox1.Controls.Add(this.subjectAssessmentTextbox);
             this.groupBox1.Controls.Add(this.label46);
@@ -1045,7 +1051,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(300, 320);
+            this.label34.Location = new System.Drawing.Point(297, 322);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(25, 13);
             this.label34.TabIndex = 121;
@@ -1792,7 +1798,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 983);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1886, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1971, 22);
             this.statusStrip1.TabIndex = 52;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -1891,7 +1897,7 @@
             // 
             this.statusStrip2.Location = new System.Drawing.Point(0, 961);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(1886, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(1971, 22);
             this.statusStrip2.TabIndex = 95;
             this.statusStrip2.Text = "statusStrip2";
             // 
@@ -2382,13 +2388,14 @@
             this.tableAdapterManager.Neighboorhood_marketdataTableAdapter = null;
             this.tableAdapterManager.NrighborhoodTableAdapter = null;
             this.tableAdapterManager.Property_parametersTableAdapter = null;
+            this.tableAdapterManager.RawSFData1TableAdapter = null;
+            this.tableAdapterManager.RawSFData2TableAdapter = null;
+            this.tableAdapterManager.RawSFData3TableAdapter = null;
             this.tableAdapterManager.RawSFDataTableAdapter = null;
             this.tableAdapterManager.realist_2012_excel_2TableAdapter = null;
             this.tableAdapterManager.Realist_2012_no_phoneTableAdapter = null;
             this.tableAdapterManager.Realist_2012TableAdapter = null;
             this.tableAdapterManager.Realist_autoTableAdapter = null;
-            //this.tableAdapterManager.realist_excel_link_tableTableAdapter = null;
-           // this.tableAdapterManager.realist_excel_linkTableAdapter = null;
             this.tableAdapterManager.realist_excelTableAdapter = null;
             this.tableAdapterManager.Realist_manualTableAdapter = null;
             this.tableAdapterManager.subjectTableAdapter = this.subjectTableAdapter;
@@ -2416,13 +2423,14 @@
             this.tableAdapterManager1.Neighboorhood_marketdataTableAdapter = null;
             this.tableAdapterManager1.NrighborhoodTableAdapter = null;
             this.tableAdapterManager1.Property_parametersTableAdapter = null;
+            this.tableAdapterManager1.RawSFData1TableAdapter = null;
+            this.tableAdapterManager1.RawSFData2TableAdapter = null;
+            this.tableAdapterManager1.RawSFData3TableAdapter = null;
             this.tableAdapterManager1.RawSFDataTableAdapter = null;
             this.tableAdapterManager1.realist_2012_excel_2TableAdapter = null;
             this.tableAdapterManager1.Realist_2012_no_phoneTableAdapter = null;
             this.tableAdapterManager1.Realist_2012TableAdapter = null;
             this.tableAdapterManager1.Realist_autoTableAdapter = null;
-            //this.tableAdapterManager1.realist_excel_link_tableTableAdapter = null;
-            //this.tableAdapterManager1.realist_excel_linkTableAdapter = null;
             this.tableAdapterManager1.realist_excelTableAdapter = null;
             this.tableAdapterManager1.Realist_manualTableAdapter = null;
             this.tableAdapterManager1.subjectTableAdapter = null;
@@ -2442,13 +2450,14 @@
             this.tableAdapterManager2.Neighboorhood_marketdataTableAdapter = null;
             this.tableAdapterManager2.NrighborhoodTableAdapter = null;
             this.tableAdapterManager2.Property_parametersTableAdapter = null;
+            this.tableAdapterManager2.RawSFData1TableAdapter = null;
+            this.tableAdapterManager2.RawSFData2TableAdapter = null;
+            this.tableAdapterManager2.RawSFData3TableAdapter = null;
             this.tableAdapterManager2.RawSFDataTableAdapter = null;
             this.tableAdapterManager2.realist_2012_excel_2TableAdapter = null;
             this.tableAdapterManager2.Realist_2012_no_phoneTableAdapter = null;
             this.tableAdapterManager2.Realist_2012TableAdapter = null;
             this.tableAdapterManager2.Realist_autoTableAdapter = null;
-            //this.tableAdapterManager2.realist_excel_link_tableTableAdapter = null;
-            //this.tableAdapterManager2.realist_excel_linkTableAdapter = null;
             this.tableAdapterManager2.realist_excelTableAdapter = null;
             this.tableAdapterManager2.Realist_manualTableAdapter = null;
             this.tableAdapterManager2.subjectTableAdapter = null;
@@ -2570,6 +2579,43 @@
             this.button27.UseVisualStyleBackColor = true;
             this.button27.Click += new System.EventHandler(this.button27_Click);
             // 
+            // button28
+            // 
+            this.button28.Location = new System.Drawing.Point(186, 122);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(75, 23);
+            this.button28.TabIndex = 136;
+            this.button28.Text = "First Pass";
+            this.button28.UseVisualStyleBackColor = true;
+            this.button28.Click += new System.EventHandler(this.button28_Click);
+            // 
+            // ignoreAgeCheckBox
+            // 
+            this.ignoreAgeCheckBox.AutoSize = true;
+            this.ignoreAgeCheckBox.Location = new System.Drawing.Point(149, 193);
+            this.ignoreAgeCheckBox.Name = "ignoreAgeCheckBox";
+            this.ignoreAgeCheckBox.Size = new System.Drawing.Size(78, 17);
+            this.ignoreAgeCheckBox.TabIndex = 137;
+            this.ignoreAgeCheckBox.Text = "Ignore Age";
+            this.ignoreAgeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // subjectLandValueTextBox
+            // 
+            this.subjectLandValueTextBox.CausesValidation = false;
+            this.subjectLandValueTextBox.Location = new System.Drawing.Point(331, 315);
+            this.subjectLandValueTextBox.Name = "subjectLandValueTextBox";
+            this.subjectLandValueTextBox.Size = new System.Drawing.Size(76, 20);
+            this.subjectLandValueTextBox.TabIndex = 136;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(413, 322);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(61, 13);
+            this.label48.TabIndex = 137;
+            this.label48.Text = "Land Value";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2578,7 +2624,9 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1903, 874);
+            this.ClientSize = new System.Drawing.Size(1988, 874);
+            this.Controls.Add(this.ignoreAgeCheckBox);
+            this.Controls.Add(this.button28);
             this.Controls.Add(this.button27);
             this.Controls.Add(this.numericUpDownRadius);
             this.Controls.Add(this.button26);
@@ -2644,7 +2692,7 @@
             this.Controls.Add(this.mls_search_button);
             this.Controls.Add(this.search_address_textbox);
             this.Controls.Add(this.button9);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.mredCmdComboBox);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.subjectBindingNavigator);
@@ -2733,7 +2781,6 @@
         private System.Windows.Forms.ToolStripButton subjectBindingNavigatorSaveItem;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Button button9;
         private _BPO_SandboxDataSet1TableAdapters.BPOTableAdapter bpoTableAdapter1;
         private System.Windows.Forms.TextBox subjectpin_textbox;
@@ -2931,6 +2978,11 @@
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.TextBox subjectAssessmentTextbox;
         private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Button button28;
+        public System.Windows.Forms.ComboBox mredCmdComboBox;
+        private System.Windows.Forms.CheckBox ignoreAgeCheckBox;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.TextBox subjectLandValueTextBox;
     }
 
 }
