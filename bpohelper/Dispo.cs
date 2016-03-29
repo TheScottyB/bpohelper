@@ -316,6 +316,8 @@ namespace bpohelper
             macro.AppendLine(@"SET !TIMEOUT_STEP 0");
             macro.AppendLine(@"SET !REPLAYSPEED FAST");
 
+            macro.AppendLine(@"WAIT SECONDS=1");
+
            foreach (string field in fieldList.Keys)
            {
                if (field.Contains("*"))

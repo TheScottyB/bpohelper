@@ -39,6 +39,7 @@ using System.Xml.Schema;
 using System.Runtime.Serialization;
 using System.Web;
 using Newtonsoft.Json;
+using ImageResizer;
 
 
  public interface IYourForm
@@ -165,6 +166,9 @@ namespace bpohelper
             }
             else
             {
+                DialogResult response = AlertMessageWithCustomHelpWindow();
+
+                MessageBox.Show(response.ToString());
                 if (b1Url.Contains("about:blank"))
                 {
                     iim = browser1;
@@ -262,6 +266,71 @@ namespace bpohelper
         //
         //Helpers
         //
+
+        // Display a message box with a Help button. Show a custom Help window
+        // by handling the HelpRequested event.
+        private DialogResult AlertMessageWithCustomHelpWindow()
+        {
+            // Handle the HelpRequested event for the following message.
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Form1_HelpRequested);
+
+            this.Tag = "Message with Help button.";
+
+            // Show a message box with OK and Help buttons.
+            DialogResult r = MessageBox.Show("Message with Help button.",
+                                              "Help Caption", MessageBoxButtons.OK,
+                                              MessageBoxIcon.Question,
+                                              MessageBoxDefaultButton.Button1,
+                                              0, true);
+
+            // Remove the HelpRequested event handler to keep the event
+            // from being handled for other message boxes.
+            this.HelpRequested -= new System.Windows.Forms.HelpEventHandler(this.Form1_HelpRequested);
+
+            // Return the dialog box result.
+            return r;
+        }
+
+        private void Form1_HelpRequested(System.Object sender, System.Windows.Forms.HelpEventArgs hlpevent)
+        {
+            // Create a custom Help window in response to the HelpRequested event.
+            System.Windows.Forms.Form helpForm = new System.Windows.Forms.Form();
+
+            // Set up the form position, size, and title caption.
+            helpForm.StartPosition = FormStartPosition.Manual;
+            helpForm.Size = new Size(200, 400);
+            helpForm.DesktopLocation = new Point(this.DesktopBounds.X +
+                                                  this.Size.Width,
+                                                  this.DesktopBounds.Top);
+            helpForm.Text = "Help Form";
+
+            // Create a label to contain the Help text.
+            System.Windows.Forms.Label helpLabel = new System.Windows.Forms.Label();
+
+            // Add the label to the form and set its text.
+            helpForm.Controls.Add(helpLabel);
+            helpLabel.Dock = DockStyle.Fill;
+
+            // Use the sender parameter to identify the context of the Help request.
+            // The parameter must be cast to the Control type to get the Tag property.
+            System.Windows.Forms.Control senderControl = sender as System.Windows.Forms.Control;
+
+            helpLabel.Text = "Help information shown in response to user action on the '" +
+                              (string)senderControl.Tag + "' message.";
+
+            // Set the Help form to be owned by the main form. This helps
+            // to ensure that the Help form is disposed of.
+            this.AddOwnedForm(helpForm);
+
+            // Show the custom Help window.
+            helpForm.Show();
+
+            // Indicate that the HelpRequested event is handled.
+            hlpevent.Handled = true;
+        }
+
+
+
         private void LoadMlsTypeList(TypeDetachedList tdl)
         {
             subjectMlsTypecomboBox.Items.Clear();
@@ -405,6 +474,18 @@ namespace bpohelper
 
 
 
+            if (currentUrl.ToLower().Contains("insidevaluation"))
+            {
+
+                comp_name_list[0] = "5";
+                comp_name_list[1] = "6";
+                comp_name_list[2] = "7";
+                active_name_list[0] = "2";
+                active_name_list[1] = "3";
+                active_name_list[2] = "4";
+
+            }
+
             if (currentUrl.ToLower().Contains("solutionstar.gatorsasp.com"))
             {
 
@@ -466,7 +547,7 @@ namespace bpohelper
 
             }
 
-            if (streetnumTextBox.Text == "vp")
+           if (currentUrl.ToLower().Contains("valuationpartners"))
             {
 
                 comp_name_list[0] = "COMP1";
@@ -523,7 +604,7 @@ namespace bpohelper
                 
             }
 
-            if (currentUrl.ToLower().Contains("dispo"))
+            if (currentUrl.ToLower().Contains("exceleras"))
             {
                 comp_name_list[0] = "0";
                 comp_name_list[1] = "1";
@@ -770,7 +851,7 @@ namespace bpohelper
                  bool fullBasement = false;
                  bool partialBasement = false;
 
-                 if (basement.Contains("Full") || basement.Contains("English"))
+                 if (basement.Contains("Full") || basement.Contains("English") || basement.Contains("Walkout"))
                      fullBasement = true;
                  if (basement.Contains("Partial"))
                  {
@@ -1251,12 +1332,16 @@ namespace bpohelper
                         string realist_lot_size = "0";
                         realist_lot_size = match.Groups[1].Value;
                         realist_lotAcres = realist_lot_size;
+                        double x = -1;
 
+                        Double.TryParse(realist_lot_size, out x);
+                        m.RealistLotSize = x;
                         //MessageBox.Show("MLS Lot: " + mls_lot_size + " " + "Realist Lot Size:" + realist_lot_size);
 
                         if (mls_lot_size == "0" | mls_lot_size == "")
                         {
                             mls_lot_size = realist_lot_size;
+                            
                         }
 
                         pattern = "Building Above Grade Sq Ft:#NEXT#([^#]+)";
@@ -1264,6 +1349,12 @@ namespace bpohelper
 
 
                         realist_gla = match.Groups[1].Value;
+
+                         int xi = -1;
+
+                         Int32.TryParse(realist_gla, out xi);
+                        m.RealistGLA = xi;
+
 
                         //MessageBox.Show("MLS GLA: " + mls_gla + " " + "Realist GLA:" + realist_gla);
                         if (match.Success)
@@ -1365,7 +1456,7 @@ namespace bpohelper
 
                     }
 
-                    if (mls_lot_size == "0" | mls_lot_size == "")
+                    if (mls_lot_size == "0" | mls_lot_size == "" | mls_lot_size == "-1")
                     {
                         mls_lot_size = realist_lotAcres;
                         double x;
@@ -1380,11 +1471,11 @@ namespace bpohelper
                     }
                     else
                     {
-                        if (mls_gla == "0" | mls_gla == "")
+                        if (mls_gla == "0" | mls_gla == "" | mls_gla == "-1")
                         {
                             mls_gla = realist_gla;
                             int x;
-                            Int32.TryParse("mls_gla", out x);
+                            Int32.TryParse(mls_gla, out x);
                             m.GLA = x;
                         }
                     }
@@ -1464,6 +1555,62 @@ namespace bpohelper
 
                 // Perform the increment on the ProgressBar.
 
+                //
+                //inside valuation - First Pass
+                //
+                #region insideval
+                if (currentUrl.ToLower().Contains("insidevaluation"))
+                {
+                    #region code
+
+                    //s = iim.iimPlayCode(macro12.ToString());
+                    //htmlCode = iim.iimGetLastExtract();
+                    //if (subjectAttachedRadioButton.Checked)
+                    //{
+                    //    m = new AttachedListing(htmlCode);
+                    //}
+                    //else if (subjectDetachedradioButton.Checked)
+                    //{
+                    //    m = new DetachedListing(htmlCode);
+                    //}
+                    //else
+                    //{
+                    //    m = new MLSListing(htmlCode);
+                    //}
+
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
+                    m.NumberOfPriceChanges = count;
+
+                    Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                    InsideValuation bpoform = new InsideValuation(m);
+
+                    fieldList.Add("filepath", SubjectFilePath);
+
+                    #endregion
+
+                    #region basementlogic
+
+
+
+
+                    #endregion
+
+                    #region garagelogic
+
+                    #endregion
+
+                    #region fireplacelogic
+
+                    #endregion
+
+
+                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
+                    status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
+
+                }
+
+                #endregion  
 
                 //
                 //REOcBPO - First Pass
@@ -1692,11 +1839,13 @@ namespace bpohelper
                 //Dispo
                 //
                 #region Dispo
-                if (currentUrl.ToLower().Contains("dispo"))
+                if (currentUrl.ToLower().Contains("exceleras"))
                 {
                     #region code
                     Dictionary<string, string> fieldList = new Dictionary<string, string>();
                     Dispo bpoform = new Dispo();
+
+                    fieldList.Add("MlsNumber", mlsnum);
 
                     fieldList.Add("Address_StreetAddress", full_street_address);
                     fieldList.Add("Address_City", city);
@@ -3292,7 +3441,7 @@ namespace bpohelper
 
 
                 #region valuationPartners
-                if (streetnumTextBox.Text == "vp")
+                if (currentUrl.ToLower().Contains("valuationpartners"))
                 {
 
                     StringBuilder macro = new StringBuilder();
@@ -3306,9 +3455,11 @@ namespace bpohelper
 
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "SALEDT CONTENT=" + closed_date);
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "SALESPRICE CONTENT=" + sold_price);
-                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "SRCFUNDS CONTENT=Conventional");
+                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "SRCFUNDS CONTENT=" + m.FinancingMlsString.Replace(" ", "<SP>"));
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "ORIGPRICE CONTENT=" + orig_list_price);
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "LISTPRICE CONTENT=" + current_list_price);
+                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=NAME:txt" + input_comp_name + "ORIGLISTINGDT CONTENT=" + m.ListDateString);
+                       
 
                     }
                     else
@@ -3318,23 +3469,26 @@ namespace bpohelper
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "ZIP CONTENT=" + zip);
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "ORGPRICE CONTENT=" + orig_list_price);
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "LISTINGPRICE CONTENT=" + current_list_price);
+                        macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=NAME:txt" + input_comp_name + "ORGLISTINGDT CONTENT=" + m.ListDateString);
                     }
+
+
 
                      macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "DATA CONTENT=MLS");
 
-                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "PROXIMITY");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "PROXIMITY CONTENT=" + m.ProximityToSubject);
 
                     
                    
                     
                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "MARKETDAYS CONTENT=" + dom);
                   
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "SCONCESSION CONTENT=0");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "DISTRESSEDSALE CONTENT=No");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "HOAASSESSMENT CONTENT=0");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "SCONCESSION CONTENT=" + m.PointsMlsString);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "DISTRESSEDSALE CONTENT=" + m.DistressedSaleYesNo());
+                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "HOAASSESSMENT CONTENT=" + m.);
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "LIVINGSQFT CONTENT=" + mls_gla);
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "AGEYRS CONTENT=" + age);
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "LOTSIZE CONTENT=" + mls_lot_size);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "LOTSIZE CONTENT=" + m.Lotsize);
                     //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "SITE");
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "ROOMTOT CONTENT=" + room_count);
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "BEDROOMS CONTENT=" + bedrooms);
@@ -3345,14 +3499,22 @@ namespace bpohelper
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "VIEWCOMPARISON CONTENT=Equal");
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "NUMUNITS CONTENT=1");
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "BASEMENTTYPE CONTENT=" + basement.Replace(" ", "<SP>"));
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "BASEMENT CONTENT=");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "BASEMENTFIN CONTENT=100");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "GARAGE CONTENT=Garage");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "GARAGENUMCARS CONTENT=");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "BASEMENT CONTENT=" + m.BasementGLA());
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "BASEMENTFIN CONTENT=" + m.BasementFinishedPercentage());
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "GARAGE CONTENT=" + m.GarageType());
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "GARAGENUMCARS CONTENT=" + m.NumberGarageStalls());
                     macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "POOL CONTENT=N/A");
-                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "CONDITION CONTENT=Good");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txt" + input_comp_name + "CONDITION CONTENT=AVG");
                     macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form1 ATTR=ID:ddl" + input_comp_name + "MOSTCOMPARABLE CONTENT=%Equal");
 
+
+                    string b = "Similar size, age, style, features, condition and neighborhood as subject. ".Replace(" ", "<SP>");
+                    macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:form1 ATTR=NAME:txtCOMMENTSALESCOMPARE CONTENT=" + b);
+                    macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:form1 ATTR=NAME:txtCOMMENTSALESCOMPARE2 CONTENT=" + b);
+                    macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:form1 ATTR=NAME:txtCOMMENTSALESCOMPARE3 CONTENT=" + b);
+                    macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:form1 ATTR=NAME:txtANALYSISLISTINGDATA CONTENT=" + b);
+                    macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:form1 ATTR=NAME:txtANALYSISLISTINGDATA2 CONTENT=" + b);
+                    macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:form1 ATTR=NAME:txtANALYSISLISTINGDATA3 CONTENT=" + b);
                         
                         macroCode = macro.ToString();
 
@@ -5788,7 +5950,7 @@ namespace bpohelper
 
 
 
-
+                    
 
 
 
@@ -5947,6 +6109,14 @@ namespace bpohelper
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string s = Properties.Settings.Default.BPO_SandboxConnectionString1;
+            //MessageBox.Show(s);
+
+            AppDomain.CurrentDomain.SetData("DataDirectory",DropBoxFolder + @"\BPOs\");
+
+            //MessageBox.Show(s);
+
+            //Properties.Settings.Default.BPO_SandboxConnectionString1 = DropBoxFolder + @"\BPOs\";
             // TODO: This line of code loads data into the '_BPO_SandboxDataSet1.RawSFData' table. You can move, or remove it, as needed.
             this.rawSFDataTableAdapter.Fill(this._BPO_SandboxDataSet.RawSFData);
             
@@ -5989,12 +6159,10 @@ namespace bpohelper
                     comboBox4.Items.Add(tal.mlsTypeAttached[key]);
                 }
             }
-
         }
 
         private void order_prefill_button_Click(object sender, EventArgs e)
         {
-
             StringBuilder macro = new StringBuilder();
             DataTable subject_table = subjectTableAdapter.GetData();
             //iMacros.App bpoForm = new iMacros.App();
@@ -6009,6 +6177,15 @@ namespace bpohelper
             string currentUrl = iim2.iimGetLastExtract();
 
             //MessageBox.Show(currentUrl);
+
+            #region inside valuation
+            if (currentUrl.ToLower().Contains("insidevaluation"))
+            {
+                InsideValuation bpoform = new InsideValuation();
+                streetnumTextBox.Text = "InsideVal";
+                bpoform.Prefill(iim2, this);
+            }
+            #endregion
 
             #region solutionstar
             if (currentUrl.ToLower().Contains("solutionstar.gatorsasp.com"))
@@ -6149,7 +6326,6 @@ namespace bpohelper
             }
             #endregion
 
-
             #region AVM
             if (currentUrl.ToLower().Contains("avm.assetval.com"))
             {
@@ -6159,9 +6335,8 @@ namespace bpohelper
             }
             #endregion
 
-
             #region dispo
-            if (currentUrl.ToLower().Contains("disposolutions"))
+            if (currentUrl.ToLower().Contains("exceleras"))
             {
                 Dispo bpoform = new Dispo();
                 streetnumTextBox.Text = "dispo";
@@ -6198,7 +6373,6 @@ namespace bpohelper
             }
             #endregion  
 
-
             #region equitrax
             if (currentUrl.ToLower().Contains("equi-trax"))
             {
@@ -6207,7 +6381,6 @@ namespace bpohelper
                 bpoform.Prefill(iim2, this);
             }
             #endregion  
-
             //
             //LRES - Lighthouse
             //
@@ -6221,7 +6394,6 @@ namespace bpohelper
 
 
             #endregion
-
             //
             //Emort
             //
@@ -6233,7 +6405,6 @@ namespace bpohelper
                 emort.Prefill(iim2, this);
             }
             #endregion  
-
             //
             //BrokerPriceOpinion.com PCR
             //
@@ -6427,7 +6598,6 @@ namespace bpohelper
             }
 
             #endregion
-
 
             #region sls
             if (streetnumTextBox.Text == "sls")
@@ -6658,7 +6828,6 @@ namespace bpohelper
 
             #endregion
 
-
             #region m2m
 
 
@@ -6763,7 +6932,7 @@ namespace bpohelper
 
             #region vp
 
-            if (streetnumTextBox.Text == "vp")
+            if (currentUrl.ToLower().Contains("valuationpartners"))
             {
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtREVIEWDESC CONTENT=Exterior");
                
@@ -6793,9 +6962,10 @@ namespace bpohelper
                 //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtLISTBROKERCONAME");
                 //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtLISTBROKERPHONE");
                 macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form1 ATTR=ID:ddlCURRENTOCCUPANT CONTENT=%Owner");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtREPORTDT CONTENT=7/3/12");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtREPORTDT CONTENT=" + DateTime.Now.ToShortDateString());
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:form1 ATTR=ID:rbREVIEWTYPE1&&VALUE:EXTERIOR CONTENT=YES");
-                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:form1 ATTR=ID:txtREVIEWSUBJECTCOMMENTS CONTENT=Located<SP>within<SP>an<SP>area<SP>of<SP>maintained<SP>homes,<SP>subject<SP>conforms.<SP>No<SP>repairs<SP>noted<SP>from<SP>drive-by.<SP>Typical<SP>construction<SP>for<SP>area.");
+                string subjectComments = "The subject is a conforming home within the neighborhood. No adverse conditions were noted at the time of inspection based on exterior observations. Unable to determine interior condition due to exterior inspection only, so subject was assumed to be in average condition for this report.".Replace(" ", "<SP>");
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:form1 ATTR=ID:txtREVIEWSUBJECTCOMMENTS CONTENT=" + subjectComments);
                 macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form1 ATTR=ID:ddlLOCATION CONTENT=%Suburban");
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:form1 ATTR=ID:rbOCCUPANCYOWNER1&&VALUE:Owner CONTENT=YES");
                 macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form1 ATTR=ID:ddlPROPVALUES CONTENT=%Stable");
@@ -6830,11 +7000,11 @@ namespace bpohelper
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtSUBJECTNUMUNITS CONTENT=1");
 
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtSUBJECTBASEMENTTYPE CONTENT=" + subjectBasementTypeTextbox.Text.Replace(" ", "<SP>"));
-               // macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtSUBJECTBASEMENT");
-               // macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtSUBJECTBASEMENTFIN");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtSUBJECTBASEMENT CONTENT=" + SubjectBasementGLA);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtSUBJECTBASEMENTFIN CONTENT=" + SubjectBasementFinishedGLA);
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtSUBJECTGARAGE CONTENT=" + subjectParkingTypeTextbox.Text.Replace(" ", "<SP>"));
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtSUBJECTGARAGENUMCARS");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtSUBJECTCONDITION");
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtSUBJECTGARAGENUMCARS CONTENT=" + Regex.Match(SubjectParkingType, @"/d").Value);
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtSUBJECTCONDITION CONTENT=Avg");
                 //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtNUMCOMPLISTINGS CONTENT=2");
                 //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtCOMPLISTINGPRICELOW");
                 //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtNUMCOMPLISTINGS CONTENT=3");
@@ -6844,13 +7014,15 @@ namespace bpohelper
                 //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtCOMPSALESPRICELOW CONTENT=650000");
                 //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form1 ATTR=ID:txtCOMPSALESPRICEHIGH CONTENT=650000");
                 //macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:form1 ATTR=ID:txtREVIEWNBRHOODDESC CONTENT=Secluded/Isolated<SP>Area.<SP><SP>Rural<SP>like,<SP>but<SP>close<SP>to<SP>amenitites.");
-                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:form1 ATTR=ID:txtMARKETCONDITIONS CONTENT=Area<SP>of<SP>limited<SP>buyer<SP>demand<SP>with<SP>high<SP>invertory.");
+                
+                string subjectMarketComments = "Stable market with about 20% REO sales mixed with short sales and traditional. High demand under 150k. Seller concessions are not typical for the area.".Replace(" ","<SP>");
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:form1 ATTR=ID:txtMARKETCONDITIONS CONTENT=" + subjectMarketComments);
+
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:form1 ATTR=ID:SaveWork11&&VALUE:Save<SP>Work");
 
             }
 
             #endregion vp
-
 
             #region usres prefill
 
@@ -7008,8 +7180,6 @@ namespace bpohelper
             }
 
             #endregion
-
-
 
             #region imort prefill
             if (currentUrl.ToLower().Contains("propertysmart"))
@@ -10326,6 +10496,37 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             this.button13_Click(this, new EventArgs());
         }
 
+        private void button29_Click(object sender, EventArgs e)
+        {
+            Dictionary<string, string> versions = new Dictionary<string, string>();
+            //Define the versions to generate and their filename suffixes.
+            //versions.Add("_thumb", "width=100&height=100&crop=auto&format=jpg"); //Crop to square thumbnail
+            //versions.Add("_small", "maxwidth=200&maxheight=200format=jpg"); //Fit inside 400x400 area, jpeg
+            versions.Add("_upload", "maxwidth=640&maxheight=480format=jpg"); //Fit inside 400x400 area, jpeg
+            // versions.Add("_large", "maxwidth=1900&maxheight=1900&format=jpg"); //Fit inside 1900x1200 area
+
+
+            //string basePath = ImageResizer.Util.PathUtils.RemoveExtension(original);
+            string basePath = SubjectFilePath;
+
+            //To store the list of generated paths
+            List<string> generatedFiles = new List<string>();
+
+
+
+            foreach (string pic in Directory.GetFiles(basePath,"*.jpg"))
+            {
+                basePath = ImageResizer.Util.PathUtils.RemoveExtension(pic);
+                //Generate each version
+                foreach (string suffix in versions.Keys)
+                    //Let the image builder add the correct extension based on the output file type
+                    generatedFiles.Add(ImageBuilder.Current.Build(pic, basePath + suffix,
+                     new ResizeSettings(versions[suffix]), false, true));
+            }
+
+           
+        }
+
        
        
 
@@ -10519,7 +10720,15 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
             string pattern = @"Ax*mount:\$(\d+,*\d*.\d*)";
             MatchCollection mc = Regex.Matches(s, pattern);
-            assessmentAmount = mc[0].Groups[1].Value;
+            try
+            {
+                assessmentAmount = mc[0].Groups[1].Value;
+            }
+            catch
+            {
+                assessmentAmount = "-1";
+            }
+           
             try
             {
                 mlsTaxAmount = mc[1].Groups[1].Value;

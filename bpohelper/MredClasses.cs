@@ -50,6 +50,8 @@ namespace bpohelper
             {
                 
                  {"address", new MREDHtmlField("Address:")},
+
+                 {"schoolDistrict", new MREDHtmlField("High&nbsp;School:")},
               
                  {"additionalSalesInfo", new MREDHtmlField("Addl.&nbsp;Sales&nbsp;Info.:")}, 
                  
@@ -893,6 +895,14 @@ namespace bpohelper
                 get { return intMlsTotalRooms; }
             }
 
+             public string YearBuiltString
+             {
+                 get
+                 {
+                     return mlsHtmlFields["yearBulit"].value;
+                 }
+             }
+
             public int YearBuilt
             {
                 get
@@ -901,11 +911,11 @@ namespace bpohelper
 
                     Int32.TryParse(mlsHtmlFields["yearBulit"].value, out x);
 
-                    if (x==-1)
-                    { 
-                        x = this.RealistGLA; 
+                    //if (x==-1)
+                    //{ 
+                    //    x = this.RealistGLA; 
 
-                    }
+                    //}
 
                     return x;
                 }
@@ -931,6 +941,11 @@ namespace bpohelper
             }
 
             #endregion
+
+            public string SchoolDistrict
+            {
+                get { return mlsHtmlFields["schoolDistrict"].value; }
+            }
 
             public string MredParkingString
             {
@@ -990,7 +1005,7 @@ namespace bpohelper
                 {
                     int x = -1;
 
-                    Int32.TryParse(realistGla, out x);
+                    Int32.TryParse(this.realistGla, out x);
                     return x;
                 }
                 set { realistGla = value.ToString(); }
@@ -1003,7 +1018,7 @@ namespace bpohelper
                     int x = -1;
                     string s = mlsHtmlFields["mlsGla"].value;
                     Int32.TryParse(s, out x);
-                    if (x == -1)
+                    if (x == -1 || x == 0)
                     { x = this.RealistGLA; }
                     return x;
 
@@ -1051,6 +1066,10 @@ namespace bpohelper
                     double x = -1;
                     string s = mlsHtmlFields["acerage"].value;
                     Double.TryParse(s, out x);
+                    if (x == -1)
+                    {
+                        x = this.RealistLotSize;
+                    }
                     return x;
 
                 }

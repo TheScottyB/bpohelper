@@ -110,13 +110,13 @@ namespace bpohelper
             }
 
              theMacro.AppendLine(@"TAG POS=" + positionNumber.ToString() + " TYPE=INPUT:BUTTON FORM=NAME:aspnetForm ATTR=CLASS:btnBlue");
-             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$txtCompAddress CONTENT=" + targetComp.StreetAddress.Replace(" ", "<SP>"));
-             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$txtCompCity CONTENT=" + targetComp.City.Replace(" ", "<SP>"));
-             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$txtCompZip CONTENT=" + targetComp.Zipcode.Replace(" ", "<SP>"));
-             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$btnGetProximity");
+             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$txtCompAddress CONTENT=" + targetComp.StreetAddress.Replace(" ", "<SP>"));
+             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$txtCompCity CONTENT=" + targetComp.City.Replace(" ", "<SP>"));
+             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$txtCompZip CONTENT=" + targetComp.Zipcode.Replace(" ", "<SP>"));
+             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$btnGetProximity");
              theMacro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
              theMacro.AppendLine(@"WAIT SECONDS=1");
-             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$btnAcceptProximity");
+             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$btnAcceptProximity");
       
          }
 
@@ -242,7 +242,7 @@ namespace bpohelper
                 //none
                     //if anything checked, comments
 
-          //  TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sub_apn CONTENT=ttt
+          //  TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_apn CONTENT=ttt
             foreach (string field in subjectFieldList.Keys)
             {
                 if (field.Contains("*"))
@@ -253,7 +253,7 @@ namespace bpohelper
                 {
                     //orignal way using * instead of C
                     //macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:*{0}{1}_{2} CONTENT={3}\r\n", sol, field, Regex.Match(compNum, @"\d").Value, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
-                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21${0} CONTENT={1}\r\n", field, subjectFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*${0} CONTENT={1}\r\n", field, subjectFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
                 }
 
 
@@ -350,20 +350,55 @@ namespace bpohelper
         {
             
             StringBuilder macro = new StringBuilder();
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$owner_name CONTENT=" + form.SubjectOOR.Replace(" ", "<SP>"));
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sub_apn CONTENT=" + form.SubjectOOR.Replace(" ", "<SP>"));
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$owner_name CONTENT=" + form.SubjectOOR.Replace(" ", "<SP>"));
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_apn CONTENT=" + form.SubjectPin.Replace(" ", "<SP>"));
 
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$fair_mkt_rent CONTENT=" + form.SubjectRent.Replace(" ", "<SP>"));
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$fair_mkt_rent CONTENT=" + form.SubjectRent.Replace(" ", "<SP>"));
 
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sub_zone_class CONTENT=SFR");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sub_zone_desc CONTENT=Residential");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sub_currentuse CONTENT=SFR");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sub_zone_high CONTENT=%Y");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sale_dt");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$sale_price");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$currently_listed_yn CONTENT=%N");
-            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$prev_listed_yn CONTENT=%N");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV21$chkRFDamaged CONTENT=NO");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_zone_class CONTENT=SFR");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_zone_desc CONTENT=Residential");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_currentuse CONTENT=SFR");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_zone_high CONTENT=%Y");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sale_dt");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sale_price");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$currently_listed_yn CONTENT=%N");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$prev_listed_yn CONTENT=%N");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$chkRFDamaged CONTENT=NO");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$property_type CONTENT=%SF");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_secure CONTENT=%Y");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$vacant_yn CONTENT=%N");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_zone_comp CONTENT=%L");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_illegal_units CONTENT=%N");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$chkRFNone CONTENT=YES");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_units CONTENT=1");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_sqft CONTENT=" + form.SubjectAboveGLA);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_rooms CONTENT=" + form.SubjectRoomCount);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_bed CONTENT=" + form.SubjectBedroomCount);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_bath CONTENT=" + form.SubjectBathroomCount.Split('.')[0]);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_partial_bath CONTENT=" + form.SubjectBathroomCount.Split('.')[1]);
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_bsmt_fin_yn CONTENT=%F");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_yr_built CONTENT=" + form.SubjectYearBuilt);
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_lotsize CONTENT=" + form.SubjectLotSize);
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_lotsize_unit CONTENT=%A");
+            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$pt_category CONTENT=YES");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_sqft_bg CONTENT=" + form.SubjectBasementGLA);
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$condition CONTENT=%A");
+            //macro.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:aspnetForm ATTR=TXT:Close");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$ddTypeLocation CONTENT=%S");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_garage_carport CONTENT=%A");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_garage CONTENT=" + Regex.Match(form.SubjectParkingType, @"/d").Value);
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_parking CONTENT=%D");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_style CONTENT=%R");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_construction CONTENT=%F");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_view CONTENT=%R");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$ddTypeSource CONTENT=%M");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_waterfront CONTENT=%N");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_gated CONTENT=%N");
+            macro.AppendLine(@"TAG POS=1 TYPE=TD FORM=NAME:aspnetForm ATTR=TXT:Public<SP>Sewer<SP>Septic");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_wastedisp CONTENT=%P");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_watersource CONTENT=%P");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_fireplace CONTENT=%0");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_pool CONTENT=%N");
             string macroCode = macro.ToString();
             iim.iimPlayCode(macroCode, 60);
 

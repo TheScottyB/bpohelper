@@ -83,6 +83,8 @@
             this.subject_school_textbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.subjectLandValueTextBox = new System.Windows.Forms.TextBox();
             this.label47 = new System.Windows.Forms.Label();
             this.subjectAssessmentTextbox = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
@@ -263,8 +265,7 @@
             this.button27 = new System.Windows.Forms.Button();
             this.button28 = new System.Windows.Forms.Button();
             this.ignoreAgeCheckBox = new System.Windows.Forms.CheckBox();
-            this.subjectLandValueTextBox = new System.Windows.Forms.TextBox();
-            this.label48 = new System.Windows.Forms.Label();
+            this.button29 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -922,6 +923,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Subject Info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(413, 322);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(61, 13);
+            this.label48.TabIndex = 137;
+            this.label48.Text = "Land Value";
+            // 
+            // subjectLandValueTextBox
+            // 
+            this.subjectLandValueTextBox.CausesValidation = false;
+            this.subjectLandValueTextBox.Location = new System.Drawing.Point(331, 315);
+            this.subjectLandValueTextBox.Name = "subjectLandValueTextBox";
+            this.subjectLandValueTextBox.Size = new System.Drawing.Size(76, 20);
+            this.subjectLandValueTextBox.TabIndex = 136;
             // 
             // label47
             // 
@@ -2599,22 +2617,15 @@
             this.ignoreAgeCheckBox.Text = "Ignore Age";
             this.ignoreAgeCheckBox.UseVisualStyleBackColor = true;
             // 
-            // subjectLandValueTextBox
+            // button29
             // 
-            this.subjectLandValueTextBox.CausesValidation = false;
-            this.subjectLandValueTextBox.Location = new System.Drawing.Point(331, 315);
-            this.subjectLandValueTextBox.Name = "subjectLandValueTextBox";
-            this.subjectLandValueTextBox.Size = new System.Drawing.Size(76, 20);
-            this.subjectLandValueTextBox.TabIndex = 136;
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(413, 322);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(61, 13);
-            this.label48.TabIndex = 137;
-            this.label48.Text = "Land Value";
+            this.button29.Location = new System.Drawing.Point(1557, 165);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(116, 29);
+            this.button29.TabIndex = 138;
+            this.button29.Text = "Resize ALL SB";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
             // Form1
             // 
@@ -2625,6 +2636,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1988, 874);
+            this.Controls.Add(this.button29);
             this.Controls.Add(this.ignoreAgeCheckBox);
             this.Controls.Add(this.button28);
             this.Controls.Add(this.button27);
@@ -2983,6 +2995,7 @@
         private System.Windows.Forms.CheckBox ignoreAgeCheckBox;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.TextBox subjectLandValueTextBox;
+        private System.Windows.Forms.Button button29;
     }
 
 }

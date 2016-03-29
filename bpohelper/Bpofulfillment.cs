@@ -139,7 +139,8 @@ namespace bpohelper
             //{"WAY", "Way"}
            
         };
-
+        protected Dictionary<string, string> subjectTextFieldList = new Dictionary<string, string>();
+        protected Dictionary<string, string> subjectSelectionBoxList = new Dictionary<string, string>();
         protected Dictionary<string, string> compTextFieldList = new Dictionary<string, string>();
         protected Dictionary<string, string> compSelectionBoxList = new Dictionary<string, string>();
         protected Dictionary<string, string> compRadioButtonList = new Dictionary<string, string>();
