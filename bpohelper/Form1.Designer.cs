@@ -202,6 +202,26 @@
             this.recheckLastSearchbutton = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.neighborhoodDataGroupBox = new System.Windows.Forms.GroupBox();
+            this.label86 = new System.Windows.Forms.Label();
+            this.ndMedianListPriceTextBox = new System.Windows.Forms.TextBox();
+            this.label87 = new System.Windows.Forms.Label();
+            this.ndMedianSalePriceTextBox = new System.Windows.Forms.TextBox();
+            this.label84 = new System.Windows.Forms.Label();
+            this.ndMedianAgeTextBox = new System.Windows.Forms.TextBox();
+            this.label75 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
+            this.label77 = new System.Windows.Forms.Label();
+            this.label78 = new System.Windows.Forms.Label();
+            this.ndNewestHomeTextBox = new System.Windows.Forms.TextBox();
+            this.label79 = new System.Windows.Forms.Label();
+            this.label80 = new System.Windows.Forms.Label();
+            this.ndOldestHomeTextBox = new System.Windows.Forms.TextBox();
+            this.label67 = new System.Windows.Forms.Label();
+            this.label68 = new System.Windows.Forms.Label();
+            this.ndMaxListPriceTextBox = new System.Windows.Forms.TextBox();
+            this.label69 = new System.Windows.Forms.Label();
+            this.ndMinListPriceTextBox = new System.Windows.Forms.TextBox();
+            this.ndPreserveData = new System.Windows.Forms.CheckBox();
             this.percentDistressedSoldListingsLabel = new System.Windows.Forms.Label();
             this.percentSoldShortListingLabel = new System.Windows.Forms.Label();
             this.percentSoldReoListingLabel = new System.Windows.Forms.Label();
@@ -266,6 +286,52 @@
             this.button28 = new System.Windows.Forms.Button();
             this.ignoreAgeCheckBox = new System.Windows.Forms.CheckBox();
             this.button29 = new System.Windows.Forms.Button();
+            this.button30 = new System.Windows.Forms.Button();
+            this.compDataGroupBox = new System.Windows.Forms.GroupBox();
+            this.label88 = new System.Windows.Forms.Label();
+            this.cdMedianListPriceTextBox = new System.Windows.Forms.TextBox();
+            this.label89 = new System.Windows.Forms.Label();
+            this.cdMedianSalePriceTextBox = new System.Windows.Forms.TextBox();
+            this.label85 = new System.Windows.Forms.Label();
+            this.cdMedianAgeTextBox = new System.Windows.Forms.TextBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.label82 = new System.Windows.Forms.Label();
+            this.cdNewestHomeTextBox = new System.Windows.Forms.TextBox();
+            this.label83 = new System.Windows.Forms.Label();
+            this.cdOldestHomeTextBox = new System.Windows.Forms.TextBox();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
+            this.cdMaxListPriceTextBox = new System.Windows.Forms.TextBox();
+            this.label72 = new System.Windows.Forms.Label();
+            this.cdMinListPriceTextBox = new System.Windows.Forms.TextBox();
+            this.label73 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
+            this.cdPreserveData = new System.Windows.Forms.CheckBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.cdNumberSoldShortListingsTextBox = new System.Windows.Forms.TextBox();
+            this.label56 = new System.Windows.Forms.Label();
+            this.cdNumberSoldReoListingsTextBox = new System.Windows.Forms.TextBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.cdNumberOfSoldListingTextBox = new System.Windows.Forms.TextBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
+            this.cdNumberActiveShortListingsTextBox = new System.Windows.Forms.TextBox();
+            this.label62 = new System.Windows.Forms.Label();
+            this.cdNumberActiveReoListingsTextBox = new System.Windows.Forms.TextBox();
+            this.label63 = new System.Windows.Forms.Label();
+            this.cdNumberOfActiveListingTextBox = new System.Windows.Forms.TextBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.cdMaxSalePriceTextBox = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.cdMinSalePriceTextBox = new System.Windows.Forms.TextBox();
+            this.label66 = new System.Windows.Forms.Label();
+            this.cdAvgDomTextBox = new System.Windows.Forms.TextBox();
+            this.labelNumberOfComps = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingNavigator)).BeginInit();
             this.subjectBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -283,6 +349,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ccMonthsBacknumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rawSFDataBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).BeginInit();
+            this.compDataGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -489,7 +556,7 @@
             this.subjectBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.subjectBindingNavigator.Name = "subjectBindingNavigator";
             this.subjectBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.subjectBindingNavigator.Size = new System.Drawing.Size(1971, 25);
+            this.subjectBindingNavigator.Size = new System.Drawing.Size(2103, 25);
             this.subjectBindingNavigator.TabIndex = 17;
             this.subjectBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -686,9 +753,9 @@
             // 
             // mls_search_button
             // 
-            this.mls_search_button.Location = new System.Drawing.Point(590, 100);
+            this.mls_search_button.Location = new System.Drawing.Point(586, 81);
             this.mls_search_button.Name = "mls_search_button";
-            this.mls_search_button.Size = new System.Drawing.Size(82, 24);
+            this.mls_search_button.Size = new System.Drawing.Size(80, 49);
             this.mls_search_button.TabIndex = 27;
             this.mls_search_button.Text = "Load Subject";
             this.mls_search_button.UseVisualStyleBackColor = true;
@@ -698,7 +765,7 @@
             // 
             this.streetnameTextBox.Location = new System.Drawing.Point(149, 29);
             this.streetnameTextBox.Name = "streetnameTextBox";
-            this.streetnameTextBox.Size = new System.Drawing.Size(475, 20);
+            this.streetnameTextBox.Size = new System.Drawing.Size(421, 20);
             this.streetnameTextBox.TabIndex = 4;
             this.streetnameTextBox.TextChanged += new System.EventHandler(this.streetnameTextBox_TextChanged);
             // 
@@ -763,9 +830,9 @@
             // 
             // button_imort_pics
             // 
-            this.button_imort_pics.Location = new System.Drawing.Point(756, 100);
+            this.button_imort_pics.Location = new System.Drawing.Point(759, 29);
             this.button_imort_pics.Name = "button_imort_pics";
-            this.button_imort_pics.Size = new System.Drawing.Size(97, 22);
+            this.button_imort_pics.Size = new System.Drawing.Size(80, 49);
             this.button_imort_pics.TabIndex = 36;
             this.button_imort_pics.Text = "Upload Pics";
             this.button_imort_pics.UseVisualStyleBackColor = true;
@@ -916,7 +983,7 @@
             this.groupBox1.Controls.Add(this.subject_school_textbox);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.subjectpin_textbox);
-            this.groupBox1.Location = new System.Drawing.Point(489, 127);
+            this.groupBox1.Location = new System.Drawing.Point(489, 133);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(926, 389);
             this.groupBox1.TabIndex = 42;
@@ -1203,11 +1270,11 @@
             // 
             // quickSalePercentageTextBox
             // 
-            this.quickSalePercentageTextBox.Location = new System.Drawing.Point(305, 285);
+            this.quickSalePercentageTextBox.Location = new System.Drawing.Point(282, 285);
             this.quickSalePercentageTextBox.Name = "quickSalePercentageTextBox";
-            this.quickSalePercentageTextBox.Size = new System.Drawing.Size(35, 20);
+            this.quickSalePercentageTextBox.Size = new System.Drawing.Size(58, 20);
             this.quickSalePercentageTextBox.TabIndex = 105;
-            this.quickSalePercentageTextBox.Text = "0.85";
+            this.quickSalePercentageTextBox.Text = "0.9";
             // 
             // label19
             // 
@@ -1814,9 +1881,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 983);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 1011);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1971, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(2103, 22);
             this.statusStrip1.TabIndex = 52;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -1842,29 +1909,31 @@
             this.ieConnectedCheckbox.AutoSize = true;
             this.ieConnectedCheckbox.BackColor = System.Drawing.Color.Red;
             this.ieConnectedCheckbox.CausesValidation = false;
-            this.ieConnectedCheckbox.Location = new System.Drawing.Point(716, 39);
+            this.ieConnectedCheckbox.Location = new System.Drawing.Point(1507, 591);
             this.ieConnectedCheckbox.Name = "ieConnectedCheckbox";
             this.ieConnectedCheckbox.Size = new System.Drawing.Size(79, 17);
             this.ieConnectedCheckbox.TabIndex = 71;
             this.ieConnectedCheckbox.Text = "IE Connect";
             this.ieConnectedCheckbox.UseVisualStyleBackColor = false;
+            this.ieConnectedCheckbox.Visible = false;
             // 
             // imacrosConnectedCheckbox
             // 
             this.imacrosConnectedCheckbox.AutoSize = true;
             this.imacrosConnectedCheckbox.BackColor = System.Drawing.Color.Red;
-            this.imacrosConnectedCheckbox.Location = new System.Drawing.Point(716, 55);
+            this.imacrosConnectedCheckbox.Location = new System.Drawing.Point(1485, 562);
             this.imacrosConnectedCheckbox.Name = "imacrosConnectedCheckbox";
             this.imacrosConnectedCheckbox.Size = new System.Drawing.Size(101, 17);
             this.imacrosConnectedCheckbox.TabIndex = 72;
             this.imacrosConnectedCheckbox.Text = "iMacro Connect";
             this.imacrosConnectedCheckbox.UseVisualStyleBackColor = false;
+            this.imacrosConnectedCheckbox.Visible = false;
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(678, 100);
+            this.button15.Location = new System.Drawing.Point(672, 81);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(72, 24);
+            this.button15.Size = new System.Drawing.Size(80, 49);
             this.button15.TabIndex = 73;
             this.button15.Text = "open form 2";
             this.button15.UseVisualStyleBackColor = true;
@@ -1913,9 +1982,9 @@
             // 
             // statusStrip2
             // 
-            this.statusStrip2.Location = new System.Drawing.Point(0, 961);
+            this.statusStrip2.Location = new System.Drawing.Point(0, 989);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(1971, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(2103, 22);
             this.statusStrip2.TabIndex = 95;
             this.statusStrip2.Text = "statusStrip2";
             // 
@@ -1965,9 +2034,9 @@
             // recheckLastSearchbutton
             // 
             this.recheckLastSearchbutton.Enabled = false;
-            this.recheckLastSearchbutton.Location = new System.Drawing.Point(495, 81);
+            this.recheckLastSearchbutton.Location = new System.Drawing.Point(759, 81);
             this.recheckLastSearchbutton.Name = "recheckLastSearchbutton";
-            this.recheckLastSearchbutton.Size = new System.Drawing.Size(75, 42);
+            this.recheckLastSearchbutton.Size = new System.Drawing.Size(80, 49);
             this.recheckLastSearchbutton.TabIndex = 100;
             this.recheckLastSearchbutton.Text = "Recheck Last Search";
             this.recheckLastSearchbutton.UseVisualStyleBackColor = true;
@@ -1985,6 +2054,26 @@
             // 
             // neighborhoodDataGroupBox
             // 
+            this.neighborhoodDataGroupBox.Controls.Add(this.label86);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndMedianListPriceTextBox);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label87);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndMedianSalePriceTextBox);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label84);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndMedianAgeTextBox);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label75);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label76);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label77);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label78);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndNewestHomeTextBox);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label79);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label80);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndOldestHomeTextBox);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label67);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label68);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndMaxListPriceTextBox);
+            this.neighborhoodDataGroupBox.Controls.Add(this.label69);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndMinListPriceTextBox);
+            this.neighborhoodDataGroupBox.Controls.Add(this.ndPreserveData);
             this.neighborhoodDataGroupBox.Controls.Add(this.percentDistressedSoldListingsLabel);
             this.neighborhoodDataGroupBox.Controls.Add(this.percentSoldShortListingLabel);
             this.neighborhoodDataGroupBox.Controls.Add(this.percentSoldReoListingLabel);
@@ -2011,16 +2100,179 @@
             this.neighborhoodDataGroupBox.Controls.Add(this.ndAvgDomTextBox);
             this.neighborhoodDataGroupBox.Location = new System.Drawing.Point(7, 689);
             this.neighborhoodDataGroupBox.Name = "neighborhoodDataGroupBox";
-            this.neighborhoodDataGroupBox.Size = new System.Drawing.Size(391, 245);
+            this.neighborhoodDataGroupBox.Size = new System.Drawing.Size(485, 300);
             this.neighborhoodDataGroupBox.TabIndex = 102;
             this.neighborhoodDataGroupBox.TabStop = false;
             this.neighborhoodDataGroupBox.Text = "Neighborhood Data";
             this.neighborhoodDataGroupBox.Enter += new System.EventHandler(this.neighborhoodDataGroupBox_Enter);
             // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Location = new System.Drawing.Point(145, 68);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(88, 13);
+            this.label86.TabIndex = 43;
+            this.label86.Text = "Median List Price";
+            // 
+            // ndMedianListPriceTextBox
+            // 
+            this.ndMedianListPriceTextBox.Location = new System.Drawing.Point(145, 91);
+            this.ndMedianListPriceTextBox.Name = "ndMedianListPriceTextBox";
+            this.ndMedianListPriceTextBox.Size = new System.Drawing.Size(75, 20);
+            this.ndMedianListPriceTextBox.TabIndex = 42;
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Location = new System.Drawing.Point(145, 24);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(93, 13);
+            this.label87.TabIndex = 41;
+            this.label87.Text = "Median Sale Price";
+            // 
+            // ndMedianSalePriceTextBox
+            // 
+            this.ndMedianSalePriceTextBox.Location = new System.Drawing.Point(145, 47);
+            this.ndMedianSalePriceTextBox.Name = "ndMedianSalePriceTextBox";
+            this.ndMedianSalePriceTextBox.Size = new System.Drawing.Size(75, 20);
+            this.ndMedianSalePriceTextBox.TabIndex = 40;
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(385, 20);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(42, 13);
+            this.label84.TabIndex = 39;
+            this.label84.Text = "Median";
+            // 
+            // ndMedianAgeTextBox
+            // 
+            this.ndMedianAgeTextBox.Location = new System.Drawing.Point(381, 36);
+            this.ndMedianAgeTextBox.Name = "ndMedianAgeTextBox";
+            this.ndMedianAgeTextBox.Size = new System.Drawing.Size(37, 20);
+            this.ndMedianAgeTextBox.TabIndex = 38;
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(359, 88);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(0, 13);
+            this.label75.TabIndex = 37;
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(428, 36);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(0, 13);
+            this.label76.TabIndex = 36;
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(359, 82);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(0, 13);
+            this.label77.TabIndex = 35;
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(424, 23);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(43, 13);
+            this.label78.TabIndex = 34;
+            this.label78.Text = "Newest";
+            // 
+            // ndNewestHomeTextBox
+            // 
+            this.ndNewestHomeTextBox.Location = new System.Drawing.Point(419, 37);
+            this.ndNewestHomeTextBox.Name = "ndNewestHomeTextBox";
+            this.ndNewestHomeTextBox.Size = new System.Drawing.Size(37, 20);
+            this.ndNewestHomeTextBox.TabIndex = 33;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(187, 136);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(0, 13);
+            this.label79.TabIndex = 32;
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(346, 21);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(37, 13);
+            this.label80.TabIndex = 31;
+            this.label80.Text = "Oldest";
+            // 
+            // ndOldestHomeTextBox
+            // 
+            this.ndOldestHomeTextBox.Location = new System.Drawing.Point(342, 37);
+            this.ndOldestHomeTextBox.Name = "ndOldestHomeTextBox";
+            this.ndOldestHomeTextBox.Size = new System.Drawing.Size(37, 20);
+            this.ndOldestHomeTextBox.TabIndex = 30;
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(224, 137);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(0, 13);
+            this.label67.TabIndex = 29;
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(219, 63);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(73, 13);
+            this.label68.TabIndex = 28;
+            this.label68.Text = "Max List Price";
+            // 
+            // ndMaxListPriceTextBox
+            // 
+            this.ndMaxListPriceTextBox.Location = new System.Drawing.Point(246, 95);
+            this.ndMaxListPriceTextBox.Name = "ndMaxListPriceTextBox";
+            this.ndMaxListPriceTextBox.Size = new System.Drawing.Size(79, 20);
+            this.ndMaxListPriceTextBox.TabIndex = 27;
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(61, 68);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(70, 13);
+            this.label69.TabIndex = 26;
+            this.label69.Text = "Min List Price";
+            // 
+            // ndMinListPriceTextBox
+            // 
+            this.ndMinListPriceTextBox.Location = new System.Drawing.Point(61, 91);
+            this.ndMinListPriceTextBox.Name = "ndMinListPriceTextBox";
+            this.ndMinListPriceTextBox.Size = new System.Drawing.Size(75, 20);
+            this.ndMinListPriceTextBox.TabIndex = 25;
+            // 
+            // ndPreserveData
+            // 
+            this.ndPreserveData.AutoSize = true;
+            this.ndPreserveData.Location = new System.Drawing.Point(397, 277);
+            this.ndPreserveData.Name = "ndPreserveData";
+            this.ndPreserveData.Size = new System.Drawing.Size(68, 17);
+            this.ndPreserveData.TabIndex = 24;
+            this.ndPreserveData.Text = "Preserve";
+            this.ndPreserveData.UseVisualStyleBackColor = true;
+            this.ndPreserveData.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // percentDistressedSoldListingsLabel
             // 
             this.percentDistressedSoldListingsLabel.AutoSize = true;
-            this.percentDistressedSoldListingsLabel.Location = new System.Drawing.Point(224, 93);
+            this.percentDistressedSoldListingsLabel.Location = new System.Drawing.Point(148, 93);
             this.percentDistressedSoldListingsLabel.Name = "percentDistressedSoldListingsLabel";
             this.percentDistressedSoldListingsLabel.Size = new System.Drawing.Size(0, 13);
             this.percentDistressedSoldListingsLabel.TabIndex = 23;
@@ -2044,7 +2296,7 @@
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(178, 159);
+            this.label49.Location = new System.Drawing.Point(178, 252);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(110, 13);
             this.label49.TabIndex = 20;
@@ -2052,7 +2304,7 @@
             // 
             // ndNumberSoldShortListingsTextBox
             // 
-            this.ndNumberSoldShortListingsTextBox.Location = new System.Drawing.Point(181, 175);
+            this.ndNumberSoldShortListingsTextBox.Location = new System.Drawing.Point(181, 268);
             this.ndNumberSoldShortListingsTextBox.Name = "ndNumberSoldShortListingsTextBox";
             this.ndNumberSoldShortListingsTextBox.Size = new System.Drawing.Size(37, 20);
             this.ndNumberSoldShortListingsTextBox.TabIndex = 19;
@@ -2061,7 +2313,7 @@
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(178, 112);
+            this.label50.Location = new System.Drawing.Point(178, 205);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(108, 13);
             this.label50.TabIndex = 18;
@@ -2069,7 +2321,7 @@
             // 
             // ndNumberSoldReoListingsTextBox
             // 
-            this.ndNumberSoldReoListingsTextBox.Location = new System.Drawing.Point(181, 128);
+            this.ndNumberSoldReoListingsTextBox.Location = new System.Drawing.Point(181, 221);
             this.ndNumberSoldReoListingsTextBox.Name = "ndNumberSoldReoListingsTextBox";
             this.ndNumberSoldReoListingsTextBox.Size = new System.Drawing.Size(37, 20);
             this.ndNumberSoldReoListingsTextBox.TabIndex = 17;
@@ -2078,7 +2330,7 @@
             // label51
             // 
             this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(178, 74);
+            this.label51.Location = new System.Drawing.Point(178, 167);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(76, 13);
             this.label51.TabIndex = 16;
@@ -2086,7 +2338,7 @@
             // 
             // ndNumberOfSoldListingTextBox
             // 
-            this.ndNumberOfSoldListingTextBox.Location = new System.Drawing.Point(181, 90);
+            this.ndNumberOfSoldListingTextBox.Location = new System.Drawing.Point(181, 183);
             this.ndNumberOfSoldListingTextBox.Name = "ndNumberOfSoldListingTextBox";
             this.ndNumberOfSoldListingTextBox.Size = new System.Drawing.Size(37, 20);
             this.ndNumberOfSoldListingTextBox.TabIndex = 15;
@@ -2094,7 +2346,7 @@
             // percentDistressedActiveListingsLabel
             // 
             this.percentDistressedActiveListingsLabel.AutoSize = true;
-            this.percentDistressedActiveListingsLabel.Location = new System.Drawing.Point(52, 92);
+            this.percentDistressedActiveListingsLabel.Location = new System.Drawing.Point(52, 185);
             this.percentDistressedActiveListingsLabel.Name = "percentDistressedActiveListingsLabel";
             this.percentDistressedActiveListingsLabel.Size = new System.Drawing.Size(0, 13);
             this.percentDistressedActiveListingsLabel.TabIndex = 14;
@@ -2102,7 +2354,7 @@
             // percentActiveShortListingLabel
             // 
             this.percentActiveShortListingLabel.AutoSize = true;
-            this.percentActiveShortListingLabel.Location = new System.Drawing.Point(52, 181);
+            this.percentActiveShortListingLabel.Location = new System.Drawing.Point(52, 274);
             this.percentActiveShortListingLabel.Name = "percentActiveShortListingLabel";
             this.percentActiveShortListingLabel.Size = new System.Drawing.Size(0, 13);
             this.percentActiveShortListingLabel.TabIndex = 13;
@@ -2110,7 +2362,7 @@
             // percentActiveListingLabel
             // 
             this.percentActiveListingLabel.AutoSize = true;
-            this.percentActiveListingLabel.Location = new System.Drawing.Point(52, 130);
+            this.percentActiveListingLabel.Location = new System.Drawing.Point(52, 223);
             this.percentActiveListingLabel.Name = "percentActiveListingLabel";
             this.percentActiveListingLabel.Size = new System.Drawing.Size(0, 13);
             this.percentActiveListingLabel.TabIndex = 12;
@@ -2118,7 +2370,7 @@
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(6, 158);
+            this.label45.Location = new System.Drawing.Point(6, 251);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(119, 13);
             this.label45.TabIndex = 11;
@@ -2127,7 +2379,7 @@
             // 
             // ndNumberActiveShortListingsTextBox
             // 
-            this.ndNumberActiveShortListingsTextBox.Location = new System.Drawing.Point(9, 174);
+            this.ndNumberActiveShortListingsTextBox.Location = new System.Drawing.Point(9, 267);
             this.ndNumberActiveShortListingsTextBox.Name = "ndNumberActiveShortListingsTextBox";
             this.ndNumberActiveShortListingsTextBox.Size = new System.Drawing.Size(37, 20);
             this.ndNumberActiveShortListingsTextBox.TabIndex = 10;
@@ -2136,7 +2388,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(6, 111);
+            this.label29.Location = new System.Drawing.Point(6, 204);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(117, 13);
             this.label29.TabIndex = 9;
@@ -2144,7 +2396,7 @@
             // 
             // ndNumberActiveReoListingsTextBox
             // 
-            this.ndNumberActiveReoListingsTextBox.Location = new System.Drawing.Point(9, 127);
+            this.ndNumberActiveReoListingsTextBox.Location = new System.Drawing.Point(9, 220);
             this.ndNumberActiveReoListingsTextBox.Name = "ndNumberActiveReoListingsTextBox";
             this.ndNumberActiveReoListingsTextBox.Size = new System.Drawing.Size(37, 20);
             this.ndNumberActiveReoListingsTextBox.TabIndex = 8;
@@ -2153,7 +2405,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(6, 73);
+            this.label28.Location = new System.Drawing.Point(6, 166);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(85, 13);
             this.label28.TabIndex = 7;
@@ -2161,7 +2413,7 @@
             // 
             // ndNumberOfActiveListingTextBox
             // 
-            this.ndNumberOfActiveListingTextBox.Location = new System.Drawing.Point(9, 89);
+            this.ndNumberOfActiveListingTextBox.Location = new System.Drawing.Point(9, 182);
             this.ndNumberOfActiveListingTextBox.Name = "ndNumberOfActiveListingTextBox";
             this.ndNumberOfActiveListingTextBox.Size = new System.Drawing.Size(37, 20);
             this.ndNumberOfActiveListingTextBox.TabIndex = 6;
@@ -2169,7 +2421,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(230, 20);
+            this.label27.Location = new System.Drawing.Point(241, 22);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(78, 13);
             this.label27.TabIndex = 5;
@@ -2177,15 +2429,15 @@
             // 
             // ndMaxSalePriceTextBox
             // 
-            this.ndMaxSalePriceTextBox.Location = new System.Drawing.Point(230, 43);
+            this.ndMaxSalePriceTextBox.Location = new System.Drawing.Point(246, 40);
             this.ndMaxSalePriceTextBox.Name = "ndMaxSalePriceTextBox";
-            this.ndMaxSalePriceTextBox.Size = new System.Drawing.Size(100, 20);
+            this.ndMaxSalePriceTextBox.Size = new System.Drawing.Size(79, 20);
             this.ndMaxSalePriceTextBox.TabIndex = 4;
             // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(124, 20);
+            this.label26.Location = new System.Drawing.Point(61, 24);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(75, 13);
             this.label26.TabIndex = 3;
@@ -2193,15 +2445,15 @@
             // 
             // ndMinSalePriceTextBox
             // 
-            this.ndMinSalePriceTextBox.Location = new System.Drawing.Point(124, 43);
+            this.ndMinSalePriceTextBox.Location = new System.Drawing.Point(61, 47);
             this.ndMinSalePriceTextBox.Name = "ndMinSalePriceTextBox";
-            this.ndMinSalePriceTextBox.Size = new System.Drawing.Size(100, 20);
+            this.ndMinSalePriceTextBox.Size = new System.Drawing.Size(75, 20);
             this.ndMinSalePriceTextBox.TabIndex = 2;
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(6, 20);
+            this.label25.Location = new System.Drawing.Point(-1, 28);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(54, 13);
             this.label25.TabIndex = 1;
@@ -2209,7 +2461,7 @@
             // 
             // ndAvgDomTextBox
             // 
-            this.ndAvgDomTextBox.Location = new System.Drawing.Point(6, 43);
+            this.ndAvgDomTextBox.Location = new System.Drawing.Point(5, 47);
             this.ndAvgDomTextBox.Name = "ndAvgDomTextBox";
             this.ndAvgDomTextBox.Size = new System.Drawing.Size(40, 20);
             this.ndAvgDomTextBox.TabIndex = 0;
@@ -2241,10 +2493,10 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(404, 784);
+            this.dataGridView1.Location = new System.Drawing.Point(820, 784);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(1011, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(595, 150);
             this.dataGridView1.TabIndex = 108;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -2296,7 +2548,7 @@
             "YearBuilt",
             "Closed",
             "PriceRange"});
-            this.checkedListBox1.Location = new System.Drawing.Point(404, 684);
+            this.checkedListBox1.Location = new System.Drawing.Point(546, 821);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(120, 94);
             this.checkedListBox1.TabIndex = 116;
@@ -2337,9 +2589,9 @@
             // 
             // button21
             // 
-            this.button21.Location = new System.Drawing.Point(590, 71);
+            this.button21.Location = new System.Drawing.Point(586, 29);
             this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(83, 23);
+            this.button21.Size = new System.Drawing.Size(80, 49);
             this.button21.TabIndex = 120;
             this.button21.Text = "Gather Sub Info";
             this.button21.UseVisualStyleBackColor = true;
@@ -2627,6 +2879,422 @@
             this.button29.UseVisualStyleBackColor = true;
             this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
+            // button30
+            // 
+            this.button30.Location = new System.Drawing.Point(672, 29);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(80, 49);
+            this.button30.TabIndex = 139;
+            this.button30.Text = "Open AVM";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Click += new System.EventHandler(this.button30_Click);
+            // 
+            // compDataGroupBox
+            // 
+            this.compDataGroupBox.Controls.Add(this.label88);
+            this.compDataGroupBox.Controls.Add(this.cdMedianListPriceTextBox);
+            this.compDataGroupBox.Controls.Add(this.label89);
+            this.compDataGroupBox.Controls.Add(this.cdMedianSalePriceTextBox);
+            this.compDataGroupBox.Controls.Add(this.label85);
+            this.compDataGroupBox.Controls.Add(this.cdMedianAgeTextBox);
+            this.compDataGroupBox.Controls.Add(this.label81);
+            this.compDataGroupBox.Controls.Add(this.label82);
+            this.compDataGroupBox.Controls.Add(this.cdNewestHomeTextBox);
+            this.compDataGroupBox.Controls.Add(this.label83);
+            this.compDataGroupBox.Controls.Add(this.cdOldestHomeTextBox);
+            this.compDataGroupBox.Controls.Add(this.label70);
+            this.compDataGroupBox.Controls.Add(this.label71);
+            this.compDataGroupBox.Controls.Add(this.cdMaxListPriceTextBox);
+            this.compDataGroupBox.Controls.Add(this.label72);
+            this.compDataGroupBox.Controls.Add(this.cdMinListPriceTextBox);
+            this.compDataGroupBox.Controls.Add(this.label73);
+            this.compDataGroupBox.Controls.Add(this.label74);
+            this.compDataGroupBox.Controls.Add(this.cdPreserveData);
+            this.compDataGroupBox.Controls.Add(this.label52);
+            this.compDataGroupBox.Controls.Add(this.label53);
+            this.compDataGroupBox.Controls.Add(this.label54);
+            this.compDataGroupBox.Controls.Add(this.label55);
+            this.compDataGroupBox.Controls.Add(this.cdNumberSoldShortListingsTextBox);
+            this.compDataGroupBox.Controls.Add(this.label56);
+            this.compDataGroupBox.Controls.Add(this.cdNumberSoldReoListingsTextBox);
+            this.compDataGroupBox.Controls.Add(this.label57);
+            this.compDataGroupBox.Controls.Add(this.cdNumberOfSoldListingTextBox);
+            this.compDataGroupBox.Controls.Add(this.label58);
+            this.compDataGroupBox.Controls.Add(this.label59);
+            this.compDataGroupBox.Controls.Add(this.label60);
+            this.compDataGroupBox.Controls.Add(this.label61);
+            this.compDataGroupBox.Controls.Add(this.cdNumberActiveShortListingsTextBox);
+            this.compDataGroupBox.Controls.Add(this.label62);
+            this.compDataGroupBox.Controls.Add(this.cdNumberActiveReoListingsTextBox);
+            this.compDataGroupBox.Controls.Add(this.label63);
+            this.compDataGroupBox.Controls.Add(this.cdNumberOfActiveListingTextBox);
+            this.compDataGroupBox.Controls.Add(this.label64);
+            this.compDataGroupBox.Controls.Add(this.cdMaxSalePriceTextBox);
+            this.compDataGroupBox.Controls.Add(this.label65);
+            this.compDataGroupBox.Controls.Add(this.cdMinSalePriceTextBox);
+            this.compDataGroupBox.Controls.Add(this.label66);
+            this.compDataGroupBox.Controls.Add(this.cdAvgDomTextBox);
+            this.compDataGroupBox.Location = new System.Drawing.Point(1460, 709);
+            this.compDataGroupBox.Name = "compDataGroupBox";
+            this.compDataGroupBox.Size = new System.Drawing.Size(570, 274);
+            this.compDataGroupBox.TabIndex = 140;
+            this.compDataGroupBox.TabStop = false;
+            this.compDataGroupBox.Text = "Comp Data";
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Location = new System.Drawing.Point(418, 46);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(88, 13);
+            this.label88.TabIndex = 47;
+            this.label88.Text = "Median List Price";
+            // 
+            // cdMedianListPriceTextBox
+            // 
+            this.cdMedianListPriceTextBox.Location = new System.Drawing.Point(452, 93);
+            this.cdMedianListPriceTextBox.Name = "cdMedianListPriceTextBox";
+            this.cdMedianListPriceTextBox.Size = new System.Drawing.Size(75, 20);
+            this.cdMedianListPriceTextBox.TabIndex = 46;
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Location = new System.Drawing.Point(307, 16);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(93, 13);
+            this.label89.TabIndex = 45;
+            this.label89.Text = "Median Sale Price";
+            // 
+            // cdMedianSalePriceTextBox
+            // 
+            this.cdMedianSalePriceTextBox.Location = new System.Drawing.Point(325, 41);
+            this.cdMedianSalePriceTextBox.Name = "cdMedianSalePriceTextBox";
+            this.cdMedianSalePriceTextBox.Size = new System.Drawing.Size(75, 20);
+            this.cdMedianSalePriceTextBox.TabIndex = 44;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(449, 147);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(42, 13);
+            this.label85.TabIndex = 43;
+            this.label85.Text = "Median";
+            // 
+            // cdMedianAgeTextBox
+            // 
+            this.cdMedianAgeTextBox.Location = new System.Drawing.Point(445, 163);
+            this.cdMedianAgeTextBox.Name = "cdMedianAgeTextBox";
+            this.cdMedianAgeTextBox.Size = new System.Drawing.Size(37, 20);
+            this.cdMedianAgeTextBox.TabIndex = 42;
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(428, 162);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(0, 13);
+            this.label81.TabIndex = 41;
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Location = new System.Drawing.Point(382, 147);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(74, 13);
+            this.label82.TabIndex = 40;
+            this.label82.Text = "Newest Home";
+            // 
+            // cdNewestHomeTextBox
+            // 
+            this.cdNewestHomeTextBox.Location = new System.Drawing.Point(385, 163);
+            this.cdNewestHomeTextBox.Name = "cdNewestHomeTextBox";
+            this.cdNewestHomeTextBox.Size = new System.Drawing.Size(37, 20);
+            this.cdNewestHomeTextBox.TabIndex = 39;
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Location = new System.Drawing.Point(346, 147);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(37, 13);
+            this.label83.TabIndex = 38;
+            this.label83.Text = "Oldest";
+            // 
+            // cdOldestHomeTextBox
+            // 
+            this.cdOldestHomeTextBox.Location = new System.Drawing.Point(342, 163);
+            this.cdOldestHomeTextBox.Name = "cdOldestHomeTextBox";
+            this.cdOldestHomeTextBox.Size = new System.Drawing.Size(37, 20);
+            this.cdOldestHomeTextBox.TabIndex = 37;
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(376, 143);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(0, 13);
+            this.label70.TabIndex = 36;
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(382, 70);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(73, 13);
+            this.label71.TabIndex = 35;
+            this.label71.Text = "Max List Price";
+            // 
+            // cdMaxListPriceTextBox
+            // 
+            this.cdMaxListPriceTextBox.Location = new System.Drawing.Point(379, 113);
+            this.cdMaxListPriceTextBox.Name = "cdMaxListPriceTextBox";
+            this.cdMaxListPriceTextBox.Size = new System.Drawing.Size(100, 20);
+            this.cdMaxListPriceTextBox.TabIndex = 34;
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(276, 70);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(70, 13);
+            this.label72.TabIndex = 33;
+            this.label72.Text = "Min List Price";
+            // 
+            // cdMinListPriceTextBox
+            // 
+            this.cdMinListPriceTextBox.Location = new System.Drawing.Point(273, 116);
+            this.cdMinListPriceTextBox.Name = "cdMinListPriceTextBox";
+            this.cdMinListPriceTextBox.Size = new System.Drawing.Size(100, 20);
+            this.cdMinListPriceTextBox.TabIndex = 32;
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Location = new System.Drawing.Point(376, 99);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(0, 13);
+            this.label73.TabIndex = 31;
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(376, 137);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(0, 13);
+            this.label74.TabIndex = 30;
+            // 
+            // cdPreserveData
+            // 
+            this.cdPreserveData.AutoSize = true;
+            this.cdPreserveData.Location = new System.Drawing.Point(279, 198);
+            this.cdPreserveData.Name = "cdPreserveData";
+            this.cdPreserveData.Size = new System.Drawing.Size(68, 17);
+            this.cdPreserveData.TabIndex = 25;
+            this.cdPreserveData.Text = "Preserve";
+            this.cdPreserveData.UseVisualStyleBackColor = true;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(224, 93);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(0, 13);
+            this.label52.TabIndex = 23;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(224, 182);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(0, 13);
+            this.label53.TabIndex = 22;
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(224, 131);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(0, 13);
+            this.label54.TabIndex = 21;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(178, 159);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(110, 13);
+            this.label55.TabIndex = 20;
+            this.label55.Text = "# Sold Listings - Short";
+            // 
+            // cdNumberSoldShortListingsTextBox
+            // 
+            this.cdNumberSoldShortListingsTextBox.Location = new System.Drawing.Point(181, 175);
+            this.cdNumberSoldShortListingsTextBox.Name = "cdNumberSoldShortListingsTextBox";
+            this.cdNumberSoldShortListingsTextBox.Size = new System.Drawing.Size(37, 20);
+            this.cdNumberSoldShortListingsTextBox.TabIndex = 19;
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(178, 112);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(108, 13);
+            this.label56.TabIndex = 18;
+            this.label56.Text = "# Sold Listings - REO";
+            // 
+            // cdNumberSoldReoListingsTextBox
+            // 
+            this.cdNumberSoldReoListingsTextBox.Location = new System.Drawing.Point(181, 128);
+            this.cdNumberSoldReoListingsTextBox.Name = "cdNumberSoldReoListingsTextBox";
+            this.cdNumberSoldReoListingsTextBox.Size = new System.Drawing.Size(37, 20);
+            this.cdNumberSoldReoListingsTextBox.TabIndex = 17;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(178, 74);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(76, 13);
+            this.label57.TabIndex = 16;
+            this.label57.Text = "# Sold Listings";
+            // 
+            // cdNumberOfSoldListingTextBox
+            // 
+            this.cdNumberOfSoldListingTextBox.Location = new System.Drawing.Point(181, 90);
+            this.cdNumberOfSoldListingTextBox.Name = "cdNumberOfSoldListingTextBox";
+            this.cdNumberOfSoldListingTextBox.Size = new System.Drawing.Size(37, 20);
+            this.cdNumberOfSoldListingTextBox.TabIndex = 15;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(52, 92);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(0, 13);
+            this.label58.TabIndex = 14;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(52, 181);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(0, 13);
+            this.label59.TabIndex = 13;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(52, 130);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(0, 13);
+            this.label60.TabIndex = 12;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(6, 158);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(119, 13);
+            this.label61.TabIndex = 11;
+            this.label61.Text = "# Active Listings - Short";
+            // 
+            // cdNumberActiveShortListingsTextBox
+            // 
+            this.cdNumberActiveShortListingsTextBox.Location = new System.Drawing.Point(9, 174);
+            this.cdNumberActiveShortListingsTextBox.Name = "cdNumberActiveShortListingsTextBox";
+            this.cdNumberActiveShortListingsTextBox.Size = new System.Drawing.Size(37, 20);
+            this.cdNumberActiveShortListingsTextBox.TabIndex = 10;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(6, 111);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(117, 13);
+            this.label62.TabIndex = 9;
+            this.label62.Text = "# Active Listings - REO";
+            // 
+            // cdNumberActiveReoListingsTextBox
+            // 
+            this.cdNumberActiveReoListingsTextBox.Location = new System.Drawing.Point(9, 127);
+            this.cdNumberActiveReoListingsTextBox.Name = "cdNumberActiveReoListingsTextBox";
+            this.cdNumberActiveReoListingsTextBox.Size = new System.Drawing.Size(37, 20);
+            this.cdNumberActiveReoListingsTextBox.TabIndex = 8;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(6, 73);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(85, 13);
+            this.label63.TabIndex = 7;
+            this.label63.Text = "# Active Listings";
+            // 
+            // cdNumberOfActiveListingTextBox
+            // 
+            this.cdNumberOfActiveListingTextBox.Location = new System.Drawing.Point(9, 89);
+            this.cdNumberOfActiveListingTextBox.Name = "cdNumberOfActiveListingTextBox";
+            this.cdNumberOfActiveListingTextBox.Size = new System.Drawing.Size(37, 20);
+            this.cdNumberOfActiveListingTextBox.TabIndex = 6;
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(230, 20);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(78, 13);
+            this.label64.TabIndex = 5;
+            this.label64.Text = "Max Sale Price";
+            // 
+            // cdMaxSalePriceTextBox
+            // 
+            this.cdMaxSalePriceTextBox.Location = new System.Drawing.Point(230, 43);
+            this.cdMaxSalePriceTextBox.Name = "cdMaxSalePriceTextBox";
+            this.cdMaxSalePriceTextBox.Size = new System.Drawing.Size(100, 20);
+            this.cdMaxSalePriceTextBox.TabIndex = 4;
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(124, 20);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(75, 13);
+            this.label65.TabIndex = 3;
+            this.label65.Text = "Min Sale Price";
+            // 
+            // cdMinSalePriceTextBox
+            // 
+            this.cdMinSalePriceTextBox.Location = new System.Drawing.Point(124, 43);
+            this.cdMinSalePriceTextBox.Name = "cdMinSalePriceTextBox";
+            this.cdMinSalePriceTextBox.Size = new System.Drawing.Size(100, 20);
+            this.cdMinSalePriceTextBox.TabIndex = 2;
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(6, 20);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(54, 13);
+            this.label66.TabIndex = 1;
+            this.label66.Text = "Avg DOM";
+            // 
+            // cdAvgDomTextBox
+            // 
+            this.cdAvgDomTextBox.Location = new System.Drawing.Point(6, 43);
+            this.cdAvgDomTextBox.Name = "cdAvgDomTextBox";
+            this.cdAvgDomTextBox.Size = new System.Drawing.Size(40, 20);
+            this.cdAvgDomTextBox.TabIndex = 0;
+            // 
+            // labelNumberOfComps
+            // 
+            this.labelNumberOfComps.AutoSize = true;
+            this.labelNumberOfComps.Location = new System.Drawing.Point(1466, 661);
+            this.labelNumberOfComps.Name = "labelNumberOfComps";
+            this.labelNumberOfComps.Size = new System.Drawing.Size(0, 13);
+            this.labelNumberOfComps.TabIndex = 141;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2635,7 +3303,10 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1988, 874);
+            this.ClientSize = new System.Drawing.Size(2120, 965);
+            this.Controls.Add(this.labelNumberOfComps);
+            this.Controls.Add(this.compDataGroupBox);
+            this.Controls.Add(this.button30);
             this.Controls.Add(this.button29);
             this.Controls.Add(this.ignoreAgeCheckBox);
             this.Controls.Add(this.button28);
@@ -2752,6 +3423,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ccMonthsBacknumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rawSFDataBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).EndInit();
+            this.compDataGroupBox.ResumeLayout(false);
+            this.compDataGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2996,6 +3669,72 @@
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.TextBox subjectLandValueTextBox;
         private System.Windows.Forms.Button button29;
+        private System.Windows.Forms.Button button30;
+        private System.Windows.Forms.GroupBox compDataGroupBox;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.TextBox cdNumberSoldShortListingsTextBox;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.TextBox cdNumberSoldReoListingsTextBox;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.TextBox cdNumberOfSoldListingTextBox;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.TextBox cdNumberActiveShortListingsTextBox;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.TextBox cdNumberActiveReoListingsTextBox;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.TextBox cdNumberOfActiveListingTextBox;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.TextBox cdMaxSalePriceTextBox;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.TextBox cdMinSalePriceTextBox;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.TextBox cdAvgDomTextBox;
+        private System.Windows.Forms.CheckBox ndPreserveData;
+        private System.Windows.Forms.Label labelNumberOfComps;
+        private System.Windows.Forms.CheckBox cdPreserveData;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.Label label71;
+        private System.Windows.Forms.TextBox cdMaxListPriceTextBox;
+        private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.TextBox cdMinListPriceTextBox;
+        private System.Windows.Forms.Label label73;
+        private System.Windows.Forms.Label label74;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.Label label68;
+        private System.Windows.Forms.TextBox ndMaxListPriceTextBox;
+        private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.TextBox ndMinListPriceTextBox;
+        private System.Windows.Forms.Label label81;
+        private System.Windows.Forms.Label label82;
+        private System.Windows.Forms.TextBox cdNewestHomeTextBox;
+        private System.Windows.Forms.Label label83;
+        private System.Windows.Forms.TextBox cdOldestHomeTextBox;
+        private System.Windows.Forms.Label label75;
+        private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.TextBox ndNewestHomeTextBox;
+        private System.Windows.Forms.Label label79;
+        private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.TextBox ndOldestHomeTextBox;
+        private System.Windows.Forms.Label label85;
+        private System.Windows.Forms.TextBox cdMedianAgeTextBox;
+        private System.Windows.Forms.Label label84;
+        private System.Windows.Forms.TextBox ndMedianAgeTextBox;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.TextBox cdMedianListPriceTextBox;
+        private System.Windows.Forms.Label label89;
+        private System.Windows.Forms.TextBox cdMedianSalePriceTextBox;
+        private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.TextBox ndMedianListPriceTextBox;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.TextBox ndMedianSalePriceTextBox;
     }
 
 }

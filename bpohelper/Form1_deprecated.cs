@@ -1307,8 +1307,13 @@ namespace bpohelper
 
                 foreach (string fileName in fileEntries)
                 {
-                    
-                    if (Regex.IsMatch(fileName, @"\\.*address.*\.jpg"))
+
+                    string[] splitFilePath = fileName.Split('\\');
+
+                    string justTheFileName = splitFilePath[splitFilePath.Length -1];
+
+
+                    if (Regex.IsMatch(justTheFileName, @"address.*jpe*g"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
@@ -1320,7 +1325,7 @@ namespace bpohelper
                         //macro.AppendLine(@"TAB CLOSE");
 
                     }
-                    else if (Regex.IsMatch(fileName, @"\\.*front.*\.jpg"))
+                    else if (Regex.IsMatch(justTheFileName, @"front.*jpe*g"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
@@ -1331,7 +1336,7 @@ namespace bpohelper
                         // macro.AppendLine(@"TAB T=1");
                         // macro.AppendLine(@"TAB CLOSE");
                     }
-                    else if (Regex.IsMatch(fileName, @"\\.*left.*\.jpg"))
+                    else if (Regex.IsMatch(justTheFileName, @"left.*jpe*g"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
@@ -1342,7 +1347,7 @@ namespace bpohelper
                         //macro.AppendLine(@"TAB T=1");
                         //macro.AppendLine(@"TAB CLOSE");
                     }
-                    else if (Regex.IsMatch(fileName, @"\\.*right.*\.jpg"))
+                    else if (Regex.IsMatch(justTheFileName, @"right.*jpe*g"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");
@@ -1353,7 +1358,7 @@ namespace bpohelper
                         //macro.AppendLine(@"TAB T=1");
                         //macro.AppendLine(@"TAB CLOSE");
                     }
-                    else if (Regex.IsMatch(fileName, @"\\.*street.*\.jpg"))
+                    else if (Regex.IsMatch(justTheFileName, @"street.*jpe*g"))
                     {
                         macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:updateOrderForm ATTR=VALUE:Upload<SP>Image");
                         macro.AppendLine(@"TAB T=2");

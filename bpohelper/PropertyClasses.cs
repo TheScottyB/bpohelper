@@ -294,22 +294,87 @@ namespace bpohelper
     public class Neighborhood
     {
         public string name;
+
         public int oldestHome;
         public int newestHome;
         public int medianAge;
-        public int numberOfCompListings;
-        public int numberOfSales;
+
         public decimal minListPrice;
-        public decimal highListPrice;
-        public int numberOfShortSaleListings;
+        public decimal maxListPrice;
+        public double medianListPrice;
+
         public decimal minSalePrice;
         public decimal maxSalePrice;
-        public decimal medianSoldPrice;
-        public int avgDom;
+        public double medianSalePrice;
+
         public int numberActiveListings;
+        public int numberSoldListings;
+        public int numberOfCompListings;
+
         public int numberREOListings;
         public int numberREOSales;
+
         public int numberShortSales;
+        public int numberOfShortSaleListings;
+
+        public int avgDom;
+        public int avgDomActv;
+        public int avgDomSold;
+
+        
+      
+        
+        public double saleToListRatio = 0.97;
+        public double monthlyAppreciationRate = 0.01;
+
+        public decimal AbsorbtionRate
+        {
+            get
+            {
+                return numberSoldListings / 12;
+            }
+        }
+
+        public decimal MonthsSupply
+        {
+            get
+            {
+                return Math.Round(numberActiveListings / AbsorbtionRate);
+            }
+        }
+
+        public double ThreeMonthListPrice
+        {
+            get
+            {
+                return medianListPrice * Math.Pow((1 + monthlyAppreciationRate), (12 / .25));
+            }
+        }
+
+        public double ThreeMonthSalePrice
+        {
+            get
+            {
+                return medianSalePrice * Math.Pow((1 + monthlyAppreciationRate), (12 / .25));
+            }
+        }
+
+        public double SixMonthListPrice
+        {
+            get
+            {
+                return medianListPrice * Math.Pow((1 + monthlyAppreciationRate), (12 / .5));
+            }
+        }
+
+        public double SixMonthSalePrice
+        {
+            get
+            {
+                return medianSalePrice * Math.Pow((1 + monthlyAppreciationRate), (12 / .5));
+            }
+        }
+         
     
     }
 

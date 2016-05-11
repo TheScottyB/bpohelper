@@ -82,6 +82,7 @@ using ImageResizer;
         string SubjectSubdivision { get; set; }
         string SubjectMlsType { get; set; }
         bpohelper.Neighborhood SubjectNeighborhood { get; set; }
+        bpohelper.Neighborhood SetOfComps { get; set; }
         bpohelper.AssessmentInfo SubjectAssessmentInfo { get; set; }
         bool SubjectDetached { get; set; }
         bool SubjectAttached { get; set; }
@@ -98,7 +99,8 @@ using ImageResizer;
         string SubjectAssessmentValue { get; set; }
         string SubjectLandValue { get; set; }
         string SubjectMarketValue { get; set; }
-     
+        bool PerserveNeighorhoodData { get; }
+        bool PerserveCompSetData { get; }
     }
 
 namespace bpohelper
@@ -109,6 +111,7 @@ namespace bpohelper
         iMacros.App iim2 = new iMacros.App();
         iMacros.Status status;
         public Neighborhood subjectNeighborhood;
+        public Neighborhood setOfComps;
         public AssessmentInfo subjectAssessmentInfo;
 
         Broker dawn = new Broker("Dawn", "471.009163", "7", "60050");
@@ -139,7 +142,7 @@ namespace bpohelper
 
             iMacros.App browser1 = new iMacros.App();
             iMacros.App browser2 = new iMacros.App();
-            status = browser1.iimOpen("", false, 60);
+            status = browser1.iimOpen("-ie", false, 60);
             //status = browser1.iimOpen("",false, 60);
             browser1.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
             
@@ -226,7 +229,9 @@ namespace bpohelper
             AssessmentInfo subjectAssessmentInfo = new AssessmentInfo();
 
              Neighborhood subjectNeighborhood = new Neighborhood();
+             Neighborhood setOfComps = new Neighborhood();
              SubjectNeighborhood = subjectNeighborhood;
+             SetOfComps = setOfComps;
             SubjectAssessmentInfo = subjectAssessmentInfo;
             TypeDetachedList tdl = new TypeDetachedList();
             subjectTownshipRecord = new TownshipReport();
@@ -1522,6 +1527,8 @@ namespace bpohelper
                 Double.TryParse(realist_lotAcres, out dd);
                 m.RealistLotSize = dd;
 
+               
+
                 try
                 {
 
@@ -1554,6 +1561,120 @@ namespace bpohelper
                 
 
                 // Perform the increment on the ProgressBar.
+
+
+                //
+                //First American - First Pass
+                //
+                #region FirstAmerican
+                if (currentUrl.ToLower().Contains("firstam"))
+                {
+                    #region code
+
+                    //s = iim.iimPlayCode(macro12.ToString());
+                    //htmlCode = iim.iimGetLastExtract();
+                    //if (subjectAttachedRadioButton.Checked)
+                    //{
+                    //    m = new AttachedListing(htmlCode);
+                    //}
+                    //else if (subjectDetachedradioButton.Checked)
+                    //{
+                    //    m = new DetachedListing(htmlCode);
+                    //}
+                    //else
+                    //{
+                    //    m = new MLSListing(htmlCode);
+                    //}
+
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
+                    m.NumberOfPriceChanges = count;
+
+                    Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                    FirstAmerican bpoform = new FirstAmerican(m);
+
+                    fieldList.Add("filepath", SubjectFilePath);
+
+                    #endregion
+
+                    #region basementlogic
+
+
+
+
+                    #endregion
+
+                    #region garagelogic
+
+                    #endregion
+
+                    #region fireplacelogic
+
+                    #endregion
+
+                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
+                    status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
+
+                }
+
+                #endregion  
+
+
+                //
+                //Trinity - First Pass
+                //
+                #region Trinity
+                if (currentUrl.ToLower().Contains("trinityonline"))
+                {
+                    #region code
+
+                    //s = iim.iimPlayCode(macro12.ToString());
+                    //htmlCode = iim.iimGetLastExtract();
+                    //if (subjectAttachedRadioButton.Checked)
+                    //{
+                    //    m = new AttachedListing(htmlCode);
+                    //}
+                    //else if (subjectDetachedradioButton.Checked)
+                    //{
+                    //    m = new DetachedListing(htmlCode);
+                    //}
+                    //else
+                    //{
+                    //    m = new MLSListing(htmlCode);
+                    //}
+
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
+                    m.NumberOfPriceChanges = count;
+
+                    Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                    Trinity bpoform = new Trinity(m);
+
+                    fieldList.Add("filepath", SubjectFilePath);
+
+                    #endregion
+
+                    #region basementlogic
+
+
+
+
+                    #endregion
+
+                    #region garagelogic
+
+                    #endregion
+
+                    #region fireplacelogic
+
+                    #endregion
+
+                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
+                    status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
+
+                }
+
+                #endregion  
 
                 //
                 //inside valuation - First Pass
@@ -2152,8 +2273,13 @@ namespace bpohelper
                     {
                         fieldList.Add("List", current_list_price);
                         fieldList.Add("Sale", sold_price);
-                        fieldList.Add("ListDate", closed_date);
-                        fieldList.Add("SaleDate", contract_date);
+                        //
+                        //dont know why i did the below, but it doesnt work on evalform2
+                        //
+                       // fieldList.Add("ListDate", closed_date);
+                       // fieldList.Add("SaleDate", contract_date);
+                        fieldList.Add("ListDate", contract_date);
+                        fieldList.Add("SaleDate", closed_date);
                     }
                     else
                     {
@@ -7671,12 +7797,12 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10954 CONTENT=" + subjectNeighborhood.medianAge.ToString());
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10956 CONTENT=" + subjectNeighborhood.numberOfCompListings.ToString());
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10958 CONTENT=" + subjectNeighborhood.minListPrice.ToString());
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10960 CONTENT=" + subjectNeighborhood.highListPrice.ToString());
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10962 CONTENT=" + subjectNeighborhood.numberOfSales.ToString());
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10960 CONTENT=" + subjectNeighborhood.maxListPrice.ToString());
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10962 CONTENT=" + subjectNeighborhood.numberSoldListings.ToString());
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10964 CONTENT=" + subjectNeighborhood.minSalePrice.ToString());
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10966 CONTENT=" + subjectNeighborhood.maxSalePrice.ToString());
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10968 CONTENT=" + subjectNeighborhood.numberOfShortSaleListings.ToString());
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10970 CONTENT=" + subjectNeighborhood.medianSoldPrice.ToString());
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:formInput ATTR=ID:fieldid_10970 CONTENT=" + subjectNeighborhood.medianSalePrice.ToString());
 
                 //pricing
 
@@ -8153,11 +8279,80 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
             {
                 decimal dec;
                 Decimal.TryParse(ndAvgDomTextBox.Text, out  dec );
+
                 SubjectNeighborhood.avgDom = Decimal.ToInt32(dec);
+
                 SubjectNeighborhood.minSalePrice = Convert.ToDecimal(ndMinSalePriceTextBox.Text);
                 SubjectNeighborhood.maxSalePrice = Convert.ToDecimal(ndMaxSalePriceTextBox.Text);
+                SubjectNeighborhood.medianSalePrice = Convert.ToDouble(ndMedianSalePriceTextBox.Text);
+
+                SubjectNeighborhood.minListPrice = Convert.ToDecimal(ndMinListPriceTextBox.Text);
+                SubjectNeighborhood.medianListPrice = Convert.ToDouble(ndMedianListPriceTextBox.Text);
+                SubjectNeighborhood.maxListPrice = Convert.ToDecimal(ndMaxListPriceTextBox.Text);
+
+
                 SubjectNeighborhood.numberActiveListings = Convert.ToInt32(ndNumberOfActiveListingTextBox.Text);
                 SubjectNeighborhood.numberREOListings = Convert.ToInt32(ndNumberActiveReoListingsTextBox.Text);
+                SubjectNeighborhood.numberOfShortSaleListings = Convert.ToInt32(ndNumberActiveShortListingsTextBox.Text);
+            
+                SubjectNeighborhood.numberSoldListings = Convert.ToInt32(ndNumberOfSoldListingTextBox.Text);
+                SubjectNeighborhood.numberREOSales = Convert.ToInt32(ndNumberSoldReoListingsTextBox.Text);
+                SubjectNeighborhood.numberShortSales = Convert.ToInt32(ndNumberSoldShortListingsTextBox.Text);
+
+
+                Decimal.TryParse(cdAvgDomTextBox.Text, out  dec);
+
+                SetOfComps.avgDom = Decimal.ToInt32(dec);
+
+                SetOfComps.minSalePrice = Convert.ToDecimal(cdMinSalePriceTextBox.Text);
+                SetOfComps.maxSalePrice = Convert.ToDecimal(cdMaxSalePriceTextBox.Text);
+                SetOfComps.medianSalePrice = Convert.ToDouble(cdMedianSalePriceTextBox.Text);
+
+                SetOfComps.minListPrice = Convert.ToDecimal(cdMinListPriceTextBox.Text);
+                SetOfComps.medianListPrice = Convert.ToDouble(cdMedianListPriceTextBox.Text);
+                SetOfComps.maxListPrice = Convert.ToDecimal(cdMaxListPriceTextBox.Text);
+
+
+                SetOfComps.numberActiveListings = Convert.ToInt32(cdNumberOfActiveListingTextBox.Text);
+                SetOfComps.numberREOListings = Convert.ToInt32(cdNumberActiveReoListingsTextBox.Text);
+                SetOfComps.numberOfShortSaleListings = Convert.ToInt32(cdNumberActiveShortListingsTextBox.Text);
+
+                SetOfComps.numberSoldListings = Convert.ToInt32(cdNumberOfSoldListingTextBox.Text);
+                SetOfComps.numberREOSales = Convert.ToInt32(cdNumberSoldReoListingsTextBox.Text);
+                SetOfComps.numberShortSales = Convert.ToInt32(cdNumberSoldShortListingsTextBox.Text);
+                
+
+
+               // //Decimal.TryParse(cdAvgDomTextBox.Text, out  dec);
+               // //SetOfComps.avgDom = Decimal.ToInt32(dec);
+               // SetOfComps.minSalePrice = Convert.ToDecimal(cdMinSalePriceTextBox.Text);
+               // SetOfComps.maxSalePrice = Convert.ToDecimal(cdMaxSalePriceTextBox.Text);
+               // SetOfComps.numberActiveListings = Convert.ToInt32(cdNumberOfActiveListingTextBox.Text);
+               //// SetOfComps.numberREOListings = Convert.ToInt32(cdNumberActiveReoListingsTextBox.Text);
+               // SetOfComps.numberSoldListings = Convert.ToInt32(cdNumberOfSoldListingTextBox.Text);
+
+                  
+                //ndAvgDomTextBox.Text = SubjectNeighborhood.avgDom.ToString();
+                //        ndMaxSalePriceTextBox.Text = SubjectNeighborhood.maxSalePrice.ToString();
+                //        ndMinSalePriceTextBox.Text = SubjectNeighborhood.minSalePrice.ToString();
+                //        ndNumberOfActiveListingTextBox.Text = SubjectNeighborhood.numberActiveListings.ToString();
+                //        ndNumberActiveReoListingsTextBox.Text = SubjectNeighborhood.numberREOListings.ToString();
+                //        ndNumberActiveShortListingsTextBox.Text = SubjectNeighborhood.numberOfShortSaleListings.ToString();
+                //        ndNumberOfSoldListingTextBox.Text = SubjectNeighborhood.numberOfSales.ToString();
+                //        ndNumberSoldReoListingsTextBox.Text = SubjectNeighborhood.numberREOSales.ToString();
+                //        ndNumberSoldShortListingsTextBox.Text = SubjectNeighborhood.numberShortSales.ToString();
+                    
+
+                //    cdAvgDomTextBox.Text = SetOfComps.avgDom.ToString();
+                //    cdMaxSalePriceTextBox.Text = SetOfComps.maxSalePrice.ToString();
+                //    cdMinSalePriceTextBox.Text = SetOfComps.minSalePrice.ToString();
+                //    cdNumberOfActiveListingTextBox.Text = SetOfComps.numberActiveListings.ToString();
+                //    cdNumberActiveReoListingsTextBox.Text = SetOfComps.numberREOListings.ToString();
+                //    cdNumberActiveShortListingsTextBox.Text = SetOfComps.numberOfShortSaleListings.ToString();
+                //    cdNumberOfSoldListingTextBox.Text = SetOfComps.numberOfSales.ToString();
+                //    cdNumberSoldReoListingsTextBox.Text = SetOfComps.numberREOSales.ToString();
+                //    cdNumberSoldShortListingsTextBox.Text = SetOfComps.numberShortSales.ToString();
+
             }
             catch (Exception ex)
             {
@@ -8280,25 +8475,69 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
             //
             //Set neighborhood data fields
             //
-            try
-            {
 
-                ndAvgDomTextBox.Text = SubjectNeighborhood.avgDom.ToString();
-                ndMaxSalePriceTextBox.Text = SubjectNeighborhood.maxSalePrice.ToString();
-                ndMinSalePriceTextBox.Text = SubjectNeighborhood.minSalePrice.ToString();
-                ndNumberOfActiveListingTextBox.Text = SubjectNeighborhood.numberActiveListings.ToString();
-                ndNumberActiveReoListingsTextBox.Text = SubjectNeighborhood.numberREOListings.ToString();
-                ndNumberActiveShortListingsTextBox.Text = SubjectNeighborhood.numberOfShortSaleListings.ToString();
-                ndNumberOfSoldListingTextBox.Text = SubjectNeighborhood.numberOfSales.ToString();
-                ndNumberSoldReoListingsTextBox.Text = SubjectNeighborhood.numberREOSales.ToString();
-                ndNumberSoldShortListingsTextBox.Text = SubjectNeighborhood.numberShortSales.ToString();
+           
+            
+                try
+                {
+                    if (!PerserveNeighorhoodData)
+                    {
+                        ndAvgDomTextBox.Text = SubjectNeighborhood.avgDom.ToString();
 
-            }
-            catch
-            {
+                        ndNewestHomeTextBox.Text = SubjectNeighborhood.newestHome.ToString();
+                        ndMedianSalePriceTextBox.Text = SubjectNeighborhood.medianAge.ToString();
+                        ndOldestHomeTextBox.Text = SubjectNeighborhood.oldestHome.ToString();
 
-            }
+                        ndMinListPriceTextBox.Text = SubjectNeighborhood.minListPrice.ToString();
+                        ndMedianListPriceTextBox.Text = SubjectNeighborhood.medianListPrice.ToString();
+                        ndMaxListPriceTextBox.Text = SubjectNeighborhood.maxListPrice.ToString();
 
+                        ndMinSalePriceTextBox.Text = SubjectNeighborhood.minSalePrice.ToString();
+                        ndMedianSalePriceTextBox.Text = subjectNeighborhood.medianSalePrice.ToString();
+                        ndMaxSalePriceTextBox.Text = SubjectNeighborhood.maxSalePrice.ToString();
+                        
+                        ndNumberOfActiveListingTextBox.Text = SubjectNeighborhood.numberActiveListings.ToString();
+                        ndNumberActiveReoListingsTextBox.Text = SubjectNeighborhood.numberREOListings.ToString();
+                        ndNumberActiveShortListingsTextBox.Text = SubjectNeighborhood.numberOfShortSaleListings.ToString();
+                        
+                        ndNumberOfSoldListingTextBox.Text = SubjectNeighborhood.numberSoldListings.ToString();
+                        ndNumberSoldReoListingsTextBox.Text = SubjectNeighborhood.numberREOSales.ToString();
+                        ndNumberSoldShortListingsTextBox.Text = SubjectNeighborhood.numberShortSales.ToString();
+                    }
+
+                    if (!PerserveCompSetData)
+                    {
+                        cdAvgDomTextBox.Text = SetOfComps.avgDom.ToString();
+
+                        cdNewestHomeTextBox.Text = SetOfComps.newestHome.ToString();
+                        cdMedianSalePriceTextBox.Text = SetOfComps.medianAge.ToString();
+                        cdOldestHomeTextBox.Text = SetOfComps.oldestHome.ToString();
+
+                        cdMinListPriceTextBox.Text = SetOfComps.minListPrice.ToString();
+                        cdMedianListPriceTextBox.Text = SetOfComps.medianListPrice.ToString();
+                        cdMaxListPriceTextBox.Text = SetOfComps.maxListPrice.ToString();
+
+                        cdMinSalePriceTextBox.Text = SetOfComps.minSalePrice.ToString();
+                        cdMedianSalePriceTextBox.Text = SetOfComps.medianSalePrice.ToString();
+                        cdMaxSalePriceTextBox.Text = SetOfComps.maxSalePrice.ToString();
+
+                        cdNumberOfActiveListingTextBox.Text = SetOfComps.numberActiveListings.ToString();
+                        cdNumberActiveReoListingsTextBox.Text = SetOfComps.numberREOListings.ToString();
+                        cdNumberActiveShortListingsTextBox.Text = SetOfComps.numberOfShortSaleListings.ToString();
+
+                        cdNumberOfSoldListingTextBox.Text = SetOfComps.numberSoldListings.ToString();
+                        cdNumberSoldReoListingsTextBox.Text = SetOfComps.numberREOSales.ToString();
+                        cdNumberSoldShortListingsTextBox.Text = SetOfComps.numberShortSales.ToString();
+                    }
+
+                   
+
+                }
+                catch
+                {
+
+                }
+            
         }
 
         private void textBox2_TextChanged_2(object sender, EventArgs e)
@@ -8307,7 +8546,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
             try
             {
                 this.listTextbox.Text = (Math.Round((Convert.ToInt64(valueTextbox.Text) * 1.03))).ToString();
-                this.quickSaleTextbox.Text = (Math.Round((double)(((Convert.ToInt64(valueTextbox.Text) * Convert.ToInt64(quickSalePercentageTextBox.Text)))))).ToString();
+                this.quickSaleTextbox.Text = (Math.Round((double)(((Convert.ToInt64(valueTextbox.Text) * Convert.ToDecimal(quickSalePercentageTextBox.Text)))))).ToString();
             }
             catch
             {
@@ -8450,6 +8689,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
         {
             IEnumerable<System.Windows.Forms.TextBox> query1 = this.groupBox1.Controls.OfType<System.Windows.Forms.TextBox>();
             IEnumerable<System.Windows.Forms.TextBox> query2 = this.neighborhoodDataGroupBox.Controls.OfType<System.Windows.Forms.TextBox>();
+            IEnumerable<System.Windows.Forms.TextBox> query3 = this.compDataGroupBox.Controls.OfType<System.Windows.Forms.TextBox>();
 
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(this.SubjectFilePath + "\\" + "subjectinfo.txt"))
             {
@@ -8461,6 +8701,11 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                 {
                     file.WriteLine("{0};{1}", t.Name, t.Text);
                 }
+                foreach (System.Windows.Forms.TextBox t in query3)
+                {
+                    file.WriteLine("{0};{1}", t.Name, t.Text);
+                }
+                
                 
                file.WriteLine("{0};{1}", subjectDetachedradioButton.Name, subjectDetachedradioButton.Checked.ToString());
                file.WriteLine("{0};{1}", subjectAttachedRadioButton.Name, subjectAttachedRadioButton.Checked.ToString());
@@ -10068,7 +10313,190 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             iim2.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
             string currentUrl = iim2.iimGetLastExtract();
 
+            #region southwest
+            if (currentUrl.Contains("rapidclose"))
+            {
+                StringBuilder macro11 = new StringBuilder();
+                StringBuilder macro = new StringBuilder();
+                List<string> records = new List<string>();
+                DateTime dueDate = new DateTime();
 
+                dueDate = DateTime.Now.AddDays(2);
+
+               
+
+                
+
+                macro11.AppendLine(@"TAG POS=2 TYPE=TABLE ATTR=CLASS:tblvieworder EXTRACT=TXT");
+
+                iMacros.Status s = iim2.iimPlayCode(macro11.ToString());
+                string extractedTable = iim2.iimGetLastExtract();
+                string header = iim2.iimGetExtract(0);
+
+                string[] sep = { "#NEWLINE#" };
+                string[] theTable = extractedTable.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                //if (records.Count == 0)
+                //{
+                //    records.Add(theTable[0].Replace("#NEXT#", ",").Substring(4).TrimEnd(','));  //add the header
+                //}
+                string[] sep2 = { "#NEXT#" };
+
+                string[] theRecord = { };
+                string line = "";
+
+                try
+                {
+
+                    using (StreamReader r = File.OpenText("sw-orders.txt"))
+                    {
+                        while ((line = r.ReadLine()) != null)
+                        {
+                            records.Add(line);
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+
+                string address;
+          
+                string city;
+
+                for (int i = 0; i < theTable.GetLength(0); i++)
+                {
+
+                    theRecord = theTable[i].Split(sep2, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (theRecord.Length > 5 && Regex.IsMatch(theRecord[0], @"\d\d\d\d\d\d\d\d"))
+                    {
+                        if (!records.Contains(theRecord[0]))
+                        {
+                            records.Add(theRecord[0]);
+                            city = Regex.Match(theRecord[3], (@"\r\n(.*),")).Groups[1].Value;
+                            address = Regex.Match(theRecord[3], (@"(.*)\r\n")).Groups[1].Value;
+
+                            macro.AppendLine(@"URL GOTO=https://docs.google.com/forms/d/12BCMedwyV_CpkdwwG10wQvl8mPHlEq0Mbig8PAsb46g/viewform?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ#gid=20");
+
+                           // macro.AppendLine(@"URL GOTO=https://docs.google.com/forms/d/12BCMedwyV_CpkdwwG10wQvl8mPHlEq0Mbig8PAsb46g/viewform?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ#gid=20");macro.AppendLine(@"TAG POS=1 TYPE=DIV FORM=ACTION:https://docs.google.com/forms/d/12BCMedwyV_CpkdwwG10wQvl8mPHlEq0Mbig8PAsb46g/formResponse ATTR=CLASS:docssharedWizSelectPaperselectDropDown");
+                     //       macro.AppendLine(@"TAG POS=2 TYPE=DIV FORM=ACTION:https://docs.google.com/forms/d/12BCMedwyV_CpkdwwG10wQvl8mPHlEq0Mbig8PAsb46g/formResponse ATTR=TXT:PCR");
+                           //address
+                            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d* ATTR=NAME:bpo<SP>tracking<SP>form CONTENT=");
+                            macro.AppendLine(@"DS cmd=CLICK X={{!TAGX}} Y={{!TAGY}}");
+                            macro.AppendLine(@"DS cmd=KEY CONTENT=" + address.Replace(" ", "<SP>"));
+                            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d* ATTR=NAME:bpo<SP>tracking<SP>form CONTENT=" + address.Replace(" ", "<SP>"));
+                            
+                            //city
+                            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d* ATTR=NAME:bpo<SP>tracking<SP>form CONTENT=");
+                            macro.AppendLine(@"DS cmd=CLICK X={{!TAGX}} Y={{!TAGY}}");
+                            macro.AppendLine(@"DS cmd=KEY CONTENT=" + city.Replace(" ", "<SP>"));
+
+                          
+
+                            //ordernumber
+                            macro.AppendLine(@"TAG POS=3 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d* ATTR=NAME:bpo<SP>tracking<SP>form CONTENT=");
+                            macro.AppendLine(@"DS cmd=CLICK X={{!TAGX}} Y={{!TAGY}}");
+                            macro.AppendLine(@"DS cmd=KEY CONTENT=" + theRecord[0]);
+
+                            //duedate
+                            //macro.AppendLine(@"TAG POS=4 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d* ATTR=CLASS:quantumWizTextinputPaperinputInput<SP>exportInput CONTENT=");
+                           // macro.AppendLine(@"TAG POS=4 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d/12BCMedwyV_CpkdwwG10wQvl8mPHlEq0Mbig8PAsb46g/formResponse ATTR=CLASS:quantumWizTextinputPaperinputInput<SP>exportInput");
+                            macro.AppendLine(@"TAG POS=5 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d* ATTR=CLASS:quantumWizTextinputPaperinputInput<SP>exportInput CONTENT=");
+                            macro.AppendLine(@"DS cmd=CLICK X={{!TAGX}} Y={{!TAGY}}");
+                            macro.AppendLine(@"DS cmd=KEY CONTENT=" + dueDate.Month.ToString() + "{Enter}");
+                            macro.AppendLine(@"WAIT SECONDS=5");
+
+                            macro.AppendLine(@"TAG POS=5 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d* ATTR=CLASS:quantumWizTextinputPaperinputInput<SP>exportInput CONTENT=");
+                            macro.AppendLine(@"DS cmd=CLICK X={{!TAGX}} Y={{!TAGY}}");
+                            macro.AppendLine(@"DS cmd=KEY CONTENT=" + dueDate.Day.ToString() );
+                            macro.AppendLine(@"WAIT SECONDS=1");
+
+                            //macro.AppendLine(@"TAG POS=6 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d/12BCMedwyV_CpkdwwG10wQvl8mPHlEq0Mbig8PAsb46g/formResponse ATTR=CLASS:quantumWizTextinputPaperinputInput<SP>exportInput CONTENT=");
+                            //macro.AppendLine(@"DS cmd=CLICK X={{!TAGX}} Y={{!TAGY}}");
+                            //macro.AppendLine(@"DS cmd=KEY CONTENT=" + dueDate.ToShortDateString());
+                            //macro.AppendLine(@"WAIT SECONDS=1");
+                     
+                            //billed amount
+                            macro.AppendLine(@"TAG POS=4 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d/12BCMedwyV_CpkdwwG10wQvl8mPHlEq0Mbig8PAsb46g/formResponse ATTR=NAME:bpo<SP>tracking<SP>form CONTENT=");
+                            macro.AppendLine(@"DS cmd=CLICK X={{!TAGX}} Y={{!TAGY}}");
+                            macro.AppendLine(@"DS cmd=KEY CONTENT=25");
+
+
+                         //   macro.AppendLine(@"TAG POS=5 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/forms/d/12BCMedwyV_CpkdwwG10wQvl8mPHlEq0Mbig8PAsb46g/formResponse ATTR=NAME:bpo<SP>tracking<SP>form");
+                       //     macro.AppendLine(@"TAG POS=1 TYPE=CONTENT FORM=ACTION:https://docs.google.com/forms/d/12BCMedwyV_CpkdwwG10wQvl8mPHlEq0Mbig8PAsb46g/formResponse ATTR=TXT:Southwest");
+                       
+                           //// macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:https://docs.google.com/forms/d/* ATTR=NAME:submit");
+                            string macroCode = macro.ToString();
+                            iim.iimPlayCode(macroCode, 60);
+                            macro.Clear();
+                        }
+                    }
+                    
+                   
+
+
+                }
+
+
+                using (System.IO.StreamWriter file = File.AppendText(("sw-orders.txt")))
+                {
+
+
+                    foreach (string r in records)
+                    {
+                        file.WriteLine(r);
+                    }
+                    //foreach (System.Windows.Forms.TextBox t in query2)
+                    //{
+                    //    file.WriteLine("{0};{1}", t.Name, t.Text);
+                    //}
+
+                    //file.WriteLine("{0};{1}", subjectDetachedradioButton.Name, subjectDetachedradioButton.Checked.ToString());
+                    //file.WriteLine("{0};{1}", subjectAttachedRadioButton.Name, subjectAttachedRadioButton.Checked.ToString());
+                    //file.WriteLine("{0};{1}", subjectMlsTypecomboBox.Name, subjectMlsTypecomboBox.Text);
+                    //bpoCommentsTextBox.SaveFile(this.SubjectFilePath + "\\" + "bpocomments.rtf");
+
+                }
+
+
+                //var ttt = Regex.Matches(htmlCode, @"orderNo=(\d\d\d\d\d\d)");
+
+                //     MessageBox.Show(ttt.Count.ToString());
+
+
+                //HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                //doc.LoadHtml(htmlCode);
+
+                //var x = doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[1]/td[1]/a/font");
+                //int orderNumberIndex = 1;
+                //int addressIndex = 4;
+                //int cityIndex = 5;
+
+                ////
+                ////TBD:  Calculate correct due date by extracting date + standard 3 days.
+                ////
+                //for (int i = 1; i < 80 ; i++)
+                //{
+                //    macro.AppendLine(@"VERSION BUILD=10022823");
+                //    macro.AppendLine(@"TAB T=1");
+                //    macro.AppendLine(@"TAB CLOSEALLOTHERS");
+                //    macro.AppendLine(@"URL GOTO=https://docs.google.com/spreadsheet/viewform?usp=drive_web&formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ#gid=20");
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.2.single CONTENT=" + doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[" + i.ToString() + "]/td[" + addressIndex.ToString() + "]").InnerText.Replace(" ", "<SP>"));
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.3.single CONTENT=" + doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[" + i.ToString() + "]/td[" + cityIndex.ToString() + "]").InnerText.Replace(" ", "<SP>"));
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.14.single CONTENT=" + doc.DocumentNode.SelectSingleNode("//*[@id=\"appraisalOrderList\"]/tbody/tr[" + i.ToString() + "]/td[" + orderNumberIndex.ToString() + "]/a/font").InnerText);
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.9.single CONTENT=" + DateTime.Now.ToShortDateString());
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.11.single CONTENT=50");
+                //    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:entry.1.single CONTENT=%Solutionstar");
+                //    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:https://docs.google.com/spreadsheet/formResponse?formkey=dEd4ZVJiWVdKRVk4SWZtN1lDOENCQkE6MQ&ifq ATTR=NAME:submit");
+                //    string macroCode = macro.ToString();
+                //    iim.iimPlayCode(macroCode, 60);
+                //    macro.Clear();
+                //}
+            }
+            #endregion
+
+            #region equitrax
             if (currentUrl.Contains("equi-trax"))
             {
                  StringBuilder macro11 = new StringBuilder();
@@ -10191,7 +10619,9 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 //    macro.Clear();
                 //}
             }
+            #endregion
 
+            #region solutionstar
             if (currentUrl.Contains("solutionstar"))
             {
 
@@ -10238,8 +10668,9 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                     macro.Clear();
                 
                 }
-            
+
             }
+            #endregion
         }
 
         private void button25_Click(object sender, EventArgs e)
@@ -10527,6 +10958,16 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
            
         }
 
+        private void button30_Click(object sender, EventArgs e)
+        {
+            iim2.iimPlay(@"AVM\avm-login.iim");
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
        
        
 
@@ -10718,7 +11159,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             GlobalVar.theSubjectProperty.PrintedMlsSheetNameValuePairs = x;
 
 
-            string pattern = @"Ax*mount:\$(\d+,*\d*.\d*)";
+            string pattern = @"Ax*mount:\$(\d+,*\d*\.*\d*)";
             MatchCollection mc = Regex.Matches(s, pattern);
             try
             {
@@ -10906,7 +11347,8 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             }
 
             //pattern = @"xxxStyle:(.*?)xxx|xxxStyle:(.*?)\n";
-            pattern = @"Style:x*([^x\nG]+)x*";
+            //pattern = @"Style:x*([^x\nG]+)x*";
+            pattern = @"Style:(.*?)xxx|Style:(.*?)\n";
             match = Regex.Match(s, pattern);
             style = match.Groups[1].Value;
 
@@ -10994,14 +11436,18 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
 
          
-            List<decimal>soldCompPriceList = new List<decimal>();
+        
             List<string> comps = new List<String>();
             List<MLSListing> listings = new List<MLSListing>();
             Status status = iMacros.Status.sOk;
             StringBuilder move_through_comps_macro = new StringBuilder();
             RealProperty currentProperty = new RealProperty();
             Neighborhood currentNeighborhood = new Neighborhood();
+            Neighborhood setOfComps = new Neighborhood();
             List<RealProperty> rpl = new List<RealProperty>();
+            List<RealProperty> rplComps = new List<RealProperty>();
+
+
 
             //extracts  all the html
             form.SetStatusBar = "Reading MLS sheet...";
@@ -11022,11 +11468,27 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             List<decimal> soldPriceList = new List<decimal>();
             List<decimal> picDiffList = new List<decimal>();
             List<int> domList = new List<int>();
+
+            List<decimal> compActvPriceList = new List<decimal>();
+            List<decimal> compSoldPriceList = new List<decimal>();
+
+            List<int> compDomList = new List<int>();
+            List<int> compActvDomList = new List<int>();
+            List<int> compSoldDomList = new List<int>();
+            List<int> compAgeList = new List<int>();
+            List<int> compActvAgeList = new List<int>();
+            List<int> compSoldAgeList = new List<int>();
             
             int shortSales = 0;
             int reoSales = 0;
             int shortActive = 0;
             int reoActive = 0;
+
+            int compShortClosed = 0;
+            int compReoClosed = 0;
+            int compShortActive = 0;
+            int compReoActive = 0;
+
             int numberSameTypeAsSubject = 0;
             int numberComparableGla = 0;
             int numberComparableAge = 0;
@@ -11048,9 +11510,15 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             string max_sale;
             string min_list;
             string max_list;
-            int active_comps = 0;
-            int closed_comps = 0;
-            int pending_comps = 0;
+
+            int numListingsActive = 0;
+            int numListingsClosed = 0;
+            int numListingsPending = 0;
+
+            int numCompsActive = 0;
+            int numCompsClosed = 0;
+            int numCompsPending = 0;
+
             ArrayList list = new ArrayList();
             //IEnumerable<decimal> myEnumerable;
             List<decimal> pricePerSfList = new List<decimal>();
@@ -11150,6 +11618,31 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                      currentListing = new MLSListing(htmlCode);
                      currentListing.proximityToSubject = Convert.ToDouble(Get_Distance(currentListing.mlsHtmlFields["address"].value, form.SubjectFullAddress));
                      listings.Add(currentListing);
+                 }
+
+                 string mlsStatusCheck = currentListing.mlsHtmlFields["status"].value;
+
+                 if (mlsStatusCheck == "AUCT")
+                 {
+                     if (searchCache)
+                     {
+                         count++;
+                         if (count >= GlobalVar.searchCacheMlsListings.Count)
+                         {
+                             stillRecords = false;
+                         }
+                     }
+
+                     else
+                     {
+                         //GlobalVar.searchCacheMlsListings.Add(currentListing);
+                         status = d.iimPlayCode(move_through_comps_macro.ToString(), 60);
+                         if (status != Status.sOk)
+                         {
+                             stillRecords = false;
+                         }
+                     }
+                     continue;
                  }
 
                  //htmlcode is too big
@@ -12428,7 +12921,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 switch (mls_status)
                 {
                     case "CLSD":
-                        closed_comps++;
+                        numListingsClosed++;
                         soldPriceList.Add(Convert.ToDecimal(sold_price.Replace("$", "").Replace(",", "")));
 
                         if (mls_gla != "0")
@@ -12457,11 +12950,11 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                         break;
                     case "CTG":
                     case "ACTV":
-                        active_comps++;
+                        numListingsActive++;
                         activePriceList.Add(Convert.ToDecimal(current_list_price.Replace("$", "").Replace(",", "")));
                         break;
                     case "PEND":
-                        pending_comps++;
+                        numListingsPending++;
                         activePriceList.Add(Convert.ToDecimal(current_list_price.Replace("$", "").Replace(",", "")));
                         break;
 
@@ -12476,7 +12969,6 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 //
                 //compare to subject
                 //
-
                 #region compare
 
                 CompCriteria cc = new CompCriteria();
@@ -12764,8 +13256,73 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 if (typeMatch && glaMatch && ageMatch && lotMatch && basementMatch)
                 {
 
-                   
+                    //List<int> compDomList = new List<int>();
+                    //List<int> compActvDomList = new List<int>();
+                    //List<int> compSoldDomList = new List<int>();
+                    //List<int> compAgeList = new List<int>();
+                    //List<int> compActvAgeList = new List<int>();
+                    //List<int> compSoldAgeList = new List<int>();
+
+                    //int numCompsActive = 0;
+                    //int numCompsClosed = 0;
+                    //int numCompsPending = 0;
+
+                    //int compShortClosed = 0;
+                    //int compReoClosed = 0;
+                    //int compShortActive = 0;
+                    //int compReoActive = 0;
+
+
+                    compDomList.Add(Convert.ToInt16(dom));
+                    compAgeList.Add(this.Age(year_built));
+
+                    if (mls_status == "CLSD")
+                    {
+                        numCompsClosed++;
+                        compSoldPriceList.Add(Convert.ToDecimal(sold_price.Replace("$", "").Replace(",", "")));
+                        compSoldDomList.Add(Convert.ToInt16(dom));
+                        compSoldAgeList.Add(this.Age(year_built));
+                        if (sale_type == "REO")
+                        {
+                            compReoClosed++;
+                        }
+                        if (sale_type == "Short")
+                        {
+                            compShortClosed++;
+                        }
+                    }
+                    else 
+                    {
+                        if (additionalSalesInfo.Contains("Short Sale"))
+                        {
+                            compShortActive++;
+                        }
+
+                        if (additionalSalesInfo.Contains("REO"))
+                        {
+                            compReoActive++;
+                        }
+                        numCompsActive++;
+                        compActvDomList.Add(Convert.ToInt16(dom));
+                        compActvPriceList.Add(Convert.ToDecimal(current_list_price.Replace("$", "").Replace(",", "")));
+                        compActvAgeList.Add(this.Age(year_built));
+                    }
+
+
+                    if (mls_status == "PEND")
+                        numCompsPending++;
+
+                  
+
+
+                
+                    rplComps.Add(currentProperty);
                     
+                    
+                    
+                    //compActivePriceList
+                 
+
                         StringBuilder macro = new StringBuilder();
                         if (!searchCache)
                         {
@@ -12797,12 +13354,14 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
                         form.NumberOfCompsFound = comps.Count.ToString();
 
-                        soldCompPriceList.Add(Convert.ToDecimal(sold_price.Replace("$", "").Replace(",", "")));
+                        
+                 
 
                 }
 
                 #endregion
 
+                #region savingToDatabases
                 //save order info to DB
                 //ataTable BPOtable = this.form.bpoTableAdapter1.GetData();
 
@@ -12810,47 +13369,47 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
                // currentListing.rawData = "";
 
-                string json = JsonConvert.SerializeObject(currentListing);
-                string url = "https://active-century-477.appspot.com/api/mred/v1/mredlistings/";
 
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "POST";
+                ////sending mred records to datastore
+                //string json = JsonConvert.SerializeObject(currentListing);
+                //string url = "https://active-century-477.appspot.com/api/mred/v1/mredlistings/";
 
-                System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-                Byte[] byteArray = encoding.GetBytes(json);
+                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                //request.Method = "POST";
 
-                request.ContentLength = byteArray.Length;
-                request.ContentType = @"application/json";
+                //System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+                //Byte[] byteArray = encoding.GetBytes(json);
 
-                using (Stream dataStream = request.GetRequestStream())
-                {
-                    dataStream.Write(byteArray, 0, byteArray.Length);
-                }
-                long length = 0;
-                try
-                {
-                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                    {
-                        length = response.ContentLength;
-                       // form.AddInfo = response.StatusDescription;
-                    }
-                }
-                catch (WebException ex)
-                {
-                    // Log exception and throw as for GET example above
-                }
+                //request.ContentLength = byteArray.Length;
+                //request.ContentType = @"application/json";
 
-
-
-                //currentListing.rawData = tempstore;
-
-                
-
-                // gcds.StoreMredListing(currentListing);
+                //using (Stream dataStream = request.GetRequestStream())
+                //{
+                //    dataStream.Write(byteArray, 0, byteArray.Length);
+                //}
+                //long length = 0;
+                //try
+                //{
+                //    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                //    {
+                //        length = response.ContentLength;
+                //       // form.AddInfo = response.StatusDescription;
+                //    }
+                //}
+                //catch (WebException ex)
+                //{
+                //    // Log exception and throw as for GET example above
+                //}
 
 
 
-              
+                ////currentListing.rawData = tempstore;
+
+
+
+                //// gcds.StoreMredListing(currentListing);
+
+                #endregion
 
                 if (searchCache)
                 {
@@ -12877,15 +13436,20 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             {
 
 
-                currentNeighborhood.highListPrice = activePriceList.Max();
+                currentNeighborhood.minListPrice = activePriceList.Min();
+                currentNeighborhood.medianListPrice = Convert.ToDouble(activePriceList.Median());   
+                currentNeighborhood.maxListPrice = activePriceList.Max();
+
+                currentNeighborhood.minSalePrice = soldPriceList.Min();
+                currentNeighborhood.medianSalePrice = Convert.ToDouble(soldPriceList.Median());
                 currentNeighborhood.maxSalePrice = soldPriceList.Max();
                 currentNeighborhood.medianAge = ageList.Median();
-                currentNeighborhood.medianSoldPrice = soldPriceList.Median();
-                currentNeighborhood.minListPrice = activePriceList.Min();
-                currentNeighborhood.minSalePrice = soldPriceList.Min();
+                
+                
+                
                 currentNeighborhood.newestHome = ageList.Min();
                 currentNeighborhood.numberOfCompListings = comps.Count;
-                currentNeighborhood.numberOfSales = soldPriceList.Count;
+                currentNeighborhood.numberSoldListings = soldPriceList.Count;
                 currentNeighborhood.numberOfShortSaleListings = shortActive;
                 currentNeighborhood.oldestHome = ageList.Max();
                 currentNeighborhood.avgDom = Convert.ToInt32(domList.Average());
@@ -12894,7 +13458,49 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 currentNeighborhood.numberREOSales = reoSales;
                 currentNeighborhood.numberShortSales = shortSales;
 
-                form.SubjectNeighborhood = currentNeighborhood;
+                if (!form.PerserveNeighorhoodData)
+                {
+                    form.SubjectNeighborhood = currentNeighborhood;
+                }
+
+
+                //List<int> compDomList = new List<int>();
+                //List<int> compActvDomList = new List<int>();
+                //List<int> compSoldDomList = new List<int>();
+                //List<int> compAgeList = new List<int>();
+                //List<int> compActvAgeList = new List<int>();
+                //List<int> compSoldAgeList = new List<int>();
+                if (compActvPriceList.Count > 0 & compSoldPriceList.Count > 0)
+                {
+                    setOfComps.maxSalePrice = compSoldPriceList.Max();
+                    setOfComps.minSalePrice = compSoldPriceList.Min();
+                    setOfComps.medianListPrice = Convert.ToDouble(compActvPriceList.Median());
+                    setOfComps.medianAge = compAgeList.Median();
+                    setOfComps.medianSalePrice = Convert.ToDouble(compSoldPriceList.Median());
+                    setOfComps.numberSoldListings = compSoldPriceList.Count;
+                    setOfComps.numberActiveListings = compActvPriceList.Count;
+                    setOfComps.maxListPrice = compActvPriceList.Max();
+                    setOfComps.minListPrice = compActvPriceList.Min();
+                    setOfComps.numberREOSales = compReoClosed;
+                    setOfComps.numberREOListings = compReoActive;
+                    setOfComps.numberShortSales = compShortClosed;
+                    setOfComps.numberOfShortSaleListings = compShortActive;
+                    setOfComps.oldestHome = compAgeList.Max();
+                    setOfComps.newestHome = compAgeList.Min();
+                    setOfComps.avgDomActv = Convert.ToInt32(compActvDomList.Average());
+                    setOfComps.avgDom = Convert.ToInt32(compDomList.Average());
+
+                }
+
+
+                if (!form.PerserveCompSetData)
+                {
+                    form.SetOfComps = setOfComps;
+                }
+
+               
+
+                
             }
             catch (Exception e)
             {
@@ -12941,7 +13547,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(form.SubjectFilePath + "\\searchComments.txt"))
             {
-                file.WriteLine("#closed: " + closed_comps.ToString() + " #active: " + active_comps.ToString() + " #pending: " + pending_comps.ToString());
+                file.WriteLine("#closed: " + numListingsClosed.ToString() + " #active: " + numListingsActive.ToString() + " #pending: " + numListingsPending.ToString());
                 file.WriteLine("Average/Mean $/Above GLA, sale: " + Decimal.Round(pricePerSfList.Average(), 2).ToString() + " Median $/Above GLA, sale: " + Decimal.Round(pricePerSfList.Median(), 2).ToString());
                 file.WriteLine("Min Sale: {0}, Max Sale: {1}, Average Sale: {2}, Median Sale: {3}", soldPriceList.Min(), soldPriceList.Max(), Convert.ToInt32(soldPriceList.Average()), soldPriceList.Median());
                 file.WriteLine("Min List: {0}, Max List: {1}, Average List: {2}, Median List: {3}", activePriceList.Min(), activePriceList.Max(), Convert.ToInt32(activePriceList.Average()), activePriceList.Median());
@@ -12961,7 +13567,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 }
                 try
                 {
-                    file.WriteLine("#closed: " + closed_comps.ToString() + " #active: " + active_comps.ToString() + " #pending: " + pending_comps.ToString());
+                    file.WriteLine("#closed: " + numListingsClosed.ToString() + " #active: " + numListingsActive.ToString() + " #pending: " + numListingsPending.ToString());
                     file.WriteLine("Average/Mean $/Above GLA, sale: " + Decimal.Round(pricePerSfList.Average(), 2).ToString() + " Median $/Above GLA, sale: " + Decimal.Round(pricePerSfList.Median(), 2).ToString());
                     file.WriteLine("Min Sale: {0}, Max Sale: {1}, Average Sale: {2}, Median Sale: {3}", soldPriceList.Min(), soldPriceList.Max(), Convert.ToInt32(soldPriceList.Average()), soldPriceList.Median());
                     file.WriteLine("Min List: {0}, Max List: {1}, Average List: {2}, Median List: {3}", activePriceList.Min(), activePriceList.Max(), Convert.ToInt32(activePriceList.Average()), activePriceList.Median());
@@ -13073,9 +13679,9 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             //MessageBox.Show(GlobalVar.searchCacheMlsListings.Count.ToString());
             
            // MessageBox.Show("Comps found: " + comps.Count.ToString());
-            if (soldCompPriceList.Count > 1)
+            if (compSoldPriceList.Count > 1)
             {
-                form.SubjectMarketValue = soldCompPriceList.Median().ToString();
+                form.SubjectMarketValue = compSoldPriceList.Median().ToString();
             }
            
 

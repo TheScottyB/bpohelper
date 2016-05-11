@@ -49,6 +49,18 @@ namespace bpohelper
         //
 
         //subjectLandValueTextBox
+
+
+        public bool PerserveNeighorhoodData
+        {
+            get { return ndPreserveData.Checked; }
+        }
+
+        public bool PerserveCompSetData
+        {
+            get { return cdPreserveData.Checked; }
+        }
+
         public string SubjectLandValue
         {
             get { return subjectLandValueTextBox.Text; }
@@ -156,7 +168,11 @@ namespace bpohelper
 
         public string NumberOfCompsFound
         {
-            set { richTextBoxNumberCompsFound.Text = value; }
+            set
+            { 
+                richTextBoxNumberCompsFound.Text = value;
+                labelNumberOfComps.Text = value;
+            }
         }
 
         public void AddInfoColor(string value, Color c)
@@ -208,6 +224,13 @@ namespace bpohelper
             get { return subjectNeighborhood; }
             set { subjectNeighborhood = value; }
         }
+        public Neighborhood SetOfComps
+        {
+            get { return setOfComps; }
+            set { setOfComps = value; }
+        }
+        
+
         public string SubjectMlsType
         {
             get { return subjectMlsTypecomboBox.Text; }

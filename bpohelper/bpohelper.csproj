@@ -83,6 +83,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Optimize>true</Optimize>
     <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -190,10 +191,6 @@
     <Reference Include="ImageResizer">
       <HintPath>..\packages\ImageResizer.3.4.3\lib\ImageResizer.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.iMacros">
-      <HintPath>obj\Release\Interop.iMacros.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="Interop.SHDocVw, Version=1.1.0.0, Culture=neutral, PublicKeyToken=db7cfd3acb5ad44e, processorArchitecture=MSIL">
       <HintPath>..\packages\WatiN.2.1.0\lib\net40\Interop.SHDocVw.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -294,6 +291,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="insidevaluations.cs" />
+    <Compile Include="FirstAmerican.cs" />
+    <Compile Include="Trinity.cs" />
     <Compile Include="REOcBPO.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="AVM.cs" />
@@ -466,6 +465,26 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\x86\Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="iMacros">
+      <Guid>{40658C29-4C34-4CA5-9596-8F852BAE27BA}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="iMacrosBHOLib">
+      <Guid>{864746EF-4333-4330-8AF4-461F22181AA1}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

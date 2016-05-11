@@ -621,8 +621,8 @@ namespace bpohelper
             //
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Listings.NeighborhoodListings CONTENT=" + form.SubjectNeighborhood.numberActiveListings);
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PricesFrom CONTENT=" + form.SubjectNeighborhood.minListPrice);
-            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PricesTo CONTENT=" + form.SubjectNeighborhood.highListPrice);
-            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.ComparableListingSupply CONTENT=" + form.SubjectNeighborhood.numberOfSales);
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PricesTo CONTENT=" + form.SubjectNeighborhood.maxListPrice);
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.ComparableListingSupply CONTENT=" + form.SubjectNeighborhood.numberSoldListings);
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Construction.LowPrice CONTENT=" + form.SubjectNeighborhood.minSalePrice);
             theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Construction.HighPrice CONTENT=" + form.SubjectNeighborhood.maxSalePrice);
 

@@ -9,6 +9,12 @@ using System.Windows.Forms;
 
 namespace bpohelper
 {
+
+    //  retsUsername = 'RETS_O_74601_6', // our RETS credentials for mred
+
+//    retsPassword = 'mr8sng62yd',
+
+
     public class MREDHtmlField
     {
         public MREDHtmlField(string h)
@@ -184,6 +190,15 @@ namespace bpohelper
                  return "No";
             }
 
+             public bool DistressedSale()
+             {
+                 if (TransactionType == "REO" || TransactionType == "Short Sale")
+                 {
+                     return true;
+                 }
+                 return false;
+             }
+
              public string AdditionalSalesInfo()
              {
                  return mlsHtmlFields["additionalSalesInfo"].value;
@@ -276,6 +291,20 @@ namespace bpohelper
             {
                 return mlsHtmlFields["waterFront"].value;
             }
+
+            public bool Waterfront
+            {
+                get
+                {
+                    if (WaterFrontYesNo().ToLower() == "yes")
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+
              
              public string ListingAgentPhone()
             {
@@ -601,7 +630,7 @@ namespace bpohelper
 
             public string City
             {
-                get { return city; }
+                get { return city.Trim(); }
             }
             public string Zipcode
             {
@@ -1024,6 +1053,35 @@ namespace bpohelper
 
                 }
                 set { mlsHtmlFields["mlsGla"].value = value.ToString(); }
+            }
+
+             public string ProperGla(string subjectGla)
+            {
+                int correctGla = this.GLA;
+                try
+                {
+                    int x = -1;
+                    Int32.TryParse(subjectGla, out x);
+                    int diffToRealist = Math.Abs(x - this.RealistGLA);
+                    int diffToMls = Math.Abs(x - this.GLA);
+
+                    if (this.RealistGLA == -1 | diffToMls <= diffToRealist)
+                    {
+                        correctGla = this.GLA;
+                    }
+                    else
+                    {
+                        correctGla = this.RealistGLA;
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                return correctGla.ToString();
+
             }
 
             public string MlsNumber
