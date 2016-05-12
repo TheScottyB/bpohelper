@@ -127,7 +127,8 @@ namespace bpohelper
             get { return subjectCurrentListPriceTextBox.Text; }
             set { subjectCurrentListPriceTextBox.Text = value; }
         }
-        //subjectMlsStatusTextBox
+        //
+
         public string SubjectMlsStatus
         {
             get { return subjectMlsStatusTextBox.Text; }

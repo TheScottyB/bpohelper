@@ -24,6 +24,11 @@ namespace bpohelper
         private RealEstateTransaction lastSale;
         private string mostCurrentMLSListingNumber;
         private string activeMLSListingNumber;
+        private MLSListing currentListing;
+        private static string[] activeStates= {"ACTV", "NEW", "TEMP", "CTG"};
+        private string rawListingHtml;
+        public string mlsStatus;
+        public string origListingPrice;
 
         // Add(System.Text.RegularExpressions.Match)
 
@@ -52,10 +57,64 @@ namespace bpohelper
 
         #endregion
 
+        //
+        //Internal functions
+        //
+        #region private
+        public virtual string GetFieldValue(string fn)
+        {
+            //                m.Groups[0].Value
+            //"xxxMLS #:09094917xxx"
+            //m.Groups[1].Value
+            //"MLS #:09094917"
+            //m.Groups[2].Value
+            //""
 
-      
+            string returnValue = "NotFound";
+            string result = "";
 
-       
+            foreach (Match m in rawDataFromPrintedMlsSheet)
+            {
+                if (m.Groups[1].Value.Contains(fn))
+                {
+                    returnValue = m.Groups[1].Value.Split(':')[1];
+                }
+            }
+
+            return returnValue;
+
+            //return Regex.Match(rawText, string.Format(@"{0}{1}|{0}{2}", fn, pattern1, pattern2)).Groups[1].Value;
+        }
+
+        public string GetFieldFromPintouts (string fn)
+        {
+             string returnValue = "NotFound";
+                string result = "";
+
+                foreach (Match m in rawDataFromPrintedMlsSheet)
+                {
+                    if (m.Groups[1].Value.Contains(fn))
+                    {
+                        returnValue = m.Groups[1].Value.Split(':')[1];
+                    }
+                }
+
+                return returnValue;
+        }
+
+        private bool IsActive()
+        {
+
+            if (activeStates.Contains(mlsStatus))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        #endregion
+
+
 
         public MatchCollection PrintedMlsSheetNameValuePairs
         {
@@ -169,6 +228,43 @@ namespace bpohelper
             return mlsListings[id];
         }
 
+        public bool IsActiveListing
+        {
+            get
+            {
+                return IsActive();
+              
+            }
+        }
+
+        public string ListDate
+        {
+         get
+         {
+             MLSListing m = new MLSListing();
+             try
+             {
+
+       
+                     return GetFieldValue(@"List Date:");
+
+                
+
+             } catch
+             {
+
+             }
+           
+
+
+             return "";
+            //GetMlsListing(mostCurrentMLSListingNumber)  
+            
+           // m.ListDateString = GetFieldValue(@"List Date:");
+         }
+            
+
+        }
     
         public bool ListedInLastYear
         {
@@ -202,6 +298,43 @@ namespace bpohelper
            
         }
 
+        public string rawtextFromPdfActiveListing;
+
+
+        public override string GetFieldValue(string fn)
+        {
+            return helper_GetFieldValue(fn);
+        }
+
+        private string helper_GetFieldValue(string fn)
+        {
+            //:x*(.*?)xxx
+
+
+            string pattern1 = "x*(.*?)xxx";
+            string pattern2 = "x*(.*?)\n";
+            string returnValue = "NotFound";
+            string result = "";
+
+            //result = Regex.Match(rawText, string.Format(@"{0}{1}", fn, pattern1)).Groups[1].Value;
+            result = Regex.Match(rawtextFromPdfActiveListing, string.Format(@"{0}{1}|{0}{2}", fn, pattern1, pattern2)).Groups[1].Value;
+
+            if (String.IsNullOrWhiteSpace(result))
+            {
+                returnValue = Regex.Match(rawtextFromPdfActiveListing, string.Format(@"{0}{1}", fn, pattern2)).Groups[1].Value;
+            }
+            else
+            {
+                returnValue = result;
+            }
+
+            return returnValue;
+
+            //return Regex.Match(rawText, string.Format(@"{0}{1}|{0}{2}", fn, pattern1, pattern2)).Groups[1].Value;
+        }
+
+
+
         //
         //Address Fields: AddressLine1, City, State, Zip
         //
@@ -232,9 +365,18 @@ namespace bpohelper
 
 
         #endregion
-
         //
-        //Derived Fields: Age, FullBath, HalfBath, GarageStalls, InspecitonDate
+        //listing info
+        //
+        public string  BrokerPhone
+        {
+            get
+            {
+                return GetFieldFromPintouts(@"Ph #:");
+            }
+        }
+  //
+        //Derived Fields: Age, FullBath, HalfBath, GarageStalls, InspecitonDate, BasementFinishedPercentage
         //
         #region Derived Fields
         public int Age
@@ -286,6 +428,27 @@ namespace bpohelper
 
         }
 
+        public decimal BasementFinishedPercentage
+        {
+            get
+            {
+                decimal percentage = 0;
+                try
+                {
+                    int x, y;
+                    Int32.TryParse(form.subjectBasementGlaTextbox.Text, out x);
+                    Int32.TryParse(form.subjectFinishedBasementGlaTextBox.Text, out y);
+                    percentage = y / x * 100;
+                }
+                catch
+                {
+                    //something not set right
+                }
+                return percentage;
+            }
+
+        }
+
            
         #endregion
 
@@ -325,7 +488,7 @@ namespace bpohelper
       
         
         public double saleToListRatio = 0.97;
-        public double monthlyAppreciationRate = 0.01;
+        public double monthlyAppreciationRate = 0.003;
 
         public decimal AbsorbtionRate
         {
@@ -347,7 +510,7 @@ namespace bpohelper
         {
             get
             {
-                return medianListPrice * Math.Pow((1 + monthlyAppreciationRate), (12 / .25));
+                return medianListPrice * Math.Pow((1 + monthlyAppreciationRate), (12 * .25));
             }
         }
 
@@ -355,7 +518,7 @@ namespace bpohelper
         {
             get
             {
-                return medianSalePrice * Math.Pow((1 + monthlyAppreciationRate), (12 / .25));
+                return medianSalePrice * Math.Pow((1 + monthlyAppreciationRate), (12 * .25));
             }
         }
 
@@ -363,7 +526,7 @@ namespace bpohelper
         {
             get
             {
-                return medianListPrice * Math.Pow((1 + monthlyAppreciationRate), (12 / .5));
+                return medianListPrice * Math.Pow((1 + monthlyAppreciationRate), (12 * .5));
             }
         }
 
@@ -371,7 +534,7 @@ namespace bpohelper
         {
             get
             {
-                return medianSalePrice * Math.Pow((1 + monthlyAppreciationRate), (12 / .5));
+                return medianSalePrice * Math.Pow((1 + monthlyAppreciationRate), (12 * .5));
             }
         }
          

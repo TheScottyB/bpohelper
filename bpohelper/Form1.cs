@@ -477,14 +477,24 @@ namespace bpohelper
             string[] active_name_list = { "COMPARABLE1", "COMPARABLE2", "COMPARABLE3" };
 
 
-
-
             if (currentUrl.ToLower().Contains("insidevaluation"))
             {
 
                 comp_name_list[0] = "5";
                 comp_name_list[1] = "6";
                 comp_name_list[2] = "7";
+                active_name_list[0] = "2";
+                active_name_list[1] = "3";
+                active_name_list[2] = "4";
+
+            }
+
+            if (currentUrl.ToLower().Contains("clearcapital"))
+            {
+
+                comp_name_list[0] = "6";
+                comp_name_list[1] = "7";
+                comp_name_list[2] = "8";
                 active_name_list[0] = "2";
                 active_name_list[1] = "3";
                 active_name_list[2] = "4";
@@ -635,6 +645,8 @@ namespace bpohelper
             #endregion
 
             string [] compPrices ={"","",""};
+
+             Dictionary<string, MLSListing> stack  = new Dictionary<string,MLSListing>();
 
 
             for (int i = 0; i < 6; i++)
@@ -1562,6 +1574,31 @@ namespace bpohelper
 
                 // Perform the increment on the ProgressBar.
 
+
+
+                #region ClearCap
+                if (currentUrl.ToLower().Contains("clearcapital"))
+                {
+                    #region code
+
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
+                    m.NumberOfPriceChanges = count;
+
+                    Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                    ClearCap bpoform = new ClearCap(m);
+
+                    fieldList.Add("filepath", SubjectFilePath);
+
+                    #endregion
+
+
+                    bpoform.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
+                    status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
+
+                }
+
+                #endregion  
 
                 //
                 //First American - First Pass
@@ -3042,89 +3079,49 @@ namespace bpohelper
                 #region lres
                 if (currentUrl.ToLower().Contains("lres"))
                 {
-                    Lres lres = new Lres(this);
-                    Dictionary<string, string> fieldList = new Dictionary<string, string>();
-                    fieldList.Add("Address", full_street_address);
-                    fieldList.Add("City", city);
-                    fieldList.Add("Zip", zip);
-                    fieldList.Add("State", "%IL");
-                    fieldList.Add("OLP", orig_list_price);
-                    fieldList.Add("DOMOLP", domAtOriginalListPrice);
-                    fieldList.Add("ListPrice", current_list_price);
-                    fieldList.Add("DOM", dom);
-                    fieldList.Add("SalePrice", sold_price);
-                    fieldList.Add("SaleDate", closed_date);
-                    fieldList.Add("RoomCount", room_count);
-                    fieldList.Add("BedrmCount", bedrooms);
-                    fieldList.Add("BathrmCount", full_bath + "." + half_bath.Replace("1", "5"));
-                    fieldList.Add("LivArea", mls_gla);
-                    fieldList.Add("LotSize", mls_lot_size);
-                    fieldList.Add("YearBuilt", year_built);
-                    fieldList.Add("Style", "%Cntmp");
-                    fieldList.Add("ConstructionType", "%Other");
-                    if (fullBasement)
+                    #region code
+
+
+                    m.proximityToSubject = Convert.ToDouble(Get_Distance(m.mlsHtmlFields["address"].value, this.SubjectFullAddress));
+                    m.DateOfLastPriceChange = lastPriceChangeDate;
+                    m.NumberOfPriceChanges = count;
+
+                    stack.Add(input_comp_name, m);
+
+                    if (stack.Count == 6)
                     {
-                         fieldList.Add("BasementFeature", "%Full");
-                    } else   if (partialBasement)
-                    {
-                         fieldList.Add("BasementFeature", "%Partial");
-                    } else
-                    {
-                        fieldList.Add("BasementFeature", "%Crawl" );
+                        Dictionary<string, string> fieldList = new Dictionary<string, string>();
+                        fieldList.Add("filepath", SubjectFilePath);
+                        //for (int j = 0; j++; j<6)
+                        //{
+
+                        //}
+
+                       
+                        //Lres bpoforms1 = new Lres(stack["RECENT_SALE1"]);
+                        //bpoforms1.CompFill(iim2, "sale", "RECENT_SALE1", fieldList);
+
+                        //Lres bpoforms2 = new Lres(stack["RECENT_SALE2"]);
+                        //bpoforms2.CompFill(iim2, "sale", "RECENT_SALE2", fieldList);
+
+                        //Lres bpoforms3 = new Lres(stack["RECENT_SALE3"]);
+                        //bpoforms3.CompFill(iim2, "sale", "RECENT_SALE3", fieldList);
+
+                        Lres bpoforms4 = new Lres(stack["COMPARABLE1"]);
+                        bpoforms4.CompFill(iim2, "list", "COMPARABLE1", fieldList);
+
+                        Lres bpoforms5 = new Lres(stack["COMPARABLE2"]);
+                        bpoforms5.CompFill(iim2, "list", "COMPARABLE2", fieldList);
+
+                        Lres bpoforms6 = new Lres(stack["COMPARABLE3"]);
+                        bpoforms6.CompFill(iim2, "list", "COMPARABLE3", fieldList);
+
                     }
 
-                    if (finished_basement)
-                    {
-                        fieldList.Add("BasementFinish", "%Fully<SP>Finished");
-                    }
-                    else
-                    {
-                        fieldList.Add("BasementFinish", "%Unfinished");
-                    }
 
-                    fieldList.Add("Location", "%Average");
-
-
-                    fieldList.Add("Condition", "%Average");
-
-                    string lresGarageStr = "None";
-                    //string numSpaces = Regex.Match(form.SubjectParkingType, @"\d").Value;
-                    string att_det = "";
-
-                    if (!string.IsNullOrEmpty(mls_garage_spaces))
-                    {
-                        if (mls_garage_type.ToLower().Contains("att"))
-                        {
-                            att_det = "Attached";
-                        }
-                        else if (mls_garage_type.ToLower().Contains("det"))
-                        {
-                            att_det = "Detached";
-                        }
-
-                        switch (mls_garage_spaces)
-                        {
-                            case "1":
-                                lresGarageStr = "1<SP>Car<SP>" + att_det;
-                                break;
-                            case "2":
-                                lresGarageStr = "2<SP>Car<SP>" + att_det;
-                                break;
-                            default:
-                                lresGarageStr = "2+<SP>Car<SP>" + att_det;
-                                break;
-                        }
-
-                    }
-                    fieldList.Add("Garage", "%" + lresGarageStr);
-                    fieldList.Add("Compared", "%Equal");
-                    fieldList.Add("InfoSource", "%MLS");
-                    fieldList.Add("TransType", "%Fair<SP>Market");
-
-            
-                   
-                    lres.CompFill(iim2, sale_or_list_flag, input_comp_name, fieldList);
                     status = iim.iimPlayCode(move_through_comps_macro.ToString(), 30);
+
+                    #endregion
                 }
                 #endregion
                 //
@@ -6250,7 +6247,7 @@ namespace bpohelper
             this.subjectTableAdapter.Fill(this._BPO_SandboxDataSet.subject);
             if (!string.IsNullOrEmpty(search_address_textbox.Text))
             {
-                this.importSubjectInfoButton(this, new EventArgs());
+              //  this.importSubjectInfoButton(this, new EventArgs());
             }
             else
             {
@@ -6513,9 +6510,9 @@ namespace bpohelper
             #region lres
             if (currentUrl.ToLower().Contains("lres.com"))
             {
-                Lres lres = new Lres(this);
+                Lres lres = new Lres();
                 streetnumTextBox.Text = "lres";
-                lres.Prefill(iim2);
+                lres.Prefill(iim2, this);
             }
 
 
@@ -8118,11 +8115,14 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                             t.Checked = Convert.ToBoolean(splitLine[1]);
                         }
 
+                        if (c[0] is System.Windows.Forms.DateTimePicker)
+                        {
+                            System.Windows.Forms.DateTimePicker t = (System.Windows.Forms.DateTimePicker)c[0];
 
-                        //foreach (System.Windows.Forms.TextBox t in query1)
-                        //{
+                            t.Value = Convert.ToDateTime(splitLine[1]);
+                        }
 
-                        //}                       
+                               
                     }
                     
                 }
@@ -8690,6 +8690,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
             IEnumerable<System.Windows.Forms.TextBox> query1 = this.groupBox1.Controls.OfType<System.Windows.Forms.TextBox>();
             IEnumerable<System.Windows.Forms.TextBox> query2 = this.neighborhoodDataGroupBox.Controls.OfType<System.Windows.Forms.TextBox>();
             IEnumerable<System.Windows.Forms.TextBox> query3 = this.compDataGroupBox.Controls.OfType<System.Windows.Forms.TextBox>();
+            IEnumerable<System.Windows.Forms.ComboBox> query4 = this.groupBox1.Controls.OfType<System.Windows.Forms.ComboBox>();
 
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(this.SubjectFilePath + "\\" + "subjectinfo.txt"))
             {
@@ -8705,11 +8706,17 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                 {
                     file.WriteLine("{0};{1}", t.Name, t.Text);
                 }
-                
+                foreach (System.Windows.Forms.ComboBox t in query4)
+                {
+                    file.WriteLine("{0};{1}", t.Name, t.Text);
+                }
                 
                file.WriteLine("{0};{1}", subjectDetachedradioButton.Name, subjectDetachedradioButton.Checked.ToString());
                file.WriteLine("{0};{1}", subjectAttachedRadioButton.Name, subjectAttachedRadioButton.Checked.ToString());
-               file.WriteLine("{0};{1}", subjectMlsTypecomboBox.Name, subjectMlsTypecomboBox.Text);
+               //file.WriteLine("{0};{1}", subjectMlsTypecomboBox.Name, subjectMlsTypecomboBox.Text);
+               file.WriteLine("{0};{1}", dateTimePickerInspectionDate.Name, dateTimePickerInspectionDate.Value.ToUniversalTime());
+               file.WriteLine("{0};{1}", dateTimePickerSubjectCurrentListDate.Name, dateTimePickerSubjectCurrentListDate.Value.ToUniversalTime()); 
+              
                bpoCommentsTextBox.SaveFile(this.SubjectFilePath + "\\" + "bpocomments.rtf");
             }
              using (System.IO.StreamWriter file = new System.IO.StreamWriter(".config"))
@@ -10968,6 +10975,50 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
 
         }
 
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+            string retsLogin = @"http://connectmls-rets.mredllc.com/rets/server/login";
+            string retsString = @"http://connectmls-rets.mredllc.com/rets/server/search?SearchType=Property&Class=ResidentialProperty&QueryType=DMQL2&Format=COMPACT&StandardNames=1&Select=ListingID,ListPrice&Query=(ListPrice=300000%2B)&Count=1&Limit=10";
+
+            //// Create a request for the URL. 		
+            WebRequest request = WebRequest.Create(retsString);
+            request.Headers.Add("Authorization: Digest username=\"RETS_O_74601_6\", realm=\"connectmls-rets.mredllc.com\", nonce=\"0d4194327a1c825d2672e5bf273cfdb6\", uri=\"/rets/server/search?SearchType=Property&Class=ResidentialProperty&QueryType=DMQL2&Format=COMPACT&StandardNames=1&Select=ListingID,ListPrice&Query=(ListPrice=300000%2B)&Count=1&Limit=12\", response=\"197d466fe08aa541be16efe37ff24058\", opaque=\"5ccdef346870ab04ddfe0412367fccba\", qop=auth, nc=00000008, cnonce=\"bf43690177da68f5\"");
+             request.Headers.Add("Cookie: RETS-Session-ID=24C99698CE44123BF98B40E98CB9888F; __utmt=1; JSESSIONID=24C99698CE44123BF98B40E98CB9888F; __utma=118572885.1876298590.1455414260.1460149404.1462996245.5; __utmb=118572885.1.10.1462996245; __utmc=118572885; __utmz=118572885.1462996245.5.4.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); JSESSIONID=24C99698CE44123BF98B40E98CB9888F; __utma=118572885.1876298590.1455414260.1460149404.1462996245.5; __utmb=118572885.1.10.1462996245; __utmc=118572885; __utmz=118572885.1462996245.5.4.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); SERVERID=ws17r Host:connectmls-rets.mredllc.com ");
+
+
+
+            //// Get the response.
+
+            HttpWebResponse response;
+            response = (HttpWebResponse)request.GetResponse();
+
+ 
+
+            // Get the stream containing content returned by the server.
+            Stream dataStream = response.GetResponseStream();
+            // Open the stream using a StreamReader for easy access.
+            StreamReader reader = new StreamReader(dataStream);
+            // Read the content.
+            string responseFromServer = reader.ReadToEnd();
+            // Display the content.
+            //MessageBox.Show(response.ContentLength.ToString());
+            MessageBox.Show(responseFromServer);
+            ////Console.WriteLine(responseFromServer);
+            //// Cleanup the streams and the response.
+
+            reader.Close();
+            dataStream.Close();
+            response.Close();
+
+        }
+
+        private void label24_Click(object sender, EventArgs e)
+        {
+
+        }
+
+      
        
        
 
@@ -11017,6 +11068,7 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
         public string mlsTaxAmount;
 
         private string rawText;
+
         private string GetFieldValue(string fn)
         {
             //:x*(.*?)xxx
@@ -11392,7 +11444,14 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             form.SubjectBrokerPhone = brokerPhone;
             form.SubjectDom = dom;
             GlobalVar.theSubjectProperty.PropertyTax = mlsTaxAmount;
+            GlobalVar.theSubjectProperty.mlsStatus = mlsStatus;
+            GlobalVar.theSubjectProperty.origListingPrice = GetFieldValue(@"Orig List Price:");
+            GlobalVar.theSubjectProperty.rawtextFromPdfActiveListing = s;
+ 
+          
+            
 
+            m.Status = mlsStatus;
             m.MlsNumber = GetFieldValue(@"MLS #:");
             m.ListDateString = GetFieldValue(@"List Date:");
             m.OffMarketDateString = GetFieldValue(@"Off Market:");

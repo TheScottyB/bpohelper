@@ -51,6 +51,10 @@ namespace bpohelper
                 {ListingSheetFieldName.TypeAttached,  new MREDHtmlField("Type:")}, 
             };
 
+
+             private string mlsStatus;
+
+
             #region mlsHtmlFields
             internal Dictionary<string, MREDHtmlField> mlsHtmlFields = new Dictionary<string, MREDHtmlField>()
             {
@@ -681,6 +685,24 @@ namespace bpohelper
                 }
                  
             }
+             public string PointsInDollars
+            {
+                get
+                {
+                    string returnString = "0";
+
+                    if (!(PointsMlsString == "Unknown"))
+                     {
+                        //TODO:
+                        //return dollar amount based on string
+                         //returnString = mlsHtmlFields["points"].value;
+                     }
+                    return returnString;
+                }
+                 
+            }
+
+             
 
              public string FinancingMlsString
              {
@@ -732,6 +754,7 @@ namespace bpohelper
             public string TransactionType
             {
                 get 
+
                 {
                     if (string.IsNullOrWhiteSpace(mlsHtmlFields["soldPrice"].value))
                     {
@@ -775,8 +798,11 @@ namespace bpohelper
 
             public string Status
             {
-                get { return mlsHtmlFields["status"].value; }
-                // set { mlsNumber = value; }
+                get 
+                {
+                    return mlsHtmlFields["status"].value; 
+                }
+                set { mlsStatus = value; }
             }
 
             public double SalePrice
@@ -1152,6 +1178,24 @@ namespace bpohelper
                 get
                 {
                     return  mlsHtmlFields["exterior"].value;
+
+                }
+            }
+
+            public string Heating
+            {
+                get
+                {
+                    return Regex.Match(rawData, @"Heating:</span><span class=.value.>(.*?)</span>").Groups[1].Value;
+
+                }
+            }
+
+            public string Cooling
+            {
+                get
+                {
+                    return Regex.Match(rawData, @"Air&nbsp;Cond:</span><span class=.value.>(.*?)</span>").Groups[1].Value;
 
                 }
             }

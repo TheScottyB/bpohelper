@@ -292,6 +292,7 @@
   <ItemGroup>
     <Compile Include="insidevaluations.cs" />
     <Compile Include="FirstAmerican.cs" />
+    <Compile Include="ClearCap.cs" />
     <Compile Include="Trinity.cs" />
     <Compile Include="REOcBPO.cs" />
     <Compile Include="Class1.cs" />
