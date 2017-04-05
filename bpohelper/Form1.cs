@@ -2377,9 +2377,9 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
 
         private void subjectRentTextbox_TextChanged(object sender, EventArgs e)
         {
-        http://www.zillow.com/webservice/GetSearchResults.htm?zws-id=<ZWSID>&address=2114+Bigelow+Ave&citystatezip=Seattle%2C+WA
+         //    http://www.zillow.com/webservice/GetSearchResults.htm?zws-id=<ZWSID>&address=2114+Bigelow+Ave&citystatezip=Seattle%2C+WA
 
-            string[] address = subjectFullAddressTextbox.Text.Split(',');
+            string[] address = subjectFullAddressTextbox.Text.Replace(@" ", " ").Split(',');
 
         try
         {
