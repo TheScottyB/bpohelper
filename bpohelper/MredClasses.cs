@@ -221,7 +221,7 @@ namespace bpohelper
 
             public string BasementGLA()
             {
-                return calculatedBasementGLA.ToString();
+                return Math.Abs(calculatedBasementGLA).ToString();
             }
 
             public string BasementFinishedGLA()
@@ -532,6 +532,10 @@ namespace bpohelper
             private InteriorFeatures interiorFeatures;
              private string mlstax;
              private string geocode;
+             private string listingBrokerageName;
+             private double currentListPrice;
+             private double origListPrice;
+
             #endregion
 
             #region protected members
@@ -730,19 +734,26 @@ namespace bpohelper
                 {
                     string s;
                     double x = -1;
-                    try
+                    if (origListPrice == 0)
                     {
-                        s = Regex.Match(mlsHtmlFields["origListPrice"].value, @"\d*,*\d+,.\d*").Value;
+                        try
+                        {
+                            s = Regex.Match(mlsHtmlFields["origListPrice"].value, @"\d*,*\d+,.\d*").Value;
+                        }
+                        catch
+                        {
+                            s = Regex.Match(mlsHtmlFields["openingBid"].value, @"\d*,*\d+,.\d*").Value;
+                        }
+                        Double.TryParse(s, out x);
                     }
-                    catch
+                    else
                     {
-                        s = Regex.Match(mlsHtmlFields["openingBid"].value, @"\d*,*\d+,.\d*").Value;
+                        x = origListPrice;
                     }
-                    Double.TryParse(s, out x);
+                   
                     return x;
-
                 }
-                set { mlsHtmlFields["origListPrice"].value = value.ToString(); }
+                set { origListPrice = value; }
             }
 
             public string ContractDate
@@ -800,7 +811,13 @@ namespace bpohelper
             {
                 get 
                 {
-                    return mlsHtmlFields["status"].value; 
+                    if (String.IsNullOrWhiteSpace(mlsStatus))
+                    {
+                        return mlsHtmlFields["status"].value;
+                    }
+
+                    return mlsStatus;
+                    
                 }
                 set { mlsStatus = value; }
             }
@@ -824,23 +841,32 @@ namespace bpohelper
                 {
                     string s = null;
                     double x = -1;
-                    try
+                    if (currentListPrice == 0)
                     {
-                        s = Regex.Match(mlsHtmlFields["listPrice"].value, @"\d*,*\d+,.\d*").Value;
-                    }
-                    catch
-                    {
+                        
                         try
                         {
-                            s = Regex.Match(mlsHtmlFields["openingBid"].value, @"\d*,*\d+,.\d*").Value;
+                            s = Regex.Match(mlsHtmlFields["listPrice"].value, @"\d*,*\d+,.\d*").Value;
                         }
-                        catch { }
+                        catch
+                        {
+                            try
+                            {
+                                s = Regex.Match(mlsHtmlFields["openingBid"].value, @"\d*,*\d+,.\d*").Value;
+                            }
+                            catch { }
+                        }
+                        Double.TryParse(s, out x);
                     }
-                    Double.TryParse(s, out x);
+                    else
+                    {
+                        x = currentListPrice;
+                    }
+      
                     return x;
 
                 }
-                set { mlsHtmlFields["listPrice"].value = value.ToString(); }
+                set { currentListPrice = value; }
             }
 
 
@@ -1021,7 +1047,15 @@ namespace bpohelper
             }
             public string ListingBrokerageName
             {
-                get { return mlsHtmlFields["broker"].value; }
+                get 
+                {
+                    if (String.IsNullOrWhiteSpace(listingBrokerageName))
+                    {
+                        listingBrokerageName = mlsHtmlFields["broker"].value;
+                    }
+                    return listingBrokerageName;
+                }
+                set { listingBrokerageName = value; }
             }
             public string ListingAgentNameEmail
             {
@@ -1080,6 +1114,8 @@ namespace bpohelper
                 }
                 set { mlsHtmlFields["mlsGla"].value = value.ToString(); }
             }
+
+           
 
              public string ProperGla(string subjectGla)
             {

@@ -19,10 +19,175 @@ namespace bpohelper
             targetComp = m;
         }
         private Dictionary<int, MLSListing> stack;
+        private enum bpoEntryFormType { FORM1, FORM2 };
 
         private Form1 callingForm;
+        private iMacros.App iim;
 
-        public void Prefill(iMacros.App iim, Form1 form)
+        private void Prefill_Form2()
+        {
+            Dictionary<double, string[]> commands = new Dictionary<double, string[]>();
+            string inputType = "INPUT:TEXT";
+
+            string fiftyWordComment = @"COMMENTS ON SUBJECT'S CONDITION: Notice: Our client relies heavily on your comments. Please provide original exterior physical description,overall exterior condition (& interior, if available) and surrounding neighborhood characteristics of the subject property base on a drive-by. Cut and paste comments from previous work is not acceptable. COMMENTS ON SUBJECT'S CONDITION: Notice: Our client relies heavily on your comments. Please provide original exterior physical description,overall exterior condition (& interior, if available) and surrounding neighborhood characteristics of the subject property base on a drive-by. Cut and paste comments from previous work is not acceptable. " ;
+
+            StringBuilder macro = new StringBuilder();
+            int timeout = 60;
+            iMacros.Status status = new iMacros.Status();
+
+            string lresGarageStr = "None";
+            string numSpaces = Regex.Match(callingForm.SubjectParkingType, @"\d").Value;
+            string att_det = "";
+
+            if (!string.IsNullOrEmpty(numSpaces))
+            {
+                if (callingForm.SubjectParkingType.ToLower().Contains("att"))
+                {
+                    att_det = "CA";
+                }
+                else if (callingForm.SubjectParkingType.ToLower().Contains("det"))
+                {
+                    att_det = "CD";
+                }
+
+                switch (numSpaces)
+                {
+                    case "1":
+                        lresGarageStr = "1" + att_det;
+                        break;
+                    case "2":
+                        lresGarageStr = "2" + att_det;
+                        break;
+                    default:
+                        lresGarageStr = "2+" + att_det;
+                        break;
+                }
+
+            }
+
+            //
+            //Page 1
+            //
+
+            if (GlobalVar.theSubjectProperty.IsActiveListing)
+            {
+                commands.Add(1, new string[] { "1", "SELECT", "currently_listed", "%1" });
+                commands.Add(1.1, new string[] { "1", inputType, "previous_dom",  GlobalVar.mainWindow.SubjectDom });
+                commands.Add(1.2, new string[] { "1", inputType, "previous_list_price", GlobalVar.mainWindow.textBoxSubjectOriginalListPRice.Text });
+                commands.Add(1.3, new string[] { "1", inputType, "current_list_price", GlobalVar.mainWindow.SubjectCurrentListPrice });
+                commands.Add(1.4, new string[] { "1", inputType, "listing_company", GlobalVar.mainWindow.textBoxSubjextListingBrokerage.Text });
+            }
+            else
+            {
+                commands.Add(1.5, new string[] { "1", "SELECT", "currently_listed", "%0" });
+            }
+
+            commands.Add(0, new string[] { "1", "SELECT", "property_type", "%SFR" });
+            if (GlobalVar.theSubjectProperty.IsOccupied)
+            {
+                commands.Add(2, new string[] { "1", "SELECT", "vacant_or_occupied", "%O" });
+            }
+            else
+            {
+                commands.Add(2, new string[] { "1", "SELECT", "vacant_or_occupied", "%V" });
+            }
+            commands.Add(3, new string[] { "1", "SELECT", "ca_condition", "%Average" });
+            commands.Add(4, new string[] { "1", "SELECT", "ca_location", "%Average" });
+            commands.Add(5, new string[] { "1", "SELECT", "ca_theview", "%Residential" });
+            commands.Add(6, new string[] { "1", inputType, "seller_concessions", "NA" });
+            commands.Add(7, new string[] { "1", "SELECT", "prop_source", "%1" });
+            commands.Add(8, new string[] { "1", inputType, "hoa_fees_per_month", "0" });
+            commands.Add(9, new string[] { "1", inputType, "legal_description", GlobalVar.theSubjectProperty.ParcelID });
+            commands.Add(10, new string[] { "1", "TEXTAREA", "condition_comments", "......TBD......." + fiftyWordComment  });
+
+            commands.Add(11, new string[] { "1", inputType, "ca_sqft_gla", GlobalVar.mainWindow.SubjectAboveGLA });
+            commands.Add(11.1, new string[] { "1", "SELECT", "ca_style", "%Conv" });
+            commands.Add(11.2, new string[] { "1", "SELECT", "ca_ext_walls", "%Frame" });
+            commands.Add(11.3, new string[] { "1", inputType, "ca_total_rooms", GlobalVar.theSubjectProperty.MainForm.SubjectRoomCount });
+            commands.Add(11.4, new string[] { "1", inputType, "ca_bedrooms", GlobalVar.theSubjectProperty.MainForm.SubjectBedroomCount });
+            commands.Add(11.5, new string[] { "1", inputType, "ca_bathrooms", GlobalVar.theSubjectProperty.MainForm.SubjectBathroomCount });
+            commands.Add(11.6, new string[] { "1", inputType, "basement_pct_finished", GlobalVar.theSubjectProperty.BasementFinishedPercentage.ToString() });
+            commands.Add(11.7, new string[] { "1", inputType, "basement_sqft", GlobalVar.theSubjectProperty.MainForm.SubjectBasementGLA });
+            commands.Add(11.8, new string[] { "1", "SELECT", "ca_garage_carport", "%" + lresGarageStr });
+            commands.Add(11.9, new string[] { "1", inputType, "ca_lot_size", GlobalVar.theSubjectProperty.MainForm.SubjectLotSize });
+            commands.Add(11.11, new string[] { "1", inputType, "ca_year_built", GlobalVar.theSubjectProperty.MainForm.SubjectYearBuilt });
+
+            commands.Add(12, new string[] { "1", "SELECT", "rec_repair", "%2" });
+
+            commands.Add(13, new string[] { "1", inputType, "nbhd_sale_price_low", GlobalVar.mainWindow.SubjectNeighborhood.minSalePrice.ToString() });
+            commands.Add(13.1, new string[] { "1", inputType, "nbhd_sale_price_high", GlobalVar.mainWindow.SubjectNeighborhood.maxSalePrice.ToString() });
+            commands.Add(13.2, new string[] { "1", inputType, "nbhd_sale_price_avg", GlobalVar.mainWindow.SubjectNeighborhood.medianSalePrice.ToString() });
+            commands.Add(13.3, new string[] { "1", inputType, "nbhd_pct_owners", "90" });
+            commands.Add(13.4, new string[] { "1", inputType, "nbhd_pct_tenants", "10" });
+            commands.Add(13.5, new string[] { "1", inputType, "nbhd_listings", GlobalVar.mainWindow.SubjectNeighborhood.numberActiveListings.ToString() });
+            commands.Add(13.6, new string[] { "1", inputType, "nbhd_listings_reo", GlobalVar.mainWindow.SubjectNeighborhood.numberREOListings.ToString() });
+            commands.Add(13.7, new string[] { "1", inputType, "nbhd_sales", GlobalVar.mainWindow.SubjectNeighborhood.numberSoldListings.ToString() });
+            commands.Add(13.8, new string[] { "1", inputType, "nbhd_sales_reo", GlobalVar.mainWindow.SubjectNeighborhood.numberREOSales.ToString() });
+            commands.Add(13.9, new string[] { "1", inputType, "nbhd_estimated_monthly_rental", GlobalVar.mainWindow.SubjectRent });
+            commands.Add(13.11, new string[] { "1", inputType, "nbhd_comparable_rental_listings", (Math.Round(GlobalVar.mainWindow.SubjectNeighborhood.numberActiveListings * .1)).ToString() });
+            commands.Add(13.12, new string[] { "1", inputType, "economic_obsolescence", "None" });
+            commands.Add(13.13, new string[] { "1", inputType, "location_influences", ".....TBD....." });
+
+
+
+
+            //commands.Add(0, new string[] { inputType, "tbInspectionDate", form.dateTimePickerInspectionDate.Value.ToShortDateString() });
+            //commands.Add(12, new string[] { inputType, "tbEstimatedLandValue", GlobalVar.theSubjectProperty.MainForm.SubjectLandValue });
+
+          
+            //if (GlobalVar.mainWindow.SubjectAttached)
+            //{
+            //    commands.Add(19, new string[] { "SELECT", "ddlPropertyType", "%Attached" });
+            //}
+            //else
+            //{
+            //    commands.Add(19, new string[] { "SELECT", "ddlPropertyType", "%Detached" });
+            //}
+
+            //commands.Add(33, new string[] { "INPUT:RADIO", "rbRecommendRepairs_1", "YES" });
+
+
+
+            //////  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button4&&VALUE:Save");
+
+
+            ////  macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbSubjectConditionComment CONTENT=aaaa;
+
+            ////  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button2&&VALUE:Save<SP>and<SP>Continue");
+            //commands.Add(57, new string[] { "INPUT:RADIO", "rbIsNewConstruction_1", "YES" });
+
+            //commands.Add(58, new string[] { "TEXTAREA", "tbExplainObsolescense", ".TBD." });
+            //commands.Add(59, new string[] { "TEXTAREA", "tbExplainLocationInfluences", ".TBD." });
+
+            foreach (var c in commands)
+            {
+                macro.AppendFormat("TAG POS={0} TYPE={1} FORM=NAME:bpoForm ATTR=NAME:{2} CONTENT={3}\r\n", c.Value[0], c.Value[1], c.Value[2], c.Value[3].Replace(" ", "<SP>").Replace("$", "").Replace(",", ""));
+            }
+         
+            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:bpoForm ATTR=NAME:nbhd_growth_rate CONTENT=YES");
+            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:bpoForm ATTR=NAME:nbhd_location CONTENT=YES");
+            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:bpoForm ATTR=NAME:property_values CONTENT=YES");
+            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:bpoForm ATTR=NAME:nbhd_supply_demand CONTENT=YES");
+            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:bpoForm ATTR=NAME:nbhd_economy CONTENT=YES");
+            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:bpoForm ATTR=NAME:nbhd_market_time_range CONTENT=YES");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:bpoForm ATTR=NAME:nbhd_reo_market CONTENT=%N");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:bpoForm ATTR=NAME:nbhd_boarded_homes CONTENT=%N");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:bpoForm ATTR=NAME:new_construction CONTENT=%N");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:bpoForm ATTR=NAME:probable_purchaser CONTENT=%Move<SP>Up");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:bpoForm ATTR=NAME:probable_financing CONTENT=%Conv");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON ATTR=NAME:btnSaveAndCont");
+
+       
+          
+            string macroCode = macro.ToString();
+            iim.iimPlayCode(macroCode, 30);
+
+            //#endregion
+        }
+
+
+
+        private void Prefill_Form1()
         {
             Dictionary<int, string[]> commands = new Dictionary<int, string[]>();
             string inputType = "INPUT:TEXT";
@@ -33,7 +198,7 @@ namespace bpohelper
             //
             //Page 01 - Subject Property
             //
-            commands.Add(0, new string[] { inputType, "tbInspectionDate", form.dateTimePickerInspectionDate.Value.ToShortDateString() });
+            commands.Add(0, new string[] { inputType, "tbInspectionDate", callingForm.dateTimePickerInspectionDate.Value.ToShortDateString() });
             commands.Add(1, new string[] { inputType, "tbApnNumber", GlobalVar.theSubjectProperty.ParcelID });
             commands.Add(2, new string[] { inputType, "tbNumberOfUnits", "1" });
             commands.Add(3, new string[] { inputType, "tbBedrooms",  GlobalVar.theSubjectProperty.MainForm.SubjectBedroomCount});
@@ -69,16 +234,16 @@ namespace bpohelper
 
 
             string lresGarageStr = "None";
-            string numSpaces = Regex.Match(form.SubjectParkingType, @"\d").Value;
+            string numSpaces = Regex.Match(callingForm.SubjectParkingType, @"\d").Value;
             string att_det = "";
 
             if (!string.IsNullOrEmpty(numSpaces))
             {
-                if (form.SubjectParkingType.ToLower().Contains("att"))
+                if (callingForm.SubjectParkingType.ToLower().Contains("att"))
                 {
                     att_det = "Attached";
                 }
-                else if (form.SubjectParkingType.ToLower().Contains("det"))
+                else if (callingForm.SubjectParkingType.ToLower().Contains("det"))
                 {
                     att_det = "Detached";
                 }
@@ -216,128 +381,44 @@ namespace bpohelper
 
             #endregion
 
-            //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rbRecommendSale_0&&VALUE:As<SP>Is CONTENT=YES");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbRepairConditionComment CONTENT=No<SP>repairs<SP>noted<SP>from<SP>drive-by.");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button2&&VALUE:Save<SP>and<SP>Continue");
-          //   iim.iimPlayCode(macro.ToString(), 30);
-          //  //
-          //  //Page 3
-          //  //
-          //   macro.Clear();
-          //   macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_ddlLocation CONTENT=%Average");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_ddlMarketConditions CONTENT=%Stable");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_ddlLocalEconomy CONTENT=%Stable");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_ddlAreaType CONTENT=%Surburban");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbAverageMarketTime CONTENT=120");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbAppDep CONTENT=0");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbLocationFactor CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbWires CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbBoardUps CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbCommercialUses CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbFreeway CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbRailroad CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbAirport CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbWaste CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbFloodPlain CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbOtherComments CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button2&&VALUE:Save<SP>and<SP>Continue");
-          //   iim.iimPlayCode(macro.ToString(), 30);
+        }
 
-          //  //
-          //  //Page 4
-          //  //
-          //   macro.Clear();
-          //   macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_ddlLocation CONTENT=%Average");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_ddlMarketConditions CONTENT=%Stable");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_ddlLocalEconomy CONTENT=%Stable");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_ddlAreaType CONTENT=%Surburban");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbAverageMarketTime CONTENT=120");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbAppDep CONTENT=0");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbLocationFactor CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbWires CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbBoardUps CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbCommercialUses CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbFreeway CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbRailroad CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbAirport CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbWaste CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbFloodPlain CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbOtherComments CONTENT=NA");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button2&&VALUE:Save<SP>and<SP>Continue");
-          //   iim.iimPlayCode(macro.ToString(), 30);
+        public void Prefill(iMacros.App iim, Form1 form)
+        {
+            this.iim = iim;
+            this.callingForm = form;
 
-          //  //
-          //  //Page 5
-          //  //
-          //   macro.Clear();
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbListAsIsDaysThirty CONTENT=30900");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbSaleAsIsDaysThirty CONTENT=30000");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbListAsIsDaysNinety CONTENT=40900");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbSaleAsIsDaysNinety CONTENT=40000");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbListAsRepairedDaysNinety CONTENT=40900");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbSaleAsRepairedDaysNinety CONTENT=40000");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbListAsRepairedMktPrice CONTENT=50900");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbSaleAsRepairedMktPrice CONTENT=50000");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button2&&VALUE:Save<SP>and<SP>Continue");
-          //   iim.iimPlayCode(macro.ToString(), 30);
+            switch (helper_GetFormType())
+            {
+                case bpoEntryFormType.FORM1 :
+                    Prefill_Form1();
+                    break;
+                case bpoEntryFormType.FORM2 :
+                    Prefill_Form2();
+                    break;
+            }
+        }
 
-          //  //
-          //  //Page 6
-          //  //
-          //   macro.Clear();
+        private bpoEntryFormType helper_GetFormType()
+        {
+            StringBuilder macro = new StringBuilder();
+            int timeout = 60;
+            iMacros.Status status = new iMacros.Status();
 
-          //   //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbHoaFees CONTENT=0");
-          //   //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbHoaCompany CONTENT=na");
-          //   //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbHoaPhone CONTENT=na");
-          //   //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button2&&VALUE:Save<SP>and<SP>Continue");
-          //   //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbHoaPhone CONTENT=na");
-          //   //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button2&&VALUE:Save<SP>and<SP>Continue");
-          //   //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbHoaFees");
-          //   //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbHoaCompany");
-          //   //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbHoaPhone");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button2&&VALUE:Save<SP>and<SP>Continue");
+            macro.AppendLine(@"TAG POS=1 TYPE=SPAN ATTR=CLASS:sectHead EXTRACT=TXT");
+            string macroCode = macro.ToString();
+            status = iim.iimPlayCode(macroCode, timeout);
 
+            if (status == iMacros.Status.sOk)
+            {
+                return bpoEntryFormType.FORM2;
+            }
+            else
+            {
+                return bpoEntryFormType.FORM1;
+            }
 
-          //   iim.iimPlayCode(macro.ToString(), 30);
-
-          //   //
-          //   //Page 7
-          //   //
-          //   macro.Clear();
-
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rbCurrentlyListed_1&&VALUE:0 CONTENT=YES");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbListingAgent");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbCurrentListPrice");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbDom");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbCurrentListDate");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbOrigListPrice");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_tbDomAtOrigLP");
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button2&&VALUE:Save<SP>and<SP>Continue");
-
-
-          //   iim.iimPlayCode(macro.ToString(), 30);
-
-          //   //
-          //   //Page 8
-          //   //
-          //   macro.Clear();
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button2&&VALUE:Save<SP>and<SP>Continue");
-
-          //   iim.iimPlayCode(macro.ToString(), 30);
-
-          //   //
-          //   //Page 9
-          //   //
-          //   macro.Clear();
-
-
-
-          //   macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_Button2&&VALUE:Save<SP>and<SP>Continue");
-
-          //   iim.iimPlayCode(macro.ToString(), 30);
-
-
-
+           
         }
 
         private void helper_FillaComp(int compNumber)
@@ -345,7 +426,25 @@ namespace bpohelper
 
         }
 
+
         public void CompFill(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
+        {
+            this.iim = iim;
+            this.callingForm = GlobalVar.mainWindow;
+
+            switch (helper_GetFormType())
+            {
+                case bpoEntryFormType.FORM1:
+                    CompFill_1(iim, saleOrList,compNum,fieldList);
+                    break;
+                case bpoEntryFormType.FORM2:
+                    CompFill_2(iim, saleOrList, compNum, fieldList);
+                    break;
+            }
+        }
+
+
+        private void CompFill_1(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
         {
             StringBuilder macro = new StringBuilder();
             targetCompNumber = Regex.Match(compNum, @"\d").Value;
@@ -509,6 +608,172 @@ namespace bpohelper
 
 
 
+
+        }
+
+        private void CompFill_2(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
+        {
+            StringBuilder macro = new StringBuilder();
+            targetCompNumber = Regex.Match(compNum, @"\d").Value;
+            string inputType = "INPUT:TEXT";
+            Dictionary<double, string[]> commands = new Dictionary<double, string[]>();
+
+            string lresGarageStr = "None";
+            string numSpaces = Regex.Match(callingForm.SubjectParkingType, @"\d").Value;
+            string att_det = "";
+
+            if (!string.IsNullOrEmpty(numSpaces))
+            {
+                if (callingForm.SubjectParkingType.ToLower().Contains("att"))
+                {
+                    att_det = "CA";
+                }
+                else if (callingForm.SubjectParkingType.ToLower().Contains("det"))
+                {
+                    att_det = "CD";
+                }
+
+                switch (numSpaces)
+                {
+                    case "1":
+                        lresGarageStr = "1" + att_det;
+                        break;
+                    case "2":
+                        lresGarageStr = "2" + att_det;
+                        break;
+                    default:
+                        lresGarageStr = "2+" + att_det;
+                        break;
+                }
+
+            }
+
+
+
+            commands.Add(0, new string[] { "1", inputType, "prop_address", targetComp.StreetAddress.Replace(" ", "<SP>") });
+            commands.Add(1, new string[] { "1", inputType, "prop_city", targetComp.City.Replace(" ", "<SP>") });
+            commands.Add(2, new string[] { "1", "SELECT", "prop_state", "%IL" });
+            commands.Add(3, new string[] { "1", inputType, "prop_zip", targetComp.Zipcode });
+            commands.Add(4, new string[] { "1", "SELECT", "property_type", "%SFR" });
+            commands.Add(5, new string[] { "1", "SELECT", "style", "%Split-Level" });
+            commands.Add(6, new string[] { "1", "SELECT", "ext_walls", "%Frame" });
+            commands.Add(7, new string[] { "1", inputType, "sqft_gla", targetComp.ProperGla(GlobalVar.mainWindow.SubjectAboveGLA) });
+            commands.Add(8, new string[] { "1", inputType, "total_rooms", targetComp.TotalRoomCount.ToString() });
+            commands.Add(9, new string[] { "1", inputType, "bedrooms", targetComp.BedroomCount });
+            commands.Add(10, new string[] { "1", inputType, "bathrooms", targetComp.BathroomCount });
+            commands.Add(11, new string[] { "1", inputType, "basement_pct_finished", targetComp.BasementFinishedPercentage() });
+            commands.Add(12, new string[] { "1", inputType, "basement_sqft", targetComp.BasementGLA()});
+            commands.Add(13, new string[] { "1", "SELECT", "garage_carport", "%" + lresGarageStr });
+            commands.Add(14, new string[] { "1", inputType, "proximity_to_subj", targetComp.ProximityToSubject.ToString() });
+            commands.Add(15, new string[] { "1", inputType, "lot_size", targetComp.Lotsize.ToString() });
+            commands.Add(16, new string[] { "1", inputType, "year_built", targetComp.YearBuiltString });
+            if (targetComp.TransactionType == "REO")
+            {
+                commands.Add(17, new string[] { "1", "SELECT", "sale_type", "%REO" });
+            }
+            else if (targetComp.TransactionType.ToLower().Contains("short"))
+            {
+                commands.Add(17, new string[] { "1", "SELECT", "sale_type", "%Short Sale" });
+            }
+            else
+            {
+                commands.Add(17, new string[] { "1", "SELECT", "sale_type", "%Fair Market" });
+            }
+            if (targetComp.FinancingMlsString.ToLower().Contains("cash"))
+            {
+                commands.Add(18, new string[] { "1", "SELECT", "finance_type", "%Cash" });
+            }
+            else if (targetComp.FinancingMlsString.ToLower().Contains("conv"))
+            {
+                commands.Add(18, new string[] { "1", "SELECT", "finance_type", "%Conv" });
+            }
+            else if (targetComp.FinancingMlsString.ToLower().Contains("fha"))
+            {
+                commands.Add(18, new string[] { "1", "SELECT", "finance_type", "%FHA" });
+            }
+            else if (targetComp.FinancingMlsString.ToLower().Contains("va"))
+            {
+                commands.Add(18, new string[] { "1", "SELECT", "finance_type", "%VA" });
+            }
+            else
+            {
+                commands.Add(18, new string[] { "1", "SELECT", "finance_type", "%None" });
+            }
+            commands.Add(19, new string[] { "1", inputType, "seller_concessions", targetComp.PointsMlsString });
+            commands.Add(20, new string[] { "1", "SELECT", "condition", "%Average" });
+            commands.Add(21, new string[] { "1", "SELECT", "location", "%Average" });
+            commands.Add(22, new string[] { "1", "SELECT", "theview", "%Residential" });
+        
+            commands.Add(24, new string[] { "1", inputType, "days_on_market", targetComp.DOM });
+            commands.Add(25, new string[] { "1", inputType, "original_list_price", targetComp.OriginalListPrice.ToString() });
+            if (saleOrList == "sale")
+            {
+                commands.Add(23, new string[] { "1", inputType, "sale_date", targetComp.SalesDate.ToShortDateString() });
+                commands.Add(26, new string[] { "1", inputType, "list_price_when_sold", targetComp.CurrentListPrice.ToString() });
+                commands.Add(27, new string[] { "1", inputType, "sale_price", targetComp.SalePrice.ToString() });
+            }
+            if (saleOrList == "list")
+            {
+                commands.Add(31, new string[] { "1", inputType, "current_list_date", targetComp.ListDate.ToShortDateString() });
+                commands.Add(32, new string[] { "1", inputType, "current_list_price", targetComp.CurrentListPrice.ToString() });
+                commands.Add(33, new string[] { "1", inputType, "listing_agent_name", targetComp.ListingAgentName });
+                commands.Add(34, new string[] { "1", inputType, "listing_agent_phone", targetComp.ListingAgentNamePhone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "") });
+            }
+            commands.Add(28, new string[] { "1", inputType, "legal_description", targetComp.ParcelNumber });
+            commands.Add(29, new string[] { "1", inputType, "mls_number", targetComp.MlsNumber });
+            commands.Add(30, new string[] { "1", inputType, "adjustments", "...................................TBD..................................."});
+
+            commands.Add(35, new string[] { "1", "SELECT", "compared_to_subject", "%E" });
+          //  commands.Add(36, new string[] { "2", "INPUT:RADIO", "closest_comparable", "YES" });
+   
+
+      
+            //if (saleOrList == "list")
+            //{
+            //    //tbCurrentListPrice
+            //    commands.Add(5.5, new string[] { inputType, "tbCurrentListPrice", targetComp.CurrentListPrice.ToString() });
+            //    //tbListingDate
+            //    commands.Add(32, new string[] { inputType, "tbListingDate", targetComp.ListDateString });
+            //    //tbListingAgent
+            //    commands.Add(33, new string[] { inputType, "tbListingAgent", targetComp.ListingAgentName });
+            //    //tbListingAgentPhone
+            //    commands.Add(34, new string[] { inputType, "tbListingAgentPhone", targetComp.ListingAgentNamePhone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "") });
+            //}
+   
+          
+            //commands.Add(18, new string[] { inputType, "tbBasementFinished", targetComp.BasementFinishedPercentage() });
+            //commands.Add(19, new string[] { inputType, "tbBasementSize", targetComp.BasementGLA() });
+            //commands.Add(21, new string[] { "SELECT", "ddlStyle", "%Conv" });
+            //commands.Add(22, new string[] { "SELECT", "ddlConstructionType", "%Vinyl" });
+            //if (GlobalVar.mainWindow.SubjectAttached)
+            //{
+            //    commands.Add(23, new string[] { "SELECT", "ddlProperyType", "%Attached" });
+            //}
+            //else
+            //{
+            //    commands.Add(23, new string[] { "SELECT", "ddlProperyType", "%Detached" });
+            //}
+           
+       
+     
+      
+            //commands.Add(28, new string[] { "SELECT", "ddlComparedToSubject", "%Equal" });
+
+
+            //commands.Add(29, new string[] { "TEXTAREA", "tbCompComment", ".TBD." });
+
+            foreach (var c in commands)
+            {
+                macro.AppendFormat("TAG POS={0} TYPE={1} FORM=NAME:bpoForm ATTR=NAME:*{2}_{3} CONTENT={4}\r\n", c.Value[0], c.Value[1], targetCompNumber.ToString(), c.Value[2], c.Value[3].Replace(" ", "<SP>").Replace("$", ""));
+            }
+          
+
+            string macroCode = macro.ToString();
+
+
+            iim.iimPlayCode(macroCode, 60);
+
+   
 
         }
     }

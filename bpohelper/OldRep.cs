@@ -11,7 +11,7 @@ namespace bpohelper
 
     class OldRep    
     {
-        private void WriteScript(string path, string filename, StringBuilder script)
+        protected void WriteScript(string path, string filename, StringBuilder script)
         {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(path + "\\" + filename))
             {
@@ -21,28 +21,34 @@ namespace bpohelper
 
         }
 
-        private Form1 callingForm;
+         
+
+        protected Form1 callingForm;
         public Dictionary<string, string> StyleMlsTypeMap = new Dictionary<string, string>()
         {
-            {"1 Story",        "%1<SP>Story"}, 
-            {"1.5 Story",      "%1.5<SP>Stories"},
-            {"2 Stories",      "%2<SP>Stories"},
-            {"3 Stories",      "%Other"},
-            {"4+ Stories", "%Other"},
-            {"Coach House", "%1<SP>Story"},
-            {"Earth", "%Other"},
-            {"Hillside", "%Split<SP>Level"},
-            {"Raised Ranch", "%Split<SP>Level"},
-            {"Split Level", "%Split<SP>Level"},
-            {@"Split Level w/ Sub", "%Split<SP>Level"},
-            {"Other", "%Other"},
-            {"Tear Down", "%Other"}
+            {"1 Story",        "1<SP>Story"}, 
+            {"1.5 Story",      "1.5<SP>Stories"},
+            {"2 Stories",      "2<SP>Stories"},
+            {"3 Stories",      "Other"},
+            {"4+ Stories", "Other"},
+            {"Coach House", "1<SP>Story"},
+            {"Earth", "Other"},
+            {"Hillside", "Split<SP>Level"},
+            {"Raised Ranch", "Split<SP>Level"},
+            {"Split Level", "Split<SP>Level"},
+            {@"Split Level w/ Sub", "Split<SP>Level"},
+            {"Other", "Other"},
+            {"Tear Down", "Other"}
         };
 
         public string StyleString(string t)
         {
 
-            return StyleMlsTypeMap[t];
+             return StyleMlsTypeMap[t.Split(',')[0]];
+            //if (t.Contains(","))
+            //{
+            //    t = t.Split(',')[0];
+            //}
 
             //string r = "";
             //switch (t)
@@ -57,28 +63,29 @@ namespace bpohelper
             //    case "1.5 Story":
             //        r = "%1.5<SP>Stories";
             //        break;
-            //    case "Split Level":
-            //    case "Hillside":
-            //    case "Raised Ranch":
-            //        numberOfAboveGradeLevels = 1;
-            //        basementGLADivisionFactor = 3;
-            //        break;
-            //    case @"Split Level w/Sub":
-            //        numberOfAboveGradeLevels = 1;
-            //        basementGLADivisionFactor = 2;
-            //        break;
-                    
-            //    case "Other":
-            //    case "Tear Down":
-            //    case "3 Stories":
-            //    case "4+ Stories":
+            //    //case "Split Level":
+            //    //case "Hillside":
+            //    //case "Raised Ranch":
+            //    //    numberOfAboveGradeLevels = 1;
+            //    //    basementGLADivisionFactor = 3;
+            //    //    break;
+            //    //case @"Split Level w/Sub":
+            //    //    numberOfAboveGradeLevels = 1;
+            //    //    basementGLADivisionFactor = 2;
+            //    //    break;
+
+            //    //case "Other":
+            //    //case "Tear Down":
+            //    //case "3 Stories":
+            //    //case "4+ Stories":
             //    default:
-            //      r = "%Other";
+            //        r = "%Other";
+            //        break;
             //}
             //return r;
         }
 
-        private string BasementString()
+        protected  string BasementString()
         {
             string s = "%None";
            if (callingForm.SubjectBasementDetails.ToLower().Contains("unfinished"))
@@ -92,7 +99,7 @@ namespace bpohelper
             return s;
         }
 
-        private string GarageString()
+        protected string GarageString()
         {
             try
             {
@@ -272,12 +279,12 @@ namespace bpohelper
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:frmImportFormRender ATTR=NAME:ifcContentMostLikelyBuyer CONTENT=YES");
 
 
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentListPriceRepaired90120 CONTENT=" + form.SubjectMarketValueList);
-            macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentValueQuickSale CONTENT=" + form.SubjectQuickSaleValue);
-            macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentListPriceQuickSale CONTENT=" + form.SubjectQuickSaleValue);
-            macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentListPriceRepaired90120 CONTENT=" + form.SubjectMarketValueList);
+            //macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentValueQuickSale CONTENT=" + form.SubjectQuickSaleValue);
+            //macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+            //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentListPriceQuickSale CONTENT=" + form.SubjectQuickSaleValue);
+            //macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
 
             //    macro.AppendLine(@"TAG POS=1 TYPE=TD FORM=ID:frmImportFormRender ATTR=TXT:ORDMS<SP>has<SP>the<SP>real<SP>estate<SP>license<SP>#<SP>471009163<SP>on<SP>file<SP>for<SP>the<SP>broker<SP>Dawn<SP>Zurick");
             //macro.AppendLine(@"TAG POS=1 TYPE=B FORM=ID:frmImportFormRender ATTR=TXT:471009163");
@@ -291,19 +298,21 @@ namespace bpohelper
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentEstimatedRent CONTENT=" + form.SubjectRent);
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentValueAsIs90120 CONTENT=" + form.SubjectMarketValue);
             macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+            macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+            macro.AppendLine(@"ONDIALOG POS=2 BUTTON=YES");
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentListPriceAsIs90120 CONTENT=" + form.SubjectMarketValueList);
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentLandValueAsIs CONTENT=" + form.SubjectLandValue);
             macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
 
 
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentValueRepaired90120 CONTENT=" + form.SubjectMarketValue);
-            macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+           // macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES")
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentListPriceRepaired90120 CONTENT=" + form.SubjectMarketValueList);
-            macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+           // macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentValueQuickSale CONTENT=" + form.SubjectQuickSaleValue);
-            macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+           // macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:frmImportFormRender ATTR=NAME:ifcContentListPriceQuickSale CONTENT=" + form.SubjectQuickSaleValue);
-            macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+          // macro.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
 
         //    macro.AppendLine(@"TAG POS=1 TYPE=TD FORM=ID:frmImportFormRender ATTR=TXT:ORDMS<SP>has<SP>the<SP>real<SP>estate<SP>license<SP>#<SP>471009163<SP>on<SP>file<SP>for<SP>the<SP>broker<SP>Dawn<SP>Zurick");
             //macro.AppendLine(@"TAG POS=1 TYPE=B FORM=ID:frmImportFormRender ATTR=TXT:471009163");
@@ -328,7 +337,7 @@ namespace bpohelper
 
         }
 
-        public void CompFill(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
+        public virtual void CompFill(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
         {
             string sol;
             if (saleOrList == "sale")
@@ -355,7 +364,7 @@ namespace bpohelper
                     //drop down box
                      //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:frmImportFormRender ATTR=ID:ifcContentListingOneLeaseHoldFeeSimple CONTENT=%Fee<SP>Simple");
 
-                     macro.AppendFormat("TAG POS=1 TYPE=SELECT FORM=ID:frmImportFormRender ATTR=ID:ifcContent{0}{1} CONTENT=%{2}\r\n", compNum, field.Replace("*", ""), fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    macro.AppendFormat("TAG POS=1 TYPE=SELECT FORM=ID:frmImportFormRender ATTR=ID:ifcContent{0}{1} CONTENT=%{2}\r\n", compNum, field.Replace("*", ""), fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
                     //macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:IEFORM ATTR=NAME:*{0}{1}_{2}\r\n", sol, field.Replace("*", ""), Regex.Match(compNum, @"\d").Value);
                     //macro.AppendLine(@"DS CMD=KEY X={{!TAGX}} Y={{!TAGY}} CONTENT=" + fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
                 }
@@ -377,6 +386,13 @@ namespace bpohelper
             macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:frmImportFormRender ATTR=ID:ifcContentrb{0}PoolNo&&VALUE:ifcContentrb{0}PoolNo CONTENT={1}\r\n", compNum, "YES");
             macro.AppendFormat("TAG POS=1 TYPE=INPUT:RADIO FORM=ID:frmImportFormRender ATTR=ID:ifcContentrb{0}FenceNo&&VALUE:ifcContentrb{0}FenceNo CONTENT={1}\r\n", compNum, "YES");
 
+            //macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=ACTION:ImportFormRender.aspx?ImportFormID=2188164 ATTR=ID:ifcContentListingOnegMapImage");
+            //macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=ACTION:ImportFormRender.aspx?ImportFormID=2188164 ATTR=ID:ifcContentListingTwogMapImage");
+            //macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=ACTION:ImportFormRender.aspx?ImportFormID=2188164 ATTR=ID:ifcContentListingThreegMapImage");
+            //macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=ACTION:ImportFormRender.aspx?ImportFormID=2188164 ATTR=ID:ifcContentCompOnegMapImage");
+            //macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=ACTION:ImportFormRender.aspx?ImportFormID=2188164 ATTR=ID:ifcContentCompTwogMapImage");
+            macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=ACTION:ImportFormRender.aspx?ImportFormID=2188164 ATTR=ID:ifcContent" + compNum + "gMapImage");
+
             //
             //TBD
             //
@@ -384,8 +400,111 @@ namespace bpohelper
             //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:CListCLPrice_1");
             //  macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:BPOForm ATTR=NAME:CListCLDate_1");
 
+           WriteScript(    GlobalVar.mainWindow.SubjectFilePath, compNum + "-fill.iim", macro);
+        
             string macroCode = macro.ToString();
             iim.iimPlayCode(macroCode, 60);
         }
+    }
+
+    class OldRepFormV8:OldRep
+    {
+        public override void CompFill(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
+        {
+
+            StringBuilder macro = new StringBuilder();
+            macro.AppendLine(@"SET !ERRORIGNORE YES");
+            macro.AppendLine(@"SET !TIMEOUT_STEP 0");
+            macro.AppendLine(@"SET !REPLAYSPEED FAST");
+
+            base.CompFill(iim, saleOrList, compNum, fieldList);
+
+            macro.AppendFormat("TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx* ATTR=NAME:ifcContent{0}PropertyType CONTENT={1}\r\n", compNum, "%SFR<SP>Detached");
+            macro.AppendFormat("TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx* ATTR=NAME:ifcContent{0}SiteUnits CONTENT={1}\r\n", compNum, "%Acres");
+
+
+            WriteScript(GlobalVar.mainWindow.SubjectFilePath, compNum + "-V8-fill.iim", macro);
+
+            string macroCode = macro.ToString();
+            iim.iimPlayCode(macroCode, 60);
+
+        }
+
+
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneProximityDirection CONTENT=$Select<SP>a<SP>Value>>");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneSaleType CONTENT=$Select<SP>a<SP>Value>>");
+//macro.AppendLine(@"TAG POS=4 TYPE=TD FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=TXT:(days)");
+//macro.AppendLine(@"TAG POS=2 TYPE=TD FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=TXT:Select<SP>a<SP>Value>>County<SP>TaxDataQuickMLSOtherSitex");
+//macro.AppendLine(@"TAG POS=4 TYPE=TD FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=TXT:Select<SP>a<SP>Value>>1.<SP>REO<SP>Sale2.<SP>Short<SP>Sale3.<SP>Court<SP>Ordered4.<SP>Estate<SP>Sale5.<SP>Reloca*");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneLocationFactor CONTENT=$Select<SP>a<SP>Value>>");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneLocation CONTENT=%N");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneSiteUnits CONTENT=%Acres");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneView CONTENT=%N");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneViewFactor CONTENT=%Res");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneDesign CONTENT=%Other");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneAttachedStructure CONTENT=$Select<SP>a<SP>Value>>");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneDesignOther");
+//macro.AppendLine(@"TAG POS=1 TYPE=TD FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=TXT:Select<SP>a<SP>Value>>Attached<SP>StructureDetached<SP>StructureSemi-detached<SP>structure");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneAttachedStructure CONTENT=$Select<SP>a<SP>Value>>");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneQualityOfConstruction CONTENT=%Q3");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneCondition CONTENT=%C4");
+//macro.AppendLine(@"TAG POS=13 TYPE=TD FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=TXT:Select<SP>a<SP>Value>>NoYes");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneMaterialWorkLast15 CONTENT=$Select<SP>a<SP>Value>>");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentListingOnePropertyType CONTENT=%SFR<SP>Detached");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentListingTwoPropertyType CONTENT=%SFR<SP>Detached");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentListingThreePropertyType CONTENT=%SFR<SP>Detached");
+//string macroCode = macro.ToString();
+//// status = iim.iimPlayCode(macroCode, timeout);
+
+//        macro.AppendLine(@"URL GOTO=https://ort.quandis.com/Decision/ImportFormRender.aspx?ImportFormID=2308912");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneStoriesLevels CONTENT=2");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompTwoStoriesLevels CONTENT=2");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompThreeStoriesLevels CONTENT=2");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneQualityOfConstruction CONTENT=%Q3");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompTwoQualityOfConstruction CONTENT=%Q3");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompThreeQualityOfConstruction CONTENT=%Q3");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneCondition CONTENT=%C3");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompTwoCondition CONTENT=%C3");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompThreeCondition CONTENT=%C3");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneMaterialWorkLast15 CONTENT=$Select<SP>a<SP>Value>>");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneHeating CONTENT=%FWA");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompTwoHeating CONTENT=%FWA");
+//macro.AppendLine(@"TAG POS=4 TYPE=TD FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=TXT:Select<SP>a<SP>Value>>Forced<SP>Warm<SP>AirHot<SP>Water<SP>Base<SP>BoardRadiantOtherNone");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompThreeHeating CONTENT=%FWA");
+//macro.AppendLine(@"TAG POS=2 TYPE=TD FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=TXT:Select<SP>a<SP>Value>>Central<SP>ACIndividual<SP>ACOtherNone");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneCooling CONTENT=%Central<SP>AC");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompTwoCooling CONTENT=%Central<SP>AC");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompThreeCooling CONTENT=%Central<SP>AC");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneAttachedGarageSpaces CONTENT=%0");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneDetachedGarageSpaces CONTENT=%1");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBuiltInGarageSpaces CONTENT=$Select<SP>a<SP>Value>>");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneCommonPorch CONTENT=%No");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneCommonPatio CONTENT=%No");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneCommonPool CONTENT=%No");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompTwoCommonPool CONTENT=%No");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompThreeCommonPool CONTENT=%No");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneCommonFence CONTENT=%No");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompTwoCommonFence CONTENT=%No");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompThreeCommonFence CONTENT=%No");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneCommonFireplaces CONTENT=3");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOnePorch CONTENT=%No");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOnePatio CONTENT=%No");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOnePool CONTENT=%No");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBasementExists CONTENT=%Yes");
+//macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBasementAccess CONTENT=%in");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBasementRecRooms CONTENT=0");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBasementBedrooms CONTENT=0");
+//macro.AppendLine(@"TAG POS=1 TYPE=TABLE FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=TXT:SALE<SP>#1SALE<SP>#2SALE<SP>#3Property<SP>Type:Select<SP>a<SP>Value>>""Commercial<SP>Land""""MH<SP>Fixed""2*");
+//macro.AppendLine(@"TAG POS=4 TYPE=TD FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=ID:tdCompOneBasementDetail");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBasementBathrooms CONTENT=0");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBasementBathroomsHalf CONTENT=0");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBasementOtherRooms CONTENT=0");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBasmentSquareFeet CONTENT=864");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBasmentFinishedSquareFeet CONTENT=0");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBathrooms CONTENT=1");
+//macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:ImportFormRender.aspx?ImportFormID=2308912 ATTR=NAME:ifcContentCompOneBathroomsHalf CONTENT=1");
+//string macroCode = macro.ToString();
+//// status = iim.iimPlayCode(macroCode, timeout);
+
     }
 }

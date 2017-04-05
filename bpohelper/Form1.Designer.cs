@@ -47,48 +47,75 @@
             this.subject_school_textbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonRunSearch = new System.Windows.Forms.Button();
+            this.buttonSetupSearch = new System.Windows.Forms.Button();
+            this.label36 = new System.Windows.Forms.Label();
+            this.richTextBoxLogger = new System.Windows.Forms.RichTextBox();
+            this.label93 = new System.Windows.Forms.Label();
+            this.label92 = new System.Windows.Forms.Label();
+            this.label91 = new System.Windows.Forms.Label();
             this.comboBoxLocationDescr = new System.Windows.Forms.ComboBox();
-            this.dateTimePickerSubjectCurrentListDate = new System.Windows.Forms.DateTimePicker();
             this.comboBoxSubjectView = new System.Windows.Forms.ComboBox();
             this.comboBoxSubjectLocationCondition = new System.Windows.Forms.ComboBox();
             this.comboBoxSubjectCondition = new System.Windows.Forms.ComboBox();
             this.comboBoxSubjectOccupancy = new System.Windows.Forms.ComboBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.textBoxSubjextListingBrokerage = new System.Windows.Forms.TextBox();
+            this.label98 = new System.Windows.Forms.Label();
+            this.textBoxSubjectOriginalListPRice = new System.Windows.Forms.TextBox();
+            this.label97 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.labelMlsNumber = new System.Windows.Forms.Label();
+            this.label94 = new System.Windows.Forms.Label();
+            this.dateTimePickerSubjectCurrentListDate = new System.Windows.Forms.DateTimePicker();
+            this.subjectListDatedateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.subjectOffMarketDatedateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.subjectDomTextBox = new System.Windows.Forms.TextBox();
+            this.subjectCurrentListPriceTextBox = new System.Windows.Forms.TextBox();
+            this.subjectMlsStatusTextBox = new System.Windows.Forms.TextBox();
+            this.subjectListingAgentTextBox = new System.Windows.Forms.TextBox();
+            this.subjectBrokerPhoneTextBox = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label31 = new System.Windows.Forms.Label();
+            this.subjectHoaContactTextBox = new System.Windows.Forms.TextBox();
+            this.subjectHoaPhoneTextBox = new System.Windows.Forms.TextBox();
+            this.subjectHoaIncludesTextBox = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.subjectHoaFrequencyTextBox = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.subjectHoaTextBox = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textBoxMaxCompScore = new System.Windows.Forms.TextBox();
+            this.label96 = new System.Windows.Forms.Label();
+            this.label95 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.comboBoxBpoVendor = new System.Windows.Forms.ComboBox();
+            this.button10 = new System.Windows.Forms.Button();
+            this.label90 = new System.Windows.Forms.Label();
+            this.dateTimePickerInspectionDate = new System.Windows.Forms.DateTimePicker();
+            this.bpoCommentsTextBox = new System.Windows.Forms.RichTextBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.subjectLandValueTextBox = new System.Windows.Forms.TextBox();
             this.label47 = new System.Windows.Forms.Label();
             this.subjectAssessmentTextbox = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
             this.subjectExteriorFinishTextbox = new System.Windows.Forms.TextBox();
-            this.button22 = new System.Windows.Forms.Button();
-            this.label44 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.subjectOffMarketDatedateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.subjectListDatedateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
+            this.pBar1 = new System.Windows.Forms.ProgressBar();
+            this.pBar2 = new System.Windows.Forms.ProgressBar();
+            this.infoWindowrichTextBox = new System.Windows.Forms.RichTextBox();
             this.label34 = new System.Windows.Forms.Label();
             this.subjectTaxAmountTextBox = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.button17 = new System.Windows.Forms.Button();
             this.subjectTownshipTextBox = new System.Windows.Forms.TextBox();
-            this.subjectDomTextBox = new System.Windows.Forms.TextBox();
-            this.subjectBrokerPhoneTextBox = new System.Windows.Forms.TextBox();
-            this.subjectListingAgentTextBox = new System.Windows.Forms.TextBox();
-            this.subjectCurrentListPriceTextBox = new System.Windows.Forms.TextBox();
-            this.subjectMlsStatusTextBox = new System.Windows.Forms.TextBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.subjectHoaIncludesTextBox = new System.Windows.Forms.TextBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.subjectHoaPhoneTextBox = new System.Windows.Forms.TextBox();
-            this.subjectHoaContactTextBox = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.subjectHoaFrequencyTextBox = new System.Windows.Forms.TextBox();
             this.quickSalePercentageTextBox = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.AvmLabel = new System.Windows.Forms.Label();
@@ -100,8 +127,6 @@
             this.highGlaTextBox = new System.Windows.Forms.TextBox();
             this.lowGlaTextBox = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.subjectHoaTextBox = new System.Windows.Forms.TextBox();
             this.subjectFinishedBasementGlaTextBox = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.subjectBasementGlaTextbox = new System.Windows.Forms.TextBox();
@@ -149,29 +174,74 @@
             this.label3 = new System.Windows.Forms.Label();
             this.subjectLastSaleDateTextbox = new System.Windows.Forms.TextBox();
             this.subjectLastSalePriceTextbox = new System.Windows.Forms.TextBox();
+            this.queryRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.button22 = new System.Windows.Forms.Button();
             this.runMredScriptButton = new System.Windows.Forms.Button();
             this.statusTextBox = new System.Windows.Forms.TextBox();
             this.subjectPictureBox = new System.Windows.Forms.PictureBox();
             this.compPictureBox = new System.Windows.Forms.PictureBox();
             this.picDiffLabel = new System.Windows.Forms.Label();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.label22 = new System.Windows.Forms.Label();
             this.ieConnectedCheckbox = new System.Windows.Forms.CheckBox();
             this.imacrosConnectedCheckbox = new System.Windows.Forms.CheckBox();
             this.button15 = new System.Windows.Forms.Button();
-            this.bpoCommentsTextBox = new System.Windows.Forms.RichTextBox();
-            this.label23 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.infoWindowrichTextBox = new System.Windows.Forms.RichTextBox();
             this.eventLog1 = new System.Diagnostics.EventLog();
-            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.googleReqResRichTextBox = new System.Windows.Forms.RichTextBox();
             this.realistUpdateCheckBox = new System.Windows.Forms.CheckBox();
             this.useNabpopradioButton = new System.Windows.Forms.RadioButton();
             this.useCustomradioButton = new System.Windows.Forms.RadioButton();
             this.recheckLastSearchbutton = new System.Windows.Forms.Button();
             this.neighborhoodDataGroupBox = new System.Windows.Forms.GroupBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.REOcSandboxButton = new System.Windows.Forms.Button();
+            this.button28 = new System.Windows.Forms.Button();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button23 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button20 = new System.Windows.Forms.Button();
+            this.button26 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.button7 = new System.Windows.Forms.Button();
+            this.imarco_test = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button9 = new System.Windows.Forms.Button();
+            this.market_stats_string_textbox = new System.Windows.Forms.TextBox();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.upload_eval_interior_button = new System.Windows.Forms.Button();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ccProximityTextBox = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.ccMonthsBacknumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label41 = new System.Windows.Forms.Label();
+            this.ccTargetPriceTextBox = new System.Windows.Forms.TextBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.richTextBoxNumberCompsFound = new System.Windows.Forms.RichTextBox();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.button19 = new System.Windows.Forms.Button();
+            this.button18 = new System.Windows.Forms.Button();
+            this.button24 = new System.Windows.Forms.Button();
             this.label86 = new System.Windows.Forms.Label();
             this.ndMedianListPriceTextBox = new System.Windows.Forms.TextBox();
             this.label87 = new System.Windows.Forms.Label();
@@ -216,23 +286,9 @@
             this.ndMinSalePriceTextBox = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.ndAvgDomTextBox = new System.Windows.Forms.TextBox();
-            this.pBar1 = new System.Windows.Forms.ProgressBar();
-            this.pBar2 = new System.Windows.Forms.ProgressBar();
-            this.queryRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label40 = new System.Windows.Forms.Label();
-            this.ccProximityTextBox = new System.Windows.Forms.TextBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.button18 = new System.Windows.Forms.Button();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.button19 = new System.Windows.Forms.Button();
             this.eventLog2 = new System.Diagnostics.EventLog();
             this.programStatusRichTextBox = new System.Windows.Forms.RichTextBox();
             this.button21 = new System.Windows.Forms.Button();
-            this.ccMonthsBacknumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label41 = new System.Windows.Forms.Label();
-            this.ccTargetPriceTextBox = new System.Windows.Forms.TextBox();
-            this.label42 = new System.Windows.Forms.Label();
             this.subjectTableAdapter = new bpohelper._BPO_SandboxDataSet1TableAdapters.subjectTableAdapter();
             this.tableAdapterManager = new bpohelper._BPO_SandboxDataSet1TableAdapters.TableAdapterManager();
             this.bpoTableAdapter1 = new bpohelper._BPO_SandboxDataSet1TableAdapters.BPOTableAdapter();
@@ -241,16 +297,10 @@
             this.tableAdapterManager2 = new bpohelper._BPO_SandboxDataSet1TableAdapters.TableAdapterManager();
             this.rawSFDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rawSFDataTableAdapter = new bpohelper._BPO_SandboxDataSet1TableAdapters.RawSFDataTableAdapter();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.button24 = new System.Windows.Forms.Button();
-            this.REOcSandboxButton = new System.Windows.Forms.Button();
             this.buttonSaveOrderInfo = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
-            this.richTextBoxNumberCompsFound = new System.Windows.Forms.RichTextBox();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.numericUpDownRadius = new System.Windows.Forms.NumericUpDown();
             this.button27 = new System.Windows.Forms.Button();
-            this.button28 = new System.Windows.Forms.Button();
             this.ignoreAgeCheckBox = new System.Windows.Forms.CheckBox();
             this.button29 = new System.Windows.Forms.Button();
             this.button30 = new System.Windows.Forms.Button();
@@ -298,74 +348,32 @@
             this.cdMinSalePriceTextBox = new System.Windows.Forms.TextBox();
             this.label66 = new System.Windows.Forms.Label();
             this.cdAvgDomTextBox = new System.Windows.Forms.TextBox();
-            this.labelNumberOfComps = new System.Windows.Forms.Label();
             this.streetnameTextBox = new System.Windows.Forms.TextBox();
-            this.dateTimePickerInspectionDate = new System.Windows.Forms.DateTimePicker();
-            this.richTextBoxLogger = new System.Windows.Forms.RichTextBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button10 = new System.Windows.Forms.Button();
-            this.label90 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button23 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button20 = new System.Windows.Forms.Button();
-            this.button26 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.button7 = new System.Windows.Forms.Button();
-            this.imarco_test = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button9 = new System.Windows.Forms.Button();
-            this.market_stats_string_textbox = new System.Windows.Forms.TextBox();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.upload_eval_interior_button = new System.Windows.Forms.Button();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.label91 = new System.Windows.Forms.Label();
-            this.label92 = new System.Windows.Forms.Label();
-            this.label93 = new System.Windows.Forms.Label();
-            this.label94 = new System.Windows.Forms.Label();
+            this.ignoreTypeCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._BPO_SandboxDataSet)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tabControl2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lotSizeUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.glaUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.compPictureBox)).BeginInit();
-            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
             this.neighborhoodDataGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.eventLog2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ccMonthsBacknumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rawSFDataBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).BeginInit();
-            this.compDataGroupBox.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ccMonthsBacknumericUpDown)).BeginInit();
             this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eventLog2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rawSFDataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).BeginInit();
+            this.compDataGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // streetnumTextBox
@@ -378,9 +386,9 @@
             // 
             // run_script
             // 
-            this.run_script.Location = new System.Drawing.Point(782, 566);
+            this.run_script.Location = new System.Drawing.Point(896, 476);
             this.run_script.Name = "run_script";
-            this.run_script.Size = new System.Drawing.Size(75, 23);
+            this.run_script.Size = new System.Drawing.Size(80, 49);
             this.run_script.TabIndex = 16;
             this.run_script.Text = "run_script";
             this.run_script.UseVisualStyleBackColor = true;
@@ -421,9 +429,9 @@
             // 
             // order_prefill_button
             // 
-            this.order_prefill_button.Location = new System.Drawing.Point(671, 566);
+            this.order_prefill_button.Location = new System.Drawing.Point(810, 476);
             this.order_prefill_button.Name = "order_prefill_button";
-            this.order_prefill_button.Size = new System.Drawing.Size(105, 23);
+            this.order_prefill_button.Size = new System.Drawing.Size(80, 49);
             this.order_prefill_button.TabIndex = 25;
             this.order_prefill_button.Text = "Prefill BPO Form";
             this.order_prefill_button.UseVisualStyleBackColor = true;
@@ -450,7 +458,7 @@
             // 
             // import_market_stats_button
             // 
-            this.import_market_stats_button.Location = new System.Drawing.Point(53, 179);
+            this.import_market_stats_button.Location = new System.Drawing.Point(195, 6);
             this.import_market_stats_button.Name = "import_market_stats_button";
             this.import_market_stats_button.Size = new System.Drawing.Size(75, 23);
             this.import_market_stats_button.TabIndex = 28;
@@ -521,6 +529,10 @@
             // 
             this.groupBox1.BackColor = System.Drawing.Color.SkyBlue;
             this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.groupBox1.Controls.Add(this.buttonRunSearch);
+            this.groupBox1.Controls.Add(this.buttonSetupSearch);
+            this.groupBox1.Controls.Add(this.label36);
+            this.groupBox1.Controls.Add(this.richTextBoxLogger);
             this.groupBox1.Controls.Add(this.label93);
             this.groupBox1.Controls.Add(this.label92);
             this.groupBox1.Controls.Add(this.label91);
@@ -536,7 +548,6 @@
             this.groupBox1.Controls.Add(this.subjectAssessmentTextbox);
             this.groupBox1.Controls.Add(this.label46);
             this.groupBox1.Controls.Add(this.subjectExteriorFinishTextbox);
-            this.groupBox1.Controls.Add(this.queryRichTextBox);
             this.groupBox1.Controls.Add(this.pBar1);
             this.groupBox1.Controls.Add(this.pBar2);
             this.groupBox1.Controls.Add(this.infoWindowrichTextBox);
@@ -618,6 +629,74 @@
             this.groupBox1.Text = "Subject Info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // buttonRunSearch
+            // 
+            this.buttonRunSearch.Location = new System.Drawing.Point(723, 476);
+            this.buttonRunSearch.Name = "buttonRunSearch";
+            this.buttonRunSearch.Size = new System.Drawing.Size(80, 49);
+            this.buttonRunSearch.TabIndex = 150;
+            this.buttonRunSearch.Text = "Find Stats and Comps";
+            this.buttonRunSearch.UseVisualStyleBackColor = true;
+            this.buttonRunSearch.Click += new System.EventHandler(this.buttonRunSearch_Click);
+            // 
+            // buttonSetupSearch
+            // 
+            this.buttonSetupSearch.Location = new System.Drawing.Point(637, 476);
+            this.buttonSetupSearch.Name = "buttonSetupSearch";
+            this.buttonSetupSearch.Size = new System.Drawing.Size(80, 49);
+            this.buttonSetupSearch.TabIndex = 149;
+            this.buttonSetupSearch.Text = "Setup Search";
+            this.buttonSetupSearch.UseVisualStyleBackColor = true;
+            this.buttonSetupSearch.Click += new System.EventHandler(this.buttonSetupSearch_Click);
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(499, 388);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(51, 13);
+            this.label36.TabIndex = 148;
+            this.label36.Text = "Condition";
+            // 
+            // richTextBoxLogger
+            // 
+            this.richTextBoxLogger.BackColor = System.Drawing.Color.White;
+            this.richTextBoxLogger.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBoxLogger.Location = new System.Drawing.Point(641, 405);
+            this.richTextBoxLogger.Name = "richTextBoxLogger";
+            this.richTextBoxLogger.ReadOnly = true;
+            this.richTextBoxLogger.Size = new System.Drawing.Size(335, 48);
+            this.richTextBoxLogger.TabIndex = 144;
+            this.richTextBoxLogger.Text = "";
+            this.richTextBoxLogger.WordWrap = false;
+            // 
+            // label93
+            // 
+            this.label93.AutoSize = true;
+            this.label93.Location = new System.Drawing.Point(499, 430);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(30, 13);
+            this.label93.TabIndex = 147;
+            this.label93.Text = "View";
+            // 
+            // label92
+            // 
+            this.label92.AutoSize = true;
+            this.label92.Location = new System.Drawing.Point(374, 430);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(76, 13);
+            this.label92.TabIndex = 146;
+            this.label92.Text = "Location Desc";
+            // 
+            // label91
+            // 
+            this.label91.AutoSize = true;
+            this.label91.Location = new System.Drawing.Point(266, 429);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(76, 13);
+            this.label91.TabIndex = 145;
+            this.label91.Text = "Location Cond";
+            // 
             // comboBoxLocationDescr
             // 
             this.comboBoxLocationDescr.FormattingEnabled = true;
@@ -631,15 +710,6 @@
             this.comboBoxLocationDescr.TabIndex = 144;
             this.comboBoxLocationDescr.Tag = "subjectProperty";
             this.comboBoxLocationDescr.Text = "Suburban";
-            // 
-            // dateTimePickerSubjectCurrentListDate
-            // 
-            this.dateTimePickerSubjectCurrentListDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerSubjectCurrentListDate.Location = new System.Drawing.Point(88, 30);
-            this.dateTimePickerSubjectCurrentListDate.Name = "dateTimePickerSubjectCurrentListDate";
-            this.dateTimePickerSubjectCurrentListDate.Size = new System.Drawing.Size(85, 20);
-            this.dateTimePickerSubjectCurrentListDate.TabIndex = 143;
-            this.dateTimePickerSubjectCurrentListDate.Value = new System.DateTime(2014, 4, 10, 14, 26, 39, 0);
             // 
             // comboBoxSubjectView
             // 
@@ -682,7 +752,7 @@
             "Average",
             "Fair",
             "Poor"});
-            this.comboBoxSubjectCondition.Location = new System.Drawing.Point(235, 108);
+            this.comboBoxSubjectCondition.Location = new System.Drawing.Point(502, 406);
             this.comboBoxSubjectCondition.Name = "comboBoxSubjectCondition";
             this.comboBoxSubjectCondition.Size = new System.Drawing.Size(121, 21);
             this.comboBoxSubjectCondition.TabIndex = 140;
@@ -691,28 +761,237 @@
             // 
             // comboBoxSubjectOccupancy
             // 
-            this.comboBoxSubjectOccupancy.BackColor = System.Drawing.Color.Azure;
+            this.comboBoxSubjectOccupancy.BackColor = System.Drawing.Color.WhiteSmoke;
             this.comboBoxSubjectOccupancy.FormattingEnabled = true;
             this.comboBoxSubjectOccupancy.Items.AddRange(new object[] {
             "Occupied",
-            "Vacant",
-            "Unknown"});
-            this.comboBoxSubjectOccupancy.Location = new System.Drawing.Point(416, 81);
+            "Occupied by Owner ",
+            "Occupied by Tenant  ",
+            "Other",
+            "Unknown",
+            "Vacant"});
+            this.comboBoxSubjectOccupancy.Location = new System.Drawing.Point(498, 64);
             this.comboBoxSubjectOccupancy.Name = "comboBoxSubjectOccupancy";
-            this.comboBoxSubjectOccupancy.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxSubjectOccupancy.Size = new System.Drawing.Size(125, 21);
+            this.comboBoxSubjectOccupancy.Sorted = true;
             this.comboBoxSubjectOccupancy.TabIndex = 139;
             this.comboBoxSubjectOccupancy.Tag = "subjectProperty";
-            this.comboBoxSubjectOccupancy.Text = "Occupied";
             // 
             // tabControl2
             // 
-            this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Controls.Add(this.tabPage3);
+            this.tabControl2.Controls.Add(this.tabPage1);
+            this.tabControl2.HotTrack = true;
             this.tabControl2.Location = new System.Drawing.Point(641, 22);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(279, 377);
+            this.tabControl2.Size = new System.Drawing.Size(335, 377);
             this.tabControl2.TabIndex = 138;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.tabPage4.Controls.Add(this.textBoxSubjextListingBrokerage);
+            this.tabPage4.Controls.Add(this.label98);
+            this.tabPage4.Controls.Add(this.textBoxSubjectOriginalListPRice);
+            this.tabPage4.Controls.Add(this.label97);
+            this.tabPage4.Controls.Add(this.label35);
+            this.tabPage4.Controls.Add(this.labelMlsNumber);
+            this.tabPage4.Controls.Add(this.label94);
+            this.tabPage4.Controls.Add(this.dateTimePickerSubjectCurrentListDate);
+            this.tabPage4.Controls.Add(this.subjectListDatedateTimePicker);
+            this.tabPage4.Controls.Add(this.subjectOffMarketDatedateTimePicker);
+            this.tabPage4.Controls.Add(this.label43);
+            this.tabPage4.Controls.Add(this.label44);
+            this.tabPage4.Controls.Add(this.subjectDomTextBox);
+            this.tabPage4.Controls.Add(this.subjectCurrentListPriceTextBox);
+            this.tabPage4.Controls.Add(this.subjectMlsStatusTextBox);
+            this.tabPage4.Controls.Add(this.subjectListingAgentTextBox);
+            this.tabPage4.Controls.Add(this.subjectBrokerPhoneTextBox);
+            this.tabPage4.Controls.Add(this.label37);
+            this.tabPage4.Controls.Add(this.label39);
+            this.tabPage4.Controls.Add(this.label38);
+            this.tabPage4.Font = new System.Drawing.Font("HelveticaNeueLT Pro 55 Roman", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(327, 351);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "Listing Info";
+            // 
+            // textBoxSubjextListingBrokerage
+            // 
+            this.textBoxSubjextListingBrokerage.BackColor = System.Drawing.Color.Azure;
+            this.textBoxSubjextListingBrokerage.Location = new System.Drawing.Point(6, 238);
+            this.textBoxSubjextListingBrokerage.Name = "textBoxSubjextListingBrokerage";
+            this.textBoxSubjextListingBrokerage.Size = new System.Drawing.Size(125, 23);
+            this.textBoxSubjextListingBrokerage.TabIndex = 153;
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Location = new System.Drawing.Point(6, 220);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(66, 15);
+            this.label98.TabIndex = 154;
+            this.label98.Text = "Brokerage";
+            // 
+            // textBoxSubjectOriginalListPRice
+            // 
+            this.textBoxSubjectOriginalListPRice.Location = new System.Drawing.Point(196, 131);
+            this.textBoxSubjectOriginalListPRice.Name = "textBoxSubjectOriginalListPRice";
+            this.textBoxSubjectOriginalListPRice.Size = new System.Drawing.Size(125, 23);
+            this.textBoxSubjectOriginalListPRice.TabIndex = 151;
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Location = new System.Drawing.Point(66, 134);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(126, 15);
+            this.label97.TabIndex = 152;
+            this.label97.Text = "Original Listing Price";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(146, 172);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(43, 15);
+            this.label35.TabIndex = 150;
+            this.label35.Text = "Phone";
+            // 
+            // labelMlsNumber
+            // 
+            this.labelMlsNumber.AutoSize = true;
+            this.labelMlsNumber.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMlsNumber.Location = new System.Drawing.Point(6, 16);
+            this.labelMlsNumber.Name = "labelMlsNumber";
+            this.labelMlsNumber.Size = new System.Drawing.Size(54, 15);
+            this.labelMlsNumber.TabIndex = 149;
+            this.labelMlsNumber.Text = "Mls IDh";
+            this.labelMlsNumber.Visible = false;
+            // 
+            // label94
+            // 
+            this.label94.AutoSize = true;
+            this.label94.Location = new System.Drawing.Point(113, 49);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(105, 15);
+            this.label94.TabIndex = 148;
+            this.label94.Text = "Current List Date";
+            // 
+            // dateTimePickerSubjectCurrentListDate
+            // 
+            this.dateTimePickerSubjectCurrentListDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerSubjectCurrentListDate.Location = new System.Drawing.Point(145, 67);
+            this.dateTimePickerSubjectCurrentListDate.Name = "dateTimePickerSubjectCurrentListDate";
+            this.dateTimePickerSubjectCurrentListDate.Size = new System.Drawing.Size(85, 23);
+            this.dateTimePickerSubjectCurrentListDate.TabIndex = 143;
+            this.dateTimePickerSubjectCurrentListDate.Value = new System.DateTime(2014, 4, 10, 14, 26, 39, 0);
+            // 
+            // subjectListDatedateTimePicker
+            // 
+            this.subjectListDatedateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.subjectListDatedateTimePicker.Location = new System.Drawing.Point(6, 66);
+            this.subjectListDatedateTimePicker.Name = "subjectListDatedateTimePicker";
+            this.subjectListDatedateTimePicker.Size = new System.Drawing.Size(85, 23);
+            this.subjectListDatedateTimePicker.TabIndex = 127;
+            this.subjectListDatedateTimePicker.Value = new System.DateTime(2014, 4, 10, 14, 26, 39, 0);
+            // 
+            // subjectOffMarketDatedateTimePicker
+            // 
+            this.subjectOffMarketDatedateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.subjectOffMarketDatedateTimePicker.Location = new System.Drawing.Point(236, 67);
+            this.subjectOffMarketDatedateTimePicker.Name = "subjectOffMarketDatedateTimePicker";
+            this.subjectOffMarketDatedateTimePicker.Size = new System.Drawing.Size(85, 23);
+            this.subjectOffMarketDatedateTimePicker.TabIndex = 128;
+            this.subjectOffMarketDatedateTimePicker.Visible = false;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(6, 48);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(59, 15);
+            this.label43.TabIndex = 129;
+            this.label43.Text = "List Date";
+            this.label43.Click += new System.EventHandler(this.label43_Click);
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(224, 48);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(100, 15);
+            this.label44.TabIndex = 130;
+            this.label44.Text = "Off Market Date";
+            // 
+            // subjectDomTextBox
+            // 
+            this.subjectDomTextBox.Location = new System.Drawing.Point(6, 95);
+            this.subjectDomTextBox.Name = "subjectDomTextBox";
+            this.subjectDomTextBox.Size = new System.Drawing.Size(52, 23);
+            this.subjectDomTextBox.TabIndex = 117;
+            // 
+            // subjectCurrentListPriceTextBox
+            // 
+            this.subjectCurrentListPriceTextBox.Location = new System.Drawing.Point(195, 102);
+            this.subjectCurrentListPriceTextBox.Name = "subjectCurrentListPriceTextBox";
+            this.subjectCurrentListPriceTextBox.Size = new System.Drawing.Size(125, 23);
+            this.subjectCurrentListPriceTextBox.TabIndex = 114;
+            // 
+            // subjectMlsStatusTextBox
+            // 
+            this.subjectMlsStatusTextBox.Location = new System.Drawing.Point(129, 11);
+            this.subjectMlsStatusTextBox.Name = "subjectMlsStatusTextBox";
+            this.subjectMlsStatusTextBox.Size = new System.Drawing.Size(157, 23);
+            this.subjectMlsStatusTextBox.TabIndex = 113;
+            // 
+            // subjectListingAgentTextBox
+            // 
+            this.subjectListingAgentTextBox.BackColor = System.Drawing.Color.Azure;
+            this.subjectListingAgentTextBox.Location = new System.Drawing.Point(6, 190);
+            this.subjectListingAgentTextBox.Name = "subjectListingAgentTextBox";
+            this.subjectListingAgentTextBox.Size = new System.Drawing.Size(125, 23);
+            this.subjectListingAgentTextBox.TabIndex = 115;
+            // 
+            // subjectBrokerPhoneTextBox
+            // 
+            this.subjectBrokerPhoneTextBox.Location = new System.Drawing.Point(145, 190);
+            this.subjectBrokerPhoneTextBox.Name = "subjectBrokerPhoneTextBox";
+            this.subjectBrokerPhoneTextBox.Size = new System.Drawing.Size(125, 23);
+            this.subjectBrokerPhoneTextBox.TabIndex = 116;
+            this.subjectBrokerPhoneTextBox.TextChanged += new System.EventHandler(this.subjectBrokerPhoneTextBox_TextChanged);
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(65, 105);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(124, 15);
+            this.label37.TabIndex = 124;
+            this.label37.Text = "Current Listing Price";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(11, 121);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(37, 15);
+            this.label39.TabIndex = 126;
+            this.label39.Text = "DOM";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(6, 172);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(82, 15);
+            this.label38.TabIndex = 125;
+            this.label38.Text = "Listing Agent";
+            this.label38.Click += new System.EventHandler(this.label38_Click);
             // 
             // tabPage3
             // 
@@ -728,41 +1007,193 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(191, 351);
+            this.tabPage3.Size = new System.Drawing.Size(327, 351);
             this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.Text = "HOA Info";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // label31
             // 
-            this.tabPage4.Controls.Add(this.label94);
-            this.tabPage4.Controls.Add(this.dateTimePickerSubjectCurrentListDate);
-            this.tabPage4.Controls.Add(this.subjectListDatedateTimePicker);
-            this.tabPage4.Controls.Add(this.subjectOffMarketDatedateTimePicker);
-            this.tabPage4.Controls.Add(this.label43);
-            this.tabPage4.Controls.Add(this.label44);
-            this.tabPage4.Controls.Add(this.subjectDomTextBox);
-            this.tabPage4.Controls.Add(this.label35);
-            this.tabPage4.Controls.Add(this.subjectCurrentListPriceTextBox);
-            this.tabPage4.Controls.Add(this.subjectMlsStatusTextBox);
-            this.tabPage4.Controls.Add(this.subjectListingAgentTextBox);
-            this.tabPage4.Controls.Add(this.subjectBrokerPhoneTextBox);
-            this.tabPage4.Controls.Add(this.label36);
-            this.tabPage4.Controls.Add(this.label37);
-            this.tabPage4.Controls.Add(this.label39);
-            this.tabPage4.Controls.Add(this.label38);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(271, 351);
-            this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(9, 10);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(144, 13);
+            this.label31.TabIndex = 110;
+            this.label31.Text = "HOA Contact Name  Number";
+            // 
+            // subjectHoaContactTextBox
+            // 
+            this.subjectHoaContactTextBox.Location = new System.Drawing.Point(12, 38);
+            this.subjectHoaContactTextBox.Name = "subjectHoaContactTextBox";
+            this.subjectHoaContactTextBox.Size = new System.Drawing.Size(141, 20);
+            this.subjectHoaContactTextBox.TabIndex = 108;
+            // 
+            // subjectHoaPhoneTextBox
+            // 
+            this.subjectHoaPhoneTextBox.Location = new System.Drawing.Point(12, 64);
+            this.subjectHoaPhoneTextBox.Name = "subjectHoaPhoneTextBox";
+            this.subjectHoaPhoneTextBox.Size = new System.Drawing.Size(141, 20);
+            this.subjectHoaPhoneTextBox.TabIndex = 109;
+            // 
+            // subjectHoaIncludesTextBox
+            // 
+            this.subjectHoaIncludesTextBox.Location = new System.Drawing.Point(6, 98);
+            this.subjectHoaIncludesTextBox.Name = "subjectHoaIncludesTextBox";
+            this.subjectHoaIncludesTextBox.Size = new System.Drawing.Size(173, 20);
+            this.subjectHoaIncludesTextBox.TabIndex = 111;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(3, 85);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(73, 13);
+            this.label32.TabIndex = 112;
+            this.label32.Text = "HOA Includes";
+            // 
+            // subjectHoaFrequencyTextBox
+            // 
+            this.subjectHoaFrequencyTextBox.Location = new System.Drawing.Point(124, 148);
+            this.subjectHoaFrequencyTextBox.Name = "subjectHoaFrequencyTextBox";
+            this.subjectHoaFrequencyTextBox.Size = new System.Drawing.Size(52, 20);
+            this.subjectHoaFrequencyTextBox.TabIndex = 106;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(134, 127);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(23, 13);
+            this.label30.TabIndex = 107;
+            this.label30.Text = "Per";
+            // 
+            // subjectHoaTextBox
+            // 
+            this.subjectHoaTextBox.Location = new System.Drawing.Point(21, 145);
+            this.subjectHoaTextBox.Name = "subjectHoaTextBox";
+            this.subjectHoaTextBox.Size = new System.Drawing.Size(52, 20);
+            this.subjectHoaTextBox.TabIndex = 88;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(18, 129);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(69, 13);
+            this.label21.TabIndex = 89;
+            this.label21.Text = "HOA Amount";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.Thistle;
+            this.tabPage1.Controls.Add(this.textBoxMaxCompScore);
+            this.tabPage1.Controls.Add(this.label96);
+            this.tabPage1.Controls.Add(this.label95);
+            this.tabPage1.Controls.Add(this.textBox2);
+            this.tabPage1.Controls.Add(this.comboBoxBpoVendor);
+            this.tabPage1.Controls.Add(this.button10);
+            this.tabPage1.Controls.Add(this.label90);
+            this.tabPage1.Controls.Add(this.dateTimePickerInspectionDate);
+            this.tabPage1.Controls.Add(this.bpoCommentsTextBox);
+            this.tabPage1.Controls.Add(this.label23);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(327, 351);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Bpo Info";
+            // 
+            // textBoxMaxCompScore
+            // 
+            this.textBoxMaxCompScore.Location = new System.Drawing.Point(3, 142);
+            this.textBoxMaxCompScore.Name = "textBoxMaxCompScore";
+            this.textBoxMaxCompScore.Size = new System.Drawing.Size(45, 20);
+            this.textBoxMaxCompScore.TabIndex = 152;
+            // 
+            // label96
+            // 
+            this.label96.AutoSize = true;
+            this.label96.Location = new System.Drawing.Point(167, 99);
+            this.label96.Name = "label96";
+            this.label96.Size = new System.Drawing.Size(73, 13);
+            this.label96.TabIndex = 151;
+            this.label96.Text = "Order Number";
+            // 
+            // label95
+            // 
+            this.label95.AutoSize = true;
+            this.label95.Location = new System.Drawing.Point(167, 72);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(66, 13);
+            this.label95.TabIndex = 150;
+            this.label95.Text = "BPO Vendor";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(61, 96);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 149;
+            // 
+            // comboBoxBpoVendor
+            // 
+            this.comboBoxBpoVendor.FormattingEnabled = true;
+            this.comboBoxBpoVendor.Items.AddRange(new object[] {
+            "Old Republic"});
+            this.comboBoxBpoVendor.Location = new System.Drawing.Point(40, 69);
+            this.comboBoxBpoVendor.Name = "comboBoxBpoVendor";
+            this.comboBoxBpoVendor.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxBpoVendor.TabIndex = 148;
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(214, 157);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(176, 72);
+            this.button10.TabIndex = 147;
+            this.button10.Text = "button10";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // label90
+            // 
+            this.label90.AutoSize = true;
+            this.label90.Location = new System.Drawing.Point(167, 43);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(82, 13);
+            this.label90.TabIndex = 146;
+            this.label90.Text = "Inspection Date";
+            // 
+            // dateTimePickerInspectionDate
+            // 
+            this.dateTimePickerInspectionDate.CustomFormat = "dd/MM/YYYY";
+            this.dateTimePickerInspectionDate.Location = new System.Drawing.Point(10, 43);
+            this.dateTimePickerInspectionDate.Name = "dateTimePickerInspectionDate";
+            this.dateTimePickerInspectionDate.Size = new System.Drawing.Size(151, 20);
+            this.dateTimePickerInspectionDate.TabIndex = 142;
+            // 
+            // bpoCommentsTextBox
+            // 
+            this.bpoCommentsTextBox.Location = new System.Drawing.Point(6, 241);
+            this.bpoCommentsTextBox.Name = "bpoCommentsTextBox";
+            this.bpoCommentsTextBox.Size = new System.Drawing.Size(384, 115);
+            this.bpoCommentsTextBox.TabIndex = 90;
+            this.bpoCommentsTextBox.Text = "";
+            this.bpoCommentsTextBox.WordWrap = false;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(8, 225);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(81, 13);
+            this.label23.TabIndex = 91;
+            this.label23.Text = "BPO Comments";
             // 
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(413, 322);
+            this.label48.Location = new System.Drawing.Point(562, 259);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(61, 13);
             this.label48.TabIndex = 137;
@@ -771,7 +1202,7 @@
             // subjectLandValueTextBox
             // 
             this.subjectLandValueTextBox.CausesValidation = false;
-            this.subjectLandValueTextBox.Location = new System.Drawing.Point(331, 315);
+            this.subjectLandValueTextBox.Location = new System.Drawing.Point(480, 256);
             this.subjectLandValueTextBox.Name = "subjectLandValueTextBox";
             this.subjectLandValueTextBox.Size = new System.Drawing.Size(76, 20);
             this.subjectLandValueTextBox.TabIndex = 136;
@@ -779,7 +1210,7 @@
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(16, 275);
+            this.label47.Location = new System.Drawing.Point(69, 308);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(54, 13);
             this.label47.TabIndex = 135;
@@ -788,15 +1219,15 @@
             // 
             // subjectAssessmentTextbox
             // 
-            this.subjectAssessmentTextbox.Location = new System.Drawing.Point(7, 291);
+            this.subjectAssessmentTextbox.Location = new System.Drawing.Point(129, 305);
             this.subjectAssessmentTextbox.Name = "subjectAssessmentTextbox";
-            this.subjectAssessmentTextbox.Size = new System.Drawing.Size(96, 20);
+            this.subjectAssessmentTextbox.Size = new System.Drawing.Size(120, 20);
             this.subjectAssessmentTextbox.TabIndex = 134;
             // 
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(134, 136);
+            this.label46.Location = new System.Drawing.Point(16, 143);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(89, 13);
             this.label46.TabIndex = 133;
@@ -804,108 +1235,41 @@
             // 
             // subjectExteriorFinishTextbox
             // 
-            this.subjectExteriorFinishTextbox.Location = new System.Drawing.Point(137, 152);
+            this.subjectExteriorFinishTextbox.Location = new System.Drawing.Point(19, 159);
             this.subjectExteriorFinishTextbox.Name = "subjectExteriorFinishTextbox";
             this.subjectExteriorFinishTextbox.Size = new System.Drawing.Size(125, 20);
             this.subjectExteriorFinishTextbox.TabIndex = 132;
             // 
-            // button22
+            // pBar1
             // 
-            this.button22.Location = new System.Drawing.Point(267, 300);
-            this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(75, 23);
-            this.button22.TabIndex = 131;
-            this.button22.Text = "button22";
-            this.button22.UseVisualStyleBackColor = true;
-            this.button22.Click += new System.EventHandler(this.button22_Click);
+            this.pBar1.Location = new System.Drawing.Point(6, 553);
+            this.pBar1.Name = "pBar1";
+            this.pBar1.Size = new System.Drawing.Size(620, 23);
+            this.pBar1.TabIndex = 103;
+            this.pBar1.Visible = false;
             // 
-            // label44
+            // pBar2
             // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(15, 88);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(83, 13);
-            this.label44.TabIndex = 130;
-            this.label44.Text = "Off Market Date";
+            this.pBar2.Location = new System.Drawing.Point(6, 582);
+            this.pBar2.Name = "pBar2";
+            this.pBar2.Size = new System.Drawing.Size(620, 23);
+            this.pBar2.TabIndex = 104;
+            this.pBar2.Visible = false;
             // 
-            // label43
+            // infoWindowrichTextBox
             // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(16, 42);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(49, 13);
-            this.label43.TabIndex = 129;
-            this.label43.Text = "List Date";
-            this.label43.Click += new System.EventHandler(this.label43_Click);
-            // 
-            // subjectOffMarketDatedateTimePicker
-            // 
-            this.subjectOffMarketDatedateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.subjectOffMarketDatedateTimePicker.Location = new System.Drawing.Point(18, 104);
-            this.subjectOffMarketDatedateTimePicker.Name = "subjectOffMarketDatedateTimePicker";
-            this.subjectOffMarketDatedateTimePicker.Size = new System.Drawing.Size(85, 20);
-            this.subjectOffMarketDatedateTimePicker.TabIndex = 128;
-            this.subjectOffMarketDatedateTimePicker.Visible = false;
-            // 
-            // subjectListDatedateTimePicker
-            // 
-            this.subjectListDatedateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.subjectListDatedateTimePicker.Location = new System.Drawing.Point(18, 56);
-            this.subjectListDatedateTimePicker.Name = "subjectListDatedateTimePicker";
-            this.subjectListDatedateTimePicker.Size = new System.Drawing.Size(85, 20);
-            this.subjectListDatedateTimePicker.TabIndex = 127;
-            this.subjectListDatedateTimePicker.Value = new System.DateTime(2014, 4, 10, 14, 26, 39, 0);
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(115, 257);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(32, 13);
-            this.label39.TabIndex = 126;
-            this.label39.Text = "DOM";
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(115, 230);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(68, 13);
-            this.label38.TabIndex = 125;
-            this.label38.Text = "Listing Agent";
-            this.label38.Click += new System.EventHandler(this.label38_Click);
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(19, 213);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(101, 13);
-            this.label37.TabIndex = 124;
-            this.label37.Text = "Current Listing Price";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(19, 170);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(70, 13);
-            this.label36.TabIndex = 123;
-            this.label36.Text = "Listing Status";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(115, 87);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(32, 13);
-            this.label35.TabIndex = 122;
-            this.label35.Text = "DOM";
+            this.infoWindowrichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.infoWindowrichTextBox.HideSelection = false;
+            this.infoWindowrichTextBox.Location = new System.Drawing.Point(6, 476);
+            this.infoWindowrichTextBox.Name = "infoWindowrichTextBox";
+            this.infoWindowrichTextBox.Size = new System.Drawing.Size(617, 71);
+            this.infoWindowrichTextBox.TabIndex = 94;
+            this.infoWindowrichTextBox.Text = "";
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(297, 322);
+            this.label34.Location = new System.Drawing.Point(562, 282);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(25, 13);
             this.label34.TabIndex = 121;
@@ -914,7 +1278,7 @@
             // subjectTaxAmountTextBox
             // 
             this.subjectTaxAmountTextBox.CausesValidation = false;
-            this.subjectTaxAmountTextBox.Location = new System.Drawing.Point(218, 317);
+            this.subjectTaxAmountTextBox.Location = new System.Drawing.Point(480, 279);
             this.subjectTaxAmountTextBox.Name = "subjectTaxAmountTextBox";
             this.subjectTaxAmountTextBox.Size = new System.Drawing.Size(76, 20);
             this.subjectTaxAmountTextBox.TabIndex = 120;
@@ -932,9 +1296,9 @@
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(799, 472);
+            this.button17.Location = new System.Drawing.Point(723, 531);
             this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(75, 35);
+            this.button17.Size = new System.Drawing.Size(80, 49);
             this.button17.TabIndex = 105;
             this.button17.Text = "Goto Saved Comps";
             this.button17.UseVisualStyleBackColor = true;
@@ -947,108 +1311,18 @@
             this.subjectTownshipTextBox.Size = new System.Drawing.Size(118, 20);
             this.subjectTownshipTextBox.TabIndex = 118;
             // 
-            // subjectDomTextBox
-            // 
-            this.subjectDomTextBox.Location = new System.Drawing.Point(115, 105);
-            this.subjectDomTextBox.Name = "subjectDomTextBox";
-            this.subjectDomTextBox.Size = new System.Drawing.Size(52, 20);
-            this.subjectDomTextBox.TabIndex = 117;
-            // 
-            // subjectBrokerPhoneTextBox
-            // 
-            this.subjectBrokerPhoneTextBox.Location = new System.Drawing.Point(22, 281);
-            this.subjectBrokerPhoneTextBox.Name = "subjectBrokerPhoneTextBox";
-            this.subjectBrokerPhoneTextBox.Size = new System.Drawing.Size(125, 20);
-            this.subjectBrokerPhoneTextBox.TabIndex = 116;
-            // 
-            // subjectListingAgentTextBox
-            // 
-            this.subjectListingAgentTextBox.Location = new System.Drawing.Point(-1, 255);
-            this.subjectListingAgentTextBox.Name = "subjectListingAgentTextBox";
-            this.subjectListingAgentTextBox.Size = new System.Drawing.Size(125, 20);
-            this.subjectListingAgentTextBox.TabIndex = 115;
-            // 
-            // subjectCurrentListPriceTextBox
-            // 
-            this.subjectCurrentListPriceTextBox.Location = new System.Drawing.Point(22, 228);
-            this.subjectCurrentListPriceTextBox.Name = "subjectCurrentListPriceTextBox";
-            this.subjectCurrentListPriceTextBox.Size = new System.Drawing.Size(125, 20);
-            this.subjectCurrentListPriceTextBox.TabIndex = 114;
-            // 
-            // subjectMlsStatusTextBox
-            // 
-            this.subjectMlsStatusTextBox.Location = new System.Drawing.Point(22, 189);
-            this.subjectMlsStatusTextBox.Name = "subjectMlsStatusTextBox";
-            this.subjectMlsStatusTextBox.Size = new System.Drawing.Size(125, 20);
-            this.subjectMlsStatusTextBox.TabIndex = 113;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(3, 85);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(73, 13);
-            this.label32.TabIndex = 112;
-            this.label32.Text = "HOA Includes";
-            // 
-            // subjectHoaIncludesTextBox
-            // 
-            this.subjectHoaIncludesTextBox.Location = new System.Drawing.Point(6, 98);
-            this.subjectHoaIncludesTextBox.Name = "subjectHoaIncludesTextBox";
-            this.subjectHoaIncludesTextBox.Size = new System.Drawing.Size(173, 20);
-            this.subjectHoaIncludesTextBox.TabIndex = 111;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(9, 10);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(144, 13);
-            this.label31.TabIndex = 110;
-            this.label31.Text = "HOA Contact Name  Number";
-            // 
-            // subjectHoaPhoneTextBox
-            // 
-            this.subjectHoaPhoneTextBox.Location = new System.Drawing.Point(12, 64);
-            this.subjectHoaPhoneTextBox.Name = "subjectHoaPhoneTextBox";
-            this.subjectHoaPhoneTextBox.Size = new System.Drawing.Size(141, 20);
-            this.subjectHoaPhoneTextBox.TabIndex = 109;
-            // 
-            // subjectHoaContactTextBox
-            // 
-            this.subjectHoaContactTextBox.Location = new System.Drawing.Point(12, 38);
-            this.subjectHoaContactTextBox.Name = "subjectHoaContactTextBox";
-            this.subjectHoaContactTextBox.Size = new System.Drawing.Size(141, 20);
-            this.subjectHoaContactTextBox.TabIndex = 108;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(134, 127);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(23, 13);
-            this.label30.TabIndex = 107;
-            this.label30.Text = "Per";
-            // 
-            // subjectHoaFrequencyTextBox
-            // 
-            this.subjectHoaFrequencyTextBox.Location = new System.Drawing.Point(124, 148);
-            this.subjectHoaFrequencyTextBox.Name = "subjectHoaFrequencyTextBox";
-            this.subjectHoaFrequencyTextBox.Size = new System.Drawing.Size(52, 20);
-            this.subjectHoaFrequencyTextBox.TabIndex = 106;
-            // 
             // quickSalePercentageTextBox
             // 
-            this.quickSalePercentageTextBox.Location = new System.Drawing.Point(282, 285);
+            this.quickSalePercentageTextBox.Location = new System.Drawing.Point(393, 279);
             this.quickSalePercentageTextBox.Name = "quickSalePercentageTextBox";
-            this.quickSalePercentageTextBox.Size = new System.Drawing.Size(58, 20);
+            this.quickSalePercentageTextBox.Size = new System.Drawing.Size(32, 20);
             this.quickSalePercentageTextBox.TabIndex = 105;
             this.quickSalePercentageTextBox.Text = "0.9";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(108, 292);
+            this.label19.Location = new System.Drawing.Point(98, 282);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(28, 13);
             this.label19.TabIndex = 104;
@@ -1057,7 +1331,7 @@
             // AvmLabel
             // 
             this.AvmLabel.AutoSize = true;
-            this.AvmLabel.Location = new System.Drawing.Point(105, 270);
+            this.AvmLabel.Location = new System.Drawing.Point(95, 259);
             this.AvmLabel.Name = "AvmLabel";
             this.AvmLabel.Size = new System.Drawing.Size(30, 13);
             this.AvmLabel.TabIndex = 103;
@@ -1065,7 +1339,7 @@
             // 
             // subjectAvmTextBox
             // 
-            this.subjectAvmTextBox.Location = new System.Drawing.Point(144, 267);
+            this.subjectAvmTextBox.Location = new System.Drawing.Point(130, 256);
             this.subjectAvmTextBox.Name = "subjectAvmTextBox";
             this.subjectAvmTextBox.Size = new System.Drawing.Size(119, 20);
             this.subjectAvmTextBox.TabIndex = 102;
@@ -1164,22 +1438,6 @@
             this.label24.Text = "Bsmt Finished GLA";
             this.label24.Click += new System.EventHandler(this.label24_Click);
             // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(18, 129);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(69, 13);
-            this.label21.TabIndex = 89;
-            this.label21.Text = "HOA Amount";
-            // 
-            // subjectHoaTextBox
-            // 
-            this.subjectHoaTextBox.Location = new System.Drawing.Point(21, 145);
-            this.subjectHoaTextBox.Name = "subjectHoaTextBox";
-            this.subjectHoaTextBox.Size = new System.Drawing.Size(52, 20);
-            this.subjectHoaTextBox.TabIndex = 88;
-            // 
             // subjectFinishedBasementGlaTextBox
             // 
             this.subjectFinishedBasementGlaTextBox.Location = new System.Drawing.Point(452, 146);
@@ -1227,9 +1485,9 @@
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(718, 473);
+            this.button13.Location = new System.Drawing.Point(637, 531);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(75, 34);
+            this.button13.Size = new System.Drawing.Size(80, 49);
             this.button13.TabIndex = 46;
             this.button13.Text = "Save to Favs";
             this.button13.UseVisualStyleBackColor = true;
@@ -1249,16 +1507,16 @@
             // 
             // subjectZestimateTextbox
             // 
-            this.subjectZestimateTextbox.Location = new System.Drawing.Point(144, 289);
+            this.subjectZestimateTextbox.Location = new System.Drawing.Point(130, 279);
             this.subjectZestimateTextbox.Name = "subjectZestimateTextbox";
-            this.subjectZestimateTextbox.Size = new System.Drawing.Size(132, 20);
+            this.subjectZestimateTextbox.Size = new System.Drawing.Size(119, 20);
             this.subjectZestimateTextbox.TabIndex = 80;
             // 
             // saveSubjectInfoButton
             // 
-            this.saveSubjectInfoButton.Location = new System.Drawing.Point(701, 513);
+            this.saveSubjectInfoButton.Location = new System.Drawing.Point(809, 531);
             this.saveSubjectInfoButton.Name = "saveSubjectInfoButton";
-            this.saveSubjectInfoButton.Size = new System.Drawing.Size(75, 47);
+            this.saveSubjectInfoButton.Size = new System.Drawing.Size(80, 49);
             this.saveSubjectInfoButton.TabIndex = 48;
             this.saveSubjectInfoButton.Text = "Save Subject Info";
             this.saveSubjectInfoButton.UseVisualStyleBackColor = true;
@@ -1284,14 +1542,14 @@
             // 
             // quickSaleTextbox
             // 
-            this.quickSaleTextbox.Location = new System.Drawing.Point(342, 286);
+            this.quickSaleTextbox.Location = new System.Drawing.Point(255, 279);
             this.quickSaleTextbox.Name = "quickSaleTextbox";
             this.quickSaleTextbox.Size = new System.Drawing.Size(132, 20);
             this.quickSaleTextbox.TabIndex = 77;
             // 
             // listTextbox
             // 
-            this.listTextbox.Location = new System.Drawing.Point(342, 260);
+            this.listTextbox.Location = new System.Drawing.Point(255, 256);
             this.listTextbox.Name = "listTextbox";
             this.listTextbox.Size = new System.Drawing.Size(132, 20);
             this.listTextbox.TabIndex = 76;
@@ -1299,7 +1557,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(339, 215);
+            this.label17.Location = new System.Drawing.Point(250, 215);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(70, 13);
             this.label17.TabIndex = 75;
@@ -1308,7 +1566,7 @@
             // 
             // valueTextbox
             // 
-            this.valueTextbox.Location = new System.Drawing.Point(342, 231);
+            this.valueTextbox.Location = new System.Drawing.Point(255, 231);
             this.valueTextbox.Name = "valueTextbox";
             this.valueTextbox.Size = new System.Drawing.Size(132, 20);
             this.valueTextbox.TabIndex = 74;
@@ -1334,7 +1592,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(353, 349);
+            this.label15.Location = new System.Drawing.Point(323, 372);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(79, 13);
             this.label15.TabIndex = 71;
@@ -1342,7 +1600,7 @@
             // 
             // subjectProximityToOfficeTextbox
             // 
-            this.subjectProximityToOfficeTextbox.Location = new System.Drawing.Point(356, 365);
+            this.subjectProximityToOfficeTextbox.Location = new System.Drawing.Point(323, 388);
             this.subjectProximityToOfficeTextbox.Name = "subjectProximityToOfficeTextbox";
             this.subjectProximityToOfficeTextbox.Size = new System.Drawing.Size(61, 20);
             this.subjectProximityToOfficeTextbox.TabIndex = 70;
@@ -1375,7 +1633,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(477, 22);
+            this.label13.Location = new System.Drawing.Point(495, 22);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(31, 13);
             this.label13.TabIndex = 66;
@@ -1383,8 +1641,8 @@
             // 
             // subjectOorTextbox
             // 
-            this.subjectOorTextbox.BackColor = System.Drawing.Color.Azure;
-            this.subjectOorTextbox.Location = new System.Drawing.Point(480, 38);
+            this.subjectOorTextbox.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.subjectOorTextbox.Location = new System.Drawing.Point(498, 38);
             this.subjectOorTextbox.Name = "subjectOorTextbox";
             this.subjectOorTextbox.Size = new System.Drawing.Size(125, 20);
             this.subjectOorTextbox.TabIndex = 65;
@@ -1392,7 +1650,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(487, 263);
+            this.label12.Location = new System.Drawing.Point(562, 234);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(30, 13);
             this.label12.TabIndex = 64;
@@ -1400,7 +1658,7 @@
             // 
             // subjectRentTextbox
             // 
-            this.subjectRentTextbox.Location = new System.Drawing.Point(489, 279);
+            this.subjectRentTextbox.Location = new System.Drawing.Point(480, 231);
             this.subjectRentTextbox.Name = "subjectRentTextbox";
             this.subjectRentTextbox.Size = new System.Drawing.Size(76, 20);
             this.subjectRentTextbox.TabIndex = 63;
@@ -1409,7 +1667,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(16, 182);
+            this.label11.Location = new System.Drawing.Point(151, 143);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(43, 13);
             this.label11.TabIndex = 62;
@@ -1417,7 +1675,7 @@
             // 
             // subjectParkingTypeTextbox
             // 
-            this.subjectParkingTypeTextbox.Location = new System.Drawing.Point(19, 198);
+            this.subjectParkingTypeTextbox.Location = new System.Drawing.Point(150, 159);
             this.subjectParkingTypeTextbox.Name = "subjectParkingTypeTextbox";
             this.subjectParkingTypeTextbox.Size = new System.Drawing.Size(125, 20);
             this.subjectParkingTypeTextbox.TabIndex = 61;
@@ -1425,7 +1683,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(16, 133);
+            this.label10.Location = new System.Drawing.Point(140, 107);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(65, 13);
             this.label10.TabIndex = 60;
@@ -1433,7 +1691,7 @@
             // 
             // subjectNumFireplacesTextbox
             // 
-            this.subjectNumFireplacesTextbox.Location = new System.Drawing.Point(87, 130);
+            this.subjectNumFireplacesTextbox.Location = new System.Drawing.Point(111, 104);
             this.subjectNumFireplacesTextbox.Name = "subjectNumFireplacesTextbox";
             this.subjectNumFireplacesTextbox.Size = new System.Drawing.Size(24, 20);
             this.subjectNumFireplacesTextbox.TabIndex = 59;
@@ -1550,7 +1808,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 228);
+            this.label4.Location = new System.Drawing.Point(5, 215);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 45;
@@ -1559,7 +1817,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(141, 226);
+            this.label3.Location = new System.Drawing.Point(127, 215);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 44;
@@ -1568,7 +1826,7 @@
             // 
             // subjectLastSaleDateTextbox
             // 
-            this.subjectLastSaleDateTextbox.Location = new System.Drawing.Point(19, 244);
+            this.subjectLastSaleDateTextbox.Location = new System.Drawing.Point(5, 231);
             this.subjectLastSaleDateTextbox.Name = "subjectLastSaleDateTextbox";
             this.subjectLastSaleDateTextbox.Size = new System.Drawing.Size(119, 20);
             this.subjectLastSaleDateTextbox.TabIndex = 43;
@@ -1576,14 +1834,32 @@
             // 
             // subjectLastSalePriceTextbox
             // 
-            this.subjectLastSalePriceTextbox.Location = new System.Drawing.Point(144, 244);
+            this.subjectLastSalePriceTextbox.Location = new System.Drawing.Point(130, 231);
             this.subjectLastSalePriceTextbox.Name = "subjectLastSalePriceTextbox";
             this.subjectLastSalePriceTextbox.Size = new System.Drawing.Size(119, 20);
             this.subjectLastSalePriceTextbox.TabIndex = 42;
             // 
+            // queryRichTextBox
+            // 
+            this.queryRichTextBox.Location = new System.Drawing.Point(36, 17);
+            this.queryRichTextBox.Name = "queryRichTextBox";
+            this.queryRichTextBox.Size = new System.Drawing.Size(335, 48);
+            this.queryRichTextBox.TabIndex = 107;
+            this.queryRichTextBox.Text = "";
+            // 
+            // button22
+            // 
+            this.button22.Location = new System.Drawing.Point(267, 300);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(75, 23);
+            this.button22.TabIndex = 131;
+            this.button22.Text = "button22";
+            this.button22.UseVisualStyleBackColor = true;
+            this.button22.Click += new System.EventHandler(this.button22_Click);
+            // 
             // runMredScriptButton
             // 
-            this.runMredScriptButton.Location = new System.Drawing.Point(53, 154);
+            this.runMredScriptButton.Location = new System.Drawing.Point(53, 150);
             this.runMredScriptButton.Name = "runMredScriptButton";
             this.runMredScriptButton.Size = new System.Drawing.Size(75, 23);
             this.runMredScriptButton.TabIndex = 43;
@@ -1625,23 +1901,6 @@
             this.picDiffLabel.Name = "picDiffLabel";
             this.picDiffLabel.Size = new System.Drawing.Size(0, 13);
             this.picDiffLabel.TabIndex = 51;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 1235);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(2148, 22);
-            this.statusStrip1.TabIndex = 52;
-            this.statusStrip1.Text = "statusStrip1";
-            this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // label22
             // 
@@ -1688,24 +1947,6 @@
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
-            // bpoCommentsTextBox
-            // 
-            this.bpoCommentsTextBox.Location = new System.Drawing.Point(6, 241);
-            this.bpoCommentsTextBox.Name = "bpoCommentsTextBox";
-            this.bpoCommentsTextBox.Size = new System.Drawing.Size(384, 115);
-            this.bpoCommentsTextBox.TabIndex = 90;
-            this.bpoCommentsTextBox.Text = "";
-            this.bpoCommentsTextBox.WordWrap = false;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(8, 225);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(81, 13);
-            this.label23.TabIndex = 91;
-            this.label23.Text = "BPO Comments";
-            // 
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
@@ -1716,33 +1957,16 @@
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             this.comboBox3.Click += new System.EventHandler(this.comboBox3_Click);
             // 
-            // infoWindowrichTextBox
-            // 
-            this.infoWindowrichTextBox.HideSelection = false;
-            this.infoWindowrichTextBox.Location = new System.Drawing.Point(6, 476);
-            this.infoWindowrichTextBox.Name = "infoWindowrichTextBox";
-            this.infoWindowrichTextBox.Size = new System.Drawing.Size(644, 71);
-            this.infoWindowrichTextBox.TabIndex = 94;
-            this.infoWindowrichTextBox.Text = "";
-            // 
             // eventLog1
             // 
             this.eventLog1.SynchronizingObject = this;
-            // 
-            // statusStrip2
-            // 
-            this.statusStrip2.Location = new System.Drawing.Point(0, 1213);
-            this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(2148, 22);
-            this.statusStrip2.TabIndex = 95;
-            this.statusStrip2.Text = "statusStrip2";
             // 
             // googleReqResRichTextBox
             // 
             this.googleReqResRichTextBox.HideSelection = false;
             this.googleReqResRichTextBox.Location = new System.Drawing.Point(859, 20);
             this.googleReqResRichTextBox.Name = "googleReqResRichTextBox";
-            this.googleReqResRichTextBox.Size = new System.Drawing.Size(274, 104);
+            this.googleReqResRichTextBox.Size = new System.Drawing.Size(157, 55);
             this.googleReqResRichTextBox.TabIndex = 96;
             this.googleReqResRichTextBox.Text = "";
             // 
@@ -1759,10 +1983,12 @@
             // useNabpopradioButton
             // 
             this.useNabpopradioButton.AutoSize = true;
-            this.useNabpopradioButton.Location = new System.Drawing.Point(149, 154);
+            this.useNabpopradioButton.Checked = true;
+            this.useNabpopradioButton.Location = new System.Drawing.Point(174, 110);
             this.useNabpopradioButton.Name = "useNabpopradioButton";
             this.useNabpopradioButton.Size = new System.Drawing.Size(156, 17);
             this.useNabpopradioButton.TabIndex = 98;
+            this.useNabpopradioButton.TabStop = true;
             this.useNabpopradioButton.Text = "Use NABPOP Comp Criteria";
             this.useNabpopradioButton.UseVisualStyleBackColor = true;
             this.useNabpopradioButton.CheckedChanged += new System.EventHandler(this.useNabpopradioButton_CheckedChanged);
@@ -1770,7 +1996,7 @@
             // useCustomradioButton
             // 
             this.useCustomradioButton.AutoSize = true;
-            this.useCustomradioButton.Location = new System.Drawing.Point(149, 169);
+            this.useCustomradioButton.Location = new System.Drawing.Point(174, 125);
             this.useCustomradioButton.Name = "useCustomradioButton";
             this.useCustomradioButton.Size = new System.Drawing.Size(147, 17);
             this.useCustomradioButton.TabIndex = 99;
@@ -1791,6 +2017,7 @@
             // 
             // neighborhoodDataGroupBox
             // 
+            this.neighborhoodDataGroupBox.Controls.Add(this.tabControl1);
             this.neighborhoodDataGroupBox.Controls.Add(this.label86);
             this.neighborhoodDataGroupBox.Controls.Add(this.ndMedianListPriceTextBox);
             this.neighborhoodDataGroupBox.Controls.Add(this.label87);
@@ -1835,7 +2062,7 @@
             this.neighborhoodDataGroupBox.Controls.Add(this.ndMinSalePriceTextBox);
             this.neighborhoodDataGroupBox.Controls.Add(this.label25);
             this.neighborhoodDataGroupBox.Controls.Add(this.ndAvgDomTextBox);
-            this.neighborhoodDataGroupBox.Location = new System.Drawing.Point(19, 900);
+            this.neighborhoodDataGroupBox.Location = new System.Drawing.Point(12, 842);
             this.neighborhoodDataGroupBox.Name = "neighborhoodDataGroupBox";
             this.neighborhoodDataGroupBox.Size = new System.Drawing.Size(485, 300);
             this.neighborhoodDataGroupBox.TabIndex = 102;
@@ -1843,10 +2070,573 @@
             this.neighborhoodDataGroupBox.Text = "Neighborhood Data";
             this.neighborhoodDataGroupBox.Enter += new System.EventHandler(this.neighborhoodDataGroupBox_Enter);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.tabPage7);
+            this.tabControl1.Location = new System.Drawing.Point(289, 163);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(404, 389);
+            this.tabControl1.TabIndex = 145;
+            this.tabControl1.Visible = false;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.REOcSandboxButton);
+            this.tabPage2.Controls.Add(this.ieConnectedCheckbox);
+            this.tabPage2.Controls.Add(this.imacrosConnectedCheckbox);
+            this.tabPage2.Controls.Add(this.button_eval_ext_pics);
+            this.tabPage2.Controls.Add(this.button_save_comp_pics);
+            this.tabPage2.Controls.Add(this.button28);
+            this.tabPage2.Controls.Add(this.import_market_stats_button);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(396, 363);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // REOcSandboxButton
+            // 
+            this.REOcSandboxButton.Location = new System.Drawing.Point(89, 141);
+            this.REOcSandboxButton.Name = "REOcSandboxButton";
+            this.REOcSandboxButton.Size = new System.Drawing.Size(75, 23);
+            this.REOcSandboxButton.TabIndex = 128;
+            this.REOcSandboxButton.Text = "REOc SB";
+            this.REOcSandboxButton.UseVisualStyleBackColor = true;
+            this.REOcSandboxButton.Click += new System.EventHandler(this.REOcSandboxButton_Click);
+            // 
+            // button28
+            // 
+            this.button28.Location = new System.Drawing.Point(301, 33);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(75, 23);
+            this.button28.TabIndex = 136;
+            this.button28.Text = "First Pass";
+            this.button28.UseVisualStyleBackColor = true;
+            this.button28.Click += new System.EventHandler(this.button28_Click);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.button1);
+            this.tabPage5.Controls.Add(this.button5);
+            this.tabPage5.Controls.Add(this.button23);
+            this.tabPage5.Controls.Add(this.button16);
+            this.tabPage5.Controls.Add(this.button20);
+            this.tabPage5.Controls.Add(this.button26);
+            this.tabPage5.Controls.Add(this.button6);
+            this.tabPage5.Controls.Add(this.button2);
+            this.tabPage5.Controls.Add(this.button3);
+            this.tabPage5.Controls.Add(this.button4);
+            this.tabPage5.Controls.Add(this.radioButton1);
+            this.tabPage5.Controls.Add(this.radioButton2);
+            this.tabPage5.Controls.Add(this.radioButton3);
+            this.tabPage5.Controls.Add(this.radioButton4);
+            this.tabPage5.Controls.Add(this.radioButton5);
+            this.tabPage5.Controls.Add(this.radioButton6);
+            this.tabPage5.Controls.Add(this.button7);
+            this.tabPage5.Controls.Add(this.imarco_test);
+            this.tabPage5.Controls.Add(this.button8);
+            this.tabPage5.Controls.Add(this.comboBox1);
+            this.tabPage5.Controls.Add(this.button9);
+            this.tabPage5.Controls.Add(this.market_stats_string_textbox);
+            this.tabPage5.Controls.Add(this.button11);
+            this.tabPage5.Controls.Add(this.button12);
+            this.tabPage5.Controls.Add(this.button14);
+            this.tabPage5.Controls.Add(this.textBox1);
+            this.tabPage5.Controls.Add(this.upload_eval_interior_button);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(396, 363);
+            this.tabPage5.TabIndex = 2;
+            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(161, 149);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 159;
+            this.button1.Text = "Open M2M";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(161, 176);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 37);
+            this.button5.TabIndex = 160;
+            this.button5.Text = "Open MainStreet";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Visible = false;
+            // 
+            // button23
+            // 
+            this.button23.Location = new System.Drawing.Point(286, 131);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(63, 31);
+            this.button23.TabIndex = 157;
+            this.button23.Text = "button23";
+            this.button23.UseVisualStyleBackColor = true;
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(290, 53);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(37, 23);
+            this.button16.TabIndex = 155;
+            this.button16.Text = "button16";
+            this.button16.UseVisualStyleBackColor = true;
+            // 
+            // button20
+            // 
+            this.button20.Location = new System.Drawing.Point(205, 139);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(75, 23);
+            this.button20.TabIndex = 156;
+            this.button20.Text = "button20";
+            this.button20.UseVisualStyleBackColor = true;
+            // 
+            // button26
+            // 
+            this.button26.Location = new System.Drawing.Point(231, 73);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(42, 37);
+            this.button26.TabIndex = 158;
+            this.button26.Text = "Email SB";
+            this.button26.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(307, 193);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(128, 34);
+            this.button6.TabIndex = 137;
+            this.button6.Text = "button6";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Visible = false;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(190, 201);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(72, 23);
+            this.button2.TabIndex = 134;
+            this.button2.Text = "Open MLS";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(190, 242);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(108, 23);
+            this.button3.TabIndex = 135;
+            this.button3.Text = "Open Realist";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(109, 138);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(135, 28);
+            this.button4.TabIndex = 136;
+            this.button4.Text = "step1";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Visible = false;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(282, 121);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(85, 17);
+            this.radioButton1.TabIndex = 138;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "radioButton1";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.Visible = false;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(282, 144);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(85, 17);
+            this.radioButton2.TabIndex = 139;
+            this.radioButton2.Text = "radioButton2";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.Visible = false;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(282, 170);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(85, 17);
+            this.radioButton3.TabIndex = 140;
+            this.radioButton3.Text = "radioButton3";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.Visible = false;
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(384, 121);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(85, 17);
+            this.radioButton4.TabIndex = 141;
+            this.radioButton4.Text = "radioButton4";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioButton4.Visible = false;
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Location = new System.Drawing.Point(384, 144);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(85, 17);
+            this.radioButton5.TabIndex = 142;
+            this.radioButton5.Text = "radioButton5";
+            this.radioButton5.UseVisualStyleBackColor = true;
+            this.radioButton5.Visible = false;
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.AutoSize = true;
+            this.radioButton6.Location = new System.Drawing.Point(384, 170);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(85, 17);
+            this.radioButton6.TabIndex = 143;
+            this.radioButton6.Text = "radioButton6";
+            this.radioButton6.UseVisualStyleBackColor = true;
+            this.radioButton6.Visible = false;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(116, 297);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(128, 34);
+            this.button7.TabIndex = 144;
+            this.button7.Text = "button7";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Visible = false;
+            // 
+            // imarco_test
+            // 
+            this.imarco_test.Location = new System.Drawing.Point(110, 271);
+            this.imarco_test.Name = "imarco_test";
+            this.imarco_test.Size = new System.Drawing.Size(102, 24);
+            this.imarco_test.TabIndex = 145;
+            this.imarco_test.Text = "imacro_test";
+            this.imarco_test.UseVisualStyleBackColor = true;
+            this.imarco_test.Visible = false;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(218, 271);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(71, 23);
+            this.button8.TabIndex = 146;
+            this.button8.Text = "imort_test";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Visible = false;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Clist1",
+            "Clist2",
+            "Clist3",
+            "CSale1",
+            "CSale2",
+            "CSale3",
+            "RECENT_SALE1",
+            "RECENT_SALE2",
+            "RECENT_SALE3",
+            "COMPARABLE1",
+            "COMPARABLE2",
+            "COMPARABLE3"});
+            this.comboBox1.Location = new System.Drawing.Point(340, 312);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 147;
+            this.comboBox1.Visible = false;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(109, 172);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(103, 23);
+            this.button9.TabIndex = 148;
+            this.button9.Text = "Add Order to DB";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Visible = false;
+            // 
+            // market_stats_string_textbox
+            // 
+            this.market_stats_string_textbox.Location = new System.Drawing.Point(-122, 116);
+            this.market_stats_string_textbox.Name = "market_stats_string_textbox";
+            this.market_stats_string_textbox.Size = new System.Drawing.Size(380, 20);
+            this.market_stats_string_textbox.TabIndex = 149;
+            this.market_stats_string_textbox.Visible = false;
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(304, 227);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(125, 68);
+            this.button11.TabIndex = 152;
+            this.button11.Text = "button11";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Visible = false;
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(259, 308);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(75, 23);
+            this.button12.TabIndex = 153;
+            this.button12.Text = "button12";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Visible = false;
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(228, 172);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(75, 23);
+            this.button14.TabIndex = 154;
+            this.button14.Text = "ServiceLinkTest";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Visible = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(172, 29);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(346, 20);
+            this.textBox1.TabIndex = 151;
+            this.textBox1.Visible = false;
+            // 
+            // upload_eval_interior_button
+            // 
+            this.upload_eval_interior_button.Location = new System.Drawing.Point(356, 74);
+            this.upload_eval_interior_button.Name = "upload_eval_interior_button";
+            this.upload_eval_interior_button.Size = new System.Drawing.Size(132, 23);
+            this.upload_eval_interior_button.TabIndex = 150;
+            this.upload_eval_interior_button.Text = "Upload Eval Int Pics";
+            this.upload_eval_interior_button.UseVisualStyleBackColor = true;
+            this.upload_eval_interior_button.Visible = false;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.dataGridView1);
+            this.tabPage6.Controls.Add(this.subjectPictureBox);
+            this.tabPage6.Controls.Add(this.compPictureBox);
+            this.tabPage6.Controls.Add(this.ccProximityTextBox);
+            this.tabPage6.Controls.Add(this.label40);
+            this.tabPage6.Controls.Add(this.checkedListBox1);
+            this.tabPage6.Controls.Add(this.ccMonthsBacknumericUpDown);
+            this.tabPage6.Controls.Add(this.label41);
+            this.tabPage6.Controls.Add(this.ccTargetPriceTextBox);
+            this.tabPage6.Controls.Add(this.label42);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(396, 363);
+            this.tabPage6.TabIndex = 3;
+            this.tabPage6.Text = "tabPage6";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(-205, 92);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(595, 150);
+            this.dataGridView1.TabIndex = 108;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // ccProximityTextBox
+            // 
+            this.ccProximityTextBox.Location = new System.Drawing.Point(-260, 94);
+            this.ccProximityTextBox.Name = "ccProximityTextBox";
+            this.ccProximityTextBox.Size = new System.Drawing.Size(29, 20);
+            this.ccProximityTextBox.TabIndex = 114;
+            this.ccProximityTextBox.Text = ".5";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(-271, 72);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(48, 13);
+            this.label40.TabIndex = 115;
+            this.label40.Text = "Proximity";
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "Proximity",
+            "Type",
+            "GLA",
+            "LotSize",
+            "RealistGLA",
+            "RealistLotSize",
+            "YearBuilt",
+            "Closed",
+            "PriceRange"});
+            this.checkedListBox1.Location = new System.Drawing.Point(-358, 154);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(120, 94);
+            this.checkedListBox1.TabIndex = 116;
+            this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox1_ItemCheck);
+            // 
+            // ccMonthsBacknumericUpDown
+            // 
+            this.ccMonthsBacknumericUpDown.Location = new System.Drawing.Point(-314, 60);
+            this.ccMonthsBacknumericUpDown.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.ccMonthsBacknumericUpDown.Name = "ccMonthsBacknumericUpDown";
+            this.ccMonthsBacknumericUpDown.Size = new System.Drawing.Size(37, 20);
+            this.ccMonthsBacknumericUpDown.TabIndex = 121;
+            this.ccMonthsBacknumericUpDown.TabStop = false;
+            this.ccMonthsBacknumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(-365, 72);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(42, 13);
+            this.label41.TabIndex = 122;
+            this.label41.Text = "Months";
+            this.label41.Click += new System.EventHandler(this.label41_Click);
+            // 
+            // ccTargetPriceTextBox
+            // 
+            this.ccTargetPriceTextBox.Location = new System.Drawing.Point(-359, 120);
+            this.ccTargetPriceTextBox.Name = "ccTargetPriceTextBox";
+            this.ccTargetPriceTextBox.Size = new System.Drawing.Size(121, 20);
+            this.ccTargetPriceTextBox.TabIndex = 123;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(-348, 90);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(65, 13);
+            this.label42.TabIndex = 124;
+            this.label42.Text = "Target Price";
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.webBrowser1);
+            this.tabPage7.Controls.Add(this.richTextBoxNumberCompsFound);
+            this.tabPage7.Controls.Add(this.richTextBox2);
+            this.tabPage7.Controls.Add(this.comboBox4);
+            this.tabPage7.Controls.Add(this.button19);
+            this.tabPage7.Controls.Add(this.button18);
+            this.tabPage7.Controls.Add(this.button24);
+            this.tabPage7.Controls.Add(this.button22);
+            this.tabPage7.Controls.Add(this.queryRichTextBox);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(396, 363);
+            this.tabPage7.TabIndex = 4;
+            this.tabPage7.Text = "tabPage7";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Location = new System.Drawing.Point(80, 190);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(250, 63);
+            this.webBrowser1.TabIndex = 126;
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+            // 
+            // richTextBoxNumberCompsFound
+            // 
+            this.richTextBoxNumberCompsFound.Location = new System.Drawing.Point(166, 102);
+            this.richTextBoxNumberCompsFound.Name = "richTextBoxNumberCompsFound";
+            this.richTextBoxNumberCompsFound.Size = new System.Drawing.Size(45, 29);
+            this.richTextBoxNumberCompsFound.TabIndex = 131;
+            this.richTextBoxNumberCompsFound.Text = "0";
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(166, 141);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(45, 29);
+            this.richTextBox2.TabIndex = 132;
+            this.richTextBox2.Text = "";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(125, 293);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(121, 21);
+            this.comboBox4.TabIndex = 113;
+            // 
+            // button19
+            // 
+            this.button19.Location = new System.Drawing.Point(15, 257);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(75, 39);
+            this.button19.TabIndex = 117;
+            this.button19.Text = "Query Last Search";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
+            // 
+            // button18
+            // 
+            this.button18.Location = new System.Drawing.Point(6, 169);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(75, 37);
+            this.button18.TabIndex = 112;
+            this.button18.Text = "Load Last Search";
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
+            // 
+            // button24
+            // 
+            this.button24.Location = new System.Drawing.Point(15, 112);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(75, 23);
+            this.button24.TabIndex = 127;
+            this.button24.Text = "button24";
+            this.button24.UseVisualStyleBackColor = true;
+            this.button24.Click += new System.EventHandler(this.button24_Click);
+            // 
             // label86
             // 
             this.label86.AutoSize = true;
-            this.label86.Location = new System.Drawing.Point(145, 68);
+            this.label86.Location = new System.Drawing.Point(95, 114);
             this.label86.Name = "label86";
             this.label86.Size = new System.Drawing.Size(88, 13);
             this.label86.TabIndex = 43;
@@ -1854,7 +2644,7 @@
             // 
             // ndMedianListPriceTextBox
             // 
-            this.ndMedianListPriceTextBox.Location = new System.Drawing.Point(145, 91);
+            this.ndMedianListPriceTextBox.Location = new System.Drawing.Point(93, 133);
             this.ndMedianListPriceTextBox.Name = "ndMedianListPriceTextBox";
             this.ndMedianListPriceTextBox.Size = new System.Drawing.Size(75, 20);
             this.ndMedianListPriceTextBox.TabIndex = 42;
@@ -1966,7 +2756,7 @@
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(219, 63);
+            this.label68.Location = new System.Drawing.Point(189, 116);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(73, 13);
             this.label68.TabIndex = 28;
@@ -1974,7 +2764,7 @@
             // 
             // ndMaxListPriceTextBox
             // 
-            this.ndMaxListPriceTextBox.Location = new System.Drawing.Point(246, 95);
+            this.ndMaxListPriceTextBox.Location = new System.Drawing.Point(175, 133);
             this.ndMaxListPriceTextBox.Name = "ndMaxListPriceTextBox";
             this.ndMaxListPriceTextBox.Size = new System.Drawing.Size(79, 20);
             this.ndMaxListPriceTextBox.TabIndex = 27;
@@ -1982,7 +2772,7 @@
             // label69
             // 
             this.label69.AutoSize = true;
-            this.label69.Location = new System.Drawing.Point(61, 68);
+            this.label69.Location = new System.Drawing.Point(16, 116);
             this.label69.Name = "label69";
             this.label69.Size = new System.Drawing.Size(70, 13);
             this.label69.TabIndex = 26;
@@ -1990,7 +2780,7 @@
             // 
             // ndMinListPriceTextBox
             // 
-            this.ndMinListPriceTextBox.Location = new System.Drawing.Point(61, 91);
+            this.ndMinListPriceTextBox.Location = new System.Drawing.Point(12, 131);
             this.ndMinListPriceTextBox.Name = "ndMinListPriceTextBox";
             this.ndMinListPriceTextBox.Size = new System.Drawing.Size(75, 20);
             this.ndMinListPriceTextBox.TabIndex = 25;
@@ -2203,104 +2993,6 @@
             this.ndAvgDomTextBox.Size = new System.Drawing.Size(40, 20);
             this.ndAvgDomTextBox.TabIndex = 0;
             // 
-            // pBar1
-            // 
-            this.pBar1.Location = new System.Drawing.Point(6, 553);
-            this.pBar1.Name = "pBar1";
-            this.pBar1.Size = new System.Drawing.Size(620, 23);
-            this.pBar1.TabIndex = 103;
-            // 
-            // pBar2
-            // 
-            this.pBar2.Location = new System.Drawing.Point(6, 582);
-            this.pBar2.Name = "pBar2";
-            this.pBar2.Size = new System.Drawing.Size(620, 23);
-            this.pBar2.TabIndex = 104;
-            // 
-            // queryRichTextBox
-            // 
-            this.queryRichTextBox.Location = new System.Drawing.Point(645, 408);
-            this.queryRichTextBox.Name = "queryRichTextBox";
-            this.queryRichTextBox.Size = new System.Drawing.Size(286, 48);
-            this.queryRichTextBox.TabIndex = 107;
-            this.queryRichTextBox.Text = "";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(-205, 92);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(595, 150);
-            this.dataGridView1.TabIndex = 108;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(-271, 72);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(48, 13);
-            this.label40.TabIndex = 115;
-            this.label40.Text = "Proximity";
-            // 
-            // ccProximityTextBox
-            // 
-            this.ccProximityTextBox.Location = new System.Drawing.Point(-260, 94);
-            this.ccProximityTextBox.Name = "ccProximityTextBox";
-            this.ccProximityTextBox.Size = new System.Drawing.Size(29, 20);
-            this.ccProximityTextBox.TabIndex = 114;
-            this.ccProximityTextBox.Text = ".5";
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(125, 293);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(121, 21);
-            this.comboBox4.TabIndex = 113;
-            // 
-            // button18
-            // 
-            this.button18.Location = new System.Drawing.Point(6, 169);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(75, 37);
-            this.button18.TabIndex = 112;
-            this.button18.Text = "Load Last Search";
-            this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.button18_Click);
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
-            "Proximity",
-            "Type",
-            "GLA",
-            "LotSize",
-            "RealistGLA",
-            "RealistLotSize",
-            "YearBuilt",
-            "Closed",
-            "PriceRange"});
-            this.checkedListBox1.Location = new System.Drawing.Point(-358, 154);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(120, 94);
-            this.checkedListBox1.TabIndex = 116;
-            this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox1_ItemCheck);
-            // 
-            // button19
-            // 
-            this.button19.Location = new System.Drawing.Point(15, 235);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(75, 39);
-            this.button19.TabIndex = 117;
-            this.button19.Text = "Query Last Search";
-            this.button19.UseVisualStyleBackColor = true;
-            this.button19.Click += new System.EventHandler(this.button19_Click);
-            // 
             // eventLog2
             // 
             this.eventLog2.SynchronizingObject = this;
@@ -2308,9 +3000,9 @@
             // programStatusRichTextBox
             // 
             this.programStatusRichTextBox.HideSelection = false;
-            this.programStatusRichTextBox.Location = new System.Drawing.Point(1139, 19);
+            this.programStatusRichTextBox.Location = new System.Drawing.Point(859, 81);
             this.programStatusRichTextBox.Name = "programStatusRichTextBox";
-            this.programStatusRichTextBox.Size = new System.Drawing.Size(187, 104);
+            this.programStatusRichTextBox.Size = new System.Drawing.Size(157, 104);
             this.programStatusRichTextBox.TabIndex = 118;
             this.programStatusRichTextBox.Text = "";
             // 
@@ -2323,50 +3015,6 @@
             this.button21.Text = "Gather Sub Info";
             this.button21.UseVisualStyleBackColor = true;
             this.button21.Click += new System.EventHandler(this.button21_Click);
-            // 
-            // ccMonthsBacknumericUpDown
-            // 
-            this.ccMonthsBacknumericUpDown.Location = new System.Drawing.Point(-314, 60);
-            this.ccMonthsBacknumericUpDown.Maximum = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            this.ccMonthsBacknumericUpDown.Name = "ccMonthsBacknumericUpDown";
-            this.ccMonthsBacknumericUpDown.Size = new System.Drawing.Size(37, 20);
-            this.ccMonthsBacknumericUpDown.TabIndex = 121;
-            this.ccMonthsBacknumericUpDown.TabStop = false;
-            this.ccMonthsBacknumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(-365, 72);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(42, 13);
-            this.label41.TabIndex = 122;
-            this.label41.Text = "Months";
-            this.label41.Click += new System.EventHandler(this.label41_Click);
-            // 
-            // ccTargetPriceTextBox
-            // 
-            this.ccTargetPriceTextBox.Location = new System.Drawing.Point(-359, 120);
-            this.ccTargetPriceTextBox.Name = "ccTargetPriceTextBox";
-            this.ccTargetPriceTextBox.Size = new System.Drawing.Size(121, 20);
-            this.ccTargetPriceTextBox.TabIndex = 123;
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(-348, 90);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(65, 13);
-            this.label42.TabIndex = 124;
-            this.label42.Text = "Target Price";
             // 
             // subjectTableAdapter
             // 
@@ -2469,38 +3117,9 @@
             // 
             this.rawSFDataTableAdapter.ClearBeforeFill = true;
             // 
-            // webBrowser1
-            // 
-            this.webBrowser1.Location = new System.Drawing.Point(80, 190);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(250, 63);
-            this.webBrowser1.TabIndex = 126;
-            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
-            // 
-            // button24
-            // 
-            this.button24.Location = new System.Drawing.Point(15, 112);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(75, 23);
-            this.button24.TabIndex = 127;
-            this.button24.Text = "button24";
-            this.button24.UseVisualStyleBackColor = true;
-            this.button24.Click += new System.EventHandler(this.button24_Click);
-            // 
-            // REOcSandboxButton
-            // 
-            this.REOcSandboxButton.Location = new System.Drawing.Point(89, 141);
-            this.REOcSandboxButton.Name = "REOcSandboxButton";
-            this.REOcSandboxButton.Size = new System.Drawing.Size(75, 23);
-            this.REOcSandboxButton.TabIndex = 128;
-            this.REOcSandboxButton.Text = "REOc SB";
-            this.REOcSandboxButton.UseVisualStyleBackColor = true;
-            this.REOcSandboxButton.Click += new System.EventHandler(this.REOcSandboxButton_Click);
-            // 
             // buttonSaveOrderInfo
             // 
-            this.buttonSaveOrderInfo.Location = new System.Drawing.Point(1435, 133);
+            this.buttonSaveOrderInfo.Location = new System.Drawing.Point(445, 142);
             this.buttonSaveOrderInfo.Name = "buttonSaveOrderInfo";
             this.buttonSaveOrderInfo.Size = new System.Drawing.Size(116, 29);
             this.buttonSaveOrderInfo.TabIndex = 129;
@@ -2510,29 +3129,13 @@
             // 
             // button25
             // 
-            this.button25.Location = new System.Drawing.Point(1435, 165);
+            this.button25.Location = new System.Drawing.Point(446, 173);
             this.button25.Name = "button25";
             this.button25.Size = new System.Drawing.Size(116, 29);
             this.button25.TabIndex = 130;
             this.button25.Text = "ImageResizer SB";
             this.button25.UseVisualStyleBackColor = true;
             this.button25.Click += new System.EventHandler(this.button25_Click);
-            // 
-            // richTextBoxNumberCompsFound
-            // 
-            this.richTextBoxNumberCompsFound.Location = new System.Drawing.Point(166, 102);
-            this.richTextBoxNumberCompsFound.Name = "richTextBoxNumberCompsFound";
-            this.richTextBoxNumberCompsFound.Size = new System.Drawing.Size(45, 29);
-            this.richTextBoxNumberCompsFound.TabIndex = 131;
-            this.richTextBoxNumberCompsFound.Text = "0";
-            // 
-            // richTextBox2
-            // 
-            this.richTextBox2.Location = new System.Drawing.Point(166, 141);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(45, 29);
-            this.richTextBox2.TabIndex = 132;
-            this.richTextBox2.Text = "";
             // 
             // numericUpDownRadius
             // 
@@ -2548,7 +3151,7 @@
             // 
             // button27
             // 
-            this.button27.Location = new System.Drawing.Point(1435, 98);
+            this.button27.Location = new System.Drawing.Point(323, 142);
             this.button27.Name = "button27";
             this.button27.Size = new System.Drawing.Size(116, 29);
             this.button27.TabIndex = 135;
@@ -2556,20 +3159,10 @@
             this.button27.UseVisualStyleBackColor = true;
             this.button27.Click += new System.EventHandler(this.button27_Click);
             // 
-            // button28
-            // 
-            this.button28.Location = new System.Drawing.Point(186, 122);
-            this.button28.Name = "button28";
-            this.button28.Size = new System.Drawing.Size(75, 23);
-            this.button28.TabIndex = 136;
-            this.button28.Text = "First Pass";
-            this.button28.UseVisualStyleBackColor = true;
-            this.button28.Click += new System.EventHandler(this.button28_Click);
-            // 
             // ignoreAgeCheckBox
             // 
             this.ignoreAgeCheckBox.AutoSize = true;
-            this.ignoreAgeCheckBox.Location = new System.Drawing.Point(149, 185);
+            this.ignoreAgeCheckBox.Location = new System.Drawing.Point(174, 141);
             this.ignoreAgeCheckBox.Name = "ignoreAgeCheckBox";
             this.ignoreAgeCheckBox.Size = new System.Drawing.Size(78, 17);
             this.ignoreAgeCheckBox.TabIndex = 137;
@@ -2578,7 +3171,7 @@
             // 
             // button29
             // 
-            this.button29.Location = new System.Drawing.Point(1557, 165);
+            this.button29.Location = new System.Drawing.Point(323, 173);
             this.button29.Name = "button29";
             this.button29.Size = new System.Drawing.Size(116, 29);
             this.button29.TabIndex = 138;
@@ -2641,7 +3234,7 @@
             this.compDataGroupBox.Controls.Add(this.cdMinSalePriceTextBox);
             this.compDataGroupBox.Controls.Add(this.label66);
             this.compDataGroupBox.Controls.Add(this.cdAvgDomTextBox);
-            this.compDataGroupBox.Location = new System.Drawing.Point(532, 900);
+            this.compDataGroupBox.Location = new System.Drawing.Point(510, 842);
             this.compDataGroupBox.Name = "compDataGroupBox";
             this.compDataGroupBox.Size = new System.Drawing.Size(570, 274);
             this.compDataGroupBox.TabIndex = 140;
@@ -2994,14 +3587,6 @@
             this.cdAvgDomTextBox.Size = new System.Drawing.Size(40, 20);
             this.cdAvgDomTextBox.TabIndex = 0;
             // 
-            // labelNumberOfComps
-            // 
-            this.labelNumberOfComps.AutoSize = true;
-            this.labelNumberOfComps.Location = new System.Drawing.Point(1466, 661);
-            this.labelNumberOfComps.Name = "labelNumberOfComps";
-            this.labelNumberOfComps.Size = new System.Drawing.Size(0, 13);
-            this.labelNumberOfComps.TabIndex = 141;
-            // 
             // streetnameTextBox
             // 
             this.streetnameTextBox.Location = new System.Drawing.Point(149, 29);
@@ -3010,479 +3595,17 @@
             this.streetnameTextBox.TabIndex = 4;
             this.streetnameTextBox.TextChanged += new System.EventHandler(this.streetnameTextBox_TextChanged);
             // 
-            // dateTimePickerInspectionDate
-            // 
-            this.dateTimePickerInspectionDate.Location = new System.Drawing.Point(10, 43);
-            this.dateTimePickerInspectionDate.Name = "dateTimePickerInspectionDate";
-            this.dateTimePickerInspectionDate.Size = new System.Drawing.Size(213, 20);
-            this.dateTimePickerInspectionDate.TabIndex = 142;
-            // 
-            // richTextBoxLogger
-            // 
-            this.richTextBoxLogger.BackColor = System.Drawing.Color.White;
-            this.richTextBoxLogger.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBoxLogger.Location = new System.Drawing.Point(1809, 432);
-            this.richTextBoxLogger.Name = "richTextBoxLogger";
-            this.richTextBoxLogger.ReadOnly = true;
-            this.richTextBoxLogger.Size = new System.Drawing.Size(288, 232);
-            this.richTextBoxLogger.TabIndex = 144;
-            this.richTextBoxLogger.Text = "";
-            this.richTextBoxLogger.WordWrap = false;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage6);
-            this.tabControl1.Controls.Add(this.tabPage7);
-            this.tabControl1.Location = new System.Drawing.Point(1039, 208);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(404, 389);
-            this.tabControl1.TabIndex = 145;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.Color.Thistle;
-            this.tabPage1.Controls.Add(this.button10);
-            this.tabPage1.Controls.Add(this.label90);
-            this.tabPage1.Controls.Add(this.dateTimePickerInspectionDate);
-            this.tabPage1.Controls.Add(this.bpoCommentsTextBox);
-            this.tabPage1.Controls.Add(this.label23);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(396, 363);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Bpo Info";
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(61, 123);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(176, 72);
-            this.button10.TabIndex = 147;
-            this.button10.Text = "button10";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // label90
-            // 
-            this.label90.AutoSize = true;
-            this.label90.Location = new System.Drawing.Point(7, 23);
-            this.label90.Name = "label90";
-            this.label90.Size = new System.Drawing.Size(82, 13);
-            this.label90.TabIndex = 146;
-            this.label90.Text = "Inspection Date";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.REOcSandboxButton);
-            this.tabPage2.Controls.Add(this.ieConnectedCheckbox);
-            this.tabPage2.Controls.Add(this.imacrosConnectedCheckbox);
-            this.tabPage2.Controls.Add(this.button_eval_ext_pics);
-            this.tabPage2.Controls.Add(this.button_save_comp_pics);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(396, 363);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.button1);
-            this.tabPage5.Controls.Add(this.button5);
-            this.tabPage5.Controls.Add(this.button23);
-            this.tabPage5.Controls.Add(this.button16);
-            this.tabPage5.Controls.Add(this.button20);
-            this.tabPage5.Controls.Add(this.button26);
-            this.tabPage5.Controls.Add(this.button6);
-            this.tabPage5.Controls.Add(this.button2);
-            this.tabPage5.Controls.Add(this.button3);
-            this.tabPage5.Controls.Add(this.button4);
-            this.tabPage5.Controls.Add(this.radioButton1);
-            this.tabPage5.Controls.Add(this.radioButton2);
-            this.tabPage5.Controls.Add(this.radioButton3);
-            this.tabPage5.Controls.Add(this.radioButton4);
-            this.tabPage5.Controls.Add(this.radioButton5);
-            this.tabPage5.Controls.Add(this.radioButton6);
-            this.tabPage5.Controls.Add(this.button7);
-            this.tabPage5.Controls.Add(this.imarco_test);
-            this.tabPage5.Controls.Add(this.button8);
-            this.tabPage5.Controls.Add(this.comboBox1);
-            this.tabPage5.Controls.Add(this.button9);
-            this.tabPage5.Controls.Add(this.market_stats_string_textbox);
-            this.tabPage5.Controls.Add(this.button11);
-            this.tabPage5.Controls.Add(this.button12);
-            this.tabPage5.Controls.Add(this.button14);
-            this.tabPage5.Controls.Add(this.textBox1);
-            this.tabPage5.Controls.Add(this.upload_eval_interior_button);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(396, 363);
-            this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "tabPage5";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(161, 149);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 159;
-            this.button1.Text = "Open M2M";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(161, 176);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 37);
-            this.button5.TabIndex = 160;
-            this.button5.Text = "Open MainStreet";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Visible = false;
-            // 
-            // button23
-            // 
-            this.button23.Location = new System.Drawing.Point(286, 131);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(63, 31);
-            this.button23.TabIndex = 157;
-            this.button23.Text = "button23";
-            this.button23.UseVisualStyleBackColor = true;
-            // 
-            // button16
-            // 
-            this.button16.Location = new System.Drawing.Point(290, 53);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(37, 23);
-            this.button16.TabIndex = 155;
-            this.button16.Text = "button16";
-            this.button16.UseVisualStyleBackColor = true;
-            // 
-            // button20
-            // 
-            this.button20.Location = new System.Drawing.Point(205, 139);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(75, 23);
-            this.button20.TabIndex = 156;
-            this.button20.Text = "button20";
-            this.button20.UseVisualStyleBackColor = true;
-            // 
-            // button26
-            // 
-            this.button26.Location = new System.Drawing.Point(231, 73);
-            this.button26.Name = "button26";
-            this.button26.Size = new System.Drawing.Size(42, 37);
-            this.button26.TabIndex = 158;
-            this.button26.Text = "Email SB";
-            this.button26.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(307, 193);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(128, 34);
-            this.button6.TabIndex = 137;
-            this.button6.Text = "button6";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Visible = false;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(190, 201);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(72, 23);
-            this.button2.TabIndex = 134;
-            this.button2.Text = "Open MLS";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(190, 242);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(108, 23);
-            this.button3.TabIndex = 135;
-            this.button3.Text = "Open Realist";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Visible = false;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(109, 138);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(135, 28);
-            this.button4.TabIndex = 136;
-            this.button4.Text = "step1";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Visible = false;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(282, 121);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton1.TabIndex = 138;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.Visible = false;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(282, 144);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(85, 17);
-            this.radioButton2.TabIndex = 139;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.Visible = false;
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(282, 170);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(85, 17);
-            this.radioButton3.TabIndex = 140;
-            this.radioButton3.Text = "radioButton3";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.Visible = false;
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(384, 121);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(85, 17);
-            this.radioButton4.TabIndex = 141;
-            this.radioButton4.Text = "radioButton4";
-            this.radioButton4.UseVisualStyleBackColor = true;
-            this.radioButton4.Visible = false;
-            // 
-            // radioButton5
-            // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Location = new System.Drawing.Point(384, 144);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(85, 17);
-            this.radioButton5.TabIndex = 142;
-            this.radioButton5.Text = "radioButton5";
-            this.radioButton5.UseVisualStyleBackColor = true;
-            this.radioButton5.Visible = false;
-            // 
-            // radioButton6
-            // 
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.Location = new System.Drawing.Point(384, 170);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(85, 17);
-            this.radioButton6.TabIndex = 143;
-            this.radioButton6.Text = "radioButton6";
-            this.radioButton6.UseVisualStyleBackColor = true;
-            this.radioButton6.Visible = false;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(116, 297);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(128, 34);
-            this.button7.TabIndex = 144;
-            this.button7.Text = "button7";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Visible = false;
-            // 
-            // imarco_test
-            // 
-            this.imarco_test.Location = new System.Drawing.Point(110, 271);
-            this.imarco_test.Name = "imarco_test";
-            this.imarco_test.Size = new System.Drawing.Size(102, 24);
-            this.imarco_test.TabIndex = 145;
-            this.imarco_test.Text = "imacro_test";
-            this.imarco_test.UseVisualStyleBackColor = true;
-            this.imarco_test.Visible = false;
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(218, 271);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(71, 23);
-            this.button8.TabIndex = 146;
-            this.button8.Text = "imort_test";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Visible = false;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Clist1",
-            "Clist2",
-            "Clist3",
-            "CSale1",
-            "CSale2",
-            "CSale3",
-            "RECENT_SALE1",
-            "RECENT_SALE2",
-            "RECENT_SALE3",
-            "COMPARABLE1",
-            "COMPARABLE2",
-            "COMPARABLE3"});
-            this.comboBox1.Location = new System.Drawing.Point(340, 312);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 147;
-            this.comboBox1.Visible = false;
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(109, 172);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(103, 23);
-            this.button9.TabIndex = 148;
-            this.button9.Text = "Add Order to DB";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Visible = false;
-            // 
-            // market_stats_string_textbox
-            // 
-            this.market_stats_string_textbox.Location = new System.Drawing.Point(-122, 116);
-            this.market_stats_string_textbox.Name = "market_stats_string_textbox";
-            this.market_stats_string_textbox.Size = new System.Drawing.Size(380, 20);
-            this.market_stats_string_textbox.TabIndex = 149;
-            this.market_stats_string_textbox.Visible = false;
-            // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(304, 227);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(125, 68);
-            this.button11.TabIndex = 152;
-            this.button11.Text = "button11";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Visible = false;
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(259, 308);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(75, 23);
-            this.button12.TabIndex = 153;
-            this.button12.Text = "button12";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Visible = false;
-            // 
-            // button14
-            // 
-            this.button14.Location = new System.Drawing.Point(228, 172);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(75, 23);
-            this.button14.TabIndex = 154;
-            this.button14.Text = "ServiceLinkTest";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Visible = false;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(172, 29);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(346, 20);
-            this.textBox1.TabIndex = 151;
-            this.textBox1.Visible = false;
-            // 
-            // upload_eval_interior_button
-            // 
-            this.upload_eval_interior_button.Location = new System.Drawing.Point(356, 74);
-            this.upload_eval_interior_button.Name = "upload_eval_interior_button";
-            this.upload_eval_interior_button.Size = new System.Drawing.Size(132, 23);
-            this.upload_eval_interior_button.TabIndex = 150;
-            this.upload_eval_interior_button.Text = "Upload Eval Int Pics";
-            this.upload_eval_interior_button.UseVisualStyleBackColor = true;
-            this.upload_eval_interior_button.Visible = false;
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.Controls.Add(this.dataGridView1);
-            this.tabPage6.Controls.Add(this.subjectPictureBox);
-            this.tabPage6.Controls.Add(this.compPictureBox);
-            this.tabPage6.Controls.Add(this.ccProximityTextBox);
-            this.tabPage6.Controls.Add(this.label40);
-            this.tabPage6.Controls.Add(this.checkedListBox1);
-            this.tabPage6.Controls.Add(this.ccMonthsBacknumericUpDown);
-            this.tabPage6.Controls.Add(this.label41);
-            this.tabPage6.Controls.Add(this.ccTargetPriceTextBox);
-            this.tabPage6.Controls.Add(this.label42);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(396, 363);
-            this.tabPage6.TabIndex = 3;
-            this.tabPage6.Text = "tabPage6";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // tabPage7
-            // 
-            this.tabPage7.Controls.Add(this.webBrowser1);
-            this.tabPage7.Controls.Add(this.richTextBoxNumberCompsFound);
-            this.tabPage7.Controls.Add(this.richTextBox2);
-            this.tabPage7.Controls.Add(this.comboBox4);
-            this.tabPage7.Controls.Add(this.button19);
-            this.tabPage7.Controls.Add(this.button18);
-            this.tabPage7.Controls.Add(this.button24);
-            this.tabPage7.Controls.Add(this.button22);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(396, 363);
-            this.tabPage7.TabIndex = 4;
-            this.tabPage7.Text = "tabPage7";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // label91
-            // 
-            this.label91.AutoSize = true;
-            this.label91.Location = new System.Drawing.Point(266, 429);
-            this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(76, 13);
-            this.label91.TabIndex = 145;
-            this.label91.Text = "Location Cond";
-            // 
-            // label92
-            // 
-            this.label92.AutoSize = true;
-            this.label92.Location = new System.Drawing.Point(374, 430);
-            this.label92.Name = "label92";
-            this.label92.Size = new System.Drawing.Size(76, 13);
-            this.label92.TabIndex = 146;
-            this.label92.Text = "Location Desc";
-            // 
-            // label93
-            // 
-            this.label93.AutoSize = true;
-            this.label93.Location = new System.Drawing.Point(499, 430);
-            this.label93.Name = "label93";
-            this.label93.Size = new System.Drawing.Size(30, 13);
-            this.label93.TabIndex = 147;
-            this.label93.Text = "View";
-            // 
-            // label94
-            // 
-            this.label94.AutoSize = true;
-            this.label94.Location = new System.Drawing.Point(90, 13);
-            this.label94.Name = "label94";
-            this.label94.Size = new System.Drawing.Size(86, 13);
-            this.label94.TabIndex = 148;
-            this.label94.Text = "Current List Date";
+            // ignoreTypeCheckBox
+            // 
+            this.ignoreTypeCheckBox.AutoSize = true;
+            this.ignoreTypeCheckBox.ForeColor = System.Drawing.Color.Black;
+            this.ignoreTypeCheckBox.Location = new System.Drawing.Point(174, 164);
+            this.ignoreTypeCheckBox.Name = "ignoreTypeCheckBox";
+            this.ignoreTypeCheckBox.Size = new System.Drawing.Size(114, 17);
+            this.ignoreTypeCheckBox.TabIndex = 141;
+            this.ignoreTypeCheckBox.Text = "Ignore (MLS) Type";
+            this.ignoreTypeCheckBox.UseVisualStyleBackColor = true;
+            this.ignoreTypeCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
             // 
             // Form1
             // 
@@ -3492,15 +3615,12 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(2148, 1257);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.richTextBoxLogger);
-            this.Controls.Add(this.labelNumberOfComps);
+            this.ClientSize = new System.Drawing.Size(1102, 1192);
+            this.Controls.Add(this.ignoreTypeCheckBox);
             this.Controls.Add(this.compDataGroupBox);
             this.Controls.Add(this.button30);
             this.Controls.Add(this.button29);
             this.Controls.Add(this.ignoreAgeCheckBox);
-            this.Controls.Add(this.button28);
             this.Controls.Add(this.button27);
             this.Controls.Add(this.numericUpDownRadius);
             this.Controls.Add(this.button25);
@@ -3513,17 +3633,14 @@
             this.Controls.Add(this.useNabpopradioButton);
             this.Controls.Add(this.realistUpdateCheckBox);
             this.Controls.Add(this.googleReqResRichTextBox);
-            this.Controls.Add(this.statusStrip2);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.button15);
             this.Controls.Add(this.label22);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.picDiffLabel);
             this.Controls.Add(this.statusTextBox);
             this.Controls.Add(this.runMredScriptButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_imort_pics);
-            this.Controls.Add(this.import_market_stats_button);
             this.Controls.Add(this.mls_search_button);
             this.Controls.Add(this.search_address_textbox);
             this.Controls.Add(this.mredCmdComboBox);
@@ -3540,36 +3657,34 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabControl2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lotSizeUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.glaUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.compPictureBox)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
             this.neighborhoodDataGroupBox.ResumeLayout(false);
             this.neighborhoodDataGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.eventLog2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ccMonthsBacknumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rawSFDataBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).EndInit();
-            this.compDataGroupBox.ResumeLayout(false);
-            this.compDataGroupBox.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ccMonthsBacknumericUpDown)).EndInit();
             this.tabPage7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.eventLog2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rawSFDataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).EndInit();
+            this.compDataGroupBox.ResumeLayout(false);
+            this.compDataGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3651,14 +3766,10 @@
         public System.Windows.Forms.PictureBox subjectPictureBox;
         public System.Windows.Forms.PictureBox compPictureBox;
         public System.Windows.Forms.Label picDiffLabel;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.CheckBox ieConnectedCheckbox;
         private System.Windows.Forms.CheckBox imacrosConnectedCheckbox;
         private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.RichTextBox bpoCommentsTextBox;
-        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
         public System.Windows.Forms.TextBox streetnumTextBox;
         private System.Windows.Forms.ComboBox comboBox3;
@@ -3666,7 +3777,6 @@
         public System.Windows.Forms.RichTextBox infoWindowrichTextBox;
         private System.Diagnostics.EventLog eventLog1;
         public System.Windows.Forms.RichTextBox googleReqResRichTextBox;
-        private System.Windows.Forms.StatusStrip statusStrip2;
         private System.Windows.Forms.CheckBox realistUpdateCheckBox;
         private System.Windows.Forms.NumericUpDown glaUpDown;
         private System.Windows.Forms.NumericUpDown lotSizeUpDown;
@@ -3714,8 +3824,6 @@
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.Label label35;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.Label label40;
@@ -3792,7 +3900,6 @@
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.TextBox cdAvgDomTextBox;
         private System.Windows.Forms.CheckBox ndPreserveData;
-        private System.Windows.Forms.Label labelNumberOfComps;
         private System.Windows.Forms.CheckBox cdPreserveData;
         private System.Windows.Forms.Label label70;
         private System.Windows.Forms.Label label71;
@@ -3832,12 +3939,9 @@
         private System.Windows.Forms.Label label87;
         private System.Windows.Forms.TextBox ndMedianSalePriceTextBox;
         public System.Windows.Forms.TextBox streetnameTextBox;
-        private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Label label90;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         public System.Windows.Forms.RichTextBox richTextBoxLogger;
         private System.Windows.Forms.TabPage tabPage5;
@@ -3868,7 +3972,6 @@
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button upload_eval_interior_button;
-        public System.Windows.Forms.DateTimePicker dateTimePickerInspectionDate;
         public System.Windows.Forms.TextBox subjectBasementTypeTextbox;
         public System.Windows.Forms.TextBox subjectBasementDetailsTextbox;
         public System.Windows.Forms.TextBox subjectBasementGlaTextbox;
@@ -3881,7 +3984,6 @@
         public System.Windows.Forms.DateTimePicker subjectOffMarketDatedateTimePicker;
         public System.Windows.Forms.DateTimePicker subjectListDatedateTimePicker;
         public System.Windows.Forms.DateTimePicker dateTimePickerSubjectCurrentListDate;
-        private System.Windows.Forms.Button button10;
         public System.Windows.Forms.ComboBox comboBoxLocationDescr;
         private System.Windows.Forms.Label label93;
         private System.Windows.Forms.Label label92;
@@ -3889,6 +3991,28 @@
         private System.Windows.Forms.Label label94;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.Label label35;
+        public System.Windows.Forms.Label labelMlsNumber;
+        public System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Button buttonRunSearch;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Label label96;
+        private System.Windows.Forms.Label label95;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox comboBoxBpoVendor;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Label label90;
+        public System.Windows.Forms.DateTimePicker dateTimePickerInspectionDate;
+        private System.Windows.Forms.RichTextBox bpoCommentsTextBox;
+        private System.Windows.Forms.Label label23;
+        public System.Windows.Forms.Button buttonSetupSearch;
+        public System.Windows.Forms.TextBox textBoxMaxCompScore;
+        public System.Windows.Forms.TextBox textBoxSubjectOriginalListPRice;
+        private System.Windows.Forms.Label label97;
+        private System.Windows.Forms.Label label98;
+        public System.Windows.Forms.TextBox textBoxSubjextListingBrokerage;
+        private System.Windows.Forms.CheckBox ignoreTypeCheckBox;
     }
 
 }

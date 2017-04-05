@@ -74,6 +74,12 @@ namespace bpohelper
 
         }
 
+        public bool IgnoreType
+        {
+            get { return ignoreTypeCheckBox.Checked; }
+
+        }
+
         public string SubjectAssessmentValue
         {
             get { return subjectAssessmentTextbox.Text; }
@@ -172,7 +178,7 @@ namespace bpohelper
             set
             { 
                 richTextBoxNumberCompsFound.Text = value;
-                labelNumberOfComps.Text = value;
+               
             }
         }
 
@@ -183,7 +189,8 @@ namespace bpohelper
 
         public string SetStatusBar
         {
-            set { toolStripStatusLabel1.Text = value; }
+            set { //toolStripStatusLabel1.Text = value; 
+            }
         }
 
         public string PicDiffLabel

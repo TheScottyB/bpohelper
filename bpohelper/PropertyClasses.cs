@@ -223,6 +223,11 @@ namespace bpohelper
            
         }
 
+        public MLSListing GetCurrentMlsListing()
+        {
+            return mlsListings[mostCurrentMLSListingNumber];
+        }
+
         public MLSListing GetMlsListing(string id)
         {
             return mlsListings[id];
@@ -265,7 +270,11 @@ namespace bpohelper
             
 
         }
-    
+
+
+
+
+
         public bool ListedInLastYear
         {
             get
@@ -451,6 +460,20 @@ namespace bpohelper
 
            
         #endregion
+
+       
+        public bool IsOccupied
+        {
+            get
+            {
+                if (GlobalVar.mainWindow.comboBoxSubjectOccupancy.Text.ToLower().Contains("occupied"))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
 
     }
 

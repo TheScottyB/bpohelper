@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace bpohelper
 {
@@ -25,7 +26,20 @@ namespace bpohelper
             targetComp = m;
         }
 
-
+        protected string _getMmYyyyDdDateString(DateTime date1)
+        {
+            DateTimeFormatInfo dtfi = CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat;
+            //DateTime date1 = new DateTime(2011, 5, 1);
+            //Console.WriteLine("Original Short Date Pattern:");
+            //Console.WriteLine("   {0}: {1}", dtfi.ShortDatePattern,
+            //                                 date1.ToString("d", dtfi));
+            //dtfi.DateSeparator = "-";
+            dtfi.ShortDatePattern = @"MM/dd/yyyy";
+            //Console.WriteLine("Revised Short Date Pattern:");
+            //Console.WriteLine("   {0}: {1}", dtfi.ShortDatePattern,
+            //                                 date1.ToString("d", dtfi));
+           return  date1.ToString("d", dtfi);
+        }
 
         protected Dictionary<string, string> propTypeTranslator = new Dictionary<string, string>()
          {

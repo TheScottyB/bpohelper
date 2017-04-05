@@ -139,7 +139,7 @@ namespace bpohelper
             string pattern = "";
             string fieldName = "";
             Match match;
-            rawText = s;
+            rawText = s.Replace(" ", " ");
 
             foreach (Field f in FieldMap.Keys)
             {
@@ -151,7 +151,7 @@ namespace bpohelper
             //}
 
 
-            basementSqFt = GetFieldValue(@"Basement Sq Ft:");
+            basementSqFt = GetFieldValue(@"Basement.Sq.Ft:");
 
             
            //string ttt = ownerInfoFieldList[FieldName.OwnerName];
@@ -167,13 +167,13 @@ namespace bpohelper
             //pattern = "Owner Name:x+([^x]+)";
             //match = Regex.Match(s, pattern);
             //owner1 = match.Groups[1].Value;
-            owner1 = GetFieldValue(@"Owner Name:");
+            owner1 = GetFieldValue(@"Owner.Name:");
 
 
             //pattern = "Parcel ID:x+([^x]+)";
             //match = Regex.Match(s, pattern);
             //pin = match.Groups[1].Value;
-            pin = GetFieldValue(@"Parcel ID:");
+            pin = GetFieldValue(@"Parcel.ID:");
 
             //pattern = @"Subdivision:x+([^x\n]+)";
             //match = Regex.Match(s, pattern);
@@ -186,7 +186,7 @@ namespace bpohelper
             //{
             //    school = match.Groups[1].Value;
             //}
-            school = GetFieldValue(@"School District:");
+            school = GetFieldValue(@"School.District:");
 
 
 
@@ -222,7 +222,7 @@ namespace bpohelper
                     lastSaleDate = match.Groups[1].Value;
                 }
             }
-            pattern = "Building Above Grade Sq Ft:x+([^x\\n]+)";
+            pattern = "Building.Above.Grade.Sq.Ft:x+([^x\\n]+)";
             match = Regex.Match(s, pattern);
             if (match.Success)
             {
@@ -230,7 +230,7 @@ namespace bpohelper
             }
             else
             {
-                pattern = "Building Sq Ft:x+([^x\\n]+)";
+                pattern = "Building.Sq.Ft:x+([^x\\n]+)";
                 match = Regex.Match(s, pattern);
                 if (match.Success)
                 {
@@ -238,13 +238,13 @@ namespace bpohelper
                 }
             }
 
-            pattern = "Lot Acres:x+([^x\\n]+)";
+            pattern = "Lot.Acres:x+([^x\\n]+)";
             match = Regex.Match(s, pattern);
             lotAcres = match.Groups[1].Value;
 
 
             //Year Built:xxxTax: 1999 MLS: 1998xxx
-            pattern = "Year Built:x+Tax:\\s(\\d\\d\\d\\d)";
+            pattern = "Year.qBuilt:x+Tax:\\s(\\d\\d\\d\\d)";
             match = Regex.Match(s, pattern);
             yearBuilt = match.Groups[1].Value;
             if (!match.Success)
@@ -257,20 +257,24 @@ namespace bpohelper
 
 
             //gets full line, including county
-            pattern = "([^\\n]+ County)";
+            //pattern = "([^\\n]+ County)";
+            pattern = ".*?\\n";
             match = Regex.Match(s, pattern);
-            fullAddress = match.Groups[1].Value;
+            fullAddress = match.Groups[0].Value;
 
             county = fullAddress.Substring(fullAddress.LastIndexOf(',') + 2);
             county = county.Remove(county.LastIndexOf("County"));
             county = county.Replace(" ", "");
+            county = county.Replace("\\n", "");
+            county = county.Trim();
+
 
             fullAddress = fullAddress.Remove(fullAddress.LastIndexOf(','));
 
 
 
-            form.SubjectAssessmentValue = GetFieldValue(@"Market Value - Total");
-            form.SubjectLandValue = GetFieldValue(@"Assessed Value - Land");
+            form.SubjectAssessmentValue = GetFieldValue(@"Market.Value - Total");
+            form.SubjectLandValue = GetFieldValue(@"Assessed.Value - Land");
             form.SubjectPin = pin;
             form.SubjectSchoolDistrict = school;
             form.SubjectLastSaleDate = lastSaleDate;

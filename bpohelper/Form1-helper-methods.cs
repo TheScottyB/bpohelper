@@ -19,6 +19,7 @@ using System.Xml.Schema;
 using System.Xml.Linq;
 using System.Reflection;
 using ImageResizer;
+using System.Security.Permissions;
 
 
 
@@ -26,7 +27,13 @@ using ImageResizer;
 namespace bpohelper
 {
 
-  
+  public static class Logger
+  {
+      public static void log(string s)
+      {
+          GlobalVar.mainWindow.richTextBoxLogger.AppendText(s + @"/r/n");
+      }
+  }
 
     public static class GlobalVar
     {
@@ -55,6 +62,7 @@ namespace bpohelper
         public static string sandbox = "";
 
         public static Form1 mainWindow;
+        public static bool isNeighborhoodSearchComplete = false;
 
     }
 
@@ -202,6 +210,12 @@ namespace bpohelper
     public partial class Form1
     {
 
+        public bool ConnectToMred()
+        {
+            return false;
+        }
+
+
         public int RoundTo50(string number)
         {
             double p = 0;
@@ -224,6 +238,10 @@ namespace bpohelper
 
             //string basePath = ImageResizer.Util.PathUtils.RemoveExtension(original);
             string basePath = SubjectFilePath;
+
+            FileIOPermission f2 = new FileIOPermission(FileIOPermissionAccess.Read | FileIOPermissionAccess.Write, basePath);
+       
+
 
             //To store the list of generated paths
             List<string> generatedFiles = new List<string>();

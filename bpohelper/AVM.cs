@@ -361,6 +361,8 @@ namespace bpohelper
             //Market Tab
             //
             //SUBJECT MARKETABILITY 
+            marketForm.AppendLine(@"SET !ERRORIGNORE YES");
+            marketForm.AppendLine(@"SET !TIMEOUT_STEP 1");
             marketForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$MarketabilityV2$ddAns33_ConfirmNeighbor CONTENT=%Yes");
             marketForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$MarketabilityV2$ddAns34_SubjectIs CONTENT=%Appropriate<SP>Improvement");
             marketForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$MarketabilityV2$ddAns35_SubjectConsistant CONTENT=%Yes");
@@ -416,7 +418,8 @@ namespace bpohelper
             //
             //Main Tab
             //
-
+            mainForm.AppendLine(@"SET !ERRORIGNORE YES");
+            mainForm.AppendLine(@"SET !TIMEOUT_STEP 1");
             mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$owner_name CONTENT=" + form.SubjectOOR.Replace(" ", "<SP>"));
             mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_apn CONTENT=" + form.SubjectPin.Replace(" ", "<SP>"));
 
