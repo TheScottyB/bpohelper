@@ -9,6 +9,17 @@ namespace bpohelper
 
     class SWBC : AMO
     {
+        protected Dictionary<string, string> typeTranslation = new Dictionary<string, string>()
+        {
+            {"1 Story", "1 Story"},{"Raised Ranch", "1 Story"},{"Coach House", "1 Story"},{"Hillside", "1 Story"},{"2 Stories", "2 Story"},{"1.5 Story", "1.5 Story"},{"Split Level", "Multilevel"},{ @"Split Level w/Sub", "Multilevel"}
+
+        };
+
+        protected Dictionary<string, string> GarageTypeTranslation = new Dictionary<string, string>()
+            {
+                {"0", "None"}, {"1", "1 Car"},  {"None", "None"},  {"2", "2 Car"}, {"3", "3 Car"}, {"4", "4 Car"}, {"", "None"}, 
+            };
+
         public SWBC()
             : base()    {   }
 
@@ -22,6 +33,16 @@ namespace bpohelper
                 return "YES";
             }
             return "NO";
+        }
+
+        private string _reoYesNoFill(string saleType)
+        {
+            if (saleType == "REO")
+            {
+                return "%Yes";
+            }
+
+            return "%No";
         }
      
         public void Prefill(iMacros.App iim, Form1 form)
@@ -53,6 +74,8 @@ namespace bpohelper
             commands.Add(2.0, new string[] { "1", inputType[elem.TEXT], "SUBJ_ASSESS_PARCEL", callingForm.SubjectPin});
             commands.Add(2.1, new string[] { "1", inputType[elem.SELECT], "MRKT_SUBJ_TYPE", "%Single<SP>Family" });
             commands.Add(2.2, new string[] { "1", inputType[elem.CHECKBOX], "DATA_SOURCE_ASSESSOR", "YES" });
+            //MRKT_ASSOC_FEE
+            commands.Add(2.21, new string[] { "1", inputType[elem.TEXT], "MRKT_ASSOC_FEE",callingForm.subjectHoaTextBox.Text });
             commands.Add(2.3, new string[] { "1", inputType[elem.CHECKBOX], "CUR_LISTED_YES", _subjectCurrentlyListed(true)});
             commands.Add(2.4, new string[] { "1", inputType[elem.CHECKBOX], "CUR_LISTED_NO", _subjectCurrentlyListed(false) });
 
@@ -103,13 +126,21 @@ namespace bpohelper
             commands.Add(4.3, new string[] { "1", inputType[elem.CHECKBOX], "SUBJ_CONFORM_GOOD", "YES" });
             //CURB_APPEAL_GOOD
             commands.Add(4.4, new string[] { "1", inputType[elem.CHECKBOX], "CURB_APPEAL_GOOD", "YES" });
+            //PERCENT_CHANGE
+            commands.Add(4.41, new string[] { "1", inputType[elem.TEXT], "PERCENT_CHANGE", "0" });
             //SWBC-BPO2-Ext:NORM_MRKT_TIME
             commands.Add(4.5, new string[] { "1", inputType[elem.TEXT], "NORM_MRKT_TIME", callingForm.SubjectNeighborhood.avgDom.ToString() });
             //id="SWBC-BPO2-Ext:NEIGH_PRICE_LOW"
             commands.Add(4.6, new string[] { "1", inputType[elem.TEXT], "NEIGH_PRICE_LOW", callingForm.SubjectNeighborhood.minSalePrice.ToString() });
             //SWBC-BPO2-Ext:NEIGH_PRICE_HIGH
             commands.Add(4.7, new string[] { "1", inputType[elem.TEXT], "NEIGH_PRICE_HIGH", callingForm.SubjectNeighborhood.maxSalePrice.ToString() });
+
+            //NEIGH_ZONING
+            commands.Add(4.75, new string[] { "1", inputType[elem.TEXT], "NEIGH_ZONING", "No Known Environmental/Zoning/Title/Legal Issues." });
+            
             //id="SWBC-BPO2-Ext:NEIGH_COMMENT"
+           
+            
             commands.Add(4.8, new string[] { "1", inputType[elem.TEXTAREA], "NEIGH_COMMENT", callingForm.richTextBoxNeighborhoodComments.Text });
 
             //5:subject details
@@ -119,6 +150,8 @@ namespace bpohelper
             //SALES_SUBJ_SITE
             commands.Add(5.2, new string[] { "1", inputType[elem.TEXT], "SALES_SUBJ_SITE", callingForm.SubjectLotSize });
             commands.Add(5.3, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_PROPERTY_TYPE", "%Single<SP>Family"  });
+            commands.Add(5.35, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_DESIGN", "%" + typeTranslation[callingForm.SubjectMlsType] });
+
             //SALES_SUBJ_EXTERIOR'
             commands.Add(5.4, new string[] { "1", inputType[elem.TEXT], "SALES_SUBJ_EXTERIOR", callingForm.SubjectExteriorFinish });
             commands.Add(5.5, new string[] { "1", inputType[elem.TEXT], "SALES_SUBJ_AGE", (DateTime.Now.Year - Convert.ToInt32(callingForm.SubjectYearBuilt)).ToString() });
@@ -134,13 +167,35 @@ namespace bpohelper
             //SALES_SUBJ_BSMT_FINISHED'
             commands.Add(5.14, new string[] { "1", inputType[elem.TEXT], "SALES_SUBJ_BSMT_FINISHED", callingForm.SubjectBasementFinishedGLA });
             //TODO:  Translation table for garage
-            commands.Add(5.15, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_GAR_CPT", "%2 Car" });
+            commands.Add(5.15, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_GAR_CPT", "%" + GarageTypeTranslation[GlobalVar.theSubjectProperty.GarageStallCount] });
             commands.Add(5.16, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_FENCE_POOL", "%None" });
 
             //6: Broker info
             //BROKER_LIC 471.009162
             commands.Add(6.0, new string[] { "1", inputType[elem.TEXT], "BROKER_LIC", "471.009162" });
             commands.Add(6.1, new string[] { "1", inputType[elem.TEXT], "BROKER_SIGN_DATE", DateTime.Now.ToShortDateString() });
+
+            //7: Repairs
+            commands.Add(7.0, new string[] { "1", inputType[elem.TEXT], "REP_INT_PAINT", "0" });
+            commands.Add(7.1, new string[] { "1", inputType[elem.TEXT], "REP_EXT_FOUNDATION", "0" });
+            commands.Add(7.2, new string[] { "1", inputType[elem.TEXT], "REP_INT_WALLS", "0" });
+            commands.Add(7.3, new string[] { "1", inputType[elem.TEXT], "REP_EXT_LSCAPE", "0" });
+            commands.Add(7.4, new string[] { "1", inputType[elem.TEXT], "REP_INT_CARPET", "0" });
+            commands.Add(7.5, new string[] { "1", inputType[elem.TEXT], "REP_EXT_ROOF", "0" });
+            commands.Add(7.6, new string[] { "1", inputType[elem.TEXT], "REP_EXT_WINDOWS", "0" });
+            commands.Add(7.7, new string[] { "1", inputType[elem.TEXT], "REP_INT_ELEC", "0" });
+            commands.Add(7.8, new string[] { "1", inputType[elem.TEXT], "REP_EXT_GARAGE", "0" });
+            commands.Add(7.9, new string[] { "1", inputType[elem.TEXT], "REP_INT_OTHER", "0" });
+            commands.Add(7.11, new string[] { "1", inputType[elem.TEXT], "REP_EXT_TRIM", "0" });
+            commands.Add(7.12, new string[] { "1", inputType[elem.TEXT], "REP_EXT_PAINT", "0" });
+            commands.Add(7.13, new string[] { "1", inputType[elem.TEXT], "REP_EXT_OTHER", "0" });
+            commands.Add(7.14, new string[] { "1", inputType[elem.TEXT], "REP_TOTAL", "0" });
+            commands.Add(7.15, new string[] { "1", inputType[elem.TEXTAREA], "REP_COMMENT", "No repairs noted from inspection."});
+
+            //8: Other/Comments
+
+            commands.Add(8.0, new string[] { "1", inputType[elem.TEXTAREA], "SUP_COMMENTS", "All comparable sales and listings are within the same market as the subject and are in direct competition and share the same school district, transportation access and shopping access as the subject." });
+
 
             //commands.Add(10, new string[] { "1", inputType[elem.TEXT], "RECN_APPR_PHONE", "815.315.0203" });
             //commands.Add(11, new string[] { "1", inputType[elem.CHECKBOX], "SUBJ_EXT_CONDITION_AVERAGE",  "YES" });
@@ -206,15 +261,7 @@ namespace bpohelper
            iim.iimPlayCode(macroCode, 30);
         }
 
-        private string _reoYesNoFill(string saleType)
-        {
-            if (saleType == "REO")
-            {
-                return "%Yes";
-            }
-
-            return "%No";
-        }
+      
   
         public void CompFill(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
         {
@@ -237,10 +284,7 @@ namespace bpohelper
                 {"Central Air", "1"},  {"None", "0"}
             };
 
-            Dictionary<string, string> GarageTypeTranslation = new Dictionary<string, string>()
-            {
-                {"0", "None"}, {"1", "1 Car"},  {"None", "None"},  {"2", "2 Car"}, {"3", "3 Car"}, {"4", "4 Car"}, {"", "None"}, 
-            };
+          
 
      
           
@@ -278,7 +322,7 @@ namespace bpohelper
             //LISTS_COMP1_PROPERTY_TYPE
             commands.Add(14, new string[] { "1", inputType[elem.SELECT], "PROPERTY_TYPE", "%Single Family" });
             //LISTS_COMP1_DESIGN
-            commands.Add(15, new string[] { "1", inputType[elem.SELECT], "DESIGN", "%1 Story" });
+            commands.Add(15, new string[] { "1", inputType[elem.SELECT], "DESIGN", "%" + typeTranslation[targetComp.Type] });
             //LISTS_COMP1_EXTERIOR
             commands.Add(16, new string[] { "1", inputType[elem.TEXT], "EXTERIOR", targetComp.ExteriorMlsString });
             commands.Add(17, new string[] { "1", inputType[elem.TEXT], "AGE", targetComp.Age.ToString() });

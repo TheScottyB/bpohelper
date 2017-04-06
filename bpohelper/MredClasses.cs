@@ -656,7 +656,12 @@ namespace bpohelper
             }
             public string Subdivision
             {
-                get { return mlsHtmlFields["subdivision"].value; }
+                get 
+                {
+                    if (String.IsNullOrWhiteSpace(mlsHtmlFields["subdivision"].value))
+                        return "NA";
+                    return mlsHtmlFields["subdivision"].value; 
+                }
             }
             public string GeoPointGd
             {

@@ -193,6 +193,8 @@
             this.useCustomradioButton = new System.Windows.Forms.RadioButton();
             this.recheckLastSearchbutton = new System.Windows.Forms.Button();
             this.neighborhoodDataGroupBox = new System.Windows.Forms.GroupBox();
+            this.label99 = new System.Windows.Forms.Label();
+            this.richTextBoxNeighborhoodComments = new System.Windows.Forms.RichTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.REOcSandboxButton = new System.Windows.Forms.Button();
@@ -350,8 +352,6 @@
             this.cdAvgDomTextBox = new System.Windows.Forms.TextBox();
             this.streetnameTextBox = new System.Windows.Forms.TextBox();
             this.ignoreTypeCheckBox = new System.Windows.Forms.CheckBox();
-            this.richTextBoxNeighborhoodComments = new System.Windows.Forms.RichTextBox();
-            this.label99 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._BPO_SandboxDataSet)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -1059,6 +1059,7 @@
             this.subjectHoaFrequencyTextBox.Name = "subjectHoaFrequencyTextBox";
             this.subjectHoaFrequencyTextBox.Size = new System.Drawing.Size(52, 20);
             this.subjectHoaFrequencyTextBox.TabIndex = 106;
+            this.subjectHoaFrequencyTextBox.Text = "mo";
             // 
             // label30
             // 
@@ -1075,6 +1076,7 @@
             this.subjectHoaTextBox.Name = "subjectHoaTextBox";
             this.subjectHoaTextBox.Size = new System.Drawing.Size(52, 20);
             this.subjectHoaTextBox.TabIndex = 88;
+            this.subjectHoaTextBox.Text = "0";
             // 
             // label21
             // 
@@ -2073,6 +2075,24 @@
             this.neighborhoodDataGroupBox.TabStop = false;
             this.neighborhoodDataGroupBox.Text = "Neighborhood Data";
             this.neighborhoodDataGroupBox.Enter += new System.EventHandler(this.neighborhoodDataGroupBox_Enter);
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Location = new System.Drawing.Point(75, 80);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(56, 13);
+            this.label99.TabIndex = 147;
+            this.label99.Text = "Comments";
+            // 
+            // richTextBoxNeighborhoodComments
+            // 
+            this.richTextBoxNeighborhoodComments.Location = new System.Drawing.Point(162, 71);
+            this.richTextBoxNeighborhoodComments.Name = "richTextBoxNeighborhoodComments";
+            this.richTextBoxNeighborhoodComments.Size = new System.Drawing.Size(315, 46);
+            this.richTextBoxNeighborhoodComments.TabIndex = 146;
+            this.richTextBoxNeighborhoodComments.Text = "";
+            this.richTextBoxNeighborhoodComments.WordWrap = false;
             // 
             // tabControl1
             // 
@@ -3611,24 +3631,6 @@
             this.ignoreTypeCheckBox.UseVisualStyleBackColor = true;
             this.ignoreTypeCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
             // 
-            // richTextBoxNeighborhoodComments
-            // 
-            this.richTextBoxNeighborhoodComments.Location = new System.Drawing.Point(162, 71);
-            this.richTextBoxNeighborhoodComments.Name = "richTextBoxNeighborhoodComments";
-            this.richTextBoxNeighborhoodComments.Size = new System.Drawing.Size(315, 46);
-            this.richTextBoxNeighborhoodComments.TabIndex = 146;
-            this.richTextBoxNeighborhoodComments.Text = "";
-            this.richTextBoxNeighborhoodComments.WordWrap = false;
-            // 
-            // label99
-            // 
-            this.label99.AutoSize = true;
-            this.label99.Location = new System.Drawing.Point(75, 80);
-            this.label99.Name = "label99";
-            this.label99.Size = new System.Drawing.Size(56, 13);
-            this.label99.TabIndex = 147;
-            this.label99.Text = "Comments";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -3782,7 +3784,6 @@
         private System.Windows.Forms.TextBox statusTextBox;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox subjectHoaTextBox;
         private System.Windows.Forms.Button saveSubjectInfoButton;
         public System.Windows.Forms.PictureBox subjectPictureBox;
         public System.Windows.Forms.PictureBox compPictureBox;
@@ -3828,7 +3829,6 @@
         private System.Windows.Forms.TextBox subjectHoaPhoneTextBox;
         private System.Windows.Forms.TextBox subjectHoaContactTextBox;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.TextBox subjectHoaFrequencyTextBox;
         private System.Windows.Forms.TextBox subjectMlsStatusTextBox;
         private System.Windows.Forms.TextBox subjectCurrentListPriceTextBox;
         private System.Windows.Forms.TextBox subjectBrokerPhoneTextBox;
@@ -4037,6 +4037,8 @@
         private System.Windows.Forms.Label label99;
         public System.Windows.Forms.RichTextBox richTextBoxNeighborhoodComments;
         public System.Windows.Forms.TextBox subjectSubdivisionTextbox;
+        public System.Windows.Forms.TextBox subjectHoaTextBox;
+        public System.Windows.Forms.TextBox subjectHoaFrequencyTextBox;
     }
 
 }
