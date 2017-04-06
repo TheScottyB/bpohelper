@@ -244,7 +244,7 @@ namespace bpohelper
 
 
             //Year Built:xxxTax: 1999 MLS: 1998xxx
-            pattern = "Year.qBuilt:x+Tax:\\s(\\d\\d\\d\\d)";
+            pattern = @"Year.Built:x+Tax:\s(\d\d\d\d)";
             match = Regex.Match(s, pattern);
             yearBuilt = match.Groups[1].Value;
             if (!match.Success)

@@ -400,8 +400,20 @@ namespace bpohelper
 
             //MessageBox.Show(currentUrl);
 
-            #region AMO
+
+            if (currentUrl.ToLower().Contains("swbcls-forms"))
+            {
+                {
+                    SWBC bpoform = new SWBC();
+                    streetnumTextBox.Text = "swbc";
+                    bpoform.Prefill(iim2, this);
+                }
+            }
+
+            #region AMO-swbc
             if (currentUrl.ToLower().Contains("amoservices"))
+
+          //  if (currentUrl.ToLower().Contains("amoservices"))
             {
                 AMO bpoform = new AMO();
                 streetnumTextBox.Text = "amoservices";
@@ -2111,7 +2123,8 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
             //<text>26.3 mi</text>
             //</distance>
 
-            string pattern = "(\\d+.\\d*) [mf]";
+           // string pattern = "(\\d+.\\d*) [mf]";
+            string pattern = @"(\d+.\d*) [m]i[^n]";
             Match match = Regex.Match(responseFromServer, pattern);
             string distance = match.Groups[1].Value;
             if (responseFromServer.Contains(" ft</text>"))
@@ -2363,12 +2376,12 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
             StringBuilder macro = new StringBuilder();
             macro.AppendLine(@"");
             macro.AppendLine(@"FRAME NAME=subheader");
-            macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:header ATTR=ID:favorites");
-            macro.AppendLine(@"'New tab opened");
+            macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:header ATTR=SRC:*favorites_small.gif");
+       //     macro.AppendLine(@"'New tab opened");
             macro.AppendLine(@"TAB T=2");
             macro.AppendLine(@"FRAME F=0");
             macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:dc ATTR=NAME:selHeading CONTENT=YES");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:dc ATTR=NAME:enterNewHeading CONTENT=" + SubjectFullAddress.Replace(" ", "<SP>"));
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:dc ATTR=NAME:enterNewHeading CONTENT=" + SubjectFullAddress.Replace(" ", "<SP>") + "-" + DateTime.Now.ToShortDateString());
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:dc ATTR=NAME:<SP>Add<SP>");
 
             string macroCode = macro.ToString();

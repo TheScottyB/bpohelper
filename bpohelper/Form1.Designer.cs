@@ -350,6 +350,8 @@
             this.cdAvgDomTextBox = new System.Windows.Forms.TextBox();
             this.streetnameTextBox = new System.Windows.Forms.TextBox();
             this.ignoreTypeCheckBox = new System.Windows.Forms.CheckBox();
+            this.richTextBoxNeighborhoodComments = new System.Windows.Forms.RichTextBox();
+            this.label99 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._BPO_SandboxDataSet)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -898,7 +900,7 @@
             this.subjectListDatedateTimePicker.Name = "subjectListDatedateTimePicker";
             this.subjectListDatedateTimePicker.Size = new System.Drawing.Size(85, 23);
             this.subjectListDatedateTimePicker.TabIndex = 127;
-            this.subjectListDatedateTimePicker.Value = new System.DateTime(2014, 4, 10, 14, 26, 39, 0);
+            this.subjectListDatedateTimePicker.Value = new System.DateTime(2014, 4, 10, 0, 0, 0, 0);
             // 
             // subjectOffMarketDatedateTimePicker
             // 
@@ -1105,7 +1107,7 @@
             // 
             // textBoxMaxCompScore
             // 
-            this.textBoxMaxCompScore.Location = new System.Drawing.Point(3, 142);
+            this.textBoxMaxCompScore.Location = new System.Drawing.Point(3, 99);
             this.textBoxMaxCompScore.Name = "textBoxMaxCompScore";
             this.textBoxMaxCompScore.Size = new System.Drawing.Size(45, 20);
             this.textBoxMaxCompScore.TabIndex = 152;
@@ -1147,7 +1149,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(214, 157);
+            this.button10.Location = new System.Drawing.Point(132, 141);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(176, 72);
             this.button10.TabIndex = 147;
@@ -1174,9 +1176,9 @@
             // 
             // bpoCommentsTextBox
             // 
-            this.bpoCommentsTextBox.Location = new System.Drawing.Point(6, 241);
+            this.bpoCommentsTextBox.Location = new System.Drawing.Point(9, 245);
             this.bpoCommentsTextBox.Name = "bpoCommentsTextBox";
-            this.bpoCommentsTextBox.Size = new System.Drawing.Size(384, 115);
+            this.bpoCommentsTextBox.Size = new System.Drawing.Size(315, 46);
             this.bpoCommentsTextBox.TabIndex = 90;
             this.bpoCommentsTextBox.Text = "";
             this.bpoCommentsTextBox.WordWrap = false;
@@ -2017,6 +2019,8 @@
             // 
             // neighborhoodDataGroupBox
             // 
+            this.neighborhoodDataGroupBox.Controls.Add(this.label99);
+            this.neighborhoodDataGroupBox.Controls.Add(this.richTextBoxNeighborhoodComments);
             this.neighborhoodDataGroupBox.Controls.Add(this.tabControl1);
             this.neighborhoodDataGroupBox.Controls.Add(this.label86);
             this.neighborhoodDataGroupBox.Controls.Add(this.ndMedianListPriceTextBox);
@@ -2668,7 +2672,7 @@
             // label84
             // 
             this.label84.AutoSize = true;
-            this.label84.Location = new System.Drawing.Point(385, 20);
+            this.label84.Location = new System.Drawing.Point(376, 31);
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(42, 13);
             this.label84.TabIndex = 39;
@@ -2676,7 +2680,7 @@
             // 
             // ndMedianAgeTextBox
             // 
-            this.ndMedianAgeTextBox.Location = new System.Drawing.Point(381, 36);
+            this.ndMedianAgeTextBox.Location = new System.Drawing.Point(375, 47);
             this.ndMedianAgeTextBox.Name = "ndMedianAgeTextBox";
             this.ndMedianAgeTextBox.Size = new System.Drawing.Size(37, 20);
             this.ndMedianAgeTextBox.TabIndex = 38;
@@ -2708,7 +2712,7 @@
             // label78
             // 
             this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(424, 23);
+            this.label78.Location = new System.Drawing.Point(414, 31);
             this.label78.Name = "label78";
             this.label78.Size = new System.Drawing.Size(43, 13);
             this.label78.TabIndex = 34;
@@ -2716,7 +2720,7 @@
             // 
             // ndNewestHomeTextBox
             // 
-            this.ndNewestHomeTextBox.Location = new System.Drawing.Point(419, 37);
+            this.ndNewestHomeTextBox.Location = new System.Drawing.Point(412, 47);
             this.ndNewestHomeTextBox.Name = "ndNewestHomeTextBox";
             this.ndNewestHomeTextBox.Size = new System.Drawing.Size(37, 20);
             this.ndNewestHomeTextBox.TabIndex = 33;
@@ -2732,7 +2736,7 @@
             // label80
             // 
             this.label80.AutoSize = true;
-            this.label80.Location = new System.Drawing.Point(346, 21);
+            this.label80.Location = new System.Drawing.Point(335, 31);
             this.label80.Name = "label80";
             this.label80.Size = new System.Drawing.Size(37, 13);
             this.label80.TabIndex = 31;
@@ -2740,7 +2744,7 @@
             // 
             // ndOldestHomeTextBox
             // 
-            this.ndOldestHomeTextBox.Location = new System.Drawing.Point(342, 37);
+            this.ndOldestHomeTextBox.Location = new System.Drawing.Point(338, 47);
             this.ndOldestHomeTextBox.Name = "ndOldestHomeTextBox";
             this.ndOldestHomeTextBox.Size = new System.Drawing.Size(37, 20);
             this.ndOldestHomeTextBox.TabIndex = 30;
@@ -2948,7 +2952,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(241, 22);
+            this.label27.Location = new System.Drawing.Point(244, 31);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(78, 13);
             this.label27.TabIndex = 5;
@@ -2956,7 +2960,7 @@
             // 
             // ndMaxSalePriceTextBox
             // 
-            this.ndMaxSalePriceTextBox.Location = new System.Drawing.Point(246, 40);
+            this.ndMaxSalePriceTextBox.Location = new System.Drawing.Point(241, 47);
             this.ndMaxSalePriceTextBox.Name = "ndMaxSalePriceTextBox";
             this.ndMaxSalePriceTextBox.Size = new System.Drawing.Size(79, 20);
             this.ndMaxSalePriceTextBox.TabIndex = 4;
@@ -3607,6 +3611,24 @@
             this.ignoreTypeCheckBox.UseVisualStyleBackColor = true;
             this.ignoreTypeCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
             // 
+            // richTextBoxNeighborhoodComments
+            // 
+            this.richTextBoxNeighborhoodComments.Location = new System.Drawing.Point(162, 71);
+            this.richTextBoxNeighborhoodComments.Name = "richTextBoxNeighborhoodComments";
+            this.richTextBoxNeighborhoodComments.Size = new System.Drawing.Size(315, 46);
+            this.richTextBoxNeighborhoodComments.TabIndex = 146;
+            this.richTextBoxNeighborhoodComments.Text = "";
+            this.richTextBoxNeighborhoodComments.WordWrap = false;
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Location = new System.Drawing.Point(75, 80);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(56, 13);
+            this.label99.TabIndex = 147;
+            this.label99.Text = "Comments";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -3752,7 +3774,6 @@
         private System.Windows.Forms.TextBox listTextbox;
         private System.Windows.Forms.TextBox quickSaleTextbox;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox subjectSubdivisionTextbox;
         private System.Windows.Forms.TextBox subjectZestimateTextbox;
         private System.Windows.Forms.RadioButton subjectDetachedradioButton;
         private System.Windows.Forms.RadioButton subjectAttachedRadioButton;
@@ -4013,6 +4034,9 @@
         private System.Windows.Forms.Label label98;
         public System.Windows.Forms.TextBox textBoxSubjextListingBrokerage;
         private System.Windows.Forms.CheckBox ignoreTypeCheckBox;
+        private System.Windows.Forms.Label label99;
+        public System.Windows.Forms.RichTextBox richTextBoxNeighborhoodComments;
+        public System.Windows.Forms.TextBox subjectSubdivisionTextbox;
     }
 
 }

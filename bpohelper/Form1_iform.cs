@@ -118,7 +118,18 @@ namespace bpohelper
 
         public string SubjectListingAgent
         {
-            get { return subjectListingAgentTextBox.Text; }
+            get
+            {
+                string pattern = @"(.*)\(";
+                Match m = Regex.Match(subjectListingAgentTextBox.Text, pattern); 
+                if (m.Success)
+                {
+                    return m.Groups[1].Value;
+                }
+
+
+                return subjectListingAgentTextBox.Text;
+            }
             set { subjectListingAgentTextBox.Text = value; }
         }
 

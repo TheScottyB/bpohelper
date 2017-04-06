@@ -38,7 +38,19 @@ namespace bpohelper
             //Console.WriteLine("Revised Short Date Pattern:");
             //Console.WriteLine("   {0}: {1}", dtfi.ShortDatePattern,
             //                                 date1.ToString("d", dtfi));
-           return  date1.ToString("d", dtfi);
+            return date1.ToString("d", dtfi);
+        }
+
+        protected bool _isSubjectListed()
+        {
+            string pattern = @"ACTV|CTG|TEMP|PCHG|AUCT";
+            Match match = Regex.Match(GlobalVar.theSubjectProperty.mlsStatus, pattern);
+            if (match.Success)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         protected Dictionary<string, string> propTypeTranslator = new Dictionary<string, string>()
