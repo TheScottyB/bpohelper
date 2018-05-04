@@ -9,11 +9,33 @@ namespace bpohelper
 {
     class BPOFulfillment
     {
-          protected MLSListing targetComp;
+        //
+        //ENUMS
+        //
+        protected enum condition { EXCELLENT, GOOD, AVERAGE, FAIR, POOR, OTHER };
+        protected enum location { Urban, Suburban, Rural, OTHER };
+
+        //
+        //Translting dictionaries
+        //
+
+        
+        
+        
+        protected Dictionary<condition, string> conditionTranslator = new Dictionary<condition, string>()
+         {
+            {condition.EXCELLENT, "Excellent"},
+            {condition.GOOD, "Good"},
+            {condition.AVERAGE, "Average"},
+            {condition.FAIR, "Fair"},
+            {condition.POOR, "Poor"}
+         };
+
+        protected MLSListing targetComp;
         protected string targetCompNumber;
         protected StringBuilder theMacro = new StringBuilder();
         protected string saleOrListFlag;
-
+       
 
         public BPOFulfillment()
         {
@@ -44,11 +66,15 @@ namespace bpohelper
         protected bool _isSubjectListed()
         {
             string pattern = @"ACTV|CTG|TEMP|PCHG|AUCT";
-            Match match = Regex.Match(GlobalVar.theSubjectProperty.mlsStatus, pattern);
-            if (match.Success)
+            if (!String.IsNullOrWhiteSpace(GlobalVar.theSubjectProperty.mlsStatus))
             {
-                return true;
+                Match match = Regex.Match(GlobalVar.theSubjectProperty.mlsStatus, pattern);
+                if (match.Success)
+                {
+                    return true;
+                }
             }
+           
 
             return false;
         }
@@ -171,7 +197,7 @@ namespace bpohelper
         protected Dictionary<string, string> compSelectionBoxList = new Dictionary<string, string>();
         protected Dictionary<string, string> compRadioButtonList = new Dictionary<string, string>();
         protected Dictionary<string, string> compCheckboxList = new Dictionary<string, string>();
-
+        protected Dictionary<string, string> compTextAreaList = new Dictionary<string, string>();
         protected Dictionary<string, string> listingCompTextFieldList = new Dictionary<string, string>();
         protected Dictionary<string, string> listingCompSelectionBoxList = new Dictionary<string, string>();
 

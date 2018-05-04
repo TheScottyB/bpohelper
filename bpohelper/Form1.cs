@@ -143,8 +143,16 @@ namespace bpohelper
 
             iMacros.App browser1 = new iMacros.App();
             iMacros.App browser2 = new iMacros.App();
+       //     iMacros.App imBrowser = new iMacros.App();
+
             status = browser1.iimOpen("-ie", false, 60);
-            //status = browser1.iimOpen("",false, 60);
+          //  status = imBrowser.iimOpen("", false, 60);
+
+            //if (status == Status.sOk)
+            //{
+            //    browser1 = imBrowser;
+            //}
+
             browser1.iimPlayCode(@"ADD !EXTRACT {{!URLCURRENT}}");
 
            
@@ -171,9 +179,9 @@ namespace bpohelper
             }
             else
             {
-                DialogResult response = AlertMessageWithCustomHelpWindow();
+              //  DialogResult response = AlertMessageWithCustomHelpWindow();
 
-                MessageBox.Show(response.ToString());
+             //   MessageBox.Show(response.ToString());
                 if (b1Url.Contains("about:blank"))
                 {
                     iim = browser1;
@@ -410,6 +418,28 @@ namespace bpohelper
                 }
             }
 
+            #region sandcastle
+            if (currentUrl.ToLower().Contains("sandcastlefs"))
+
+           
+            {
+                Sandcastle bpoform = new Sandcastle();
+                streetnumTextBox.Text = "sandcastlefs";
+                bpoform.Prefill(iim2, this);
+            }
+            #endregion
+
+            #region pyramid
+            if (currentUrl.ToLower().Contains("pyramidplatform"))
+
+            //  if (currentUrl.ToLower().Contains("amoservices"))
+            {
+                Pyramid bpoform = new Pyramid();
+                streetnumTextBox.Text = "Pyramid";
+                bpoform.Prefill(iim2, this);
+            }
+            #endregion
+
             #region AMO-swbc
             if (currentUrl.ToLower().Contains("amoservices"))
 
@@ -586,11 +616,12 @@ namespace bpohelper
                             bpoform.Prefill(iim2, this);
             }
             #endregion
-
-            #region dispo
+            //oringinally dispo
+            #region excelerasSummit
             if (currentUrl.ToLower().Contains("exceleras"))
             {
-                Dispo bpoform = new Dispo();
+                //Dispo bpoform = new Dispo();
+                Exceleras bpoform = new Exceleras();
                 streetnumTextBox.Text = "dispo";
                 bpoform.Prefill(iim2, this);
             }
@@ -1278,157 +1309,190 @@ namespace bpohelper
 
             #region usres prefill
 
-            if (currentUrl.ToLower().Contains("usres"))
+            if (currentUrl.ToLower().Contains("usres") || currentUrl.ToLower().Contains("res.net"))
             {
-
-                StringBuilder read_header = new StringBuilder();
-
-              
-                read_header.AppendLine(@"TAG POS=4 TYPE=TABLE FORM=NAME:InputForm ATTR=CLASS:form_txt_blk EXTRACT=TXT");
-                string read_headerCode = read_header.ToString();
-                status = iim2.iimPlayCode(read_headerCode, 30);
-
-
-                string table1 = iim2.iimGetLastExtract(1);
-
-
-                string pattern = "IL.\\s+(\\d\\d\\d\\d\\d)";
-                Match match = Regex.Match(iim2.iimGetLastExtract(1), pattern);
-                string orderzip = match.Groups[1].Value;
-
-
-
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abParcel CONTENT=");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abBkrDist CONTENT=" + this.Get_Distance(orderzip));
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abBkrLic CONTENT=471.009163");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abAgExp CONTENT=7");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:d CONTENT=YES");
-                macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:s CONTENT=YES");
-                macro.AppendLine(@"TAG POS=3 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:s CONTENT=YES");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:s CONTENT=YES");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:o CONTENT=YES");
-                macro.AppendLine(@"TAG POS=1 TYPE=TD FORM=NAME:InputForm ATTR=TXT:(*)<SP>(must<SP>be<SP>a<SP>number)");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMcOwnerPerc CONTENT=90");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMcTenentPerc CONTENT=10");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMcCompUnits CONTENT=" + oneMile.totalActive);
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMcCompLists CONTENT=");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMcBoards CONTENT=0");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abNbBound CONTENT=1<SP>mile<SP>radius");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkLow CONTENT=" + oneMile.soldPrice[3]);
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkHigh CONTENT=" + oneMile.soldPrice[0]);
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abPropSold CONTENT=" + oneMile.totalSold);
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkListLow CONTENT=" + oneMile.listPrice[3]);
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkListHigh CONTENT=" + oneMile.listPrice[0]);
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abPropList CONTENT=" + oneMile.totalActive);
-                
-                macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:o CONTENT=NO");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:u CONTENT=NO");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:a CONTENT=YES");
-               
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkTime");
-                //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:u CONTENT=YES");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkTime CONTENT=180");
-                macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:n CONTENT=YES");
-                macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:y CONTENT=YES");
-                macro.AppendLine(@"TAG POS=4 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:n CONTENT=YES");
-                macro.AppendLine(@"TAG POS=5 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:n CONTENT=YES");
-                macro.AppendLine(@"TAG POS=4 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:d CONTENT=YES");
-                macro.AppendLine(@"TAG POS=4 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:o CONTENT=YES");
-                macro.AppendLine(@"'TAG POS=0 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:u CONTENT=YES");
-                
-                //
-                //subject info
-                //
-
-                
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abParcel CONTENT=" + subjectpin_textbox.Text);
-                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abSrce CONTENT=%MLS");
-                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abLoc CONTENT=%Suburban");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abRight CONTENT=Fee<SP>Simple");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abSite CONTENT=" + subjectLotSizeTextbox.Text);
-                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abUnits CONTENT=%1");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abView CONTENT=Neighborhood");
-                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abDesign CONTENT=%Avg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abAge CONTENT=" + subjectYearBuiltTextbox.Text);
-                macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abCond CONTENT=%Avg");
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abRooms CONTENT=" + subjectRoomCountTextbox.Text);
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abBeds CONTENT=" + subjectBedroomTextbox.Text);
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abBaths CONTENT=" + subjectBathroomTextbox.Text);
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abGla CONTENT=" + subjectAboveGlaTextbox.Text);
-
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abBsmt CONTENT=" + subjectBasementDetailsTextbox.Text.Replace(" ", "<SP>"));
-                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abHeat CONTENT=Gas<SP>FA/Central");
-                //
-                //garage
-                //
-
-                 //string [] numSpaces = subjectParkingTypeTextbox.Text.Split(' ');
-                string numSpaces = Regex.Match(subjectParkingTypeTextbox.Text, "(\\d+)").Value;
-
-                 if (subjectParkingTypeTextbox.Text.ToLower().Contains("att"))
+                if (currentUrl.Contains("FormStaticFifthThirdView"))
                 {
-                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%" + numSpaces + "CA");
-                }
-                 else if (subjectParkingTypeTextbox.Text.ToLower().Contains("det"))
-                {
-
-                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%" + numSpaces + "CD");
+                    Resnet bpoform = new Resnet();
+                    bpoform.Prefill(iim2, this);
                 }
                 else
                 {
-                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%N");
+                    #region orignal usres flow
+                    StringBuilder read_header = new StringBuilder();
+
+
+                    read_header.AppendLine(@"TAG POS=4 TYPE=TABLE FORM=NAME:InputForm ATTR=CLASS:form_txt_blk EXTRACT=TXT");
+                    string read_headerCode = read_header.ToString();
+                    status = iim2.iimPlayCode(read_headerCode, 30);
+
+
+                    string table1 = iim2.iimGetLastExtract(1);
+
+
+                    string pattern = "IL.\\s+(\\d\\d\\d\\d\\d)";
+                    Match match = Regex.Match(iim2.iimGetLastExtract(1), pattern);
+                    string orderzip = match.Groups[1].Value;
+
+                    macro.AppendLine(@"SET !ERRORIGNORE YES");
+                    macro.AppendLine(@"SET !TIMEOUT_STEP 0");
+
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abParcel CONTENT=");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abBkrDist CONTENT=" + this.Get_Distance(orderzip));
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abBkrLic CONTENT=471.009163");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abAgExp CONTENT=7");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:d CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:s CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=3 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:s CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:s CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:o CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=1 TYPE=TD FORM=NAME:InputForm ATTR=TXT:(*)<SP>(must<SP>be<SP>a<SP>number)");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMcOwnerPerc CONTENT=90");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMcTenentPerc CONTENT=10");
+                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMcCompUnits CONTENT=" + oneMile.totalActive);
+                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMcCompLists CONTENT=");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMcBoards CONTENT=0");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abNbBound CONTENT=1<SP>mile<SP>radius");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkLow CONTENT=" + oneMile.soldPrice[3]);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkHigh CONTENT=" + oneMile.soldPrice[0]);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abPropSold CONTENT=" + oneMile.totalSold);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkListLow CONTENT=" + oneMile.listPrice[3]);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkListHigh CONTENT=" + oneMile.listPrice[0]);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abPropList CONTENT=" + oneMile.totalActive);
+
+                    macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:o CONTENT=NO");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:u CONTENT=NO");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:a CONTENT=YES");
+
+                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkTime");
+                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:u CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMkTime CONTENT=180");
+                    macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:n CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:y CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=4 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:n CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=5 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:n CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=4 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:d CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=4 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:o CONTENT=YES");
+                    macro.AppendLine(@"'TAG POS=0 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:u CONTENT=YES");
+
+                    //
+                    //subject info
+                    //
+
+
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abParcel CONTENT=" + subjectpin_textbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abSrce CONTENT=%MLS");
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abLoc CONTENT=%Suburban");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abRight CONTENT=Fee<SP>Simple");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abSite CONTENT=" + subjectLotSizeTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abUnits CONTENT=%1");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abView CONTENT=Neighborhood");
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abDesign CONTENT=%Avg");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abAge CONTENT=" + subjectYearBuiltTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abCond CONTENT=%Avg");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abRooms CONTENT=" + subjectRoomCountTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abBeds CONTENT=" + subjectBedroomTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abBaths CONTENT=" + subjectBathroomTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abGla CONTENT=" + subjectAboveGlaTextbox.Text);
+
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abBsmt CONTENT=" + subjectBasementDetailsTextbox.Text.Replace(" ", "<SP>"));
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abHeat CONTENT=Gas<SP>FA/Central");
+                    //
+                    //garage
+                    //
+
+                    //string [] numSpaces = subjectParkingTypeTextbox.Text.Split(' ');
+                    string numSpaces = Regex.Match(subjectParkingTypeTextbox.Text, "(\\d+)").Value;
+
+                    if (subjectParkingTypeTextbox.Text.ToLower().Contains("att"))
+                    {
+                        macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%" + numSpaces + "CA");
+                    }
+                    else if (subjectParkingTypeTextbox.Text.ToLower().Contains("det"))
+                    {
+
+                        macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%" + numSpaces + "CD");
+                    }
+                    else
+                    {
+                        macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%N");
+                    }
+
+                    //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%2CA");
+                    //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%3CA");
+                    //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%3CD");
+                    //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%N");
+
+
+                    //
+                    //Page 2
+                    //
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:IMAGE FORM=NAME:InputForm ATTR=NAME:btnSave");
+                    //macro.AppendLine(@"WAIT SECONDS=5");
+                    macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:InputForm ATTR=SRC:http://valuations.usres.com/BpoImages/bpo_pg2_btn.gif");
+                    //macro.AppendLine(@"WAIT SECONDS=5");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abRent CONTENT=" + subjectRentTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:a CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:o CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:o CONTENT=YES");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvAsIs CONTENT=" + valueTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvAsIsSlp CONTENT=" + listTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvRep CONTENT=" + valueTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvRepSlp CONTENT=" + listTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvQuick CONTENT=" + quickSaleTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvSugg CONTENT=" + quickSaleTextbox.Text);
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvLand CONTENT=5000");
+
+                    macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:InputForm ATTR=ID:txtComments CONTENT=No<SP>adverse<SP>conditions<SP>were<SP>noted<SP>at<SP>the<SP>time<SP>of<SP>inspection<SP>based<SP>on<SP>exterior<SP>observations.");
+                    //                 macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:InputForm ATTR=NAME:txtAddendum CONTENT=Competitive<SP>style<SP>used<SP>due<SP>to<SP>diverse<SP>styles<SP>in<SP>area,<SP>best<SP>available<SP>utilized.");
+                    macro.AppendLine(@"TAG POS=1 TYPE=INPUT:IMAGE FORM=NAME:InputForm ATTR=NAME:btnSave");
+                    macro.AppendLine(@"TAG POS=2 TYPE=IMG FORM=NAME:InputForm ATTR=SRC:http://valuations.usres.com/BpoImages/bpo_pg1_btn.gif");
+
+
+                    //// C# snippet generated by iMacros Editor.
+                    //// See http://wiki.imacros.net/Web_Scripting for details on how to use the iMacros Scripting Interface.
+
+                    //// iMacros.AppClass iim = new iMacros.AppClass();
+                    //// iMacros.Status status = iim.iimOpen("", true, timeout);
+                    //StringBuilder macro = new StringBuilder();
+                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:frmUpload ATTR=NAME:BpoPic_46369435_35 CONTENT=D:\DropBox\Dropbox\Listing\01-ACTV\27<SP>Beachview\reports\BPO\20170613\L1.jpg");
+                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:frmUpload ATTR=NAME:BpoPic_46369435_40 CONTENT=D:\DropBox\Dropbox\Listing\01-ACTV\27<SP>Beachview\reports\BPO\20170613\L2.jpg");
+                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:frmUpload ATTR=NAME:BpoPic_46369435_45 CONTENT=D:\DropBox\Dropbox\Listing\01-ACTV\27<SP>Beachview\reports\BPO\20170613\L3.jpg");
+                    //macro.AppendLine(@"");
+                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:frmUpload ATTR=NAME:BpoPic_46369435_50 CONTENT=D:\DropBox\Dropbox\Listing\01-ACTV\27<SP>Beachview\reports\BPO\20170613\S1.jpg");
+                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:frmUpload ATTR=NAME:BpoPic_46369435_55 CONTENT=D:\DropBox\Dropbox\Listing\01-ACTV\27<SP>Beachview\reports\BPO\20170613\S2.jpg");
+                    //macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:frmUpload ATTR=NAME:BpoPic_46369435_60 CONTENT=D:\DropBox\Dropbox\Listing\01-ACTV\27<SP>Beachview\reports\BPO\20170613\S3.jpg");
+                    //macro.AppendLine(@"");
+                    //macro.AppendLine(@"");
+                    //macro.AppendLine(@"'6 ext");
+                    //macro.AppendLine(@"'3 req front, rear, street scene");
+                    //macro.AppendLine(@"'3 optional right, left, misc");
+                    //macro.AppendLine(@"");w
+                    //macro.AppendLine(@"'12 int");
+                    //macro.AppendLine(@"'5 req");
+                    //string macroCode = macro.ToString();
+                    //// status = iim.iimPlayCode(macroCode, timeout);
+
+
+                    //
+                    //Save CMA and map screenshots
+                    //
+                    //  StringBuilder macro2 = new StringBuilder();
+                    //  macro2.AppendLine(@"FRAME NAME=workspace");
+                    //  macro2.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=NAME:dc ATTR=ID:Map<SP>Results*");
+                    //  macro2.AppendLine(@"WAIT SECONDS=1");
+                    //  macro2.AppendLine(@"SAVEAS TYPE=PNG FOLDER=" + search_address_textbox.Text.Replace(" ", "<SP>") + " FILE=" + "map.jpg");
+                    //  macro2.AppendLine(@"WAIT SECONDS=1");
+                    // macro2.AppendLine(@"FRAME NAME=subheader");
+                    // macro2.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:header ATTR=ID:mapon");
+                    // macro2.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:header ATTR=ID:report_type CONTENT=%1linegrid");
+                    //macro2.AppendLine(@"WAIT SECONDS=1");
+                    // macro2.AppendLine(@"SAVEAS TYPE=PNG FOLDER=" + search_address_textbox.Text.Replace(" ", "<SP>") + " FILE=" + "cma.jpg");
+
+                    string macroCode2 = macro.ToString();
+                    status = iim.iimPlayCode(macroCode2, 60);
+                    #endregion
                 }
-                    
-                //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%2CA");
-                //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%3CA");
-                //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%3CD");
-                //macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:InputForm ATTR=NAME:abGarage CONTENT=%N");
-
-
-                //
-                //Page 2
-                //
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:IMAGE FORM=NAME:InputForm ATTR=NAME:btnSave");
-                 //macro.AppendLine(@"WAIT SECONDS=5");
-                 macro.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:InputForm ATTR=SRC:http://valuations.usres.com/BpoImages/bpo_pg2_btn.gif");
-                 //macro.AppendLine(@"WAIT SECONDS=5");
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abRent CONTENT=" + subjectRentTextbox.Text);
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:a CONTENT=YES");
-                 macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:o CONTENT=YES");
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=NAME:InputForm ATTR=VALUE:o CONTENT=YES");
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvAsIs CONTENT=" + valueTextbox.Text);
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvAsIsSlp CONTENT=" + listTextbox.Text);
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvRep CONTENT=" + valueTextbox.Text);
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvRepSlp CONTENT=" + listTextbox.Text);
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvQuick CONTENT=" + quickSaleTextbox.Text);
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvSugg CONTENT=" + quickSaleTextbox.Text);
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:InputForm ATTR=NAME:abMvLand CONTENT=5000");
-
-                 macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:InputForm ATTR=ID:txtComments CONTENT=No<SP>adverse<SP>conditions<SP>were<SP>noted<SP>at<SP>the<SP>time<SP>of<SP>inspection<SP>based<SP>on<SP>exterior<SP>observations.");
-//                 macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:InputForm ATTR=NAME:txtAddendum CONTENT=Competitive<SP>style<SP>used<SP>due<SP>to<SP>diverse<SP>styles<SP>in<SP>area,<SP>best<SP>available<SP>utilized.");
-                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:IMAGE FORM=NAME:InputForm ATTR=NAME:btnSave");
-                 macro.AppendLine(@"TAG POS=2 TYPE=IMG FORM=NAME:InputForm ATTR=SRC:http://valuations.usres.com/BpoImages/bpo_pg1_btn.gif");
-
-                //
-                //Save CMA and map screenshots
-                //
-                 StringBuilder macro2 = new StringBuilder();
-                 macro2.AppendLine(@"FRAME NAME=workspace");
-                 macro2.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=NAME:dc ATTR=ID:Map<SP>Results*");
-                 macro2.AppendLine(@"WAIT SECONDS=1");
-                 macro2.AppendLine(@"SAVEAS TYPE=PNG FOLDER=" + search_address_textbox.Text.Replace(" ", "<SP>") + " FILE=" + "map.jpg");
-                 macro2.AppendLine(@"WAIT SECONDS=1");
-                macro2.AppendLine(@"FRAME NAME=subheader");
-                macro2.AppendLine(@"TAG POS=1 TYPE=IMG FORM=NAME:header ATTR=ID:mapon");
-                macro2.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:header ATTR=ID:report_type CONTENT=%1linegrid");
-               macro2.AppendLine(@"WAIT SECONDS=1");
-                macro2.AppendLine(@"SAVEAS TYPE=PNG FOLDER=" + search_address_textbox.Text.Replace(" ", "<SP>") + " FILE=" + "cma.jpg");
-       
-                 string macroCode2 = macro2.ToString();
-                 status = iim.iimPlayCode(macroCode2, 60);
-
-           
-
             }
 
             #endregion
@@ -2122,14 +2186,19 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
             //<value>42315</value>
             //<text>26.3 mi</text>
             //</distance>
-
+            string distance = "0";
            // string pattern = "(\\d+.\\d*) [mf]";
             string pattern = @"(\d+.\d*) [m]i[^n]";
             Match match = Regex.Match(responseFromServer, pattern);
-            string distance = match.Groups[1].Value;
+            distance = match.Groups[1].Value;
             if (responseFromServer.Contains(" ft</text>"))
             {
                 distance = "0.05";
+            }
+
+            if (String.IsNullOrWhiteSpace(distance))
+            {
+                distance = "0";
             }
             //MessageBox.Show(distance);
             //Console.WriteLine(responseFromServer);
@@ -2492,6 +2561,7 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
             IEnumerable<System.Windows.Forms.TextBox> query2 = this.neighborhoodDataGroupBox.Controls.OfType<System.Windows.Forms.TextBox>();
             IEnumerable<System.Windows.Forms.TextBox> query3 = this.compDataGroupBox.Controls.OfType<System.Windows.Forms.TextBox>();
             IEnumerable<System.Windows.Forms.ComboBox> query4 = this.groupBox1.Controls.OfType<System.Windows.Forms.ComboBox>();
+   
 
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(this.SubjectFilePath + "\\" + "subjectinfo.txt"))
             {
@@ -2511,12 +2581,20 @@ macro.AppendLine(@"ONDIALOG POS=1 BUTTON=NO");
                 {
                     file.WriteLine("{0};{1}", t.Name, t.Text);
                 }
+
+      
                 
                file.WriteLine("{0};{1}", subjectDetachedradioButton.Name, subjectDetachedradioButton.Checked.ToString());
                file.WriteLine("{0};{1}", subjectAttachedRadioButton.Name, subjectAttachedRadioButton.Checked.ToString());
                //file.WriteLine("{0};{1}", subjectMlsTypecomboBox.Name, subjectMlsTypecomboBox.Text);
                file.WriteLine("{0};{1}", dateTimePickerInspectionDate.Name, dateTimePickerInspectionDate.Value.ToUniversalTime());
-               file.WriteLine("{0};{1}", dateTimePickerSubjectCurrentListDate.Name, dateTimePickerSubjectCurrentListDate.Value.ToUniversalTime()); 
+               file.WriteLine("{0};{1}", dateTimePickerSubjectCurrentListDate.Name, dateTimePickerSubjectCurrentListDate.Value.ToUniversalTime());
+               //file.WriteLine("{0};{1}", dateTimePickerSubjectCurrentListDate.Name, dateTimePickerSubjectCurrentListDate.Value.ToUniversalTime());
+               //dateTimePickerInspectionDate
+               file.WriteLine("{0};{1}", comboBoxBpoType.Name, comboBoxBpoType.Text);
+
+
+               richTextBoxNeighborhoodComments.SaveFile(this.SubjectFilePath + "\\" + "neighborhood-comments.rtf");
               
                bpoCommentsTextBox.SaveFile(this.SubjectFilePath + "\\" + "bpocomments.rtf");
             }
@@ -4113,7 +4191,6 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
                 iim2 = reocFireFoxBrowser;
             }
 
-
         }
 
         private void buttonSaveOrderInfo_Click(object sender, EventArgs e)
@@ -4484,7 +4561,6 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
         private void button25_Click(object sender, EventArgs e)
         {
             GenerateVersions(SubjectFilePath);
-
         }
 
         private void subjectSubdivisionTextbox_TextChanged(object sender, EventArgs e)
@@ -4745,23 +4821,102 @@ REO Sold: 53, REO Active: 16, Short Sold: 11, Short Active: 41</COMMENTS>
             // versions.Add("_large", "maxwidth=1900&maxheight=1900&format=jpg"); //Fit inside 1900x1200 area
 
 
+            //dateTimePickerInspectionDate
+            string dateStamp = dateTimePickerInspectionDate.Value.ToShortDateString().Replace("/", "-");
+
             //string basePath = ImageResizer.Util.PathUtils.RemoveExtension(original);
             string basePath = SubjectFilePath;
+            string writeOutDir =  "stamped_" + dateStamp;
+            Directory.SetCurrentDirectory(basePath);
+            Directory.CreateDirectory(writeOutDir);
+           Directory.SetCurrentDirectory(basePath + @"\" + writeOutDir);
+           //Directory.CreateDirectory("StampedOnly");
+           Directory.CreateDirectory("ShrunkAndStamped");
+
 
             //To store the list of generated paths
             List<string> generatedFiles = new List<string>();
+           // System.Drawing.Image img = System.Drawing.Image.FromFile("Brush Tail Possum.jpg");
+           // System.Drawing.Image img = System.Drawing.Image.FromFile("Brush Tail Possum.jpg");
+           // System.Drawing.Image imgOverlay = System.Drawing.Image.FromFile("overlay.png");
+           
+
+           
+            System.Drawing.Color color = System.Drawing.Color.FromArgb(128, 255, 31, 31);
+            System.Drawing.Color black = System.Drawing.Color.FromArgb(128, 0, 0, 0);
+
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
+
+            int x = 0;
+            int y = 0;
+
+            System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
+            //System.Drawing.Graphics formGraphics = this.CreateGraphics();
+           // formGraphics.FillRectangle(myBrush, new System.Drawing.Rectangle(0, 0, 200, 300));
 
 
+            //gr.SmoothingMode = Graphics.SmoothingMode.AntiAlias;
 
-            foreach (string pic in Directory.GetFiles(basePath,"*.jpg"))
+          //  gr.DrawImage(imgOverlay, new System.Drawing.Point(img.Width - 78, img.Height - 25));
+           // gr.DrawString(DateTime.Now.ToShortDateString(), font, new System.Drawing.SolidBrush(color), new System.Drawing.Point(img.Width - 40, img.Height - 15), stringFormat);
+
+           // MemoryStream outputStream = new MemoryStream();
+            //img.Save("Brush Tail Possum2.jpg");
+            int i = 1;
+            foreach (string pic in Directory.GetFiles(basePath, "*.jp*g"))
             {
-                basePath = ImageResizer.Util.PathUtils.RemoveExtension(pic);
+                string baseFileName = ImageResizer.Util.PathUtils.RemoveExtension(Path.GetFileName(pic));
+            
+               //add date/time to pic
+                System.Drawing.Image img = System.Drawing.Image.FromFile(pic);
+                Graphics gr = Graphics.FromImage(img);
+              //  gr.DrawString(DateTime.Now.ToShortDateString(), font, new System.Drawing.SolidBrush(color), new System.Drawing.Point(img.Width - 40, img.Height - 15), stringFormat);
+                x = img.Width;
+                y = img.Height;
+
+                int fontSize = 96;
+
+                if (y <= 480)
+                {
+                    fontSize = 32;
+                }
+
+
+                
+                System.Drawing.Font font = new System.Drawing.Font("Times New Roman", (float)fontSize, System.Drawing.FontStyle.Regular);
+
+                gr.FillRectangle(myBrush, new System.Drawing.Rectangle(0, y-200, 900, 350));
+               // gr.DrawString("2017-06-12", font, new System.Drawing.SolidBrush(black), new System.Drawing.Point((img.Width / 2) + 1 , (img.Height / 2) + 1), stringFormat);
+              //  gr.DrawString("2017-06-12", font, new System.Drawing.SolidBrush(color), new System.Drawing.Point(img.Width / 2, img.Height / 2), stringFormat);
+
+                gr.DrawString(dateStamp, font, new System.Drawing.SolidBrush(System.Drawing.Color.White), new System.Drawing.Point(350, img.Height - 50), stringFormat);
+
+                MemoryStream outputStream = new MemoryStream();
+                img.Save(baseFileName + "_stamped.jpg");
                 //Generate each version
+
+                
                 foreach (string suffix in versions.Keys)
+                { 
                     //Let the image builder add the correct extension based on the output file type
-                    generatedFiles.Add(ImageBuilder.Current.Build(pic, basePath + suffix,
+                    generatedFiles.Add(ImageBuilder.Current.Build(baseFileName + "_stamped.jpg", @"ShrunkAndStamped\picture_" + i.ToString() + "_stamped" + suffix,
                      new ResizeSettings(versions[suffix]), false, true));
+                    //generatedFiles.Add(ImageBuilder.Current.Build(img.Tag, basePath + suffix,
+                   //  new ResizeSettings(versions[suffix]), false, true)); 
+                       
+                }
+
+                img.Dispose();
+                gr.Dispose();
+                font.Dispose();
+                outputStream.Close();
+
+                i++; 
+
             }
+            
 
            
         }

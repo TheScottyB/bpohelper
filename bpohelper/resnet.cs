@@ -29,6 +29,12 @@ namespace bpohelper
             {elem.TEXT, "INPUT:TEXT"},{elem.SELECT, "SELECT"}, {elem.TEXTAREA, "TEXTAREA"}, {elem.RADIO, "INPUT:RADIO"}, {elem.CHECKBOX, "INPUT:CHECKBOX"}
         };
 
+        Dictionary<string, string> fifthThirdForm_buildingType = new Dictionary<string, string>()
+            {
+                {"1 Story", "1story"},  {"1.5 Story", "1story"}, {"2 Stories", "2story"}, {"Hillside", "split"}, {"Raised Ranch", "split"}, {@"Split Level w/ Sub", "split"}, {"Split Level", "split"},
+                    {"Condo", "1story"}, {"Townhouse-2 Story", "2story"}, {"Townhouse", "2story"},  {"Townhouse 3+ Stories", "2story"}, {"Townhouse-TriLevel", "2story"}, {"Townhouse‐Ranch", "1story"}  //Townhouse 3+ Stories, Townhouse-TriLevel
+            };
+
         private string targetCompString;
         private Dictionary<int, MLSListing> stack;
         private Form1 callingForm;
@@ -36,13 +42,176 @@ namespace bpohelper
 
         public void Prefill(iMacros.App iim, Form1 form)
         {
-            Dictionary<int, string[]> commands = new Dictionary<int, string[]>();
-
+            Dictionary<double, string[]> commands = new Dictionary<double, string[]>();
             Dictionary<string, string> translationTable = new Dictionary<string, string>();
 
+            Dictionary<string, string> fifthThirdForm_propertyType = new Dictionary<string, string>()
+            {
+                {"Detached", "5"}, {"Attached", "10"}
+            };
 
+            Dictionary<string, string> fifthThirdForm_locationType = new Dictionary<string, string>()
+            {
+                {location.Urban.ToString(), "%1"}, {location.Suburban.ToString(), "%2"}, {location.Rural.ToString(), "%3"}
+            };
+
+          
+            Dictionary<string, string> occupancyTypeTranslation = new Dictionary<string, string>()
+            {
+                {"Occupied", "%2"}, {"Occupied by Owner", "%2"}, {"Occupied by Tenant", "%2"},
+                    {"Vacant", "%10000"}, {"Other", "%2"}, {"Unknown", "%1"}
+            };
 
             StringBuilder macro = new StringBuilder();
+
+            //
+            //Pass 2 new items
+            //
+            //AsIsOrRepaired
+            commands.Add(2.001, new string[] { "1", inputType[elem.SELECT], "AsIsOrRepaired", "%True" });
+
+            //ReviewersComment
+            commands.Add(2.002, new string[] { "1", inputType[elem.TEXTAREA], "ReviewersComment", "No repairs were noted at the time of inspection based on exterior observations." });
+
+            //CheckListComments
+            commands.Add(2.003, new string[] { "1", inputType[elem.TEXTAREA], "CheckListComments", "All the comps are Reasonable substitute for the subject property, similar in most areas. Price opinion was based off comparable statistics to determine market price for subject. " });
+
+
+
+            //InspectedDate
+            commands.Add(0.01, new string[] { "1", inputType[elem.TEXT], "InspectedDate", GlobalVar.theSubjectProperty.InspectionDate() });
+             commands.Add(0.02, new string[] { "1", inputType[elem.TEXT], "InspectedDate", GlobalVar.theSubjectProperty.InspectionDate() });
+            //PropertyType - 10:condo; 5:Single Family
+            commands.Add(0.03, new string[] { "1", inputType[elem.SELECT], "PropertyType", "%" + fifthThirdForm_propertyType[GlobalVar.theSubjectProperty.TypeOfMlsListing] });
+            //ParcelNumber
+            commands.Add(0.04, new string[] { "1", inputType[elem.TEXT], "ParcelNumber", GlobalVar.theSubjectProperty.ParcelID });
+            //BpoBrokerLicenseNumber
+            commands.Add(0.05, new string[] { "1", inputType[elem.TEXT], "BpoBrokerLicenseNumber", "971.009163" });
+            //MarketConditions - Stable
+            commands.Add(0.06, new string[] { "1", inputType[elem.SELECT], "MarketConditions", "%Stable" });
+            //EmploymentConditions - Stable
+            commands.Add(0.07, new string[] { "1", inputType[elem.SELECT], "EmploymentConditions", "%Stable" });
+            //SalesLow
+            commands.Add(0.08, new string[] { "1", inputType[elem.TEXT], "SalesLow", callingForm.SubjectNeighborhood.minSalePrice.ToString() });
+            //SalesHigh
+            commands.Add(0.09, new string[] { "1", inputType[elem.TEXT], "SalesHigh", callingForm.SubjectNeighborhood.maxSalePrice.ToString() });
+            //MarketingDays
+            commands.Add(0.10, new string[] { "1", inputType[elem.TEXT], "MarketingDays", callingForm.SubjectNeighborhood.avgDom.ToString() });
+
+            //IsSubjectListed
+            //TODO: put in actual listing info instead of defaulting to no.  
+            commands.Add(0.11, new string[] { "1", inputType[elem.SELECT], "IsSubjectListed", "%False" });
+            commands.Add(0.12, new string[] { "1", inputType[elem.SELECT], "IsSubjectListedPast12Mo", "%False" });
+
+            //MandatoryAssociation
+            //TODO: put in actual HOA info instead of deaulting t no
+            commands.Add(0.13, new string[] { "1", inputType[elem.SELECT], "MandatoryAssociation", "%False" });
+
+            //SubjectOccupancyStatus
+            //occupancyTypeTranslation
+            commands.Add(0.14, new string[] { "1", inputType[elem.SELECT], "SubjectOccupancyStatus", occupancyTypeTranslation[form.comboBoxSubjectOccupancy.Text] });
+
+            //Condition
+            commands.Add(0.15, new string[] { "1", inputType[elem.SELECT], "Condition", "%" + form.comboBoxSubjectCondition.Text });
+
+            //LocationType: 1,2,3
+            commands.Add(0.16, new string[] { "1", inputType[elem.SELECT], "LocationType", fifthThirdForm_locationType[form.comboBoxLocationDescr.Text] });
+
+            //MarketPriceStability
+            //MarketPriceStabilityPercent
+            commands.Add(0.17, new string[] { "1", inputType[elem.SELECT], "MarketPriceStability", "%Stable" });
+            commands.Add(0.18, new string[] { "1", inputType[elem.TEXT], "MarketPriceStabilityPercent", "0" });
+
+            //Taxes
+            commands.Add(0.19, new string[] { "1", inputType[elem.TEXT], "Taxes", callingForm.subjectTaxAmountTextBox.Text });
+
+            //TEXTAREA PropertyComments
+            //ListingComments
+            //NeighDetailsAddnlComments
+            commands.Add(0.20, new string[] { "1", inputType[elem.TEXTAREA], "PropertyComments", " No adverse conditions were noted at the time of inspection based on exterior observations. Unable to determine exterior or interior condition due to unable to view property from road, so subject was assumed to be in average condition. " });
+            commands.Add(0.21, new string[] { "1", inputType[elem.TEXTAREA], "ListingComments", "NA" });
+            commands.Add(0.22, new string[] { "1", inputType[elem.TEXTAREA], "NeighDetailsAddnlComments", "Neighborhood defined as 1 mile radius, centered on subject." });
+
+            //DataSource
+            commands.Add(0.23, new string[] { "1", inputType[elem.SELECT], "DataSource", "%assessor" });
+
+            //Style
+            //fifthThirdForm_buildingType
+            commands.Add(0.24, new string[] { "1", inputType[elem.SELECT], "Style", "%" + fifthThirdForm_buildingType[callingForm.SubjectMlsType] });
+
+            //LotSizeUnitType
+            commands.Add(0.25, new string[] { "1", inputType[elem.SELECT], "LotSizeUnitType", "%Acres" });
+
+            //LotSize
+            commands.Add(0.26, new string[] { "1", inputType[elem.TEXT], "LotSize", callingForm.SubjectLotSize });
+
+            //SubjectPropertyUnits
+            commands.Add(0.27, new string[] { "1", inputType[elem.TEXT], "SubjectPropertyUnits", "1" });
+
+            //subject property parameters
+            commands.Add(0.28, new string[] { "1", inputType[elem.TEXT], "YearBuilt", callingForm.SubjectYearBuilt });
+            commands.Add(0.29, new string[] { "1", inputType[elem.TEXT], "Rooms", callingForm.SubjectRoomCount });
+            commands.Add(0.30, new string[] { "1", inputType[elem.TEXT], "Beds", callingForm.SubjectBedroomCount });
+            commands.Add(0.31, new string[] { "1", inputType[elem.TEXT], "Baths", callingForm.SubjectBathroomCount });
+            commands.Add(0.32, new string[] { "1", inputType[elem.TEXT], "GrossLivingArea", callingForm.SubjectAboveGLA });
+            commands.Add(0.33, new string[] { "1", inputType[elem.TEXT], "Bsmt", callingForm.SubjectBasementType });
+
+            //ConstructionType
+            //TODO: Pick correct siding instead of defaulting to Mix
+            commands.Add(0.34, new string[] { "1", inputType[elem.SELECT], "ConstructionType", "%4" });
+
+            //GarageType
+            if (GlobalVar.theSubjectProperty.AttachedGarage)
+            {
+                commands.Add(35, new string[] { "1", inputType[elem.SELECT], "GarageType", "%2" });
+            }
+            else if (GlobalVar.theSubjectProperty.DetachedGarage)
+            {
+                commands.Add(35, new string[] { "1", inputType[elem.SELECT], "GarageType", "%3" });
+            }
+            else
+            {
+                commands.Add(35, new string[] { "1", inputType[elem.SELECT], "GarageType", "%4" });
+            }
+            commands.Add(36, new string[] { "1", inputType[elem.TEXT], "GarageCount", GlobalVar.theSubjectProperty.GarageStallCount });
+
+            //PoolSpa
+            //TODO: Add pool support to form
+            commands.Add(0.37, new string[] { "1", inputType[elem.TEXT], "PoolSpa", "Unk" });
+
+            //FunctionalUtility
+            //TODO: figure out wtf they want in this field
+            commands.Add(0.38, new string[] { "1", inputType[elem.TEXT], "FunctionalUtility", "na" });
+
+            //CheckListSubjectComments
+            commands.Add(0.39, new string[] { "1", inputType[elem.TEXTAREA], "CheckListSubjectComments", "The subject is a conforming home within the neighborhood. No adverse conditions were noted at the time of inspection based on exterior observations. Unable to determine interior condition due to exterior inspection only, so subject was assumed to be in average condition for this report." });
+
+            //AsIsValue
+            //AsisListPrice
+            //RepairedValue
+            //RepairedListPrice
+            commands.Add(0.41, new string[] { "1", inputType[elem.TEXT], "AsIsValue", callingForm.SubjectMarketValue });
+            commands.Add(0.411, new string[] { "1", inputType[elem.TEXT], "AsisListPrice", callingForm.SubjectMarketValueList });
+            commands.Add(0.42, new string[] { "1", inputType[elem.TEXT], "RepairedValue", callingForm.SubjectMarketValue });
+            commands.Add(0.43, new string[] { "1", inputType[elem.TEXT], "RepairedListPrice", callingForm.SubjectMarketValueList });
+
+            //CheckList01
+            //CheckList02
+            //CheckList03
+            //CheckList04
+            //CheckList05
+            //DecliningValues
+            //TODO:  Find correct answers using the data from the search. Possibly move this part to comp fill.
+            commands.Add(0.44, new string[] { "1", inputType[elem.SELECT], "CheckList01", "%True" });
+            commands.Add(0.45, new string[] { "1", inputType[elem.SELECT], "CheckList02", "%False" });
+            commands.Add(0.46, new string[] { "1", inputType[elem.SELECT], "CheckList03", "%False" });
+            commands.Add(0.47, new string[] { "1", inputType[elem.SELECT], "CheckList04", "%False" });
+            commands.Add(0.48, new string[] { "1", inputType[elem.SELECT], "CheckList05", "%False" });
+            commands.Add(0.49, new string[] { "1", inputType[elem.SELECT], "DecliningValues", "%False" });
+
+            //ProviderComments
+            commands.Add(0.50, new string[] { "1", inputType[elem.TEXTAREA], "ProviderComments", "The subject is a conforming home within a neighborhood that has stable values over the prior twelve months. Demand remains strong in this area while short sales and REO listings have declined and had no significant impact on values in area." });
+
 
 
             commands.Add(0, new string[] { "1", inputType[elem.RADIO], "CMA_TYPE_EXTERIOR", "YES" });
@@ -77,10 +246,10 @@ namespace bpohelper
             //commands.Add(8, new string[] { "1", inputType[elem.TEXT], "LIST_LOW_S", callingForm.SubjectNeighborhood.minListPrice.ToString() });
             //commands.Add(9, new string[] { "1", inputType[elem.TEXT], "LIST_HIGH_S", callingForm.SubjectNeighborhood.maxListPrice.ToString() });
             //commands.Add(10, new string[] { "1", inputType[elem.TEXT], "SALE_COUNT", callingForm.SubjectNeighborhood.numberSoldListings.ToString() });
-            //commands.Add(11, new string[] { "1", inputType[elem.TEXT], "SALE_LOW_S", callingForm.SubjectNeighborhood.minSalePrice.ToString() });
-            //commands.Add(12, new string[] { "1", inputType[elem.TEXT], "SALE_HIGH_S", callingForm.SubjectNeighborhood.maxSalePrice.ToString() });
+
+            //commands.Add(12, new string[] { "1", inputType[elem.TEXT], "SALE_HIGH_S", });
             //commands.Add(13, new string[] { "1", inputType[elem.TEXT], "BOARDED_UP_HOMES_NBR", "0" });
-            //commands.Add(14, new string[] { "1", inputType[elem.TEXT], "DOM_AVG_L", callingForm.SubjectNeighborhood.avgDomSold.ToString() });
+            //commands.Add(14, new string[] { "1", inputType[elem.TEXT], "DOM_AVG_L",  });
             //commands.Add(15, new string[] { "1", inputType[elem.TEXT], "ZONING", "A1-R1" });
             //commands.Add(16, new string[] { "1", inputType[elem.TEXT], "ZONING", "A1-R1" });
             //commands.Add(17, new string[] { "1", inputType[elem.TEXT], "ZONING", "A1-R1" });
@@ -105,6 +274,8 @@ namespace bpohelper
             //targetComp = subject.GetCurrentMlsListing();
             //CompFill(iim, "subject", "1", translationTable);
 
+            macro.AppendLine(@"SET !ERRORIGNORE YES");
+            macro.AppendLine(@"SET !TIMEOUT_STEP 0");
 
             foreach (var c in commands)
             {
@@ -114,11 +285,9 @@ namespace bpohelper
 
 
 
-
             string macroCode = macro.ToString();
             iim.iimPlayCode(macroCode, 30);
         }
-
 
         public void CompFill(iMacros.App iim, string saleOrList, string compString, Dictionary<string, string> fieldList)
         {
@@ -132,6 +301,17 @@ namespace bpohelper
                 {"Arms Length", "1"}, {"REO", "3"}, {"ShortSale", "2"},
             };
 
+            Dictionary<string, string> fifthThirdForm_saleTypeTranslation = new Dictionary<string, string>()
+            {
+                {"Arms Length", "4"}, {"REO", "3"}, {"ShortSale", "2"},
+            };
+
+            Dictionary<string, string> fifthThirdForm_propertyType = new Dictionary<string, string>()
+            {
+                {"Detached", "5"}, {"Attached", "10"}
+            };
+
+       
             Dictionary<string, string> financingTypeTranslation = new Dictionary<string, string>()
             {
                 {"Conventional", "%number:393"}, {"FHA", "%number:394"}, {"VA", "%number:396"},  {"Unknown", "%number:395"},
@@ -166,97 +346,92 @@ namespace bpohelper
             macro.AppendLine(@"SET !TIMEOUT_STEP 0");
 
 
-//            const Nightmare = require('nightmare')
-//const nightmare = Nightmare({ show: true })
-
-//nightmare
-//  .click('section#competitiveClosedSales > table:nth-child(2) > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(3)')
-//  .click('input#SaleComps_0__StreetAddress')
-//  .click('input#SaleComps_0__City')
-//  .click('select#SaleComps_0__State')
-//  .click('input#SaleComps_0__PostalCode')
-//  .click('div#ui-id-2 > div.ui-tooltip-content:nth-child(1)')
-//  .click('input#SaleComps_0__ProximityDistance')
-//  .click('section#competitiveClosedSales > table:nth-child(2) > tbody:nth-child(2) > tr:nth-child(7) > td:nth-child(2)')
-//  .click('input#SaleComps_0__SalePrice')
-//  .click('select#SaleComps_0__SaleType')
-//  .click('input#SaleComps_0__ListPriceAtSale')
-//  .click('section#competitiveClosedSales > table:nth-child(2) > tbody:nth-child(2) > tr:nth-child(10) > td:nth-child(2)')
-//  .click('input#SaleComps_0__PriceReductionCount')
-//  .click('section#competitiveClosedSales > table:nth-child(2) > tbody:nth-child(2) > tr:nth-child(10) > td:nth-child(2)')
-//  .click('select#Subject_DataSource')
-//  .click('select#SaleComps_0__DataSource')
-//  .click('input#SaleComps_0__SaleDate')
-//  .click('input#SaleComps_0__Dom')
-//  .click('div#ui-id-7')
-//  .click('input#SaleComps_0__Concessions')
-//  .click('select#SaleComps_0__LocationType')
-//  .click('select#SaleComps_0__FeeSimple')
-//  .click('input#SaleComps_0__LotSize')
-//  .click('input#Subject_Units')
-//  .click('input#SaleComps_0__Units')
-//  .click('input#SaleComps_0__YearBuiltAdj')
-//  .click('input#SaleComps_0__ViewDescription')
-//  .click('select#SaleComps_0__Appeal')
-//  .click('input#SaleComps_0__YearBuilt')
-//  .type('input#SaleComps_0__YearBuiltAdj', '')
-//  .click('select#SaleComps_0__Condition')
-//  .click('input#SaleComps_0__Rooms')
-//  .click('input#SaleComps_0__Baths')
-//  .click('input#SaleComps_0__Beds')
-//  .click('input#Subject_Baths')
-//  .click('input#SaleComps_0__Baths')
-//  .click('section#competitiveClosedSales > table:nth-child(2) > tbody:nth-child(2) > tr:nth-child(27) > td:nth-child(3)')
-//  .click('input#SaleComps_0__GrossLivingArea')
-//  .click('section#competitiveClosedSales > table:nth-child(2) > tbody:nth-child(2) > tr:nth-child(26) > td:nth-child(2)')
-//  .click('input#SaleComps_0__Bsmt')
-//  .click('input#SaleComps_0__HeatingCooling')
-//  .click('select#SaleComps_0__GarageType')
-//  .click('input#SaleComps_0__GarageCount')
-//  .click('section#competitiveClosedSales > table:nth-child(2) > tbody:nth-child(2) > tr:nth-child(30) > td:nth-child(2)')
-//  .click('input#SaleComps_0__Extras')
-//  .click('input#SaleComps_0__FunctionalUtility')
-//  .end()
-//    .then(function (result) {
-//      console.log(result)
-//    })
-//    .catch(function (error) {
-//      console.error('Error:', error);
-//    });
 
 
+            //
+            //Pass 2
+            //
+            //ConstructionType
+            //TODO: Pick correct siding instead of defaulting to Mix
+            commands.Add(2.001, new string[] { "1", inputType[elem.SELECT], "ConstructionType", "%4" });
 
-            //DateTimeFormatInfo dtfi = CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat;
-            //DateTime date1 = new DateTime(2011, 5, 1);
-            //Console.WriteLine("Original Short Date Pattern:");
-            //Console.WriteLine("   {0}: {1}", dtfi.ShortDatePattern,
-            //                                 date1.ToString("d", dtfi));
-            //dtfi.DateSeparator = "-";
-            //dtfi.ShortDatePattern = @"yyyy/MM/dd";
-            //Console.WriteLine("Revised Short Date Pattern:");
-            //Console.WriteLine("   {0}: {1}", dtfi.ShortDatePattern,
-            //                                 date1.ToString("d", dtfi));
+            //PoolSpa
+            //TODO: Add pool support to form
+            commands.Add(2.002, new string[] { "1", inputType[elem.TEXT], "PoolSpa", "na" });
 
-            commands.Add(0, new string[] { "1", inputType[elem.TEXT], "StreetAddress", targetComp.StreetAddress });
-            commands.Add(0.1, new string[] { "1", inputType[elem.TEXT], "City", targetComp.City.Replace(" ", "<SP>") });
+            //FunctionalUtility
+            //TODO: figure out wtf they want in this field
+            commands.Add(2.003, new string[] { "1", inputType[elem.TEXT], "FunctionalUtility", "na" });
+
+            //Comparability
+            commands.Add(2.004, new string[] { "1", inputType[elem.SELECT], "Comparability", "%2" });
+
+            //SaleType
+            //fix command 5
+
+            //CheckListListing1Comments
+            //CheckListSales1Comments
+            //FORM=ACTION:/ProviderResponse/FormStaticFifthThirdView/* ATTR=NAME
+            string compComments = "Similar size, age, style, features, condition and neighborhood as subject.".Replace(" ", "<SP>");
+
+            int tcn = Convert.ToInt32(targetCompNumber) + 1;
+            if (saleOrList == "Sale")
+            {
+                
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ACTION:/ProviderResponse/FormStaticFifthThirdView/* ATTR=NAME:CheckListSales" + tcn.ToString() + "Comments CONTENT=" + compComments);
+
+            }
+            else
+            {
+                macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ACTION:/ProviderResponse/FormStaticFifthThirdView/* ATTR=NAME:CheckListListing" + tcn.ToString() + "Comments CONTENT=" + compComments);
+
+            }
+
+            //proximity fix 
+            //command 1
+
+
+            commands.Add(0, new string[] { "1", inputType[elem.TEXT], "StreetAddress", targetComp.StreetAddress.Substring(0, Math.Min(targetComp.StreetAddress.Length, 17)) });
+            commands.Add(0.1, new string[] { "1", inputType[elem.TEXT], "City", targetComp.City.Substring(0, Math.Min(targetComp.City.Length, 17)).Replace(" ", "<SP>") });
             commands.Add(0.2, new string[] { "1", inputType[elem.SELECT], "State", "%IL" });
-
-
-
             commands.Add(0.3, new string[] { "1", inputType[elem.TEXT], "PostalCode", targetComp.Zipcode });
-            commands.Add(1, new string[] { "1", inputType[elem.TEXT], "ProximityDistance", targetComp.proximityToSubject.ToString() });
+
+            double proximity = targetComp.proximityToSubject;
+
+            if (proximity > 1) 
+            {
+                proximity = 1; 
+            }
+
+            commands.Add(1, new string[] { "1", inputType[elem.TEXT], "ProximityDistance", proximity.ToString() });
+
             commands.Add(2, new string[] { "1", inputType[elem.TEXT], "SalePrice", targetComp.SalePrice.ToString() });
             commands.Add(3, new string[] { "1", inputType[elem.TEXT], "ListPriceAtSale", targetComp.CurrentListPrice.ToString() });
 
             commands.Add(4, new string[] { "1", inputType[elem.TEXT], "PriceReductionCount", targetComp.NumberOfPriceChanges.ToString() });
 
-            commands.Add(5, new string[] { "1", inputType[elem.SELECT], "SaleType", "%" + saleTypeTranslation[targetComp.TransactionType] });
+            commands.Add(5, new string[] { "1", inputType[elem.SELECT], "SaleType", "%" + fifthThirdForm_saleTypeTranslation[targetComp.TransactionType] });
             commands.Add(6, new string[] { "1", inputType[elem.SELECT], "DataSource", "%mls" });
             commands.Add(7, new string[] { "1", inputType[elem.TEXT], "SaleDate", _getMmYyyyDdDateString(targetComp.SalesDate)});
+            commands.Add(7.1, new string[] { "1", inputType[elem.TEXT], "SaleDate", _getMmYyyyDdDateString(targetComp.SalesDate) });
             commands.Add(8, new string[] { "1", inputType[elem.TEXT], "Dom", targetComp.DOM });
+            //
+            //PropertySoldDom
+            commands.Add(8.1, new string[] { "1", inputType[elem.TEXT], "PropertySoldDom", targetComp.DOM });
+            //CurrentListPriceDom
+            commands.Add(8.2, new string[] { "1", inputType[elem.TEXT], "CurrentListPriceDom", targetComp.DOM });
+
+
             commands.Add(9, new string[] { "1", inputType[elem.TEXT], "Concessions", targetComp.PointsInDollars });
             commands.Add(10, new string[] { "1", inputType[elem.SELECT], "FeeSimple", "%2" });
-            commands.Add(11, new string[] { "1", inputType[elem.TEXT], "LotSize", targetComp.Lotsize.ToString() });
+            //commands.Add(11, new string[] { "1", inputType[elem.TEXT], "LotSize", targetComp.Lotsize.ToString().Substring(0,4)});
+
+            string lotSize = targetComp.Lotsize.ToString();
+            if (callingForm.SubjectAttached)
+            {
+                lotSize = "0";
+            }
+            commands.Add(11, new string[] { "1", inputType[elem.TEXT], "LotSize", lotSize});
             commands.Add(12, new string[] { "1", inputType[elem.TEXT], "Units", "1" });
             commands.Add(13, new string[] { "1", inputType[elem.TEXT], "ViewDescription", "Residential" });
             commands.Add(14, new string[] { "1", inputType[elem.SELECT], "Condition", "%Average" });
@@ -285,16 +460,21 @@ namespace bpohelper
             commands.Add(27, new string[] { "1", inputType[elem.TEXT], "ListPrice", targetComp.CurrentListPrice.ToString() });
             commands.Add(28, new string[] { "1", inputType[elem.TEXT], "OriginalListPrice", targetComp.OriginalListPrice.ToString() });
 
+            //second update pass adding more fields
+            commands.Add(29, new string[] { "1", inputType[elem.SELECT], "SaleType", "%" + fifthThirdForm_saleTypeTranslation[targetComp.TransactionType] });
+            //PropertyType
+            commands.Add(30, new string[] { "1", inputType[elem.SELECT], "PropertyType", "%" + fifthThirdForm_propertyType[targetComp.UniversalLandUse()] });
+            //Style
+            commands.Add(31, new string[] { "1", inputType[elem.SELECT], "Style", "%" + fifthThirdForm_buildingType[targetComp.Type]});
 
-
+            //commands.Add(14, new string[] { "1", inputType[elem.SELECT], "ConstructionTypeID", "%number:430" });
 
 
 
             //commands.Add(24, new string[] { "1", inputType[elem.SELECT], "HEATING", "%" + heatingTypeTranslation[targetComp.Heating] });
             //commands.Add(25, new string[] { "1", inputType[elem.SELECT], "COOLING", "%" + CoolingTypeTranslation[targetComp.Cooling] });
            
-            //commands.Add(2, new string[] { "1", inputType[elem.SELECT], "PropertyTypeID", "%number:397" });
-            //commands.Add(3, new string[] { "1", inputType[elem.SELECT], "HomeStyleID", "%number:426" });
+         
             //commands.Add(4, new string[] { "1", inputType[elem.TEXT], "TotalRents", "1700" });
             //commands.Add(5, new string[] { ListingDatePosition[targetCompString], inputType[elem.TEXT], "dt", targetComp.ListDateString });
    
@@ -335,7 +515,7 @@ namespace bpohelper
             //commands.Add(4, new string[] { "1", inputType[elem.TEXT], "PRICE_REDUCTION_COUNT", targetComp.NumberOfPriceChanges.ToString() });
 
             //commands.Add(6, new string[] { "1", inputType[elem.TEXT], "SELLER_CONCESSIONS", targetComp.PointsInDollars });
-            //commands.Add(7, new string[] { "1", inputType[elem.SELECT], "SALES_TYPE", "%" + saleTypeTranslation[targetComp.TransactionType] });
+           
 
 
 
@@ -410,7 +590,22 @@ namespace bpohelper
                     //{
                     //    tcs = targetCompString;
                     //}
+
+                    if (c.Value[2] == "SaleDate")
+                    {
+                        macro.AppendLine(@"TAG POS=1 TYPE=BUTTON ATTR=TXT:Done");
+                    }
+
                     macro.AppendFormat("TAG POS={0} TYPE={1} FORM=ACTION:/ProviderResponse/FormStaticFifthThirdView/* ATTR=NAME:{2}ComparableData[{3}].{4} CONTENT={5}\r\n", c.Value[0], c.Value[1], saleOrList, targetCompString, c.Value[2], c.Value[3].Replace(" ", "<SP>").Replace("$", "").Replace(",", ""));
+
+                    if (c.Value[2] == "SaleDate")
+                    {
+                        macro.AppendLine(@"TAG POS=1 TYPE=BUTTON ATTR=TXT:Done");
+                    }
+
+                  
+                    
+
                 }
             }
            
@@ -561,6 +756,56 @@ namespace bpohelper
 
 
 
+        }
+
+        public void MmrFill(iMacros.App iim, string saleOrList, string compString, Dictionary<string, string> fieldList)
+        {
+
+            Dictionary<double, string[]> commands = new Dictionary<double, string[]>();
+            StringBuilder macro = new StringBuilder();
+
+            macro.AppendLine(@"SET !ERRORIGNORE YES");
+            macro.AppendLine(@"SET !TIMEOUT_STEP 0");
+
+            commands.Add(1, new string[] { "1", inputType[elem.TEXT], "Address", targetComp.StreetAddress });
+            commands.Add(2, new string[] { "1", inputType[elem.TEXT], "Prox", targetComp.proximityToSubject.ToString() });
+            commands.Add(3, new string[] { "1", inputType[elem.TEXT], "Beds", targetComp.BedroomCount });
+            commands.Add(4, new string[] { "1", inputType[elem.TEXT], "Baths", targetComp.BathroomCount });
+            commands.Add(5, new string[] { "1", inputType[elem.TEXT], "SqFt", targetComp.GLA.ToString()});
+            commands.Add(6, new string[] { "1", inputType[elem.TEXT], "Condition", "Avg" });
+            if (saleOrList == "List")
+            {
+                commands.Add(7, new string[] { "1", inputType[elem.TEXT], "AskPrice", targetComp.CurrentListPrice.ToString() });
+                commands.Add(8, new string[] { "1", inputType[elem.TEXT], "ListDt", targetComp.ListDateString });
+                commands.Add(10, new string[] { "1", inputType[elem.TEXT], "Fin", "NA" });
+
+            }
+            else
+            {
+                commands.Add(7, new string[] { "1", inputType[elem.TEXT], "AskPrice", targetComp.SalePrice.ToString() });
+                commands.Add(8, new string[] { "1", inputType[elem.TEXT], "ListDt", targetComp.SalesDate.ToShortDateString() });
+                commands.Add(10, new string[] { "1", inputType[elem.TEXT], "Fin", targetComp.FinancingMlsString });
+
+            }
+            commands.Add(9, new string[] { "1", inputType[elem.TEXT], "DOM", targetComp.DOM });
+
+
+
+
+
+
+
+            foreach (var c in commands)
+            {
+                macro.AppendFormat("TAG POS={0} TYPE={1} ATTR=NAME:*{2}{3}{4} CONTENT={5}\r\n", c.Value[0], c.Value[1], compString[0], c.Value[2], compString[1], c.Value[3].Replace(" ", "<SP>").Replace("$", "").Replace(",", ""));
+            }
+
+
+
+
+
+            string macroCode = macro.ToString();
+            iim.iimPlayCode(macroCode, 30);
         }
     }
 }

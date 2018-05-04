@@ -31,12 +31,7 @@ namespace bpohelper
 
         }
 
-
-      
-      
-     
-
-   
+ 
        private string theBaseImacroCommand = "TAG POS={0} TYPE={1} FORM=ACTION:PWSEdit* ATTR=NAME:*{2}{3}{4}{5} CONTENT={6}\r\n";
 
           public InsideValuation()
@@ -87,22 +82,127 @@ namespace bpohelper
       
         protected  new void   GenerateSubjectFillScript()
         {
+            ///
+            //5/1/18 updates
+            ///
+
+            //TextBoxOutBuildingsDesc
+            subjectTextFieldList.Add("TextBoxOutBuildingsDesc", "NA");
+
+            //TextBoxNegativeExternailities
+            subjectTextFieldList.Add("TextBoxNegativeExternailities", "No negative externalities noted by drive by.");
+
+            //TextBoxPositiveExternailities
+            subjectTextFieldList.Add("TextBoxPositiveExternailities", "No positive externalities noted by drive by.");
+
+            //TextBoxSubjectNeighborhoodComments
+            subjectTextFieldList.Add("TextBoxSubjectNeighborhoodComments", "Typical suburban subdivision.");
+
+            //DropDownListCompFinancingType
+            subjectSelectionBoxList.Add("DropDownListCompFinancingType", "24");
+
+            //TextBoxUnitVar
+            subjectTextFieldList.Add("TextBoxUnitVar", "1");
+
+            //TextBoxYearVar
+            subjectTextFieldList.Add("TextBoxYearVar", "100");
+
+            //TextBoxLocationVar
+            subjectTextFieldList.Add("TextBoxLocationVar", "1");
+
+            //TextBoxConditionVar
+            subjectTextFieldList.Add("TextBoxConditionVar", "1");
+
+            //TextBoxBathVar
+            subjectTextFieldList.Add("TextBoxBathVar", "1000");
+
+            //TextBoxBedVar
+            subjectTextFieldList.Add("TextBoxBedVar", "1500");
+
+            //TextBoxHalfBathVar
+            subjectTextFieldList.Add("TextBoxHalfBathVar", "500");
+
+            //TextBoxGarageAttachVar
+            subjectTextFieldList.Add("TextBoxGarageAttachVar", "1000");
+
+            //TextBoxGarageDetachVar
+            subjectTextFieldList.Add("TextBoxGarageDetachVar", "500");
+
+            //TextBoxGarageCarportVar
+            subjectTextFieldList.Add("TextBoxGarageCarportVar", "1");
+
+            //TextBoxPorchPatioDeck
+            subjectTextFieldList.Add("TextBoxPorchPatioDeck", "NA");
+
+            //TextBoxPoolVar
+            subjectTextFieldList.Add("TextBoxPoolVar", "1");
+
+            //TextBoxSpaVar
+            subjectTextFieldList.Add("TextBoxSpaVar", "1");
 
 
-           
-         
-         
+            subjectTextFieldList.Add("TextBoxDateOfInspection", GlobalVar.theSubjectProperty.InspectionDate().ToString());
+            subjectTextFieldList.Add("TextBoxApn", GlobalVar.theSubjectProperty.ParcelID);
+            subjectTextFieldList.Add("TextBoxGBASqFt", GlobalVar.mainWindow.SubjectAboveGLA);
+            subjectTextFieldList.Add("TextBoxYearBuilt", GlobalVar.mainWindow.SubjectYearBuilt);
+            subjectSelectionBoxList.Add("DropDownListSqFtDatasource", "2");
+            subjectSelectionBoxList.Add("DropDownListResPropertyType", "1");
+            subjectSelectionBoxList.Add("DropDownListUnitsNo", "1");
+            subjectSelectionBoxList.Add("DropDownListVacantUnits", "0");
+            subjectTextFieldList.Add("TextBoxSiteAcres", GlobalVar.mainWindow.SubjectLotSize);
+            subjectSelectionBoxList.Add("DropDownListPropertyCondition", "9");
+
+
+            //TextBoxAssessorsValue
+            subjectTextFieldList.Add("TextBoxAssessorsValue", GlobalVar.mainWindow.SubjectAssessmentValue);
+            //TextBoxMonthlyRentValue
+            subjectTextFieldList.Add("TextBoxMonthlyRentValue", GlobalVar.mainWindow.SubjectRent);
+            //TextBoxLandValue
+            subjectTextFieldList.Add("TextBoxLandValue", GlobalVar.mainWindow.SubjectLandValue);
+            //TextBoxTaxes
+            subjectTextFieldList.Add("TextBoxTaxes", GlobalVar.theSubjectProperty.PropertyTax);
+            //DropDownListResPropertyZoneType
+            subjectSelectionBoxList.Add("DropDownListResPropertyZoneType", "1");
+            //TextBoxSchoolDistrict
+            subjectTextFieldList.Add("TextBoxSchoolDistrict", GlobalVar.mainWindow.SubjectSchoolDistrict);
+            //TextBoxSalesPriceLow
+            subjectTextFieldList.Add("TextBoxSalesPriceLow", GlobalVar.mainWindow.SubjectNeighborhood.minSalePrice.ToString());
+            //TextBoxSalesPriceHigh
+            subjectTextFieldList.Add("TextBoxSalesPriceHigh", GlobalVar.mainWindow.SubjectNeighborhood.maxSalePrice.ToString());
+            //TextBoxSalesPriceAvg
+            subjectTextFieldList.Add("TextBoxSalesPriceAvg", GlobalVar.mainWindow.SubjectNeighborhood.medianSalePrice.ToString());
+            //TextBoxListingPriceLow
+            subjectTextFieldList.Add("TextBoxListingPriceLow", GlobalVar.mainWindow.SubjectNeighborhood.minListPrice.ToString());
+            //TextBoxListingPriceHigh
+            subjectTextFieldList.Add("TextBoxListingPriceHigh", GlobalVar.mainWindow.SubjectNeighborhood.maxListPrice.ToString());
+            //TextBoxListingPriceAvg
+            subjectTextFieldList.Add("TextBoxListingPriceAvg", GlobalVar.mainWindow.SubjectNeighborhood.medianListPrice.ToString());
+            //DropDownListNeighborhoodPropertyCondition
+            subjectSelectionBoxList.Add("DropDownListNeighborhoodPropertyCondition", "9");
+            //DropDownListNeighborhoodPropertyConformity
+            subjectSelectionBoxList.Add("DropDownListNeighborhoodPropertyConformity", "1");
+            //TextBoxOwnerOccupantPct
+            subjectTextFieldList.Add("TextBoxOwnerOccupantPct", "80");
+            //TextBoxTenantOccupantPct
+            subjectTextFieldList.Add("TextBoxTenantOccupantPct", "10");
+            //TextBoxVacancyPct
+            subjectTextFieldList.Add("TextBoxVacancyPct", "10");
+            //TextBoxNumberOfCompetingListings
+            subjectTextFieldList.Add("TextBoxNumberOfCompetingListings", GlobalVar.mainWindow.SubjectNeighborhood.numberOfCompListings.ToString());
+            //TextBoxNumOfReoListings
+            subjectTextFieldList.Add("TextBoxNumOfReoListings", GlobalVar.mainWindow.SubjectNeighborhood.numberREOListings.ToString());
+            //TextBoxNumberOfCompetingSales
+            subjectTextFieldList.Add("TextBoxNumberOfCompetingSales", GlobalVar.mainWindow.cdNumberOfSoldListingTextBox.Text);
+            //TextBoxNumOfReoSales
+            subjectTextFieldList.Add("TextBoxNumOfReoSales", GlobalVar.mainWindow.SubjectNeighborhood.numberREOSales.ToString());
+            //TextBoxSubjectStyleDesign
+            subjectTextFieldList.Add("TextBoxSubjectStyleDesign", GlobalVar.mainWindow.SubjectMlsType);           
+            //DropDownListLocationSubject
+            subjectSelectionBoxList.Add("DropDownListLocationSubject", "9");           
             subjectTextFieldList.Add("StyleDesignDesc", GlobalVar.mainWindow.SubjectMlsType);
-            subjectTextFieldList.Add("TextBoxStoryNo", "1");
-       
-
-
-           
-       
-     
+            subjectTextFieldList.Add("TextBoxStoryNo", "1");                 
             subjectSelectionBoxList.Add("ListLocation", "9");
             subjectTextFieldList.Add("TextBoxViewDesc", "Residential");
-     
             subjectTextFieldList.Add("TextBoxTotalRoom", GlobalVar.mainWindow.SubjectRoomCount);
             subjectTextFieldList.Add("TextBoxBed", GlobalVar.mainWindow.SubjectBedroomCount);
             subjectTextFieldList.Add("TextBoxBath", GlobalVar.mainWindow.SubjectBathroomCount[0].ToString());
@@ -110,10 +210,19 @@ namespace bpohelper
             subjectTextFieldList.Add("TextBoxGBA", GlobalVar.mainWindow.SubjectAboveGLA);
             subjectTextFieldList.Add("TextBoxBasementSqFt", GlobalVar.mainWindow.SubjectBasementGLA);
             subjectTextFieldList.Add("TextBoxBasementPercentFinished", GlobalVar.mainWindow.SubjectBasementFinishedGLA);
-
             subjectSelectionBoxList.Add("DropDownListGarageStallNo", helper_SubjectGarageStallsTranslate());
-       
 
+            //TextBoxEstimatedMarketValue
+            subjectTextFieldList.Add("TextBoxEstimatedMarketValue", GlobalVar.mainWindow.SubjectMarketValue);
+            //TextBoxAsRepairedValue
+            subjectTextFieldList.Add("TextBoxAsRepairedValue", GlobalVar.mainWindow.SubjectMarketValue);
+            //TextBoxAsIs30DayValue
+            subjectTextFieldList.Add("TextBoxAsIs30DayValue", GlobalVar.mainWindow.SubjectQuickSaleValue);
+            //TextBox90DayValue
+            subjectTextFieldList.Add("TextBox90DayValue", GlobalVar.mainWindow.SubjectMarketValue);
+            //TextBoxSuggestedListAsIsValue
+            subjectTextFieldList.Add("TextBoxSuggestedListAsIsValue", GlobalVar.mainWindow.SubjectMarketValueList);
+       
             if (GlobalVar.mainWindow.SubjectParkingType.Contains("det"))
             {
                 subjectSelectionBoxList.Add("DropDownListGarageType", "3");
@@ -123,37 +232,6 @@ namespace bpohelper
                 subjectSelectionBoxList.Add("DropDownListGarageType", "2");
             }
             
-
-
-
-
-            //subjectTextFieldList.Add("ProximityToSubject", targetComp.ProximityToSubject.ToString());
-            //subjectTextFieldList.Add("SourceOfFunds", targetComp.FinancingMlsString);
-            //subjectTextFieldList.Add("SalesProperties.CurrentListing.Concessions", targetComp.PointsMlsString);
-
-            //subjectTextFieldList.Add("GeneralProperties.IsHOA.feesPerMonth", "0");
-
-            //subjectTextFieldList.Add("LandAndStructure.Age", targetComp.Age.ToString());
-            //subjectTextFieldList.Add("LandAndStructure.Site", "1");
-
-
-            //subjectTextFieldList.Add("LandAndStructure.DesignStyle", "Typical");
-
-            //subjectTextFieldList.Add("ComparisonToSubject", "Same");
-
-
-            //subjectTextFieldList.Add("LandAndStructure.SquareFeet.Finished", targetComp.BasementFinishedGLA());
-            //subjectTextFieldList.Add("Garage", targetComp.GarageString());
-
-            //subjectTextFieldList.Add("Amenities.Pool", "NA");
-            //subjectTextFieldList.Add("Amenities.Other.type", "NA");
-            //subjectTextFieldList.Add("LandAndStructure.OverallComparability", "Equal");
-
-
-
-
-
-
             foreach (string field in subjectTextFieldList.Keys)
             {
                 theMacro.AppendFormat(theBaseImacroCommand, "1", "INPUT:TEXT", "", "", field, "", subjectTextFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
@@ -165,7 +243,14 @@ namespace bpohelper
             {
                 theMacro.AppendFormat(theBaseImacroCommand, "1", "SELECT", "", "", field, "", "%" + subjectSelectionBoxList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
             }
-           
+
+ 
+
+
+
+
+
+
 
 
         }
@@ -177,7 +262,7 @@ namespace bpohelper
             compSelectionBoxList.Add("State", "IL");
             compTextFieldList.Add("Zip", targetComp.Zipcode);
             compTextFieldList.Add("TextBoxPrice", targetComp.CurrentListPrice.ToString());
-            compTextFieldList.Add("Dom", targetComp.DOM);
+       
             compTextFieldList.Add("OriginalListPrice", targetComp.OriginalListPrice.ToString());
             compTextFieldList.Add("OriginalListDate", targetComp.ListDateString);
             compTextFieldList.Add("LastReductionDate", targetComp.DateOfLastPriceChange.ToShortDateString());
@@ -191,7 +276,7 @@ namespace bpohelper
             compTextFieldList.Add("TextBoxStoryNo", targetComp.Levels());
             compTextFieldList.Add("TextBoxNumOutbuildings", "0");
             compTextFieldList.Add("TextBoxYearBuilt", targetComp.YearBuiltString);
-            compTextFieldList.Add("TextBoxSiteAcres", targetComp.Lotsize.ToString());
+            compTextFieldList.Add("TextBoxSiteAcres", Math.Round(targetComp.Lotsize, 2).ToString());
             compSelectionBoxList.Add("ListLocation", "9");
             compTextFieldList.Add("TextBoxViewDesc", "Residential");
             compSelectionBoxList.Add("CompCondition", "9");
@@ -206,7 +291,25 @@ namespace bpohelper
     
             compSelectionBoxList.Add("DropDownListGarageType", helper_GarageTypeTranslate());
 
+            //TextBoxPorchPatioDeck
+            compTextFieldList.Add("TextBoxPorchPatioDeck", "NA");
 
+            //TextBoxListingComments
+            //TextBoxRecentSaleComments
+            compTextAreaList.Add("TextBoxListingComments", "Similar size, age, style, features, condition and neighborhood as subject.");
+            compTextAreaList.Add("TextBoxRecentSaleComments", "Similar size, age, style, features, condition and neighborhood as subject.");
+
+
+            if (saleOrListFlag == "sale")
+            {
+                //TextBoxSalePrice
+                compTextFieldList.Add("TextBoxSalePrice", targetComp.SalePrice.ToString());
+
+                //TextBoxSaleSoldDate5
+                compTextFieldList.Add("TextBoxSaleSoldDate", targetComp.SalesDate.ToShortDateString());
+                compTextFieldList.Add("TextBoxSaleDom", targetComp.DOM);
+            }
+           
 
 
 
@@ -252,7 +355,11 @@ namespace bpohelper
             {
                 theMacro.AppendFormat(theBaseImacroCommand, "1", "SELECT", "", "", field, webformCompName, "%" + compSelectionBoxList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
             }
-           
+
+            foreach (string field in compTextAreaList.Keys)
+            {
+                theMacro.AppendFormat(theBaseImacroCommand, "1", "TEXTAREA", "", "", field, webformCompName, "" + compTextAreaList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+            }
 
         }
 
@@ -355,182 +462,75 @@ namespace bpohelper
 
         public void Prefill(iMacros.App iim, Form1 form)
         {
-
-
-
             theMacro.Clear();
             theMacro.AppendLine(@"SET !ERRORIGNORE YES");
             theMacro.AppendLine(@"SET !TIMEOUT_STEP 0");
             theMacro.AppendLine(@"SET !REPLAYSPEED FAST");
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListOccupancy CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=3 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListImprovementComparedToNeighId CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=3 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListlocalEconomyId CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListEmploymentRateChangeId CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListsalesPriceChangeId CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListNeighborhoodMarketingDays CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=3 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListNeighborhoodListingSupplyId CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListREODrivenMarketFlag CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListFinancingAvailFlag CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListHOA CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListListedLast12Months CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListCurrentlyListed CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListSoldLast5Years CONTENT=YES");
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$RadioButtonListlistingPctChangeId CONTENT=YES");
+            string subComments = "The subject is a conforming home within the neighborhood. No adverse conditions were noted at the time of inspection based on exterior observations. Unable to determine interior condition due to exterior inspection only, so subject was assumed to be in average condition for this report.";
+
+            theMacro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$TextBoxSubjectComments CONTENT=" + subComments.Replace(" ", "<SP>"));
 
             GenerateSubjectFillScript();
 
-
-
-
-            //subjectFieldList.Add(subjectFieldListTranslator["ParcelID"], GlobalVar.theSubjectProperty.ParcelID);
-            //subjectFieldList.Add(subjectFieldListTranslator["County"], GlobalVar.theSubjectProperty.County);
-            //subjectFieldList.Add(subjectFieldListTranslator["AboveGLA"], GlobalVar.theSubjectProperty.MainForm.SubjectAboveGLA);
-
-
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.OwnerOfPublicRecords), GlobalVar.theSubjectProperty.MainForm.SubjectOOR);
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.Groups.LivingArea, WebFormFieldNames.LivingAreaFields.Gross), GlobalVar.theSubjectProperty.MainForm.SubjectAboveGLA);
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.Age ), GlobalVar.theSubjectProperty.Age.ToString());
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.LotSize), GlobalVar.theSubjectProperty.MainForm.SubjectLotSize);
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.Site), "1");
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.TotalRooms), GlobalVar.theSubjectProperty.MainForm.SubjectRoomCount);
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.BedRooms), GlobalVar.theSubjectProperty.MainForm.SubjectBedroomCount);
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.FullRooms), GlobalVar.theSubjectProperty.FullBathCount);
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.PartialRooms), GlobalVar.theSubjectProperty.HalfBathCount);
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.DesignStyle), "Typical");
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.View), "Residential");
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.NumberOfUnits), "1");
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.Groups.Basement, WebFormFieldNames.BasementFields.TotalArea), GlobalVar.theSubjectProperty.MainForm.SubjectBasementGLA);
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.Groups.SquareFeet, WebFormFieldNames.SquareFeetFields.Finished), GlobalVar.theSubjectProperty.MainForm.SubjectBasementFinishedGLA);
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.Garage), GlobalVar.theSubjectProperty.MainForm.SubjectParkingType);
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.ParkingStalls), GlobalVar.theSubjectProperty.GarageStallCount);
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.Amenities, WebFormFieldNames.AmenitiesFields.Pool), "Unk");
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.Amenities, WebFormFieldNames.Groups.Other, WebFormFieldNames.OtherFields.type), "Unk");
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.InspectionDate), GlobalVar.theSubjectProperty.InspectionDate());
-            ////subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.LandAndStructure, WebFormFieldNames.LandAndStructureFields.SourceOfFunds), "NA");
-            ////if (!String.IsNullOrWhiteSpace(GlobalVar.theSubjectProperty.MainForm.SubjectAssessmentInfo.amount))
-            ////{
-            ////    subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.GeneralProperties, WebFormFieldNames.GeneralPropertiesFields.HOA, WebFormFieldNames.HOAFields.Fee, WebFormFieldNames.FeeFields.Amount ), GlobalVar.theSubjectProperty.MainForm.SubjectAssessmentInfo.amount);
-            ////}
-
-            ////      private string theBaseImacroCommand = "TAG POS={0} TYPE={1} FORM=ACTION:PWSEdit* ATTR=NAME:*{2}{3}{4}{5} CONTENT={6}\r\n";
-
-            //foreach (string field in subjectFieldList.Keys)
-            //{
-            //    theMacro.AppendFormat(theBaseImacroCommand, "1", "INPUT:TEXT", "", "", "", field, subjectFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
-            //}
-
-           // subjectFieldList.Clear();
-           // int x = (int)WebFormSelectionBoxes.DataSourceSelections.MLS;
-           // subjectFieldList.Add(subjectFieldListTranslator["DataSource"], x.ToString());
-           //// subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.Condition), x.ToString());
-
-           // foreach (string field in subjectFieldList.Keys)
-           // {
-           //     theMacro.AppendFormat(theBaseImacroCommand, "1", "SELECT", "", "", "", field.Replace("_", "<SP>"), "%" + subjectFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
-           // }
-
-            //subjectFieldList.Clear();
-            //if (GlobalVar.theSubjectProperty.MainForm.SubjectAttached)
-            //{
-            //    subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.PropertyType), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.PropertyTypes.Condo));
-            //    theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.SubjectLandValue CONTENT=0");
-     
-
-            //}
-            //else
-            //{
-            //    subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.PropertyType), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.PropertyTypes.SFR));
-            //    theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.SubjectLandValue CONTENT=10000");
-            //}
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.Construction), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.YesNo.No));
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.ImpactedByDiaster), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.YesNo.No));
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.Occupancy), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.OccupancyTypes.Unknown));
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.Inspection), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.InspectionTypes.Exterior));
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.CurrentListing), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.CurrentListingTypes.No));
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.SalesProperties, WebFormFieldNames.Groups.PreviousListings, WebFormFieldNames.PreviousListingsFields.PreviouslyListed), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.YesNo.No));
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.Location), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.LocationTypes.Suburban));
-            //foreach (string field in subjectFieldList.Keys)
-            //{
-            //    theMacro.AppendFormat(theBaseImacroCommand, subjectFieldList[field], "INPUT:CHECKBOX", "Subject", "", "", field.Replace("_", "<SP>"), "YES");
-            //}
-
-            ////
-            ////Neighborhood Checkboxes
-            ////
-            //subjectFieldList.Clear();
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.Predominant, WebFormFieldNames.PredominantFields.PriceTrend, WebFormFieldNames.PriceTrendFields.Direction), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.PropertyValues.Stable));
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.Groups.Predominant, WebFormFieldNames.PredominantFields.Occupancy), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.PredominantOccupancy.Owner));
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.Industrydistance), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.YesNo.No));
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.Vacancy), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.VacancyTypes.percent5_10));
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.NewConstruction), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.YesNo.No));
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.EvidenceForDiaster), helper_CorrectCheckBoxTagNumber(WebCheckBoxGroups.YesNo.No));
-            //foreach (string field in subjectFieldList.Keys)
-            //{
-            //    theMacro.AppendFormat(theBaseImacroCommand, subjectFieldList[field], "INPUT:CHECKBOX", "Neighborhood", "", "", field.Replace("_", "<SP>"), "YES");
-            //}
-
-            ////
-            ////Neighborhood TEXT
-            ////
-            //subjectFieldList.Clear();
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.MedianMarketRent), GlobalVar.theSubjectProperty.MainForm.SubjectRent);
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.REOPercentage), "Stable");
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.MarketTimingTrend), "Stable");
-            //foreach (string field in subjectFieldList.Keys)
-            //{
-            //    theMacro.AppendFormat(theBaseImacroCommand, "1", "INPUT:TEXT", "Neighborhood", "", "", field, subjectFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
-            //}
-
-            ////
-            ////Neighborhood SELECT
-            ////
-            //subjectFieldList.Clear();
-            //subjectFieldList.Add(helper_MakeCommandString(WebFormFieldNames.CommonFields.AverageMarketTime), "0-3 Months");
-            //foreach (string field in subjectFieldList.Keys)
-            //{
-            //    theMacro.AppendFormat(theBaseImacroCommand, "1", "SELECT", "Neighborhood", "", "", field.Replace("_", "<SP>"), "%" + subjectFieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
-            //}
-
-            ////
-            ////Neighborhood stats
-            ////
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Listings.NeighborhoodListings CONTENT=" + form.SubjectNeighborhood.numberActiveListings);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PricesFrom CONTENT=" + form.SubjectNeighborhood.minListPrice);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PricesTo CONTENT=" + form.SubjectNeighborhood.highListPrice);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.ComparableListingSupply CONTENT=" + form.SubjectNeighborhood.numberOfSales);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Construction.LowPrice CONTENT=" + form.SubjectNeighborhood.minSalePrice);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Construction.HighPrice CONTENT=" + form.SubjectNeighborhood.maxSalePrice);
-
-
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.ASIS.MarketValue CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectMarketValue);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.ASIS.SuggestedListPrice CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectMarketValueList);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.MarketValue CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectMarketValue);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.SuggestedListPrice CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectMarketValueList);
-
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.ASIS.MarketValue CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectQuickSaleValue);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.ASIS.SuggestedListPrice CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectQuickSaleValue);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.Repaired.MarketValue CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectQuickSaleValue);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.Repaired.SuggestedListPrice CONTENT=" + GlobalVar.theSubjectProperty.MainForm.SubjectQuickSaleValue);
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.ASIS.FairMarketRent CONTENT=" + GlobalVar.theSubjectProperty.MainForm.RoundTo50(GlobalVar.theSubjectProperty.MainForm.SubjectRent)).ToString();
-
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=NAME:bpomainform ATTR=NAME:signaturefile CONTENT=" + GlobalVar.theSubjectProperty.MainForm.DropBoxFolder +   "\\BPOs\\Dawn-sig.JPG");
-      
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:BUTTON FORM=NAME:bpomainform ATTR=NAME:signatureupload");
-
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Vendor.FullName CONTENT=Dawn<SP>Zurick");
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Vendor.License.Date CONTENT=" + DateTime.Now.ToShortDateString());
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Vendor.License.Number CONTENT=471.0096163");
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Vendor.License.State CONTENT=IL");
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Vendor.Company.Name CONTENT=OKRP");
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Vendor.PhoneNo CONTENT=815-315-0203");
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Vendor.Address.Address CONTENT=10325<SP>Main");
-
-            //theMacro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Reconciliation.FinalComments CONTENT=This<SP>evaluation<SP>was<SP>prepared<SP>by<SP>a<SP>licensed<SP>real<SP>estate<SP>broker<SP>and<SP>is<SP>not<SP>an<SP>appraisal.<SP>This<SP>evaluation<SP>cannot<SP>be<SP>used<SP>for<SP>the<SP>purpose<SP>of<SP>obtaining<SP>financing.<BR><LF>Notwithstanding<SP>any<SP>preprinted<SP>language<SP>to<SP>the<SP>contrary,<SP>this<SP>is<SP>not<SP>an<SP>appraisal<SP>of<SP>the<SP>market<SP>value<SP>of<SP>the<SP>property.<SP>If<SP>an<SP>appraisal<SP>is<SP>desired,<SP>the<SP>services<SP>of<SP>a<SP>licensed<SP>or<SP>certified<SP>appraiser<SP>must<SP>be<SP>obtained.");
-
-
-       
             WriteScript(GlobalVar.theSubjectProperty.MainForm.SubjectFilePath, "prefill.iim", theMacro);
 
             string macroCode = theMacro.ToString();
             iim.iimPlayCode(macroCode, 60);
         }
 
-
-
         public void CompFill(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
         {
-
+            saleOrListFlag = saleOrList;
             GenerateCompFillScript(compNum);
             WriteScript(fieldList["filepath"], compNum + ".iim", theMacro);
 
             string macroCode = theMacro.ToString();
             iim.iimPlayCode(macroCode, 60);
         }
+
+        public void UploadPics(iMacros.App iim)
+        {
+            StringBuilder macro = new StringBuilder();
+
+
+
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:PropertyWorkShopImages.aspx?SubjectProjectId=455624 ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$DataListNewImages$ctl01$DropDownListImageLabel CONTENT=%1");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:PropertyWorkShopImages.aspx?SubjectProjectId=455624 ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$DataListNewImages$ctl01$DropDownListImageView CONTENT=%1");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ACTION:PropertyWorkShopImages.aspx?SubjectProjectId=455624 ATTR=NAME:NewImageProminent CONTENT=YES");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PropertyWorkShopImages.aspx?SubjectProjectId=455624 ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$DataListNewImages$ctl01$FileUpload1 CONTENT=C:\fakepath\Photo<SP>May<SP>03,<SP>9<SP>18<SP>15<SP>AM.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:PropertyWorkShopImages.aspx?SubjectProjectId=455624 ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$DataListNewImages$ctl02$DropDownListImageLabel CONTENT=%1");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:PropertyWorkShopImages.aspx?SubjectProjectId=455624 ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$DataListNewImages$ctl02$DropDownListImageView CONTENT=%2");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PropertyWorkShopImages.aspx?SubjectProjectId=455624 ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$DataListNewImages$ctl02$FileUpload1 CONTENT=C:\fakepath\Photo<SP>May<SP>03,<SP>9<SP>18<SP>21<SP>AM.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:PropertyWorkShopImages.aspx?SubjectProjectId=455624 ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$DataListNewImages$ctl03$DropDownListImageLabel CONTENT=%1");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ACTION:PropertyWorkShopImages.aspx?SubjectProjectId=455624 ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$DataListNewImages$ctl03$DropDownListImageView CONTENT=%7");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:PropertyWorkShopImages.aspx?SubjectProjectId=455624 ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$DataListNewImages$ctl03$FileUpload1 CONTENT=C:\fakepath\Photo<SP>May<SP>03,<SP>9<SP>18<SP>04<SP>AM.jpg");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:PropertyWorkShopImages.aspx?SubjectProjectId=455624 ATTR=NAME:ctl00$ContentPlaceHolderWorkShopPage$ButtonUploadImages");
+            string macroCode = macro.ToString();
+            iim.iimPlayCode(macroCode, 60);
+        }
+
+
+
+
+
+
+
+
+
+            
     }
 }

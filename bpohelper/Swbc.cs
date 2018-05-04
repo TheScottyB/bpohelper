@@ -11,13 +11,18 @@ namespace bpohelper
     {
         protected Dictionary<string, string> typeTranslation = new Dictionary<string, string>()
         {
-            {"1 Story", "1 Story"},{"Raised Ranch", "1 Story"},{"Coach House", "1 Story"},{"Hillside", "1 Story"},{"2 Stories", "2 Story"},{"1.5 Story", "1.5 Story"},{"Split Level", "Multilevel"},{ @"Split Level w/Sub", "Multilevel"}
+          {"1 Story", "1 Story"}, {"Raised Ranch", "1 Story"},{"Coach House", "1 Story"},{"Hillside", "1 Story"},{"2 Stories", "2 Story"},{"1.5 Story", "1.5 Story"},{"Split Level", "Multilevel"},{ @"Split Level w/Sub", "Multilevel"}
 
         };
 
-        protected Dictionary<string, string> GarageTypeTranslation = new Dictionary<string, string>()
+        protected Dictionary<string, string> garageTypeTranslation = new Dictionary<string, string>()
             {
-                {"0", "None"}, {"1", "1 Car"},  {"None", "None"},  {"2", "2 Car"}, {"3", "3 Car"}, {"4", "4 Car"}, {"", "None"}, 
+                {"0", "None"}, {"1", "1 Car"},  {"None", "None"},  {"2", "2 Car"}, {"3", "3 Car"}, {"4", "4 Car"}, {"", "None"}
+            };
+
+        protected Dictionary<string, string> bpoTypeTranslation = new Dictionary<string, string>()
+            {
+               {"Exterior", "Exterior BPO"}, {"Interior", "Interior BPO"}, {"", ""}
             };
 
         public SWBC()
@@ -66,7 +71,8 @@ namespace bpohelper
 
             //1: order info
             commands.Add(1.0, new string[] { "1", inputType[elem.TEXT], "CMA_INSPECTION_DATE", DateTime.Now.ToShortDateString() });
-            commands.Add(1.1, new string[] { "1", inputType[elem.SELECT], "VALUATION_TYPE", "%Interior<SP>BPO" });
+            
+            commands.Add(1.1, new string[] { "1", inputType[elem.SELECT], "VALUATION_TYPE", "%" + bpoTypeTranslation[callingForm.comboBoxBpoType.Text] });
             commands.Add(1.2, new string[] { "1", inputType[elem.TEXT], "BROKER_FULL_NAME", "Scott Beilfuss" });
             commands.Add(1.3, new string[] { "1", inputType[elem.TEXT], "BROKER_COMPANY", "OKRP" });
 
@@ -149,8 +155,8 @@ namespace bpohelper
             commands.Add(5.1, new string[] { "1", inputType[elem.TEXT], "SALES_SUBJ_SUBDIVISION", callingForm.subjectSubdivisionTextbox.Text });
             //SALES_SUBJ_SITE
             commands.Add(5.2, new string[] { "1", inputType[elem.TEXT], "SALES_SUBJ_SITE", callingForm.SubjectLotSize });
-            commands.Add(5.3, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_PROPERTY_TYPE", "%Single<SP>Family"  });
-            commands.Add(5.35, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_DESIGN", "%" + typeTranslation[callingForm.SubjectMlsType] });
+         //   commands.Add(5.3, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_PROPERTY_TYPE", "%Single<SP>Family"  });
+          //  commands.Add(5.35, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_DESIGN", "%" + typeTranslation[callingForm.SubjectMlsType] });
 
             //SALES_SUBJ_EXTERIOR'
             commands.Add(5.4, new string[] { "1", inputType[elem.TEXT], "SALES_SUBJ_EXTERIOR", callingForm.SubjectExteriorFinish });
@@ -167,7 +173,7 @@ namespace bpohelper
             //SALES_SUBJ_BSMT_FINISHED'
             commands.Add(5.14, new string[] { "1", inputType[elem.TEXT], "SALES_SUBJ_BSMT_FINISHED", callingForm.SubjectBasementFinishedGLA });
             //TODO:  Translation table for garage
-            commands.Add(5.15, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_GAR_CPT", "%" + GarageTypeTranslation[GlobalVar.theSubjectProperty.GarageStallCount] });
+            commands.Add(5.15, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_GAR_CPT", "%" + garageTypeTranslation[GlobalVar.theSubjectProperty.GarageStallCount] });
             commands.Add(5.16, new string[] { "1", inputType[elem.SELECT], "SALES_SUBJ_FENCE_POOL", "%None" });
 
             //6: Broker info
@@ -320,9 +326,9 @@ namespace bpohelper
             commands.Add(12, new string[] { "1", inputType[elem.TEXT], "SUBDIVISION", targetComp.Subdivision });
             commands.Add(13, new string[] { "1", inputType[elem.TEXT], "SITE", targetComp.Lotsize.ToString() });
             //LISTS_COMP1_PROPERTY_TYPE
-            commands.Add(14, new string[] { "1", inputType[elem.SELECT], "PROPERTY_TYPE", "%Single Family" });
+       //     commands.Add(14, new string[] { "1", inputType[elem.SELECT], "PROPERTY_TYPE", "%Single Family" });
             //LISTS_COMP1_DESIGN
-            commands.Add(15, new string[] { "1", inputType[elem.SELECT], "DESIGN", "%" + typeTranslation[targetComp.Type] });
+        //    commands.Add(15, new string[] { "1", inputType[elem.SELECT], "DESIGN", "%" + typeTranslation[targetComp.Type] });
             //LISTS_COMP1_EXTERIOR
             commands.Add(16, new string[] { "1", inputType[elem.TEXT], "EXTERIOR", targetComp.ExteriorMlsString });
             commands.Add(17, new string[] { "1", inputType[elem.TEXT], "AGE", targetComp.Age.ToString() });
@@ -336,7 +342,7 @@ namespace bpohelper
             commands.Add(24, new string[] { "1", inputType[elem.TEXT], "BSMT_SQFT", targetComp.BasementGLA() });
             commands.Add(25, new string[] { "1", inputType[elem.TEXT], "BSMT_FINISHED", targetComp.BasementGLA() });
             //GAR_CPT
-            commands.Add(26, new string[] { "1", inputType[elem.SELECT], "GAR_CPT", "%" + GarageTypeTranslation[targetComp.NumberGarageStalls()] });
+            commands.Add(26, new string[] { "1", inputType[elem.SELECT], "GAR_CPT", "%" + garageTypeTranslation[targetComp.NumberGarageStalls()] });
             commands.Add(27, new string[] { "1", inputType[elem.SELECT], "FENCE_POOL", "%None" });
 
             //commands.Add(4, new string[] { "1", inputType[elem.TEXT], "PRICE_REDUCTION_COUNT", targetComp.NumberOfPriceChanges.ToString() });

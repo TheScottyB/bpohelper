@@ -7,10 +7,36 @@ using System.Text.RegularExpressions;
 namespace bpohelper
 {
 
-    
 
-    class GoodmanDean       
+
+    class GoodmanDean : BPOFulfillment    
     {
+
+             public GoodmanDean()
+        {
+            subject = GlobalVar.theSubjectProperty;
+            callingForm = GlobalVar.mainWindow;
+        }
+
+             public GoodmanDean(MLSListing m) 
+            : this()
+        {
+            targetComp = m;
+        }
+             private SubjectProperty subject;
+
+
+        enum elem { TEXT, SELECT, TEXTAREA, RADIO };
+
+         private  Dictionary<elem, string> inputType = new Dictionary<elem, string>()
+        {
+            {elem.TEXT, "INPUT:TEXT"},{elem.SELECT, "SELECT"}, {elem.TEXTAREA, "TEXTAREA"}, {elem.RADIO, "INPUT:RADIO"}
+        };
+
+    
+        private Dictionary<int, MLSListing> stack;
+
+        private Form1 callingForm;
 
        
 
@@ -34,8 +60,6 @@ namespace bpohelper
             //
             //eval2form
             //
-            
-
             if (form.SubjectDetached)
             {
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblPropType_0&&VALUE:SFR CONTENT=YES");
@@ -45,6 +69,10 @@ namespace bpohelper
             {
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblPropType_1&&VALUE:CONDO CONTENT=YES");
             }
+
+            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:aspnetForm ATTR=NAME:ctl00$ContentPlaceHolder1$rblTransferHistSubjYN CONTENT=YES");
+            macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:aspnetForm ATTR=NAME:ctl00$ContentPlaceHolder1$txtPropComment CONTENT=No<SP>data.");
+
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_txtZoningDesignation CONTENT=SFR");
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblOccupancy_3&&VALUE:UNKNOWN CONTENT=YES");
             macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_ddlProjectedUse CONTENT=%Residential");
@@ -57,10 +85,10 @@ namespace bpohelper
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_mkLocalEconomyRbl_0&&VALUE:OVER<SP>75% CONTENT=YES");
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_mkNeighborHoodValuesRbl_1&&VALUE:STABLE CONTENT=YES");
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblOneUnitTrendsValue_1&&VALUE:STABLE CONTENT=YES");
-            macro.AppendLine(@"TAG POS=1 TYPE=LABEL FORM=ID:aspnetForm ATTR=TXT:Shortage");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_mkHousingSupplyRbl_0&&VALUE:SHORTAGE CONTENT=YES");
-            macro.AppendLine(@"TAG POS=1 TYPE=LABEL FORM=ID:aspnetForm ATTR=TXT:Under<SP>3<SP>mths");
-            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblOneUnitTrendsMktTime_0&&VALUE:UNDER<SP>3<SP>MOS. CONTENT=YES");
+
+            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:aspnetForm ATTR=NAME:ctl00$ContentPlaceHolder1$mkHousingSupplyRbl CONTENT=YES");
+            macro.AppendLine(@"TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:aspnetForm ATTR=NAME:ctl00$ContentPlaceHolder1$rblOneUnitTrendsMktTime CONTENT=YES");
+
             macro.AppendLine(@"TAG POS=1 TYPE=INPUT:RADIO FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_rblMarketingTimeTrends_1&&VALUE:STABLE CONTENT=YES");
 
             macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_txtPosFeaCom CONTENT=market<SP>conditions");
@@ -159,6 +187,52 @@ namespace bpohelper
                 macro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=ID:aspnetForm ATTR=ID:ctl00_ContentPlaceHolder1_txtPropRepairedSalePrice CONTENT=" + form.SubjectMarketValue);
 
 
+            }
+
+            Dictionary<double, string[]> commands = new Dictionary<double, string[]>();
+
+            commands.Add(0, new string[] { "1", inputType[elem.TEXT], "txtNeighborhoodValuesLow", callingForm.subjectNeighborhood.minSalePrice.ToString() });
+            commands.Add(1, new string[] { "1", inputType[elem.TEXT], "txtNeighborhoodValuesHigh", callingForm.subjectNeighborhood.maxSalePrice.ToString() });
+            commands.Add(2, new string[] { "1", inputType[elem.TEXT], "txtNeighborhoodValuesPred", callingForm.subjectNeighborhood.medianSalePrice.ToString() });
+            commands.Add(3, new string[] { "1", inputType[elem.TEXT], "txtNeighborhoodValuesLowAge", callingForm.subjectNeighborhood.newestHome.ToString() });
+            commands.Add(4, new string[] { "1", inputType[elem.TEXT], "txtNeighborhoodValuesHighAge", callingForm.subjectNeighborhood.oldestHome.ToString() });
+            commands.Add(5, new string[] { "1", inputType[elem.TEXT], "txtNeighborhoodValuesPredAge", callingForm.subjectNeighborhood.medianAge.ToString() });
+            //txtNumberOfListings
+            commands.Add(6, new string[] { "1", inputType[elem.TEXT], "txtNumberOfListings", callingForm.cdNumberOfActiveListingTextBox.Text});
+            //txtCompValuesLow
+            commands.Add(7, new string[] { "1", inputType[elem.TEXT], "txtCompValuesLow", callingForm.cdMinListPriceTextBox.Text });
+            //txtCompValuesHigh
+            commands.Add(8, new string[] { "1", inputType[elem.TEXT], "txtCompValuesHigh", callingForm.cdMaxListPriceTextBox.Text });
+            //txtCompSalesNumber
+            commands.Add(9, new string[] { "1", inputType[elem.TEXT], "txtCompSalesNumber", callingForm.cdNumberOfSoldListingTextBox.Text });
+            //txtCompSalesValuesLow
+            commands.Add(10, new string[] { "1", inputType[elem.TEXT], "txtCompSalesValuesLow", callingForm.cdMinSalePriceTextBox.Text });
+            //txtCompSalesValuesHigh
+            commands.Add(11, new string[] { "1", inputType[elem.TEXT], "txtCompValuesHigh", callingForm.cdMaxSalePriceTextBox.Text });
+            //txtOVCNCom
+            commands.Add(12, new string[] { "1", inputType[elem.TEXTAREA], "txtOVCNCom", @"Neighbor stats come from 1 mile radius search.  Comp matches and stats come from up to 5 mile radius." });
+            //txtPosFeaCom
+            commands.Add(13, new string[] { "1", inputType[elem.TEXTAREA], "txtPosFeaCom", @"Stable market with declining REO and short sales mostly traditional sales. High demand under 250k, weak above 300k, normal between. Seller concessions are not typical for the area." });
+            //txtPropertyConcessions
+            commands.Add(14, new string[] { "1", inputType[elem.TEXT], "txtPropertyConcessions", "NA" });
+            //txtGeneralCom
+            commands.Add(15, new string[] { "1", inputType[elem.TEXTAREA], "txtGeneralCom", @"Searched a distance of at least 1 miles, up to 12 months in time. The comps bracket the subject in age, SF, and lot size, as well as use comps in same condition with similar features, and from the subjects market area. All the comps are Reasonable substitute for the subject property, similar in most areas. Price opinion was based off comparable statistics." });
+            //txtSubjectConditionAffectingValue
+            commands.Add(16, new string[] { "1", inputType[elem.TEXTAREA], "txtSubjectConditionAffectingValue", @"The subject is a conforming home within the neighborhood. No adverse conditions were noted at the time of inspection based on exterior observations. Unable to determine interior condition due to exterior inspection only, so subject was assumed to be in average condition for this report." });
+            //txtPropAsIsSalePrice
+            commands.Add(17, new string[] { "1", inputType[elem.TEXT], "txtPropAsIsSalePrice", callingForm.SubjectMarketValue });
+            //txtBrokerLicenseDate
+            commands.Add(18, new string[] { "1", inputType[elem.TEXT], "txtBrokerLicenseDate", callingForm.dateTimePickerInspectionDate.Text });
+
+
+
+
+
+
+
+            foreach (var c in commands)
+            {
+                macro.AppendFormat("TAG POS={0} TYPE={1} FORM=ID:aspnetForm ATTR=NAME:*{2} CONTENT={4}\r\n", c.Value[0], c.Value[1], c.Value[2], targetCompNumber, c.Value[3].Replace(" ", "<SP>").Replace("$", "").Replace(",", ""));
             }
 
 

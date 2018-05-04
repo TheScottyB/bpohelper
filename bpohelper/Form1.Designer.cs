@@ -92,6 +92,8 @@
             this.subjectHoaTextBox = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.comboBoxBpoType = new System.Windows.Forms.ComboBox();
+            this.label100 = new System.Windows.Forms.Label();
             this.textBoxMaxCompScore = new System.Windows.Forms.TextBox();
             this.label96 = new System.Windows.Forms.Label();
             this.label95 = new System.Windows.Forms.Label();
@@ -767,8 +769,8 @@
             this.comboBoxSubjectOccupancy.FormattingEnabled = true;
             this.comboBoxSubjectOccupancy.Items.AddRange(new object[] {
             "Occupied",
-            "Occupied by Owner ",
-            "Occupied by Tenant  ",
+            "Occupied by Owner",
+            "Occupied by Tenant",
             "Other",
             "Unknown",
             "Vacant"});
@@ -1090,6 +1092,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Thistle;
+            this.tabPage1.Controls.Add(this.comboBoxBpoType);
+            this.tabPage1.Controls.Add(this.label100);
             this.tabPage1.Controls.Add(this.textBoxMaxCompScore);
             this.tabPage1.Controls.Add(this.label96);
             this.tabPage1.Controls.Add(this.label95);
@@ -1107,9 +1111,32 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Bpo Info";
             // 
+            // comboBoxBpoType
+            // 
+            this.comboBoxBpoType.AutoCompleteCustomSource.AddRange(new string[] {
+            "Exterior",
+            "Interior"});
+            this.comboBoxBpoType.FormattingEnabled = true;
+            this.comboBoxBpoType.Items.AddRange(new object[] {
+            "Exterior",
+            "Interior"});
+            this.comboBoxBpoType.Location = new System.Drawing.Point(40, 17);
+            this.comboBoxBpoType.Name = "comboBoxBpoType";
+            this.comboBoxBpoType.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxBpoType.TabIndex = 155;
+            // 
+            // label100
+            // 
+            this.label100.AutoSize = true;
+            this.label100.Location = new System.Drawing.Point(167, 20);
+            this.label100.Name = "label100";
+            this.label100.Size = new System.Drawing.Size(56, 13);
+            this.label100.TabIndex = 154;
+            this.label100.Text = "BPO Type";
+            // 
             // textBoxMaxCompScore
             // 
-            this.textBoxMaxCompScore.Location = new System.Drawing.Point(3, 99);
+            this.textBoxMaxCompScore.Location = new System.Drawing.Point(9, 96);
             this.textBoxMaxCompScore.Name = "textBoxMaxCompScore";
             this.textBoxMaxCompScore.Size = new System.Drawing.Size(45, 20);
             this.textBoxMaxCompScore.TabIndex = 152;
@@ -1151,7 +1178,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(132, 141);
+            this.button10.Location = new System.Drawing.Point(145, 171);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(176, 72);
             this.button10.TabIndex = 147;
@@ -1518,7 +1545,7 @@
             // 
             // saveSubjectInfoButton
             // 
-            this.saveSubjectInfoButton.Location = new System.Drawing.Point(809, 531);
+            this.saveSubjectInfoButton.Location = new System.Drawing.Point(810, 531);
             this.saveSubjectInfoButton.Name = "saveSubjectInfoButton";
             this.saveSubjectInfoButton.Size = new System.Drawing.Size(80, 49);
             this.saveSubjectInfoButton.TabIndex = 48;
@@ -3276,7 +3303,7 @@
             // 
             // cdMedianListPriceTextBox
             // 
-            this.cdMedianListPriceTextBox.Location = new System.Drawing.Point(452, 93);
+            this.cdMedianListPriceTextBox.Location = new System.Drawing.Point(461, 67);
             this.cdMedianListPriceTextBox.Name = "cdMedianListPriceTextBox";
             this.cdMedianListPriceTextBox.Size = new System.Drawing.Size(75, 20);
             this.cdMedianListPriceTextBox.TabIndex = 46;
@@ -3284,7 +3311,7 @@
             // label89
             // 
             this.label89.AutoSize = true;
-            this.label89.Location = new System.Drawing.Point(307, 16);
+            this.label89.Location = new System.Drawing.Point(178, 17);
             this.label89.Name = "label89";
             this.label89.Size = new System.Drawing.Size(93, 13);
             this.label89.TabIndex = 45;
@@ -3292,9 +3319,9 @@
             // 
             // cdMedianSalePriceTextBox
             // 
-            this.cdMedianSalePriceTextBox.Location = new System.Drawing.Point(325, 41);
+            this.cdMedianSalePriceTextBox.Location = new System.Drawing.Point(181, 33);
             this.cdMedianSalePriceTextBox.Name = "cdMedianSalePriceTextBox";
-            this.cdMedianSalePriceTextBox.Size = new System.Drawing.Size(75, 20);
+            this.cdMedianSalePriceTextBox.Size = new System.Drawing.Size(105, 20);
             this.cdMedianSalePriceTextBox.TabIndex = 44;
             // 
             // label85
@@ -3372,7 +3399,7 @@
             // 
             // cdMaxListPriceTextBox
             // 
-            this.cdMaxListPriceTextBox.Location = new System.Drawing.Point(379, 113);
+            this.cdMaxListPriceTextBox.Location = new System.Drawing.Point(379, 89);
             this.cdMaxListPriceTextBox.Name = "cdMaxListPriceTextBox";
             this.cdMaxListPriceTextBox.Size = new System.Drawing.Size(100, 20);
             this.cdMaxListPriceTextBox.TabIndex = 34;
@@ -3388,7 +3415,7 @@
             // 
             // cdMinListPriceTextBox
             // 
-            this.cdMinListPriceTextBox.Location = new System.Drawing.Point(273, 116);
+            this.cdMinListPriceTextBox.Location = new System.Drawing.Point(276, 88);
             this.cdMinListPriceTextBox.Name = "cdMinListPriceTextBox";
             this.cdMinListPriceTextBox.Size = new System.Drawing.Size(100, 20);
             this.cdMinListPriceTextBox.TabIndex = 32;
@@ -3566,7 +3593,7 @@
             // label64
             // 
             this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(230, 20);
+            this.label64.Location = new System.Drawing.Point(289, 17);
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(78, 13);
             this.label64.TabIndex = 5;
@@ -3574,7 +3601,7 @@
             // 
             // cdMaxSalePriceTextBox
             // 
-            this.cdMaxSalePriceTextBox.Location = new System.Drawing.Point(230, 43);
+            this.cdMaxSalePriceTextBox.Location = new System.Drawing.Point(292, 33);
             this.cdMaxSalePriceTextBox.Name = "cdMaxSalePriceTextBox";
             this.cdMaxSalePriceTextBox.Size = new System.Drawing.Size(100, 20);
             this.cdMaxSalePriceTextBox.TabIndex = 4;
@@ -3582,7 +3609,7 @@
             // label65
             // 
             this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(124, 20);
+            this.label65.Location = new System.Drawing.Point(73, 16);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(75, 13);
             this.label65.TabIndex = 3;
@@ -3590,7 +3617,7 @@
             // 
             // cdMinSalePriceTextBox
             // 
-            this.cdMinSalePriceTextBox.Location = new System.Drawing.Point(124, 43);
+            this.cdMinSalePriceTextBox.Location = new System.Drawing.Point(76, 33);
             this.cdMinSalePriceTextBox.Name = "cdMinSalePriceTextBox";
             this.cdMinSalePriceTextBox.Size = new System.Drawing.Size(100, 20);
             this.cdMinSalePriceTextBox.TabIndex = 2;
@@ -3598,7 +3625,7 @@
             // label66
             // 
             this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(6, 20);
+            this.label66.Location = new System.Drawing.Point(6, 16);
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(54, 13);
             this.label66.TabIndex = 1;
@@ -3606,7 +3633,7 @@
             // 
             // cdAvgDomTextBox
             // 
-            this.cdAvgDomTextBox.Location = new System.Drawing.Point(6, 43);
+            this.cdAvgDomTextBox.Location = new System.Drawing.Point(9, 32);
             this.cdAvgDomTextBox.Name = "cdAvgDomTextBox";
             this.cdAvgDomTextBox.Size = new System.Drawing.Size(40, 20);
             this.cdAvgDomTextBox.TabIndex = 0;
@@ -3737,8 +3764,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox subjectLastSaleDateTextbox;
-        private System.Windows.Forms.TextBox subjectLastSalePriceTextbox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox subjectAboveGlaTextbox;
@@ -3754,7 +3779,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox subjectNumFireplacesTextbox;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox subjectParkingTypeTextbox;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox subjectRentTextbox;
         private System.Windows.Forms.Label label13;
@@ -3839,7 +3863,6 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.TextBox subjectTownshipTextBox;
         private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.TextBox subjectTaxAmountTextBox;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.RichTextBox queryRichTextBox;
         private System.Windows.Forms.Label label39;
@@ -3904,7 +3927,6 @@
         private System.Windows.Forms.Label label56;
         private System.Windows.Forms.TextBox cdNumberSoldReoListingsTextBox;
         private System.Windows.Forms.Label label57;
-        private System.Windows.Forms.TextBox cdNumberOfSoldListingTextBox;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label60;
@@ -3913,20 +3935,15 @@
         private System.Windows.Forms.Label label62;
         private System.Windows.Forms.TextBox cdNumberActiveReoListingsTextBox;
         private System.Windows.Forms.Label label63;
-        private System.Windows.Forms.TextBox cdNumberOfActiveListingTextBox;
         private System.Windows.Forms.Label label64;
-        private System.Windows.Forms.TextBox cdMaxSalePriceTextBox;
         private System.Windows.Forms.Label label65;
-        private System.Windows.Forms.TextBox cdMinSalePriceTextBox;
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.TextBox cdAvgDomTextBox;
         private System.Windows.Forms.CheckBox ndPreserveData;
         private System.Windows.Forms.CheckBox cdPreserveData;
         private System.Windows.Forms.Label label70;
         private System.Windows.Forms.Label label71;
-        private System.Windows.Forms.TextBox cdMaxListPriceTextBox;
         private System.Windows.Forms.Label label72;
-        private System.Windows.Forms.TextBox cdMinListPriceTextBox;
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Label label74;
         private System.Windows.Forms.Label label67;
@@ -3952,9 +3969,7 @@
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.TextBox ndMedianAgeTextBox;
         private System.Windows.Forms.Label label88;
-        private System.Windows.Forms.TextBox cdMedianListPriceTextBox;
         private System.Windows.Forms.Label label89;
-        private System.Windows.Forms.TextBox cdMedianSalePriceTextBox;
         private System.Windows.Forms.Label label86;
         private System.Windows.Forms.TextBox ndMedianListPriceTextBox;
         private System.Windows.Forms.Label label87;
@@ -4039,6 +4054,20 @@
         public System.Windows.Forms.TextBox subjectSubdivisionTextbox;
         public System.Windows.Forms.TextBox subjectHoaTextBox;
         public System.Windows.Forms.TextBox subjectHoaFrequencyTextBox;
+        public System.Windows.Forms.ComboBox comboBoxBpoType;
+        private System.Windows.Forms.Label label100;
+        public System.Windows.Forms.TextBox cdNumberOfSoldListingTextBox;
+        public System.Windows.Forms.TextBox cdNumberOfActiveListingTextBox;
+        public System.Windows.Forms.TextBox cdMinSalePriceTextBox;
+        public System.Windows.Forms.TextBox cdMaxSalePriceTextBox;
+        public System.Windows.Forms.TextBox cdMedianSalePriceTextBox;
+        public System.Windows.Forms.TextBox cdMaxListPriceTextBox;
+        public System.Windows.Forms.TextBox cdMinListPriceTextBox;
+        public System.Windows.Forms.TextBox cdMedianListPriceTextBox;
+        public System.Windows.Forms.TextBox subjectTaxAmountTextBox;
+        public System.Windows.Forms.TextBox subjectParkingTypeTextbox;
+        public System.Windows.Forms.TextBox subjectLastSaleDateTextbox;
+        public System.Windows.Forms.TextBox subjectLastSalePriceTextbox;
     }
 
 }

@@ -59,7 +59,6 @@ namespace bpohelper
 
         }
 
-
         public string ReportType(iMacros.App iim)
         {
             StringBuilder macro = new StringBuilder();
@@ -422,6 +421,183 @@ namespace bpohelper
 
             string macroCode = macro.ToString();
              iim.iimPlayCode(macroCode, 60);
+        }
+    }
+
+    class Exceleras : Dispo
+    {
+        public void CompFill(iMacros.App iim, string saleOrList, string compNum, Dictionary<string, string> fieldList)
+        {
+            string[] compList = new string[6] { "0", "1", "2", "3", "4", "5" };
+            string sol;
+            if (saleOrList == "sale")
+            {
+                sol = "Sales";
+            }
+            else
+            {
+                sol = "Listing";
+            }
+            StringBuilder move = new StringBuilder();
+            move.AppendLine(@"SET !ERRORIGNORE YES");
+            move.AppendLine(@"SET !REPLAYSPEED FAST");
+            move.AppendLine(@"ONDIALOG POS=1 BUTTON=YES");
+            move.AppendLine(@"ONDIALOG POS=2 BUTTON=YES");
+          
+            if (sol == "Sales")
+            {
+                move.AppendLine(@"ONSCRIPTERROR CONTINUE=YES");
+                move.AppendLine(@"TAG POS=1 TYPE=IMG ATTR=SRC:https://www.exceleras.com/images/agtSubTab-CompListings_136x16_off.gif");
+                switch (compNum)
+                {
+                    
+                    case "0":
+                        move.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:compnbrform ATTR=NAME:listing CONTENT=%1");
+                        break;
+                    case "1":
+                        move.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:compnbrform ATTR=NAME:listing CONTENT=%2");                      
+                        break;
+                    case "2":
+                        move.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:compnbrform ATTR=NAME:listing CONTENT=%3");
+                        break;
+                }
+            }
+            else
+            {
+                switch (compNum)
+                {
+                    case "0":
+                        move.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:LISTING<SP>COMPS");
+                        break;
+                    case "1":
+                        move.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:LISTING<SP>COMPS");
+                        move.AppendLine(@"TAG POS=1 TYPE=SELECT ATTR=ID:ComparableOrRentalSelect CONTENT=%1");
+                        break;
+                    case "2":
+                        move.AppendLine(@"TAG POS=1 TYPE=A ATTR=TXT:LISTING<SP>COMPS");
+                        move.AppendLine(@"TAG POS=1 TYPE=SELECT ATTR=ID:ComparableOrRentalSelect CONTENT=%2");
+                        break;
+
+                }
+
+            }
+
+
+            string moveCode = move.ToString();
+            iim.iimPlayCode(moveCode, 60);
+
+
+            StringBuilder macro = new StringBuilder();
+            macro.AppendLine(@"SET !ERRORIGNORE YES");
+            macro.AppendLine(@"SET !TIMEOUT_STEP 0");
+            macro.AppendLine(@"SET !REPLAYSPEED FAST");
+
+            macro.AppendLine(@"WAIT SECONDS=1");
+
+            foreach (string field in fieldList.Keys)
+            {
+                if (field.Contains("*"))
+                {
+                    //drop down box
+                    foreach (string s in compList)
+                    {
+                        //                       macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:Comparables_3__Garages_DetachedCarCountType CONTENT=%2<SP>cars");
+
+                        // macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:Comparables_2__StyleType CONTENT=%Multilevel");
+                        //ClosingDetails_ClosingDate
+                        macro.AppendFormat("TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:*Comparables_{0}__{1} CONTENT=%{2}\r\n", s, field.Replace("*", ""), fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                        // macro.AppendFormat("TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:Comparables_{0}__{1} CONTENT=%{2}\r\n", s, field.Replace("*", ""), fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    }
+
+
+
+
+                }
+                else
+                {
+                    //0
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:{2}Comparables_{0}__{1} CONTENT={3}\r\n", "0", field, sol, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:Comparables_{0}__{1} CONTENT={2}\r\n", "0", field, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    //1
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:{2}Comparables_{0}__{1} CONTENT={3}\r\n", "1", field, sol, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:Comparables_{0}__{1} CONTENT={2}\r\n", "1", field, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    //2
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:{2}Comparables_{0}__{1} CONTENT={3}\r\n", "2", field, sol, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:Comparables_{0}__{1} CONTENT={2}\r\n", "2", field, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    //3
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:{2}Comparables_{0}__{1} CONTENT={3}\r\n", "3", field, sol, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:Comparables_{0}__{1} CONTENT={2}\r\n", "3", field, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+
+                    //4
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:{2}Comparables_{0}__{1} CONTENT={3}\r\n", "4", field, sol, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:Comparables_{0}__{1} CONTENT={2}\r\n", "4", field, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+
+                    //5
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:{2}Comparables_{0}__{1} CONTENT={3}\r\n", "5", field, sol, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+                    macro.AppendFormat("TAG POS=1 TYPE=INPUT:TEXT FORM=ID:form0 ATTR=ID:Comparables_{0}__{1} CONTENT={2}\r\n", "5", field, fieldList[field].Replace(",", "").Replace("$", "").Replace(" ", "<SP>"));
+
+                }
+            }
+
+            //
+            //Checkboxes
+            //
+            //Siding
+
+
+            macro.AppendLine(@"TAG POS=1 TYPE=SPAN ATTR=TXT:close");
+
+
+            //foreach (string s in compList)
+            //{
+            //    compNum = s;
+
+            macro.AppendLine("TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ID:form0 ATTR=ID:*HasAluminumOrVinyl* CONTENT=YES");
+            //BasementType
+            if (fieldList["BasementType"].ToLower().Contains("full"))
+            {
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ID:form0 ATTR=ID:*IsFull* CONTENT=YES");
+            }
+            if (fieldList["BasementType"].ToLower().Contains("partial"))
+            {
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ID:form0 ATTR=ID:*IsPartial* CONTENT=YES");
+            }
+            if (fieldList["BasementType"].ToLower().Contains("walkout"))
+            {
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ID:form0 ATTR=ID:*IsWalkout* CONTENT=YES");
+            }
+            if (fieldList["BasementType"].ToLower().Contains("slab"))
+            {
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ID:form0 ATTR=ID:*IsSlab* CONTENT=YES");
+            }
+            if (fieldList["BasementType"].ToLower().Contains("crawl"))
+            {
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ID:form0 ATTR=ID:*HasCrawlspace* CONTENT=YES");
+            }
+            if ((fieldList["Fireplace"] == "True"))
+            {
+                macro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ID:form0 ATTR=ID:*HasFireplace* CONTENT=YES");
+            }
+
+
+
+            //
+            //Defaults
+            //    
+            macro.AppendLine(@"TAG POS=3 TYPE=INPUT:RADIO FORM=ID:form0 ATTR=ID:*GeneralConditionRatingType* CONTENT=YES");
+            macro.AppendLine(@"TAG POS=3 TYPE=INPUT:RADIO FORM=ID:form0 ATTR=ID:*ConstructionQualityType* CONTENT=YES");
+            macro.AppendLine(@"WAIT SECONDS=1");
+            macro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=ID:form0 ATTR=ID:Comparables*" + compNum + "*PrimaryLocationFactorType CONTENT=%1");
+            macro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=ID:form0 ATTR=ID:Comparables*" + compNum + "*GeneralComments CONTENT=comments");
+            //     }
+
+
+            macro.AppendLine(@"WAIT SECONDS=1");
+            macro.AppendLine(@"TAG POS=1 TYPE=INPUT:SUBMIT ATTR=ID:TopSaveButton&&VALUE:SAVE<SP>THIS<SP>PAGE");
+
+
+            string macroCode = macro.ToString();
+            iim.iimPlayCode(macroCode, 60);
         }
     }
 }

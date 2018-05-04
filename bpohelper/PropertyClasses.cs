@@ -388,6 +388,29 @@ namespace bpohelper
         //Derived Fields: Age, FullBath, HalfBath, GarageStalls, InspecitonDate, BasementFinishedPercentage
         //
         #region Derived Fields
+
+        public bool AttachedGarage
+        {
+            get
+            {
+                if (form.subjectParkingTypeTextbox.Text.ToLower().Contains("gar") && form.subjectParkingTypeTextbox.Text.ToLower().Contains("att"))
+                    return true;
+
+                return false;
+            }
+        }
+
+        public bool DetachedGarage
+        {
+            get
+            {
+                if (form.subjectParkingTypeTextbox.Text.ToLower().Contains("gar") && form.subjectParkingTypeTextbox.Text.ToLower().Contains("det"))
+                    return true;
+
+                return false;
+            }
+        }
+
         public int Age
         {
             get
@@ -421,6 +444,19 @@ namespace bpohelper
                 return Regex.Match(form.SubjectParkingType, @"\d+").Value;
             }
         }
+
+        public string TypeOfMlsListing
+        {
+            get
+            {
+                if (form.SubjectAttached)
+                {
+                    return "Attached";
+                }
+                return "Detached";
+            }
+        }
+
         public string InspectionDate()
         {
              string[] fileEntries = Directory.GetFiles(MainForm.SubjectFilePath);
@@ -429,11 +465,11 @@ namespace bpohelper
                 {
                     if (fileName.ToLower().Contains("jpg") && fileName.Length > 6)
                     {
-                        return Directory.GetLastWriteTime(fileName).ToShortDateString();
+                        return Directory.GetLastWriteTime(fileName).ToString("MM/dd/yyyy");
                     }
                 }
 
-                return DateTime.Now.ToShortDateString();
+                return DateTime.Now.ToString("MM/dd/yyyy");
 
         }
 
@@ -474,6 +510,8 @@ namespace bpohelper
                 return false;
             }
         }
+
+
 
     }
 

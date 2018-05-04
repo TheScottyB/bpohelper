@@ -62,7 +62,9 @@ namespace bpohelper
         {
             targetComp = m;
         }
-        
+
+
+     
         
         private Dictionary<string, string> propTypeTranslator = new Dictionary<string, string>()
          {
@@ -123,10 +125,30 @@ namespace bpohelper
         private void helper_SetCommonFields()
         {
 
+            Dictionary<string, string> financingTypeTranslation = new Dictionary<string, string>()
+            {
+                {"Conventional", @"%Conventional"}, {"FHA", "%FHA/VA"}, {"VA", "%FHA/VA"},  {"Unknown", "%UNKNOWN"}, {"Cash", "%CASH"}
+
+            };
+
+            Dictionary<string, string> saleTypeTranslation = new Dictionary<string, string>()
+            {
+                {"Arms Length", "%OWNER"}, {"REO", "%REO"}, {"ShortSale", "%SHORT"}, {"Unknown", "%UNKNOWN"}
+            };
+
+            Dictionary<string, string> propertyTypeTranslation = new Dictionary<string, string>()
+            {
+                {"Detached", "%SFD"}, {"Attached", "%CO"}
+            };
+
+            Dictionary<string, string> buildingTypeTranslation = new Dictionary<string, string>()
+            {
+                {"1 Story", "%R"},  {"1.5 Story", "%BG"}, {"2 Stories", "%CT"}, {"Hillside", "%SP"}, {"Raised Ranch", "%SP"}, {@"Split Level w/ Sub", "%SP"}, {"Split Level", "%SP"},
+                    {"Condo", "%LR"}, {"Townhouse-2 Story", "%T"}, {"Townhouse", "2story"},  {"Townhouse 3+ Stories", "2story"}, {"Townhouse-TriLevel", "2story"}, {"Townhouse‐Ranch", "1story"}  //Townhouse 3+ Stories, Townhouse-TriLevel
+            };
 
             helper_SetAddressFields();
             
-           
             compSelectionBoxList.Add(compFieldListTranslator["TransactionType"], "%Arm");
 
             //
@@ -147,7 +169,60 @@ namespace bpohelper
             {
                 compSelectionBoxList.Add(compFieldListTranslator["NumberOfPriceReductions"], "%" + targetComp.NumberOfPriceChanges.ToString());
             }
-        
+
+
+            //
+            //04/28/18 updates
+            //
+            //cs1_garage_carport
+            if (targetComp.AttachedGarage())
+            {
+                compSelectionBoxList.Add("garage_carport", "%A");
+            }
+            else if (targetComp.DetachedGarage())
+            {
+                compSelectionBoxList.Add("garage_carport", "%D");
+            }
+            else
+            {
+                compSelectionBoxList.Add("garage_carport", "%N");
+            }
+
+            //ddlCS1PropertyType
+            theMacro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:*" + saleOrListFlag.ToUpper()[0] + targetCompNumber + "PropertyType CONTENT=" + propertyTypeTranslation[targetComp.UniversalLandUse()]);
+
+            //cs1_style
+            compSelectionBoxList.Add("style", buildingTypeTranslation[targetComp.Type]);
+
+            //ddlCS1ViewComparision
+            theMacro.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:*" + saleOrListFlag.ToUpper()[0] + targetCompNumber + "ViewComparision CONTENT=" + "%E");
+
+            //cs1_wastedisp
+            compSelectionBoxList.Add("wastedisp", "%P");
+
+            //cs1_watersource
+            compSelectionBoxList.Add("watersource", "%P");
+
+            //cs1_fireplace
+            compSelectionBoxList.Add("fireplace", "%" + targetComp.NumberOfFireplaces );
+
+            //cs1_owner
+            compSelectionBoxList.Add("owner", saleTypeTranslation[targetComp.TransactionType]);
+
+            //cs1_fin_type
+            compSelectionBoxList.Add("fin_type", financingTypeTranslation[targetComp.FinancingMlsString]);
+
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:aspnetForm ATTR=NAME:*2" + saleOrListFlag[0] + "_most_comparable_yn CONTENT=YES");
+
+            //txtCS1HOAMonthlyFee
+            theMacro.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:*" + saleOrListFlag.ToUpper()[0] + targetCompNumber + "HOAMonthlyFee CONTENT=0");
+
+            //_adjustments
+            theMacro.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:aspnetForm ATTR=NAME:*" + saleOrListFlag[0] + targetCompNumber + "_adjustments CONTENT=" + "Similar size, age, style, features, condition and neighborhood as subject.".Replace(" ", "<SP>"));
+
+            //
+            //
+            //
 
             compSelectionBoxList.Add("lotsize_unit", "%A");
             compSelectionBoxList.Add("gated", "%N");
@@ -171,6 +246,8 @@ namespace bpohelper
             compTextFieldList.Add(compFieldListTranslator["HalfBathCount"], targetComp.HalfBathCount);
             //garage
             compTextFieldList.Add(compFieldListTranslator["NumberOfParkingSpaces"], targetComp.NumberGarageStalls());
+            
+
             //pricing and listing history
             compTextFieldList.Add(compFieldListTranslator["OriginalListPrice"], targetComp.OriginalListPrice.ToString());
             
@@ -278,6 +355,8 @@ namespace bpohelper
             compTextFieldList.Add(compFieldListTranslator["CurrentListPrice"], targetComp.CurrentListPrice.ToString());
             compTextFieldList.Add(compFieldListTranslator["SalePrice"], targetComp.SalePrice.ToString());
             compTextFieldList.Add(compFieldListTranslator["SalesDate"], targetComp.SalesDate.ToShortDateString());
+
+            
 
             foreach (string field in compTextFieldList.Keys)
             {
@@ -456,7 +535,7 @@ namespace bpohelper
             //mainForm.AppendLine(@"TAG POS=1 TYPE=A FORM=NAME:aspnetForm ATTR=TXT:Close");
             mainForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$ddTypeLocation CONTENT=%S");
             mainForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_garage_carport CONTENT=%A");
-            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_garage CONTENT=" + Regex.Match(form.SubjectParkingType, @"/d").Value);
+            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_garage CONTENT=" + Regex.Match(form.SubjectParkingType, @"\d").Value);
             mainForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_parking CONTENT=%D");
             mainForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_style CONTENT=%R");
             mainForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_construction CONTENT=%F");
@@ -469,6 +548,30 @@ namespace bpohelper
             mainForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_watersource CONTENT=%P");
             mainForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_fireplace CONTENT=%0");
             mainForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sub_pool CONTENT=%N");
+
+            //04/28/2018 updates
+            //fixed garage stall count
+            //ctl00$Body$BPOV2B$sale_dt
+            //ctl00$Body$BPOV2B$sale_price
+            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sale_dt CONTENT=" + form.subjectLastSaleDateTextbox.Text);
+            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV*$sale_price CONTENT=" + form.subjectLastSalePriceTextbox.Text);
+            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV2B$asis_value CONTENT=" + form.SubjectMarketValue);
+            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV2B$asis_list_price CONTENT=" + form.SubjectMarketValueList);
+            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV2B$repaired_value CONTENT=" + form.SubjectMarketValue);
+            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV2B$repaired_list_price CONTENT=" + form.SubjectMarketValueList);
+            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV2B$asis_value_quicksale CONTENT=" + form.SubjectQuickSaleValue);
+;
+            mainForm.AppendLine(@"TAB T=1");
+
+            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV2B$lot_value_high CONTENT=15000");
+            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV2B$lot_value_low CONTENT=5000");
+            mainForm.AppendLine(@"TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV2B$txtInspectionDate CONTENT=" + form.dateTimePickerInspectionDate.Value.ToShortDateString());
+            mainForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV2B$ddlInspectionTime CONTENT=%01:00");
+            mainForm.AppendLine(@"TAG POS=1 TYPE=SELECT FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV2B$ddlMeridiem CONTENT=%PM");
+            mainForm.AppendLine(@"TAG POS=1 TYPE=TEXTAREA FORM=NAME:aspnetForm ATTR=NAME:ctl00$Body$BPOV2B$txtRehab CONTENT=No<SP>repairs<SP>noted.");
+
+
+
 
             macro.Append(gotoMarketTab);
             macro.Append(marketForm);
