@@ -1,0 +1,14 @@
+VERSION BUILD=10022823
+TAB T=1
+TAB CLOSEALLOTHERS
+URL GOTO=https://solutionstar.gatorsasp.com/Komodo/report/getBPOForm.action?company_id=12&order_number=02193912
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.ASIS.MarketValue
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.ASIS.SuggestedListPrice
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.MarketValue
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.SuggestedListPrice
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.NormalSale.Repaired.SubjectLandValue
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.ASIS.MarketValue
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.ASIS.SuggestedListPrice
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.Repaired.MarketValue
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.PriceOpinion.Matrix.QuickSale.Repaired.SuggestedListPrice
+TAG POS=1 TYPE=INPUT:FILE FORM=NAME:bpomainform ATTR=NAME:signaturefile

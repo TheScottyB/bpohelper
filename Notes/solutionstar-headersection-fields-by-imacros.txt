@@ -1,0 +1,83 @@
+VERSION BUILD=10022823
+TAB T=1
+TAB CLOSEALLOTHERS
+URL GOTO=https://solutionstar.gatorsasp.com/Komodo/report/getBPOForm.action?company_id=12&order_number=02193912
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.PropertyAddress.Address CONTENT=10881<SP>Wheatlands<SP>Way
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.APN_TaxId
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Appraisal.LoanNo CONTENT=596869442
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.OwnerOfPublicRecords
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Appraisal.PropertyAddress.County CONTENT=MCHENRY
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Appraisal.Subscriber.Company.Name CONTENT=NATIONSTAR<SP>CREDIT<SP>RISK<SP>FORWARD<SP>DEFAULT
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Appraisal.Subscriber.Address.Address CONTENT=350<SP>HIGHLAND<SP>DR
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Appraisal.Subscriber.Address.City CONTENT=LEWISVILLE
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Appraisal.Subscriber.Address.State CONTENT=TX
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Appraisal.Subscriber.Address.Zip CONTENT=75067
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.PropertyType CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.PropertyType CONTENT=NO
+TAG POS=3 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.PropertyType CONTENT=NO
+TAG POS=4 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.PropertyType CONTENT=NO
+TAG POS=5 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.PropertyType CONTENT=NO
+TAG POS=6 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.PropertyType CONTENT=NO
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.Other
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.GeneralProperties.HOA.Fee.Amount
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.Construction CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.Construction CONTENT=NO
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.ImpactedByDiaster CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.ImpactedByDiaster CONTENT=NO
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.CurrentListing CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.CurrentListing CONTENT=NO
+TAG POS=3 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.CurrentListing CONTENT=NO
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.LandAndStructure.DOM
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.SalesProperties.PreviousListings.PreviouslyListed CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.SalesProperties.PreviousListings.PreviouslyListed CONTENT=NO
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.SalesHistory.SalesPrices
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.SalesProperties.OriginalListing.Price
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.SalesProperties.OriginalListing.Date.two
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.SalesProperties.CurrentListing.Price
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.SalesProperties.CurrentListing.Date
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.SalesProperties.PreviousListings.Listing.Agent.Name
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.SalesProperties.PreviousListings.Listing.Agent.Company
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.SalesProperties.PreviousListings.Listing.Phone
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Occupancy CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Occupancy CONTENT=NO
+TAG POS=3 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Occupancy CONTENT=NO
+TAG POS=4 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Occupancy CONTENT=NO
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.Inspection CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.Inspection CONTENT=NO
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.InspectionDate
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.Location CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.Location CONTENT=NO
+TAG POS=3 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Extention_Elements.BoA.Subject.Location CONTENT=NO
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PriceTrend.Direction CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PriceTrend.Direction CONTENT=NO
+TAG POS=3 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PriceTrend.Direction CONTENT=NO
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.MedianMarketRent
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.REOPercentage
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.MarketTimingTrend
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.Occupancy CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.Occupancy CONTENT=NO
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Industrydistance CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Industrydistance CONTENT=NO
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Vacancy CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Vacancy CONTENT=NO
+TAG POS=3 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Vacancy CONTENT=NO
+TAG POS=4 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Vacancy CONTENT=NO
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.NewConstruction CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.NewConstruction CONTENT=NO
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.EvidenceForDiaster CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.EvidenceForDiaster CONTENT=NO
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Listings.NeighborhoodListings
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PricesFrom
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Predominant.PricesTo
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.ComparableListingSupply
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Construction.LowPrice
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Neighborhood.Construction.HighPrice
+TAG POS=1 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Redflags.Redflag.type CONTENT=NO
+TAG POS=2 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Redflags.Redflag.type CONTENT=NO
+TAG POS=3 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Redflags.Redflag.type CONTENT=NO
+TAG POS=4 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Redflags.Redflag.type CONTENT=NO
+TAG POS=5 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Redflags.Redflag.type CONTENT=NO
+TAG POS=6 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Redflags.Redflag.type CONTENT=NO
+TAG POS=7 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Redflags.Redflag.type CONTENT=NO
+TAG POS=8 TYPE=INPUT:CHECKBOX FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.Redflags.Redflag.type CONTENT=NO
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:bpomainform ATTR=NAME:Order_Data.Form.Valuation.Subject.PropertyAddress.Address CONTENT=10881<SP>Wheatlands<SP>Way
